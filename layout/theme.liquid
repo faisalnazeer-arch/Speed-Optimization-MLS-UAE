@@ -228,8 +228,9 @@ You can learn more about this (and learn how to cleanly revert these changes) at
     {% render 'header_file' %}
     {% render 'font-css' %}
     {% render 'ecom_header' %}
- <script type="lazyload_int" data-src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
-<script type="lazyload_int">
+{% if request.page_type == 'product' %}
+<script type="lazyload_ext" data-src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
+<script type="lazyload_ext">
     var klaviyo = klaviyo || [];
     klaviyo.init({
         account: 'RibCBS',
@@ -237,10 +238,10 @@ You can learn more about this (and learn how to cleanly revert these changes) at
         platform: 'shopify'
     });
 
-    klaviyo.enable("backinstock", { 
+    klaviyo.enable("backinstock", {
         trigger: {
             product_page_text: "Notify Me When Available",
-            product_page_class: "product-form__submit button button--full-width button--primary",  // Strong match for Dawn/add-to-cart button
+            product_page_class: "product-form__submit button button--full-width button--primary",
             product_page_text_align: "center",
             product_page_margin: "15px 0 0 0",
             replace_anchor: true
@@ -266,6 +267,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
         }
     });
 </script>
+{% endif %}
 
 <!-- Force background color + full width on Klaviyo trigger button -->
 <style>
@@ -292,7 +294,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
         background-color: #A70B10 !important;          /* Darker shade on hover – adjust as you like */
     }
 </style>
-<script type="lazyload_int" data-src="https://cdn.tapcart.com/webbridge-sdk/webbridge.umd.js"></script>
+<script type="lazyload_ext" data-src="https://cdn.tapcart.com/webbridge-sdk/webbridge.umd.js"></script>
 
 
     <!-- Google Tag Manager -->

@@ -1,0 +1,567 @@
+
+                {% assign beae_root_url = routes.root_url %}
+                {% if beae_root_url != '/'%}
+                    {% assign beae_root_url = routes.root_url | append: '/' %}
+                {% endif %}
+            {%capture section_id %}beae-aus-angus2{% endcapture%}{% if section_id == section.id %}{% if shop.metafields.beae.global_css %}
+                <!--BEAE-EMBED-->
+                <link href="data:text/css;base64,{{-shop.metafields.beae.global_css-}}" rel="stylesheet" id="beae-global-css"/>
+                <!--/BEAE-EMBED-->
+            {% endif %}
+{{ content_for_header }}
+{% render 'beae_header', BEAE_THEME: true %}{% endif %}<link rel="stylesheet" media="all" href="{{"beae-68a1becc9cc6bdfe31081cf6.css" | asset_url}}"><div class="beae-builder"><div class="beae-sections"><script type="text/javascript">if (!window.BEAEARGS) {window.BEAEARGS = {};}</script>
+<!----><section id="" data-sectionid="beae-paemhjaa" data-width="1470" data-margin="30px" data-margin-mobile="15px" data-type="slideShow" class="beae-typo-p1 beae-paemhjaa section-beae-paemhjaa beae-section beae-core" data-template="Slideshow 4"><!----><!----><div class="beae-flexbox beae-typo-p1" style="padding: 0px;"><div class="beae-x-slideshow beae__section--full" style="max-width: 100%; margin: 0px auto;"><!----><style type="text/css"></style><div class="beae-slider-wrapper beae-slider slider-beae-paemhjaa items-per-1" data-draggable="true" data-desktop-layout="slider" data-mobile-layout="slider" data-effect="fade" data-pagination="false" data-navigation="false" style="--items-per: 1; --items-per-mobile: 1; --items-gap: 0px; --items-gap-mobile: 0px; --autoplay-delay: 5s;"><div class="beae-slider-content beae-slider-items"><div class="beae-slider-item active slide-beae-ct1ikxud" data-index="0"><!----><div class="beae-slide-wrap"><div class="beae-ct1ikxud beae-slide-content beae__section--container"><!----><!----><div class="beae-btv3b2gx beae-block beae-core beae-unique-pariuro9" data-id="beae-btv3b2gx" data-uniqueid="pariuro9"><!----><div class="beae-block beae-x-text beae-typo-h1" data-autolayout="beae-btv3b2gx">{{ 'sections.beae-aus-angus2.be1086608563_html' | t }}</div><!----><!----></div><!----><!----><!----><div class="beae-u15qxlr7 beae-block beae-core beae-unique-m0z2s29i" data-id="beae-u15qxlr7" data-uniqueid="m0z2s29i"><!----><div class="beae-block beae-x-text beae-typo-h1" data-autolayout="beae-u15qxlr7">{{ 'sections.beae-aus-angus2.be997479902_html' | t }}</div><!----><!----></div><!----><!----><!----><div class="beae-7weer9t7 beae-block beae-core beae-unique-8057lbjq" data-id="beae-7weer9t7" data-uniqueid="8057lbjq"><!----><div class="beae-block beae-x-text beae-typo-h3" data-autolayout="beae-7weer9t7">{{ 'sections.beae-aus-angus2.be1712147610_html' | t }}</div><!----><!----></div><!----><!----><!----><div class="beae-ectgbovz beae-block beae-core beae-unique-eco8cq59 beae-flex-wrapper" data-id="beae-ectgbovz" data-uniqueid="eco8cq59"><!----><!----><!----><div class="beae-044lt6lg beae-block beae-core beae-unique-c94qn6i0 beae-flexbox-core beae-x-button" data-id="beae-044lt6lg" data-uniqueid="c94qn6i0"><!----><a href="#beae-z732jig1" class="beae-btn-se beae-button-js"><span class="beae-btn-txt">{{ 'sections.beae-aus-angus2.be282226004_html' | t }} <!----></span></a><!----><script type="text/javascript">window.BEAEARGS['beae-044lt6lgbutton-js'] = {
+    "id": "beae-044lt6lg",
+    "mode": {"value": "live"},
+    "id":"beae-044lt6lg","pageContent":"","extendOptions":"{}","type":"target","url":"#beae-3odv43gb","handle":"10"
+  };</script><!----></div><!----><!----><!----></div><!----><!----><!----></div><!----></div></div></div><div class="beae-slider-controls"><div class="beae-slider-controls-wrp"><!----><!----><!----><!----></div></div></div><script type="text/javascript">window.BEAEARGS['beae-paemhjaasection-slide-show'] = {
+    "id": "beae-paemhjaa",
+    "mode": {"value": "live"},
+    "layout":"slider","layoutMobile":"slider","effect":"fade","isLoop":true,"autoPlay":false,"autoPlayDelay":5,"itemsPerSlide":1,"itemsPerSlideMobile":1,"itemsGap":0,"itemsGapMobile":0,"paginationImage":false,"paginationImageMobile":false,"typeScroll":"default","numItemsScroll":1,"showNavigation":false,"showPagination":false,"showProgress":false,"hookSliderInit":"","hookBeforeSlideChange":"","hookAfterSlideChange":"let current;\nif(data.current < 0){current = 0} else{ current = data.current};\nconsole.log(current)\n\ndata.slides.forEach(item => item.classList.remove('current-active')); \n  data.slides[current].classList.add('current-active');  \n  let device = window.innerWidth >= 768 ? 'desktop' : 'mobile';\n  let bgVideo = data.nextSlide ? data.nextSlide.querySelector('.beae-section-background-video[data-device=\"' + device + '\"] video') : null;\n  let bgIframe = data.nextSlide ? data.nextSlide.querySelector('.beae-section-background-video[data-device=\"' + device + '\"] iframe') : null;\n    if (bgVideo) {\n      const setupVideo = () => {\n        bgVideo.currentTime = 0;\n        bgVideo.play();\n        if (data.data.autoPlay) {\n          data.slider.setAttribute('data-video-duration', bgVideo.duration);\n          data.slider.setAttribute('data-video-background', 'true');\n          data.slider.setAttribute('data-stop-autoplay', 'true');\n          bgVideo.onended = () => {\n            data.nextSlider();\n          };\n        }\n      };\n\n      if (bgVideo.readyState >= 1) {\n        setupVideo();\n      } else {\n        bgVideo.onloadedmetadata = setupVideo;\n      }\n    } else if (bgIframe) {\n      const setupIframe = () => {\n        if (data.data.autoPlay) {\n          data.slider.setAttribute('data-video-background', 'true');\n          data.slider.setAttribute('data-stop-autoplay', 'true');\n          \n          let src = bgIframe.src;\n          if (!src.includes('autoplay=1')) {\n            bgIframe.src = src.includes('?') ? (src + '&autoplay=1') : (src + '?autoplay=1');\n          }else {\n            bgIframe.src = src;\n          }\n        }\n      };\n      setupIframe();\n    } else if (data.data.autoPlay) {\n      data.slider.removeAttribute('data-video-duration');\n      data.slider.removeAttribute('data-video-background');\n      data.slider.removeAttribute('data-stop-autoplay');\n    }\n  ","noRunJs":false,"itemGap":0,"itemGapMobile":0
+  };</script></div></div><!----><!----><!----><!----><!----><!----></section><!----><script type="text/javascript">window.BEAEARGS['beae-paemhjaasection-js'] = {
+    "id": "beae-paemhjaa",
+    "mode": {"value": "live"},
+    "optionsVideo":false,"optionsVideoMobile":false
+  };</script><!----><!----><!----><section id="" data-sectionid="beae-7tw4prv5" data-width="1920" data-margin="30px" data-margin-mobile="15px" data-type="flexContainer" class="beae-typo-p1 beae-7tw4prv5 section-beae-7tw4prv5 beae-section beae-core"><!----><!----><div class="beae-flexbox beae-typo-p1" style="padding: 0px;"><div class="beae__section--container beae-flexbox-container beae__section--full"><!----><div class="beae-flexbox-core beae-x-flex-section grid-container-width"><!----><div class="beae-yhma05ua beae-block beae-core beae-animation beae-unique-2h4kkvor" data-id="beae-yhma05ua" data-uniqueid="2h4kkvor"><!----><div class="beae-block beae-x-text beae-typo-h4" data-autolayout="beae-yhma05ua">{{ 'sections.beae-aus-angus2.be531968433102_html' | t }}</div><!----><!----></div><!----><!----></div></div></div><!----><!----><!----><!----><!----><!----></section><!----><script type="text/javascript">window.BEAEARGS['beae-7tw4prv5section-js'] = {
+    "id": "beae-7tw4prv5",
+    "mode": {"value": "live"},
+    "optionsVideo":{},"optionsVideoMobile":false
+  };</script><!----><section id="" data-sectionid="beae-xhhfr4ty" data-width="1470" data-margin="30px" data-margin-mobile="15px" data-type="flexContainer" class="beae-typo-p1 beae-xhhfr4ty section-beae-xhhfr4ty beae-section beae-core"><!----><!----><div class="beae-flexbox beae-typo-p1" style="padding: 0px;"><div class="beae__section--container beae-flexbox-container" style="max-width: var(--beae-page-width, 1470px);"><!----><div class="beae-flexbox-core beae-x-flex-section grid-container-width"><!----><div class="beae-8jxf95zy beae-block beae-core beae-animation beae-unique-x78tcg5a" data-id="beae-8jxf95zy" data-uniqueid="x78tcg5a"><!----><div class="beae-block beae-x-text beae-typo-h5" data-autolayout="beae-8jxf95zy">{{ 'sections.beae-aus-angus2.be90106912360_html' | t }}</div><!----><!----></div><!----><!----><!----><div class="beae-ln7teu6v beae-block beae-core beae-animation beae-unique-lspajh3j" data-id="beae-ln7teu6v" data-uniqueid="lspajh3j"><!----><div class="beae-block beae-x-text beae-typo-p2" data-autolayout="beae-ln7teu6v">{{ 'sections.beae-aus-angus2.be1327956516_html' | t }}</div><!----><!----></div><!----><!----></div></div></div><!----><!----><!----><!----><!----><!----></section><!----><script type="text/javascript">window.BEAEARGS['beae-xhhfr4tysection-js'] = {
+    "id": "beae-xhhfr4ty",
+    "mode": {"value": "live"},
+    "optionsVideo":false,"optionsVideoMobile":false
+  };</script><!----><section id="" data-sectionid="beae-h6gkc2o9" data-width="1470" data-margin="30px" data-margin-mobile="15px" data-type="flexContainer" class="beae-typo-p1 beae-h6gkc2o9 section-beae-h6gkc2o9 beae-section beae-core"><!----><!----><div class="beae-flexbox beae-typo-p1" style="padding: 0px;"><div class="beae__section--container beae-flexbox-container" style="max-width: var(--beae-page-width, 1470px);"><!----><div class="beae-flexbox-core beae-x-flex-section grid-container-width"></div></div></div><!----><!----><!----><!----><!----><!----></section><!----><script type="text/javascript">window.BEAEARGS['beae-h6gkc2o9section-js'] = {
+    "id": "beae-h6gkc2o9",
+    "mode": {"value": "live"},
+    "optionsVideo":false,"optionsVideoMobile":false
+  };</script><!----><!----><!----><section id="" data-sectionid="beae-mxdd8mho" data-width="1470" data-margin="30px" data-margin-mobile="15px" data-type="flexContainer" class="beae-typo-p1 beae-mxdd8mho section-beae-mxdd8mho beae-section beae-core"><!----><!----><div class="beae-flexbox beae-typo-p1" style="padding: 0px;"><div class="beae__section--container beae-flexbox-container" style="max-width: var(--beae-page-width, 1470px);"><!----><div class="beae-flexbox-core beae-x-flex-section grid-container-width"><!----><div class="beae-jd1qemad beae-block beae-core beae-animation beae-unique-314x96z4" data-id="beae-jd1qemad" data-uniqueid="314x96z4"><!----><div class="beae-block beae-x-text beae-typo-h4" data-autolayout="beae-jd1qemad">{{ 'sections.beae-aus-angus2.be687703589_html' | t }}</div><!----><!----></div><!----><!----></div></div></div><!----><!----><!----><!----><!----><!----></section><!----><script type="text/javascript">window.BEAEARGS['beae-mxdd8mhosection-js'] = {
+    "id": "beae-mxdd8mho",
+    "mode": {"value": "live"},
+    "optionsVideo":false,"optionsVideoMobile":false
+  };</script><!----><section id="" data-sectionid="beae-nfpnj154" data-width="1920" data-margin="30px" data-margin-mobile="15px" data-type="flexContainer" class="beae-typo-p1 beae-nfpnj154 section-beae-nfpnj154 beae-section beae-core"><!----><!----><div class="beae-flexbox beae-typo-p1" style="padding: 0px;"><div class="beae__section--container beae-flexbox-container beae__section--full"><!----><div class="beae-flexbox-core beae-x-flex-section grid-container-width"><!----><div class="beae-l94xbbh9 beae-block beae-core beae-animation beae-unique-9vrtljxv beae-flex-wrapper" data-id="beae-l94xbbh9" data-uniqueid="9vrtljxv"><!----><!----><!----><div class="beae-19ulmxjv beae-block beae-core beae-animation beae-unique-pi45autr" data-id="beae-19ulmxjv" data-uniqueid="pi45autr""><!---->{% assign beae_image_pr = images['imgi_6_Fresh_84b3fced-6007-4ce4-a560-219201541234.png'].alt %}
+        
+        
+        <!----><div class="beae-block beae-x-image beae-container-image beae-image-content-position beae-image-picture" hover-mode="false"><!----><!----><picture image-mode="" class="beae-gktal beae-image-primary"><!----><img src="https://cdn.shopify.com/s/files/1/0821/0202/6556/files/imgi_6_Fresh_84b3fced-6007-4ce4-a560-219201541234.png?v=1755523112" alt="imgi_6_Fresh_84b3fced-6007-4ce4-a560-219201541234" width="150" height="150" fetchpriority="high" loading=""></picture><!----></div><script type="text/javascript">window.BEAEARGS['beae-19ulmxjvblock-image'] = {
+    "id": "beae-19ulmxjv",
+    "mode": {"value": "live"},
+    "autoHover":false,"secondaryAction":"hover"
+  };</script><!----></div><!----><!----><!----><div class="beae-rjft67s1 beae-block beae-core beae-animation beae-unique-mwehhvea" data-id="beae-rjft67s1" data-uniqueid="mwehhvea"><!----><div class="beae-block beae-x-text beae-typo-p2" data-autolayout="beae-rjft67s1">{{ 'sections.beae-aus-angus2.be12420884629_html' | t }}</div><!----><!----></div><!----><!----><!----></div><!----><!----><!----><div class="beae-ydxqys69 beae-block beae-core beae-animation beae-unique-t49200zr beae-flex-wrapper" data-id="beae-ydxqys69" data-uniqueid="t49200zr"><!----><!----><!----><div class="beae-cz5ks23e beae-block beae-core beae-animation beae-unique-0kybx0n8" data-id="beae-cz5ks23e" data-uniqueid="0kybx0n8""><!---->{% assign beae_image_pr = images['imgi_7_Delivered-in-a-Box_82eb6b22-d165-4bab-a8ab-589f3bd7974f.png'].alt %}
+        {% assign beae_image_sec = images['imgi_7_Delivered-in-a-Box_82eb6b22-d165-4bab-a8ab-589f3bd7974f.png'].alt %}
+        
+        <!----><div class="beae-block beae-x-image beae-container-image beae-image-content-position beae-image-picture" hover-mode="true"><!----><!----><picture image-mode="" class="beae-ym0p beae-image-primary"><!----><img src="https://cdn.shopify.com/s/files/1/0821/0202/6556/files/imgi_7_Delivered-in-a-Box_82eb6b22-d165-4bab-a8ab-589f3bd7974f.png?v=1755523715" alt="imgi_7_Delivered-in-a-Box_82eb6b22-d165-4bab-a8ab-589f3bd7974f" width="150" height="150" fetchpriority="high" loading=""></picture><!----><picture image-mode="" class="beae-dyql8 beae-image-secondary"><!----><img src="https://cdn.shopify.com/s/files/1/0821/0202/6556/files/imgi_7_Delivered-in-a-Box_82eb6b22-d165-4bab-a8ab-589f3bd7974f.png?v=1755523715" alt="imgi_7_Delivered-in-a-Box_82eb6b22-d165-4bab-a8ab-589f3bd7974f" width="150" height="150" fetchpriority="high" loading="lazy"></picture></div><script type="text/javascript">window.BEAEARGS['beae-cz5ks23eblock-image'] = {
+    "id": "beae-cz5ks23e",
+    "mode": {"value": "live"},
+    "autoHover":false,"secondaryAction":"hover"
+  };</script><!----></div><!----><!----><!----><div class="beae-gevy4it2 beae-block beae-core beae-animation beae-unique-jrsu856u" data-id="beae-gevy4it2" data-uniqueid="jrsu856u"><!----><div class="beae-block beae-x-text beae-typo-p2" data-autolayout="beae-gevy4it2">{{ 'sections.beae-aus-angus2.be83495873539_html' | t }}</div><!----><!----></div><!----><!----><!----></div><!----><!----><!----><div class="beae-zw91kbsx beae-block beae-core beae-animation beae-unique-dtf5s029 beae-flex-wrapper" data-id="beae-zw91kbsx" data-uniqueid="dtf5s029"><!----><!----><!----><div class="beae-mvekdi3g beae-block beae-core beae-animation beae-unique-nkpo9kva" data-id="beae-mvekdi3g" data-uniqueid="nkpo9kva""><!---->{% assign beae_image_pr = images['imgi_8_Hormone-Free.png'].alt %}
+        {% assign beae_image_sec = images['imgi_8_Hormone-Free.png'].alt %}
+        
+        <!----><div class="beae-block beae-x-image beae-container-image beae-image-content-position beae-image-picture" hover-mode="true"><!----><!----><picture image-mode="" class="beae-3g0p beae-image-primary"><!----><img src="https://cdn.shopify.com/s/files/1/0821/0202/6556/files/imgi_8_Hormone-Free.png?v=1755523736" alt="imgi_8_Hormone-Free" width="150" height="150" fetchpriority="high" loading="lazy"></picture><!----><picture image-mode="" class="beae-3upuq beae-image-secondary"><!----><img src="https://cdn.shopify.com/s/files/1/0821/0202/6556/files/imgi_8_Hormone-Free.png?v=1755523736" alt="imgi_8_Hormone-Free" width="150" height="150" fetchpriority="high" loading="lazy"></picture></div><script type="text/javascript">window.BEAEARGS['beae-mvekdi3gblock-image'] = {
+    "id": "beae-mvekdi3g",
+    "mode": {"value": "live"},
+    "autoHover":false,"secondaryAction":"hover"
+  };</script><!----></div><!----><!----><!----><div class="beae-sxikjk44 beae-block beae-core beae-animation beae-unique-8yare8l8" data-id="beae-sxikjk44" data-uniqueid="8yare8l8"><!----><div class="beae-block beae-x-text beae-typo-p2" data-autolayout="beae-sxikjk44">{{ 'sections.beae-aus-angus2.be94869969129_html' | t }}</div><!----><!----></div><!----><!----><!----></div><!----><!----><!----><div class="beae-dtswwrov beae-block beae-core beae-animation beae-unique-iot6lojc beae-flex-wrapper" data-id="beae-dtswwrov" data-uniqueid="iot6lojc"><!----><!----><!----><div class="beae-sa06eou1 beae-block beae-core beae-animation beae-unique-ubavwrsa" data-id="beae-sa06eou1" data-uniqueid="ubavwrsa""><!---->{% assign beae_image_pr = images['imgi_9_Halal_48d3822c-dfd1-403e-a3b5-d3d9b00a74ef.png'].alt %}
+        
+        
+        <!----><div class="beae-block beae-x-image beae-container-image beae-image-content-position beae-image-picture" hover-mode="false"><!----><!----><picture image-mode="" class="beae-b64ja beae-image-primary"><!----><img src="https://cdn.shopify.com/s/files/1/0821/0202/6556/files/imgi_9_Halal_48d3822c-dfd1-403e-a3b5-d3d9b00a74ef.png?v=1755523748" alt="imgi_9_Halal_48d3822c-dfd1-403e-a3b5-d3d9b00a74ef" width="150" height="150" fetchpriority="high" loading=""></picture><!----></div><script type="text/javascript">window.BEAEARGS['beae-sa06eou1block-image'] = {
+    "id": "beae-sa06eou1",
+    "mode": {"value": "live"},
+    "autoHover":false,"secondaryAction":"hover"
+  };</script><!----></div><!----><!----><!----><div class="beae-tz6g5pfp beae-block beae-core beae-animation beae-unique-ilpxi05r" data-id="beae-tz6g5pfp" data-uniqueid="ilpxi05r"><!----><div class="beae-block beae-x-text beae-typo-p2" data-autolayout="beae-tz6g5pfp">{{ 'sections.beae-aus-angus2.be90236559133_html' | t }}</div><!----><!----></div><!----><!----><!----></div><!----><!----></div></div></div><!----><!----><!----><!----><!----><!----></section><!----><script type="text/javascript">window.BEAEARGS['beae-nfpnj154section-js'] = {
+    "id": "beae-nfpnj154",
+    "mode": {"value": "live"},
+    "optionsVideo":false,"optionsVideoMobile":false
+  };</script><!----><section id="" data-sectionid="beae-23knvcqp" data-width="1470" data-margin="30px" data-margin-mobile="15px" data-type="flexContainer" class="beae-typo-p1 beae-23knvcqp section-beae-23knvcqp beae-section beae-core"><!----><!----><div class="beae-flexbox beae-typo-p1" style="padding: 0px;"><div class="beae__section--container beae-flexbox-container" style="max-width: var(--beae-page-width, 1470px);"><!----><div class="beae-flexbox-core beae-x-flex-section grid-container-width"></div></div></div><!----><!----><!----><!----><!----><!----></section><!----><script type="text/javascript">window.BEAEARGS['beae-23knvcqpsection-js'] = {
+    "id": "beae-23knvcqp",
+    "mode": {"value": "live"},
+    "optionsVideo":false,"optionsVideoMobile":false
+  };</script><!----><section id="" data-sectionid="beae-58h3afu0" data-width="1470" data-margin="30px" data-margin-mobile="15px" data-type="flexContainer" class="beae-typo-p1 beae-58h3afu0 section-beae-58h3afu0 beae-section beae-core"><!----><!----><div class="beae-flexbox beae-typo-p1" style="padding: 0px;"><div class="beae__section--container beae-flexbox-container" style="max-width: var(--beae-page-width, 1470px);"><!----><div class="beae-flexbox-core beae-x-flex-section grid-container-width"><!----><div class="beae-1zuof767 beae-block beae-core beae-animation beae-unique-po5yaqg6" data-id="beae-1zuof767" data-uniqueid="po5yaqg6"><!----><div class="beae-block beae-x-text beae-typo-h6" data-autolayout="beae-1zuof767">{{ 'sections.beae-aus-angus2.be395006706_html' | t }}</div><!----><!----></div><!----><!----></div></div></div><!----><!----><!----><!----><!----><!----></section><!----><script type="text/javascript">window.BEAEARGS['beae-58h3afu0section-js'] = {
+    "id": "beae-58h3afu0",
+    "mode": {"value": "live"},
+    "optionsVideo":{},"optionsVideoMobile":false
+  };</script><!----><section id="" data-sectionid="beae-z732jig1" data-width="1470" data-margin="30px" data-margin-mobile="15px" data-type="flexContainer" class="beae-typo-p1 beae-z732jig1 section-beae-z732jig1 beae-section beae-core"><!----><!----><div class="beae-flexbox beae-typo-p1" style="padding: 0px;"><div class="beae__section--container beae-flexbox-container" style="max-width: var(--beae-page-width, 1470px);"><!----><div class="beae-flexbox-core beae-x-flex-section grid-container-width"><!----><div class="beae-b1gahtg2 beae-block beae-core beae-animation beae-unique-j01zj5l4" data-id="beae-b1gahtg2" data-uniqueid="j01zj5l4"><!----><div class="beae-block beae-x-text beae-typo-h3" data-autolayout="beae-b1gahtg2">{{ 'sections.beae-aus-angus2.be89726137948_html' | t }}</div><!----><!----></div><!----><!----><!----><div class="beae-ho1etd5l beae-block beae-core beae-animation beae-unique-t5qb0wpt" data-id="beae-ho1etd5l" data-uniqueid="t5qb0wpt""><!----><div class="beae-featured-collection-header beae-animation"><!----><!----></div><div class="beae-money-format" style="display: none;">{% if settings.currency_code_enabled %}{{ shop.money_with_currency_format | escape }}{% else %}{{ shop.money_format | escape }}{% endif %}</div><div class="beae-flexbox-core beae-x-featured_collection grid-container-width"><div class="beae-featured_collection-wrp">
+        {% liquid
+          assign tmp_collection = collection
+          assign tmp_product = product
+          assign beae_maximum_items = 8
+          assign beae_swatch_type = "color"
+          assign beae_swatches_max_items = 4
+          assign beae_price_badged = 'sale'
+          assign beae_badged = 'percent'
+          assign beae_tags_limit = '5'
+          assign beae_show_when_hover = false
+          assign beae_custom_badged_source = 'tags'
+          assign beae_custom_badged_tag = ''
+          assign beae_cart_variant_type = ''
+          assign beae_quick_add_variant_selector = ''
+          assign beae_quick_add_variant_type = ''
+          assign beae_cart_variant_name = ''
+          assign beae_cart_exclude = ''
+          assign beae_variant_name_option = ''
+          assign beae_variant_name_type = 'name'
+          assign beae_option_values_swatch = ''
+          assign beae_source_types_swatch = ''
+          assign beae_option_values_quick_add = ''
+          assign beae_source_types_quick_add = ''
+        %}
+
+        {%- capture beae_add_to_cart_text -%}{{ 'sections.beae-aus-angus2.be649020154_html' | t }}{%- endcapture -%}
+        {%- capture beae_sold_out_text -%}{{ 'sections.beae-aus-angus2.be1538394658_html' | t }}{%- endcapture -%}
+        {%- capture beae_swatches_name -%}{%- endcapture -%}
+        {%- capture beae_choose_options_text -%}{{ 'sections.beae-aus-angus2.be719299147_html' | t }}{%- endcapture -%}
+      
+          {% assign selected_collections = "aus-angus-beef-collection" | split: "," %}
+          {% for selected_collection in selected_collections %}
+            <div class="beae-feature-collection-tab-content beae-featuted-collection-content{% if forloop.index == 1 %} content-active{% endif %}" {% if forloop.index == 1 %}data-active="true"{% endif %} data-handle="{{selected_collection}}">
+            {% liquid assign collection = collections[selected_collection] %}
+           <style type="text/css"></style><div class="beae-slider-wrapper beae-slider slider-beae-ho1etd5l items-per-4" data-draggable="true" data-desktop-layout="grid" data-mobile-layout="grid" data-effect="slide" data-pagination="false" data-navigation="false" style="--items-per: 4; --items-per-mobile: 2; --items-gap: 40px; --items-gap-mobile: 20px; --autoplay-delay: 5s;"><div class="beae-slider-content beae-slider-items">
+          
+              {%- if collection != blank -%}
+                {%- for product in collection.products limit: beae_maximum_items -%}
+                
+          
+      {% capture beae_custom_badged_metafield %}{{  }}{%- endcapture -%}
+        {%- form 'product', product,class: "beae-product-form-next beae-product-form--single", data-product_id: product.id, data-handle: product.handle, data-variant-id: product.selected_or_first_available_variant.id, data-available: product.available -%}
+       <div class="beae-product-card beae-751qb5gz"><!----><!----><div class="beae-kq0bb8ft beae-block beae-core beae-unique-9b50fsnw" data-id="beae-kq0bb8ft" data-loop-index="0" data-uniqueid="9b50fsnw""><!---->
+        
+        
+        <!----><a class="beae-block beae-x-image beae-container-image beae-image-content-position beae-image-picture beae-image-product" hover-mode="false" href="{{ product.url }}"><!----><!----><picture image-mode="" class="beae-u9h6 beae-image-primary">
+    {% assign beae_show_image = true %}
+    {% if beae_check_product_video == true %} 
+      {%- for media in product.media -%}
+        {% if media.media_type == 'video' %}
+          {% assign beae_show_image = false %}
+          <div class="beae-video-product">
+            <img
+              preview
+              style="display: none !important;"
+              src="{{ media.preview_image | img_url: 'master' }}"
+              alt="{{ media.preview_image.alt | escape | default: 'Product Image' }}"
+              width="{{ media.preview_image.width | default: 915 }}"
+              height="{{ media.preview_image.height | default: 915 }}"
+              loading="lazy"
+            />  
+              {{ media | video_tag: image_size:'master', class: 'media-video', muted: true, autoPlay: true, loop: true }}
+          </div>
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    {% if beae_show_image == true %}
+      <img
+        src="{{ product.featured_media | img_url: 'master' }}"
+        alt="{{ product.featured_media.alt | escape | default: 'Product Image' }}"
+        width="{{ product.featured_media.width | default: 915 }}"
+        height="{{ product.featured_media.height | default: 915 }}"
+        loading="lazy"
+      />
+    {% endif %}
+  </picture><!----><picture image-mode="" class="beae-u7csn beae-image-secondary">
+    {% if product.media.size > 1 %}
+      <img
+        src="{{ product.media[1] | img_url: 'master' }}"
+        alt="{{ product.media[1].alt | escape | default: 'Product Image' }}"
+        width="{{ product.media[1].width | default: 915 }}"
+        height="{{ product.media[1].height | default: 915 }}"
+        loading="lazy"
+      />
+    {% endif %}
+  </picture></a><script type="text/javascript">window.BEAEARGS['beae-kq0bb8ftblock-image'] = {
+    "id": "beae-kq0bb8ft",
+    "mode": {"value": "live"},
+    "autoHover":false
+  };</script><!----></div><!----><!----><!----><div class="beae-frch3b1a beae-block beae-core beae-unique-1lcu8x50 beae-product-title" data-id="beae-frch3b1a" data-loop-index="0" data-uniqueid="1lcu8x50"><!----><div class="beae-block beae-x-text beae-typo-p2" data-product-title="true" data-autolayout="beae-frch3b1a"><a href="{{ product.url }}">{{ product.title }}</a></div><!----><!----></div><script type="text/javascript">window.BEAEARGS['beae-frch3b1ablock-developer'] = {
+    "id": "beae-frch3b1a",
+    "mode": {"value": "live"},
+    "title":"{{ product.title }}"
+  };</script><!----><!----><div class="beae-i35gbttd beae-block beae-core beae-unique-i6pzoucv" data-id="beae-i35gbttd" data-loop-index="0" data-uniqueid="i6pzoucv""><!----><!----><div class="beae-x-price" data-badged="sale"><div class="beae-prd-single-price-wrapper"><span class="beae-product-single__price">
+    
+      {% if product.price_varies and product.compare_at_price %}
+        {% assign cheapest_variant = product.variants | sort: 'price' | first %}
+        {% capture price_normal %}
+          {% if settings.currency_code_enabled %}
+            {{ product.selected_or_first_available_variant.price | money_with_currency }}
+          {% else %}
+            {{ product.selected_or_first_available_variant.price | money }}
+          {% endif %}
+        {% endcapture %}
+        {% capture price_min %}
+          {% if settings.currency_code_enabled %}
+            {{ cheapest_variant.price | money_with_currency }}
+          {% else %}
+            {{ cheapest_variant.price | money }}
+          {% endif %}
+        {% endcapture %}
+        {% if cheapest_variant.price < cheapest_variant.compare_at_price %}
+          <span class="beae-price-on-sale">
+            <span class="beae-price-from">{{ 'sections.beae-aus-angus2.be978022322_html' | t: price_min:price_min }}</span>
+            <span class="beae-price-normal">{{ 'sections.beae-aus-angus2.be1950827197_html' | t: price_normal:price_normal }}</span>
+          </span>
+        {% else %}
+          <span class="beae-price-from">{{ 'sections.beae-aus-angus2.be978022322_html' | t: price_min:price_min }}</span>
+          <span class="beae-price-normal">{{ 'sections.beae-aus-angus2.be1950827197_html' | t: price_normal:price_normal }}</span>
+        {% endif %}
+      {% elsif product.price < product.compare_at_price %}
+        <span class="beae-price-on-sale">{% if settings.currency_code_enabled %}
+          {{ product.price | money_with_currency }}
+        {% else %}
+          {{ product.price | money }}
+        {% endif %}</span>
+      {% elsif product.price_varies %}
+        {% capture price_min %}
+          {% if settings.currency_code_enabled %}
+            {{ product.price_min | money_with_currency }}
+          {% else %}
+            {{ product.price_min | money }}
+          {% endif %}
+        {% endcapture %}
+        {% capture price_max %}
+          {% if settings.currency_code_enabled %}
+            {{ product.price_max | money_with_currency }}
+          {% else %}
+            {{ product.price_max | money }}
+          {% endif %}
+        {% endcapture %}
+        <span class="beae-price-from">{{ 'sections.beae-aus-angus2.be978022322_html' | t: price_min:price_min }}</span>
+        <span class="beae-price-normal">{{ 'sections.beae-aus-angus2.be1950827197_html' | t: price_normal:price_normal }}</span>
+      {% else %}
+        {% if settings.currency_code_enabled %}
+          {{ product.price | money_with_currency }}
+        {% else %}
+          {{ product.price | money }}
+        {% endif %}
+      {% endif %}
+      
+  </span><span class="beae-product-single__price--regular">{% liquid
+    assign print_compare = ''
+    if selected_variant != blank   
+      if selected_variant.price < selected_variant.compare_at_price
+        if settings.currency_code_enabled
+          assign print_compare = selected_variant.compare_at_price | money_with_currency
+        else
+          assign print_compare = selected_variant.compare_at_price | money
+        endif
+      endif
+    else                                                            
+      if product.price_varies and product.compare_at_price
+        assign cheapest_variant = product.variants | sort: 'price' | first
+        if cheapest_variant.price < cheapest_variant.compare_at_price
+          if settings.currency_code_enabled
+            assign print_compare = cheapest_variant.compare_at_price | money_with_currency
+          else
+            assign print_compare = cheapest_variant.compare_at_price | money
+          endif
+        endif
+      elsif product.price < product.compare_at_price
+        if settings.currency_code_enabled
+          assign print_compare = product.compare_at_price | money_with_currency
+        else
+          assign print_compare = product.compare_at_price | money
+        endif
+      endif
+    endif
+  %}{{ print_compare }}</span><span type="sale" class="beae-typo-p3 {% liquid
+    assign badge_class = ''
+    if product.available
+      assign checkHidden = true
+      if selected_variant != blank
+        if selected_variant.price < selected_variant.compare_at_price
+          assign checkHidden = false
+        endif
+      else
+        if product.price_varies and product.compare_at_price
+          assign cheapest_variant = product.variants | sort: 'price' | first
+          if cheapest_variant.price < cheapest_variant.compare_at_price
+            assign checkHidden = false
+          endif
+        elsif product.price < product.compare_at_price
+          assign checkHidden = false
+        endif
+      endif
+      if checkHidden
+        assign badge_class = 'beae-sale-hidden'
+      else
+        assign badge_class = 'beae-product-single__price--sale'
+      endif
+    else
+      assign badge_class = 'beae-sale-sold-out'
+    endif
+  %}{{ badge_class }} beae-product-single__price--badged" data-sale="{{ 'sections.beae-aus-angus2.be2569319_html' | t }}" data-sold-out="{{ 'sections.beae-aus-angus2.be1538363906_html' | t }}">
+    {% if product.available %}
+      {% if selected_variant != blank %}
+        {% if selected_variant.price < selected_variant.compare_at_price %}
+          {{ 'sections.beae-aus-angus2.be2569319_html' | t }}
+        {% endif %}
+      {% else %}
+        {% if product.price_varies and product.compare_at_price %}
+          {% assign cheapest_variant = product.variants | sort: 'price' | first %}
+          {% if cheapest_variant.price < cheapest_variant.compare_at_price %}
+            {{ 'sections.beae-aus-angus2.be2569319_html' | t }}
+          {% endif %}
+        {% elsif product.price < product.compare_at_price %}
+          {{ 'sections.beae-aus-angus2.be2569319_html' | t }}
+        {% endif %}
+      {% endif %}
+    {% else %}
+      {{ 'sections.beae-aus-angus2.be1538363906_html' | t }}
+    {% endif %}
+  </span></div><div class="beae-product-single__tax-shipping"></div></div><!----></div><!----><!----><!----><div class="beae-d8ixafiz beae-block beae-core beae-unique-nxep633c" data-id="beae-d8ixafiz" data-loop-index="0" data-uniqueid="nxep633c""><!----><div class="beae-block beae-x-quick-view"><div class="beae-quick-view-wrapper"><button aria-label="button" type="button" class="beae-quick-view-btn beae-btn-pr" data-template="quickview-default"><!----><span class="beae-quick-view-btn-text">{{ 'sections.beae-aus-angus2.be679965416_html' | t }}</span></button></div></div><!----></div><!----><!----><!----><!----><script data-id="Product-json-{{ product.id }}" type="application/json" style="display: none;">
+    {
+      "id":  {{ product.id | json }},
+      "title":  {{ product.title | json }},
+      "handle":  {{ product.handle | json }},
+      "price":  {{ product.price| json }},
+      "price_min":  {{ product.price_min| json }},
+      "price_max":  {{ product.price_max| json }},
+      "price_normal":  {{ product.selected_or_first_available_variant.price| json }},
+      "available":  {{ product.available | json }},
+      "price_varies":  {{ product.price_varies| json }},
+      "compare_at_price":  {{ product.compare_at_price| json }},
+      "compare_at_price_min":  {{ product.compare_at_price_min| json }},
+      "compare_at_price_max":  {{ product.compare_at_price_max| json }},
+      "compare_at_price_varies":  {{ product.compare_at_price_varies| json }},
+      "has_only_default_variant":  {{ product.has_only_default_variant | json }},
+      "selected_or_first_available_variant":  {{ product.selected_or_first_available_variant | json }},
+      "options":  {{ product.options_with_values | json }},
+      "variants": [
+        {%- for variant in product.variants -%}
+          {
+            "id":  {{ variant.id | json }},
+            "title": " {{ variant.option1 | handleize }}{%- if product.options.size == 2 -%} / {%- endif -%} {{ variant.option2 | handleize }}{%- if product.options.size == 3 -%} / {%- endif -%} {{ variant.option3 | handleize }}",
+            "option1":  {{ variant.option1  | json }},
+            "option2": {%- if product.options.size == 1 -%}null{%-else-%} {{ variant.option2  | json }}{%-endif-%},
+            "option3": {%- if product.options.size == 1 or product.options.size == 2 -%}null{%-else-%} {{ variant.option3  | json }}{%-endif-%},
+            "sku":  {{ variant.sku | json }},
+            "requires_shipping":  {{ variant.requires_shipping }},
+            "taxable":  {{ variant.taxable | json }},
+            "selling_plan_allocations":{{variant.selling_plan_allocations | json }},
+            "featured_image": {%- if variant.image.id != blank -%}{
+              "id":  {{ variant.image.id | json }},
+              "product_id":  {{ product.id | json }},
+              "width":  {{ variant.image.width | json }},
+              "height":  {{ variant.image.height | json }},
+              "src":  {{ variant.image.src | json }},
+              "position": {{ variant.image.position }}
+            }{%- else-%}null{%-endif-%},
+            "featured_media": {{ variant.featured_media | json }},
+            "available":  {{ variant.available }},
+            "public_title": " {{ variant.option1 | handleize }}{%- if product.options.size == 2 -%} / {%- endif -%} {{ variant.option2 | handleize }}{%- if product.options.size == 3 -%} / {%- endif -%} {{ variant.option3 | handleize }}",
+            "options":   {{ variant.options | json }},
+            "price":  {{ variant.price | json }},
+            "weight":  {{ variant.weight | json }},
+            "compare_at_price":  {{ variant.compare_at_price | json }},
+            "inventory_quantity":  {{ variant.inventory_quantity | json }},
+            "inventory_management":  {{ variant.inventory_management | json }},
+            "inventory_policy":  {{ variant.inventory_policy | json }},
+            "next_incoming_date": {% if variant.next_incoming_date %}{{variant.next_incoming_date | date: "%Y-%m-%d %H:%M" | time_tag | json }}{% else%}null{% endif %},
+            "barcode":  {{ variant.barcode | json }},
+            "store_availabilities": [
+              {%- for variantStore in variant.store_availabilities -%}
+                {
+                  "location": {
+                    "name": {{ variantStore.location.name | json }},
+                    "address": {{ variantStore.location.address | json }},
+                    "id": {{ variantStore.location.id | json }}
+                  },
+                  "available": {{ variantStore.available | json }},
+                  "pick_up_enabled": {{ variantStore.pick_up_enabled | json }},
+                  "pick_up_time": {{ variantStore.pick_up_time | json }}
+                }{%- if forloop.last == false -%},{%- endif -%}
+              {%- endfor -%}
+            ],
+            "unit_price":  {{ variant.unit_price | json }},
+            "unit_price_measurement":  {
+              "measured_type": {{ variant.unit_price_measurement.measured_type | json }},
+              "quantity_value": {{ variant.unit_price_measurement.quantity_value | json }},
+              "quantity_unit": {{ variant.unit_price_measurement.quantity_unit | json }},
+              "reference_value": {{ variant.unit_price_measurement.reference_value | json }},
+              "reference_unit": {{ variant.unit_price_measurement.reference_unit | json }}
+            }
+          }{%- if forloop.last == false -%},{%- endif -%}
+        {%- endfor -%}
+      ],
+      "featured_image":  {{ product.featured_image | json }},
+      "size_available":[
+        {%- for value in product.options_with_values[0].values -%}
+        {%- assign available_ops = product.variants | where: "available" | where: "option1",value -%}
+          {{available_ops.size}}{%- unless forloop.last %},{% endunless -%}
+        {%- endfor -%}
+      ],
+      "shopColors": {{ shop.metafields.beae.colors }}
+    }
+  </script></div> 
+                  <input type="hidden" name="sections" value="cart-notification-product,cart-notification-button,cart-icon-bubble">
+                  <input type="hidden" name="section_url" value="{{product.handle}}">
+            {%- endform -%}
+                
+      
+              
+              {%- endfor -%}
+            {%- endif -%}
+          
+          </div><div class="beae-slider-controls"><div class="beae-slider-controls-wrp"><!----><!----><!----><!----></div></div></div><script type="text/javascript">window.BEAEARGS['beae-ho1etd5lsection-slide-show'] = {
+    "id": "beae-ho1etd5l",
+    "mode": {"value": "live"},
+    "layout":"grid","layoutMobile":"grid","effect":"slide","isLoop":false,"autoPlay":false,"autoPlayDelay":5,"itemsPerSlide":4,"itemsPerSlideMobile":2,"itemsGap":"40px","itemsGapMobile":"20px","paginationImage":false,"paginationImageMobile":false,"typeScroll":"default","numItemsScroll":1,"showNavigation":false,"showPagination":false,"showProgress":false,"hookSliderInit":"","hookBeforeSlideChange":"","hookAfterSlideChange":"","noRunJs":false
+  };</script><!----> 
+          </div>
+          {%- endfor -%}
+        {%- assign collection = tmp_collection -%}    
+        {%- assign product = tmp_product -%}    
+      <!----></div></div><script type="text/javascript">window.BEAEARGS['beae-ho1etd5lsection-featured-collection'] = {
+    "id": "beae-ho1etd5l",
+    "mode": {"value": "live"},
+    "mobileMode":false,"maximumItems":8,"promotionPosition":false
+  };</script><!----></div><!----><!----><!----><!----></div></div></div><!----><!----><!----><!----><!----><!----></section><!----><script type="text/javascript">window.BEAEARGS['beae-z732jig1section-js'] = {
+    "id": "beae-z732jig1",
+    "mode": {"value": "live"},
+    "optionsVideo":{},"optionsVideoMobile":false
+  };</script><!----><section id="" data-sectionid="beae-q297uxdx" data-width="1470" data-margin="30px" data-margin-mobile="15px" data-type="flexContainer" class="beae-typo-p1 beae-q297uxdx section-beae-q297uxdx beae-section beae-core"><!----><!----><div class="beae-flexbox beae-typo-p1" style="padding: 0px;"><div class="beae__section--container beae-flexbox-container" style="max-width: var(--beae-page-width, 1470px);"><!----><div class="beae-flexbox-core beae-x-flex-section grid-container-width"><!----><div class="beae-dwbm8x4c beae-block beae-core beae-animation beae-unique-1vhynkf5" data-id="beae-dwbm8x4c" data-uniqueid="1vhynkf5"><!----><div class="beae-block beae-x-text beae-typo-h6" data-autolayout="beae-dwbm8x4c">{{ 'sections.beae-aus-angus2.be728019886_html' | t }}</div><!----><!----></div><!----><!----></div></div></div><!----><!----><!----><!----><!----><!----></section><!----><script type="text/javascript">window.BEAEARGS['beae-q297uxdxsection-js'] = {
+    "id": "beae-q297uxdx",
+    "mode": {"value": "live"},
+    "optionsVideo":{},"optionsVideoMobile":false
+  };</script><!----><section id="" data-sectionid="beae-6f4t01x8" data-width="1920" data-margin="30px" data-margin-mobile="15px" data-type="flexContainer" class="beae-typo-p1 beae-6f4t01x8 section-beae-6f4t01x8 beae-section beae-core" data-template="Video 1"><!----><!----><div class="beae-flexbox beae-typo-p1" style="padding: 0px;"><div class="beae__section--container beae-flexbox-container beae__section--full"><!----><div class="beae-flexbox-core beae-x-flex-section grid-container-width"><!----><div class="beae-08en2svq beae-block beae-core beae-animation beae-unique-66tdta7n beae-x-video beae-prevent-system" data-id="beae-08en2svq" data-uniqueid="66tdta7n" source="self hosted"><!----><div class="beae-x-video--wrapper"><!----><div class="beae-block_video-player beae-prevent-system">
+          {% assign video_url = "https://cdn.shopify.com/videos/c/o/v/60ff60580c2d4cb088e7775c62bb6ed9.mov#t=," %}
+
+          <video class="beae_video" 
+            controls
+            muted
+            playsinline
+            autoplay
+            
+            style="display: flex !important;"
+          >
+            <source src="{{ video_url }}">
+          </video>
+          </div><button class="beae-close-video" is="close-button" aria-label="Close"><svg role="presentation" stroke-width="2" focusable="false" width="24" height="24" viewBox="0 0 24 24"><path d="M17.658 6.343 6.344 17.657M17.658 17.657 6.344 6.343" stroke="currentColor"></path></svg></button><script type="text/javascript">window.BEAEARGS['beae-08en2svqblock-video'] = {
+    "id": "beae-08en2svq",
+    "mode": {"value": "live"},
+    "id":"beae-08en2svq","uniqueId":"","source":"self hosted","mute":true,"autoplay":true,"srcYoutube":"https://cdn.shopify.com/videos/c/o/v/60ff60580c2d4cb088e7775c62bb6ed9.mov#t=,","lightbox":false,"player_controls":true,"extendOptions":"{}"
+  };</script></div><!----></div><!----><!----></div></div></div><!----><div class="beae-section-background-video" data-device="desktop"><iframe id="3608c224-cb2c-4d09-7a08-06b526904403" height="2000" allow="autoplay;fullscreen" src="https://www.youtube.com/embed/_9VUPq3SxOc?playlist=_9VUPq3SxOc&amp;autoplay=1&amp;mute=1&amp;autohide=1&amp;controls=0&amp;loop=1&amp;showinfo=0&amp;fs=1&amp;rel=0&amp;hd=1&amp;wmode=transparent&amp;enablejsapi=1&amp;html5=1" loading="lazy" onerror="handleBeaeErrorVideo" onstalled="handleBeaeErrorVideo"></iframe></div><div class="beae-section-background-video" data-device="mobile"><iframe id="27478343-1196-cca1-4efe-39eeb38f4ae4" height="2000" allow="autoplay;fullscreen" src="https://www.youtube.com/embed/_9VUPq3SxOc?autoplay=1&amp;mute=1&amp;autohide=1&amp;controls=0&amp;loop=0&amp;showinfo=0&amp;fs=1&amp;rel=0&amp;hd=1&amp;wmode=transparent&amp;enablejsapi=1&amp;html5=1" loading="lazy" onerror="handleBeaeErrorVideo" onstalled="handleBeaeErrorVideo"></iframe></div><!----><!----><!----></section><!----><script type="text/javascript">window.BEAEARGS['beae-6f4t01x8section-js'] = {
+    "id": "beae-6f4t01x8",
+    "mode": {"value": "live"},
+    "optionsVideo":{"src":"https://www.youtube.com/watch?v=_9VUPq3SxOc","loop":true,"loadingVideoType":"none"},"optionsVideoMobile":{"src":"https://www.youtube.com/watch?v=_9VUPq3SxOc","loadingVideoType":"none"}
+  };</script>
+<script type="text/javascript">
+  (() => {
+    let testText = document.createElement('div');
+    testText.innerHTML = 'test';
+    testText.style.fontSize = '100px';
+    document.body.appendChild(testText);
+    let realFontSize = parseFloat(window.getComputedStyle(testText).getPropertyValue('font-size').replace('px', ''));
+    testText.style.zoom = '50%';
+    let detectDesktopRequestMode = window.getComputedStyle(testText).getPropertyValue('font-size') !== '100px';
+    document.body.removeChild(testText);
+    
+    document.body.style.setProperty('--font-size-ratio', (realFontSize / 100).toString());
+
+    function getTextNodesIn(elem) {
+      let textNodes = [];
+      if (elem) {
+        for (var nodes = elem.childNodes, i = nodes.length; i--;) {
+          let node = nodes[i], nodeType = node.nodeType;
+          if (nodeType == 1 || nodeType == 9 || nodeType == 11) {
+            textNodes = textNodes.concat(getTextNodesIn(node));
+          }
+        }
+      }
+      return textNodes;
+    }
+
+    let scaleFitGridBlock = () => {
+
+      document.querySelectorAll('.beae-section.beae-core').forEach((sec) => {
+        let container = sec.querySelector(".beae__section--container");
+        if (!container) { return; };
+        let winWidth = document.documentElement.offsetWidth;
+        if (winWidth >= 768) {
+          sec.querySelectorAll('.beae__section--container').forEach(container => {
+            container.parentNode.style.setProperty("--container-width", container.closest('.grid-container-width') ? container.closest('.grid-container-width').parentNode.offsetWidth+'px' : container.offsetWidth+'px');
+          });
+        }
+      });
+
+      document.querySelectorAll('.beae-grid-block').forEach(block => {
+       let child = block.querySelector('.beae-block.beae-core > *'),
+           zoom = 0,
+           count = 0;
+        child.style.zoom = '';
+        child.style.lineHeight = '';
+        while(child.offsetHeight > block.offsetHeight && count < 14 && (zoom === 0 || block.offsetHeight < (child.offsetHeight*zoom))) {
+            zoom = (block.offsetHeight+block.offsetWidth)/(child.offsetHeight+child.offsetWidth);
+            child.style.zoom = zoom < 1 ? Math.floor(zoom*100)+'%' : '';
+            child.style.lineHeight = '2.4rem';
+            count++;
+        }
+      });
+    };
+
+    scaleFitGridBlock();
+    let timmer = 0;
+    window.addEventListener('resize', () => {
+      clearTimeout(timmer);
+      timmer = setTimeout(scaleFitGridBlock, 150);
+    });
+    window.addEventListener('load', scaleFitGridBlock);
+    
+    if (document.getElementById('beae-exported-page-css')) {
+      document.getElementById('beae-exported-page-css').addEventListener('load', scaleFitGridBlock);
+    }
+
+  })();
+</script>
+</div></div>{% if section_id == section.id %}{% endif%}
+<script src="{{'beae-68a1becc9cc6bdfe31081cf6.js'  | asset_url }}" defer></script>
+
+{% schema %}
+{
+    "name": "BEAE BUILDER APP",
+    "locales": {
+        "en": {
+            "be76480_html": "N\/A",
+            "be427520332_html": "Save { sale }",
+            "be1538363906_html": "Sold Out",
+            "be1066872809_html": "Save {{ sale }}%",
+            "be2569319_html": "Sale",
+            "be1086608563_html": "Respected and Trusted",
+            "be997479902_html": "Australian Angus Beef",
+            "be1712147610_html": "Fresh meat delivery within 2 hours across&nbsp; Dubai!",
+            "be282226004_html": "Shop Now",
+            "be531968433102_html": "<div>The Finest Meat Retailer in UAE to deliver Fresh Angus Beef from Australia within same day.<\/div>",
+            "be90106912360_html": "MLS brings award-winning\r<div>Angus beef to your plate<\/div>",
+            "be1327956516_html": "Sourced from Rosedale Farms in Australia",
+            "be687703589_html": "THE MLS EXPERIENCE",
+            "be12420884629_html": "2HRS DELIVERY\n<div><br><\/div>",
+            "be83495873539_html": "DELIEVERED IN FRESH BOX\r<div><br><\/div>",
+            "be94869969129_html": "HORMONES FREE\r<div><br><\/div>",
+            "be90236559133_html": "FRESH &amp; HALAL\r<div><br><\/div>",
+            "be395006706_html": "For special requests or any customization in your meat, please mention in the notes in the cart.",
+            "be89726137948_html": "Shop Your Favourite&nbsp;<br>MLS Angus Beef Cuts",
+            "be649020154_html": "Add to cart",
+            "be1538394658_html": "Sold out",
+            "be719299147_html": "Choose options",
+            "be978022322_html": "From {{ price_min }}",
+            "be1950827197_html": "{{ price_normal }}",
+            "be679965416_html": "Quick view",
+            "be728019886_html": "Savor the flavors- Presenting MLS Black Angus beef"
+        }
+    },
+    "settings": [
+        {
+            "type": "header",
+            "content": "The section was generated by BEAE BUILDER",
+            "info": "\n                            Beae is a flexible page builder app on Shopify AppStore.\n                            It provides 100+ Shopify Elements and pre-built templates library, \n                            so you can build unlimited pages that you can imagine with it.\n                        "
+        },
+        {
+            "type": "header",
+            "content": "[EDIT WITH BEAE APP \u2192](https:\/\/mls-uae.myshopify.com\/admin\/apps\/beae-flexible-page-builder\/next\/editor-v3\/page\/68a1becc9cc6bdfe31081cf6)",
+            "info": "(*You must install the app to start editing this section [Learn more](https:\/\/docs.beae.com\/en\/article\/quick-start-guide-dkoesy\/))"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "@app"
+        }
+    ]
+}
+{% endschema %}

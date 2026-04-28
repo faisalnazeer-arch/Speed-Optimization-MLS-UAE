@@ -1,0 +1,56 @@
+<script>
+      window.addEventListener('load', function() {
+    setTimeout(function() {
+        // Preload the fonts
+        var preloadLinks = `
+        <link rel="preload" href="//mlsuae.ae/cdn/fonts/helvetica/helvetica_n4.fe093fe9ca22a15354813c912484945a36b79146.woff2?h1=bWxzLXVhZS5hY2NvdW50Lm15c2hvcGlmeS5jb20&h2=bWxzdWFlLmFl&h3=YWNjb3VudC5tbHN1YWUuYWU&h4=bWxzdWFlLmNvbQ&h5=YWZmaWxpYXRlLm1sc3VhZS5hZQ&hmac=f7196447a491976ebbfba7998275a8c3a72689fcb95a739eb8371b33d3e86c2a" as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="//mlsuae.ae/cdn/fonts/helvetica/helvetica_n7.39bee04bd277a9c4e94e2fd42d53f4e3c0afb8a5.woff2?h1=bWxzLXVhZS5hY2NvdW50Lm15c2hvcGlmeS5jb20&h2=bWxzdWFlLmFl&h3=YWNjb3VudC5tbHN1YWUuYWU&h4=bWxzdWFlLmNvbQ&h5=YWZmaWxpYXRlLm1sc3VhZS5hZQ&hmac=fc0ebad4f988cb1a75310b781ccbe45a9a350e83e09f886057db922c3b94d54a" as="font" type="font/woff2" crossorigin>
+         `;
+        document.head.insertAdjacentHTML('beforeend', preloadLinks);
+
+        // Add the font-face styles
+        var styleTag = document.createElement('style');
+        styleTag.innerHTML = `
+            @font-face {
+				font-family: Helvetica;
+				font-weight: 400;
+				font-style: normal;
+				font-display: swap;
+				src: url(//mlsuae.ae/cdn/fonts/helvetica/helvetica_n4.fe093fe9ca22a15354813c912484945a36b79146.woff2?h1=bWxzLXVhZS5hY2NvdW50Lm15c2hvcGlmeS5jb20&h2=bWxzdWFlLmFl&h3=YWNjb3VudC5tbHN1YWUuYWU&h4=bWxzdWFlLmNvbQ&h5=YWZmaWxpYXRlLm1sc3VhZS5hZQ&hmac=f7196447a491976ebbfba7998275a8c3a72689fcb95a739eb8371b33d3e86c2a) format("woff2");
+			}
+
+			@font-face {
+				font-family: Helvetica;
+				font-weight: 700;
+				font-style: normal;
+				font-display: swap;
+				src: url(//mlsuae.ae/cdn/fonts/helvetica/helvetica_n7.39bee04bd277a9c4e94e2fd42d53f4e3c0afb8a5.woff2?h1=bWxzLXVhZS5hY2NvdW50Lm15c2hvcGlmeS5jb20&h2=bWxzdWFlLmFl&h3=YWNjb3VudC5tbHN1YWUuYWU&h4=bWxzdWFlLmNvbQ&h5=YWZmaWxpYXRlLm1sc3VhZS5hZQ&hmac=fc0ebad4f988cb1a75310b781ccbe45a9a350e83e09f886057db922c3b94d54a) format("woff2");
+			}
+        `;
+        document.head.appendChild(styleTag);
+    }, 2800); // Delay by 2.8 seconds
+});
+</script>
+
+<script>
+      window.addEventListener('load', function() {
+    setTimeout(function() {
+        // Preload the fonts
+        var preloadLinks = `
+          <link rel="preload" href="https://cdn.shopify.com/s/files/1/0285/3732/3629/files/Helvetica-Bold.ttf?v=1680468689&display=swap" as="font" type="font/ttf" crossorigin>
+        `;
+        document.head.insertAdjacentHTML('beforeend', preloadLinks);
+
+        // Add the font-face styles
+        var styleTag = document.createElement('style');
+        styleTag.innerHTML = `
+           @font-face{
+                font-family:'Helvetica-Bold';
+                src:url('https://cdn.shopify.com/s/files/1/0285/3732/3629/files/Helvetica-Bold.ttf?v=1680468689&display=swap') format('truetype');
+                font-display:swap;
+            }
+        `;
+        document.head.appendChild(styleTag);
+    }, 11000); // Delay by 11 seconds
+});
+</script>

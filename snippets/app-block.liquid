@@ -1,0 +1,89 @@
+<script type="lazyload_int" data-src="https://cdn.shopify.com/extensions/00bb358e-e093-46ce-a5ef-3b66f0295001/pushowl-brevo-email-push-sms-82/assets/pushowl-shopify.js"></script>
+
+<!-- BEGIN app block: shopify://apps/yotpo-loyalty-rewards/blocks/loader-app-embed-block/2f9660df-5018-4e02-9868-ee1fb88d6ccd -->
+    <script type="lazyload_int" data-src="https://cdn-widgetsrepository.yotpo.com/v1/loader/3zSKLTmmtHC3S0CGw89ppA"></script>
+<!-- END app block -->
+
+{% if template contains "product" %}
+<!-- BEGIN app block: shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507 -->
+
+  <script type="lazyload_int" data-src="https://static.klaviyo.com/onsite/js/RibCBS/klaviyo.js?company_id=RibCBS"></script>
+  <script type="lazyload_int">!function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}();</script>
+
+    <script id="viewed_product">
+      if (item == null) {
+        var _learnq = _learnq || [];
+        var item = {
+          Name: "{{ product.title }}",
+          ProductID: {{ product.id }},
+          Categories: {{ product.tags }},
+          ImageURL: "{{ product.featured_image | img_url: 'large' }}",
+          URL: "{{ product.url }}",
+          Brand: "{{ product.vendor }}",
+          Price: "{{ product.price | money }}",
+          CompareAtPrice: "{{ product.compare_at_price | money }}"
+        };
+        _learnq.push(['track', 'Viewed Product', item]);
+        _learnq.push(['trackViewedItem', {
+          Title: item.Name,
+          ItemId: item.ProductID,
+          Categories: item.Categories,
+          ImageUrl: item.ImageURL,
+          Url: item.URL,
+          Metadata: {
+            Brand: item.Brand,
+            Price: item.Price,
+            CompareAtPrice: item.CompareAtPrice
+          }
+        }]);
+      }
+  </script>
+  
+  <script>
+    window.klaviyoReviewsProductDesignMode = false
+  </script>
+
+<!-- END app app block -->	
+{% else %}
+<!-- BEGIN app block: shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507 -->
+
+  <script type="lazyload_int" data-src="https://static.klaviyo.com/onsite/js/RibCBS/klaviyo.js?company_id=RibCBS"></script>
+  <script type="lazyload_int">!function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}();</script>
+
+  <script>
+    window.klaviyoReviewsProductDesignMode = false
+  </script>
+
+<!-- END app app block -->	
+{% endif %}
+
+<!-- BEGIN app block: shopify://apps/tapcart-mobile-app/blocks/ck_loader/604cad6b-3841-4da3-b864-b96622b4adb8 -->
+<script id="tc-ck-loader" type="lazyload_int">
+  (function () {
+    if (!window?.Shopify?.shop?.length) return;
+    const shopStore = window.Shopify.shop;
+    const environment = 'production'; // local, staging, production;
+
+    const srcUrls = {
+      local: 'http://localhost:3005/dist/tc-plugins.es.js', // local dev server URL defined in vite.config.js
+      staging: 'https://unpkg.com/tapcart-capture-kit@staging/dist/tc-plugins.es.js',
+      production: 'https://unpkg.com/tapcart-capture-kit@production/dist/tc-plugins.es.js',
+    };
+    const srcUrl = srcUrls[environment] || srcUrls.production;
+
+    window['tapcartParams'] = { shopStore, environment };
+
+    // Create a new script element with type module
+    const moduleScript = document.createElement('script');
+    moduleScript.type = 'module';
+    moduleScript.src = srcUrl;
+    document.head.appendChild(moduleScript);
+
+    moduleScript.onerror = function () {
+      console.error('Capture kit failed to load.');
+    };
+  })();
+</script>
+
+<!-- END app block -->
+

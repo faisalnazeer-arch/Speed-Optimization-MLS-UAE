@@ -1,0 +1,234 @@
+<p class="location_announcement">{{ section.settings.location_test }}</p>
+<div class="location-selector-popup" style="display: block;">
+  <div class="map-popup">
+    <div class="main__div">
+
+      <!-- Location Search Input -->
+      <input 
+        id="location-search" 
+        type="text" 
+        placeholder="Search for your building, area or city" 
+        class="location-input"
+      >
+        <div id="location-dropdown-container"></div>
+
+        
+      <!-- Map Container -->
+      <div id="map"></div>
+
+      <!-- Coordinates Display -->
+      <div id="coords">Coordinates not set.</div>
+
+      <!-- Buttons -->
+      <div class="btn-row">
+        <button id="get-location" type="button">Get My Current Location</button>
+        <button id="update-location" type="button" style="display:none;">Update Location</button>
+      </div>
+
+      <!-- Status Message -->
+      <div id="map-status-msg" class="status-msg"></div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .location-selector-popup { 
+    max-width: 600px; 
+    margin: auto; 
+    background: #fff; 
+    border-radius: 12px; 
+    padding: 15px; 
+  }
+  /* Google Places Autocomplete fix inside cart drawer */
+
+  .location-input { 
+    width: 100%; 
+    padding: 10px 12px; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    margin-bottom: 12px; 
+    font-size: 14px; 
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+  }
+  
+
+  #location-dropdown-container {
+  position: relative; /* parent for absolute dropdown */
+  width: 100%;
+  z-index: 99999;
+}
+  .location-input:focus { 
+    border-color: #a70a10; 
+    box-shadow: 0 0 6px rgba(167,10,16,0.2); 
+    outline: none; 
+  }
+  .main__div {
+    position: relative;
+  }
+  /* Google Autocomplete Suggestions */
+  .pac-container {
+  position: absolute !important; /* ensure absolute */
+  top: 100%; /* dropdown just below input */
+  left: 0;
+  width: 100% !important;
+  z-index: 99999 !important;
+  pointer-events: auto !important;
+}
+.cart-drawer,
+hdt-cart-drawer {
+  overflow: visible !important;
+}
+
+  .pac-item {
+    padding: 10px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+  }
+
+  .pac-item:hover {
+    background-color: #f5f5f5;
+  }
+
+  .pac-item-selected {
+    background-color: #a70a10;
+    color: #fff;
+  }
+
+  .pac-matched {
+    font-weight: 600;
+  }
+  
+  #map { 
+    width: 100%; 
+    height: 250px; 
+    border-radius: 10px; 
+    background: #eaeaea; 
+    margin-bottom: 10px;
+    display: block;
+    position: relative;
+    z-index: 5;
+  }
+  
+  #coords { 
+    text-align: center; 
+    font-weight: 600; 
+    color: #a70a10; 
+    margin: 6px 0; 
+    font-size: 14px; 
+  }
+  
+  .btn-row { 
+    display: flex; 
+    justify-content: center; 
+    gap: 12px; 
+    margin-top: 8px; 
+    flex-wrap: wrap;
+  }
+  
+  #update-location, 
+  #get-location { 
+    padding: 8px 14px; 
+    border: none; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-size: 14px; 
+    font-weight: 500; 
+    transition: all 0.25s ease;
+    flex: 1;
+    min-width: 150px;
+  }
+  
+  #get-location { 
+    background: #111; 
+    color: #fff; 
+  }
+  
+  #get-location:hover { 
+    background: #222; 
+  }
+  
+  #get-location:active {
+    transform: scale(0.98);
+  }
+  
+  #update-location { 
+    background: #a70a10; 
+    color: #fff; 
+  }
+  
+  #update-location:hover { 
+    background: #c20e16; 
+  }
+
+  #update-location:active {
+    transform: scale(0.98);
+  }
+  
+  #update-location:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  .status-msg { 
+    color: #28a745; 
+    margin-top: 6px; 
+    font-size: 13px; 
+    text-align: center;
+    min-height: 16px;
+  }
+
+  .status-msg.error {
+    color: #dc3545;
+  }
+  
+  p.location_announcement {
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-align: left;
+    margin-top: 10px;
+    color: #a70a10;
+    animation: softBlink 2s infinite;
+    padding: 12px 14px;
+    background-color: #fff5f5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    margin-bottom: 15px;
+  }
+
+  @keyframes softBlink {
+    0% { opacity: 1; }
+    90% { opacity: 1; }
+    95% { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .location-selector-popup {
+      padding: 12px;
+    }
+
+    #map {
+      height: 200px;
+    }
+
+    .btn-row {
+      flex-direction: column;
+    }
+
+    #update-location,
+    #get-location {
+      min-width: 100%;
+    }
+
+    p.location_announcement {
+      font-size: 1.2rem;
+      padding: 10px 12px;
+    }
+  }
+}
+</style>

@@ -1,0 +1,677 @@
+{% doc %}
+  @prompt
+    need circular collection slider with image upload option and width options as well
+    
+    with also collection names options font size options as well, title option of section as well increase collection items, item width with mobile and desktop seperately
+    
+    make sure scroller is working on both mobile and desktop, remove hover and increase collection  to 15 and image width option for  both and nav icons not needed just touch and scroll, slider not working
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-collection-slider-{{ ai_gen_id }} {
+    padding: 40px 0;
+    overflow: hidden;
+  }
+
+  .ai-collection-slider__title-{{ ai_gen_id }} {
+    text-align: center;
+    margin: 0 0 32px;
+    font-size: {{ block.settings.title_font_size }}px;
+    color: {{ block.settings.title_color }};
+  }
+
+  .ai-collection-slider__wrapper-{{ ai_gen_id }} {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .ai-collection-slider__track-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.item_gap }}px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0 20px 20px 20px;
+    -webkit-overflow-scrolling: touch;
+    user-select: none;
+  }
+
+  .ai-collection-slider__track-{{ ai_gen_id }}::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ai-collection-slider__item-{{ ai_gen_id }} {
+    flex: 0 0 {{ block.settings.item_width_desktop }}px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    user-select: none;
+  }
+
+  .ai-collection-slider__image-wrapper-{{ ai_gen_id }} {
+    width: {{ block.settings.image_width_desktop }}px;
+    height: {{ block.settings.image_width_desktop }}px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 16px;
+    background-color: #f4f4f4;
+    flex-shrink: 0;
+    pointer-events: none;
+  }
+
+  .ai-collection-slider__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  .ai-collection-slider__image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+  }
+
+  .ai-collection-slider__image-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-collection-slider__name-{{ ai_gen_id }} {
+    text-align: center;
+    color: {{ block.settings.collection_name_color }};
+    font-size: {{ block.settings.collection_name_font_size }}px;
+    font-weight: 600;
+    max-width: {{ block.settings.item_width_desktop }}px;
+    word-wrap: break-word;
+    pointer-events: none;
+  }
+
+  .ai-collection-slider__empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-collection-slider__item-{{ ai_gen_id }} {
+      flex: 0 0 {{ block.settings.item_width_mobile }}px;
+    }
+
+    .ai-collection-slider__image-wrapper-{{ ai_gen_id }} {
+      width: {{ block.settings.image_width_mobile }}px;
+      height: {{ block.settings.image_width_mobile }}px;
+    }
+
+    .ai-collection-slider__name-{{ ai_gen_id }} {
+      max-width: {{ block.settings.item_width_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<collection-slider-{{ ai_gen_id }} class="ai-collection-slider-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.title != blank %}
+    <h2 class="ai-collection-slider__title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+  {% endif %}
+
+  <div class="ai-collection-slider__wrapper-{{ ai_gen_id }}">
+    {% assign has_items = false %}
+    {% for i in (1..15) %}
+      {% liquid
+        assign collection_key = 'collection_' | append: i
+        assign image_key = 'collection_image_' | append: i
+        assign name_key = 'collection_name_' | append: i
+        assign collection = block.settings[collection_key]
+        assign custom_image = block.settings[image_key]
+        assign custom_name = block.settings[name_key]
+      %}
+      {% if collection != blank or custom_image != blank %}
+        {% assign has_items = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+
+    {% if has_items %}
+      <div class="ai-collection-slider__track-{{ ai_gen_id }}" data-slider-track>
+        {% for i in (1..15) %}
+          {% liquid
+            assign collection_key = 'collection_' | append: i
+            assign image_key = 'collection_image_' | append: i
+            assign name_key = 'collection_name_' | append: i
+            assign collection = block.settings[collection_key]
+            assign custom_image = block.settings[image_key]
+            assign custom_name = block.settings[name_key]
+          %}
+
+          {% if collection != blank or custom_image != blank %}
+            <a
+              href="{% if collection != blank %}{{ collection.url }}{% else %}#{% endif %}"
+              class="ai-collection-slider__item-{{ ai_gen_id }}"
+              data-slider-item
+            >
+              <div class="ai-collection-slider__image-wrapper-{{ ai_gen_id }}">
+                {% if custom_image != blank %}
+                  <img
+                    src="{{ custom_image | image_url: width: 400 }}"
+                    alt="{{ custom_name | default: collection.title | escape }}"
+                    class="ai-collection-slider__image-{{ ai_gen_id }}"
+                    loading="lazy"
+                    width="400"
+                    height="400"
+                    draggable="false"
+                  >
+                {% elsif collection != blank and collection.image != blank %}
+                  <img
+                    src="{{ collection.image | image_url: width: 400 }}"
+                    alt="{{ collection.title | escape }}"
+                    class="ai-collection-slider__image-{{ ai_gen_id }}"
+                    loading="lazy"
+                    width="400"
+                    height="400"
+                    draggable="false"
+                  >
+                {% else %}
+                  <div class="ai-collection-slider__image-placeholder-{{ ai_gen_id }}">
+                    {{ 'collection-1' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </div>
+              <div class="ai-collection-slider__name-{{ ai_gen_id }}">
+                {% if custom_name != blank %}
+                  {{ custom_name }}
+                {% elsif collection != blank %}
+                  {{ collection.title }}
+                {% else %}
+                  Collection {{ i }}
+                {% endif %}
+              </div>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="ai-collection-slider__empty-state-{{ ai_gen_id }}">
+        Next, add collections to display in the slider
+      </div>
+    {% endif %}
+  </div>
+</collection-slider-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CollectionSlider{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.isDragging = false;
+        this.startPos = 0;
+        this.currentTranslate = 0;
+        this.prevTranslate = 0;
+        this.animationID = 0;
+        this.currentIndex = 0;
+      }
+
+      connectedCallback() {
+        this.track = this.querySelector('[data-slider-track]');
+        if (!this.track) return;
+
+        this.items = this.querySelectorAll('[data-slider-item]');
+        if (this.items.length === 0) return;
+
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.track.addEventListener('mousedown', this.handleStart.bind(this));
+        this.track.addEventListener('touchstart', this.handleStart.bind(this), { passive: true });
+        
+        this.track.addEventListener('mousemove', this.handleMove.bind(this));
+        this.track.addEventListener('touchmove', this.handleMove.bind(this), { passive: true });
+        
+        this.track.addEventListener('mouseup', this.handleEnd.bind(this));
+        this.track.addEventListener('mouseleave', this.handleEnd.bind(this));
+        this.track.addEventListener('touchend', this.handleEnd.bind(this));
+        
+        this.items.forEach((item) => {
+          item.addEventListener('click', (e) => {
+            if (this.isDragging) {
+              e.preventDefault();
+            }
+          });
+        });
+      }
+
+      handleStart(e) {
+        this.isDragging = true;
+        this.startPos = this.getPositionX(e);
+        this.prevTranslate = this.track.scrollLeft;
+      }
+
+      handleMove(e) {
+        if (!this.isDragging) return;
+        
+        const currentPosition = this.getPositionX(e);
+        const diff = this.startPos - currentPosition;
+        this.track.scrollLeft = this.prevTranslate + diff;
+      }
+
+      handleEnd() {
+        this.isDragging = false;
+      }
+
+      getPositionX(e) {
+        return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+      }
+    }
+
+    customElements.define('collection-slider-{{ ai_gen_id }}', CollectionSlider{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Collection slider",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section title"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Shop by Collection"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Font size",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Collection names"
+    },
+    {
+      "type": "range",
+      "id": "collection_name_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "collection_name_color",
+      "label": "Color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Item sizing"
+    },
+    {
+      "type": "range",
+      "id": "item_width_desktop",
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Item width (desktop)",
+      "default": 180
+    },
+    {
+      "type": "range",
+      "id": "item_width_mobile",
+      "min": 80,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Item width (mobile)",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "image_width_desktop",
+      "min": 80,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Image width (desktop)",
+      "default": 160
+    },
+    {
+      "type": "range",
+      "id": "image_width_mobile",
+      "min": 60,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Image width (mobile)",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap between items",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Collection 1"
+    },
+    {
+      "type": "collection",
+      "id": "collection_1",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_1",
+      "label": "Custom image"
+    },
+    {
+      "type": "text",
+      "id": "collection_name_1",
+      "label": "Custom name"
+    },
+    {
+      "type": "header",
+      "content": "Collection 2"
+    },
+    {
+      "type": "collection",
+      "id": "collection_2",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_2",
+      "label": "Custom image"
+    },
+    {
+      "type": "text",
+      "id": "collection_name_2",
+      "label": "Custom name"
+    },
+    {
+      "type": "header",
+      "content": "Collection 3"
+    },
+    {
+      "type": "collection",
+      "id": "collection_3",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_3",
+      "label": "Custom image"
+    },
+    {
+      "type": "text",
+      "id": "collection_name_3",
+      "label": "Custom name"
+    },
+    {
+      "type": "header",
+      "content": "Collection 4"
+    },
+    {
+      "type": "collection",
+      "id": "collection_4",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_4",
+      "label": "Custom image"
+    },
+    {
+      "type": "text",
+      "id": "collection_name_4",
+      "label": "Custom name"
+    },
+    {
+      "type": "header",
+      "content": "Collection 5"
+    },
+    {
+      "type": "collection",
+      "id": "collection_5",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_5",
+      "label": "Custom image"
+    },
+    {
+      "type": "text",
+      "id": "collection_name_5",
+      "label": "Custom name"
+    },
+    {
+      "type": "header",
+      "content": "Collection 6"
+    },
+    {
+      "type": "collection",
+      "id": "collection_6",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_6",
+      "label": "Custom image"
+    },
+    {
+      "type": "text",
+      "id": "collection_name_6",
+      "label": "Custom name"
+    },
+    {
+      "type": "header",
+      "content": "Collection 7"
+    },
+    {
+      "type": "collection",
+      "id": "collection_7",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_7",
+      "label": "Custom image"
+    },
+    {
+      "type": "text",
+      "id": "collection_name_7",
+      "label": "Custom name"
+    },
+    {
+      "type": "header",
+      "content": "Collection 8"
+    },
+    {
+      "type": "collection",
+      "id": "collection_8",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_8",
+      "label": "Custom image"
+    },
+    {
+      "type": "text",
+      "id": "collection_name_8",
+      "label": "Custom name"
+    },
+    {
+      "type": "header",
+      "content": "Collection 9"
+    },
+    {
+      "type": "collection",
+      "id": "collection_9",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_9",
+      "label": "Custom image"
+    },
+    {
+      "type": "text",
+      "id": "collection_name_9",
+      "label": "Custom name"
+    },
+    {
+      "type": "header",
+      "content": "Collection 10"
+    },
+    {
+      "type": "collection",
+      "id": "collection_10",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_10",
+      "label": "Custom image"
+    },
+    {
+      "type": "text",
+      "id": "collection_name_10",
+      "label": "Custom name"
+    },
+    {
+      "type": "header",
+      "content": "Collection 11"
+    },
+    {
+      "type": "collection",
+      "id": "collection_11",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_11",
+      "label": "Custom image"
+    },
+    {
+      "type": "text",
+      "id": "collection_name_11",
+      "label": "Custom name"
+    },
+    {
+      "type": "header",
+      "content": "Collection 12"
+    },
+    {
+      "type": "collection",
+      "id": "collection_12",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_12",
+      "label": "Custom image"
+    },
+    {
+      "type": "text",
+      "id": "collection_name_12",
+      "label": "Custom name"
+    },
+    {
+      "type": "header",
+      "content": "Collection 13"
+    },
+    {
+      "type": "collection",
+      "id": "collection_13",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_13",
+      "label": "Custom image"
+    },
+    {
+      "type": "text",
+      "id": "collection_name_13",
+      "label": "Custom name"
+    },
+    {
+      "type": "header",
+      "content": "Collection 14"
+    },
+    {
+      "type": "collection",
+      "id": "collection_14",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_14",
+      "label": "Custom image"
+    },
+    {
+      "type": "text",
+      "id": "collection_name_14",
+      "label": "Custom name"
+    },
+    {
+      "type": "header",
+      "content": "Collection 15"
+    },
+    {
+      "type": "collection",
+      "id": "collection_15",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_15",
+      "label": "Custom image"
+    },
+    {
+      "type": "text",
+      "id": "collection_name_15",
+      "label": "Custom name"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection slider"
+    }
+  ]
+}
+{% endschema %}

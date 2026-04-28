@@ -1,0 +1,950 @@
+{% doc %}
+  @prompt
+    an interactive vertical tabs with features in bulles 
+    need bullets colors option and also tabs colors
+    content on right and it changes oin click
+    
+    view all button with width and border option, responsive on mobile and width option for section
+    
+    tab title color and adding title option for active and non active, color option for all tabs and text color, all tabs colors options one by one like tab1 color tab2 color and also text color, tab text colors is not changing, border on content and on mobile content right as well not on bottom
+    
+    each tabs title seperate wiith contnent in it and content n tabs should be in bullets, width option for section
+    
+    Seperate tabs which can open respective tab content colors and text options for all tabs seperately, center tabs and section border options for tab as well border radius as well, center the section, section box width and full width option ifeature tabs should be center not to left, not tabs content all section needs to be center, content aligned to left and tabs are not interactinvce not changing on clicking, tabs are not changing with click, tabs are not clickable make it clickable and it can chang the content when we click them
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-vertical-tabs-{{ ai_gen_id }} {
+    {% if block.settings.full_width %}
+      width: 100%;
+      max-width: none;
+    {% else %}
+      max-width: {{ block.settings.section_width }}px;
+    {% endif %}
+    margin: 0 auto;
+    padding: 20px;
+    {% if block.settings.section_border_width > 0 %}
+      border: {{ block.settings.section_border_width }}px solid {{ block.settings.section_border_color }};
+    {% endif %}
+    border-radius: {{ block.settings.section_border_radius }}px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+  }
+
+  .ai-vertical-tabs__container-{{ ai_gen_id }} {
+    display: flex;
+    gap: 30px;
+    border: {{ block.settings.content_border_width }}px solid {{ block.settings.content_border_color }};
+    border-radius: {{ block.settings.content_border_radius }}px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .ai-vertical-tabs__nav-{{ ai_gen_id }} {
+    flex: 0 0 300px;
+    background-color: {{ block.settings.tabs_bg_color }};
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }} {
+    display: block;
+    width: 80%;
+    text-align: center;
+    padding: 15px 20px;
+    border: {{ block.settings.tab_border_width }}px solid {{ block.settings.tab_border_color }};
+    border-radius: {{ block.settings.tab_border_radius }}px;
+    background: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .ai-vertical-tabs__tab-1-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_1_bg_color }};color: {{ block.settings.tab_1_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-1-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.tab_1_active_bg_color }};
+    color: {{ block.settings.tab_1_active_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-2-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_2_bg_color }};
+    color: {{ block.settings.tab_2_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-2-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.tab_2_active_bg_color }};
+    color: {{ block.settings.tab_2_active_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-3-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_3_bg_color }};
+    color: {{ block.settings.tab_3_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-3-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.tab_3_active_bg_color }};
+    color: {{ block.settings.tab_3_active_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-4-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_4_bg_color }};
+    color: {{ block.settings.tab_4_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-4-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.tab_4_active_bg_color }};
+    color: {{ block.settings.tab_4_active_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-5-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_5_bg_color }};
+    color: {{ block.settings.tab_5_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-5-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.tab_5_active_bg_color }};
+    color: {{ block.settings.tab_5_active_text_color }};
+  }
+
+  .ai-vertical-tabs__content-{{ ai_gen_id }} {
+    flex: 1;
+    padding: 30px;
+    background-color: {{ block.settings.content_bg_color }};
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .ai-vertical-tabs__panel-{{ ai_gen_id }} {
+    display: none;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .ai-vertical-tabs__panel-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-vertical-tabs__title-{{ ai_gen_id }} {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: {{ block.settings.content_title_color }};
+    text-align: left;
+  }
+
+  .ai-vertical-tabs__features-{{ ai_gen_id }} {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px 0;
+    text-align: left;
+  }
+
+  .ai-vertical-tabs__feature-{{ ai_gen_id }} {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    gap: 12px;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: {{ block.settings.bullet_color }};
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .ai-vertical-tabs__feature-text-{{ ai_gen_id }} {
+    color: {{ block.settings.content_text_color }};
+    line-height: 1.5;
+    max-width: 400px;
+  }
+
+  .ai-vertical-tabs__view-all-wrapper-{{ ai_gen_id }} {
+    text-align: left;
+    width: 100%;
+  }
+
+  .ai-vertical-tabs__view-all-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: {{ block.settings.view_all_bg_color }};
+    color: {{ block.settings.view_all_text_color }};
+    text-decoration: none;
+    border-radius: 6px;
+    border: {{ block.settings.view_all_border_width }}px solid {{ block.settings.view_all_border_color }};
+    transition: all 0.3s ease;
+    width: {{ block.settings.view_all_width }}px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .ai-vertical-tabs__view-all-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.view_all_hover_bg_color }};
+    color: {{ block.settings.view_all_hover_text_color }};
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-vertical-tabs__container-{{ ai_gen_id }} {
+      flex-direction: column;
+      max-width: 100%;
+    }
+
+    .ai-vertical-tabs__nav-{{ ai_gen_id }} {
+      flex: none;
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      padding: 15px;gap: 10px;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    .ai-vertical-tabs__tab-{{ ai_gen_id }} {
+      flex-shrink: 0;
+      white-space: nowrap;
+      margin-bottom: 0;
+      margin-right: 10px;
+      width: auto;
+      min-width: 120px;
+    }
+
+    .ai-vertical-tabs__tab-{{ ai_gen_id }}:last-child {
+      margin-right: 0;
+    }
+
+    .ai-vertical-tabs__content-{{ ai_gen_id }} {
+      padding: 20px;
+      align-items: flex-start;
+    }
+
+    .ai-vertical-tabs__title-{{ ai_gen_id }} {
+      font-size: 20px;
+    }
+
+    .ai-vertical-tabs__view-all-{{ ai_gen_id }} {
+      width: 100%;
+      max-width: {{ block.settings.view_all_width }}px;
+    }
+
+    .ai-vertical-tabs__feature-{{ ai_gen_id }} {
+      justify-content: flex-start;
+    }
+
+    .ai-vertical-tabs__view-all-wrapper-{{ ai_gen_id }} {
+      text-align: left;
+    }
+  }
+{% endstyle %}<vertical-tabs-{{ ai_gen_id }} class="ai-vertical-tabs-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-vertical-tabs__container-{{ ai_gen_id }}">
+    <nav class="ai-vertical-tabs__nav-{{ ai_gen_id }}">
+      {% if block.settings.tab_1_title != blank %}
+        <button
+          class="ai-vertical-tabs__tab-{{ ai_gen_id }} ai-vertical-tabs__tab-1-{{ ai_gen_id }} active" 
+          data-tab="1"
+          aria-controls="panel-1-{{ ai_gen_id }}"
+          aria-selected="true">
+          {{ block.settings.tab_1_title }}
+        </button>
+      {% endif %}
+      {% if block.settings.tab_2_title != blank %}
+        <button 
+          class="ai-vertical-tabs__tab-{{ ai_gen_id }} ai-vertical-tabs__tab-2-{{ ai_gen_id }}" 
+          data-tab="2"
+          aria-controls="panel-2-{{ ai_gen_id }}"
+          aria-selected="false">
+          {{ block.settings.tab_2_title }}
+        </button>
+      {% endif %}
+      {% if block.settings.tab_3_title != blank %}
+        <button 
+          class="ai-vertical-tabs__tab-{{ ai_gen_id }} ai-vertical-tabs__tab-3-{{ ai_gen_id }}" 
+          data-tab="3"
+          aria-controls="panel-3-{{ ai_gen_id }}"
+          aria-selected="false">
+          {{ block.settings.tab_3_title }}
+        </button>
+      {% endif %}
+      {% if block.settings.tab_4_title != blank %}
+        <button 
+          class="ai-vertical-tabs__tab-{{ ai_gen_id }} ai-vertical-tabs__tab-4-{{ ai_gen_id }}" 
+          data-tab="4"
+          aria-controls="panel-4-{{ ai_gen_id }}"
+          aria-selected="false">
+          {{ block.settings.tab_4_title }}
+        </button>
+      {% endif %}
+      {% if block.settings.tab_5_title != blank %}
+        <button 
+          class="ai-vertical-tabs__tab-{{ ai_gen_id }} ai-vertical-tabs__tab-5-{{ ai_gen_id }}" 
+          data-tab="5"
+          aria-controls="panel-5-{{ ai_gen_id }}"
+          aria-selected="false">
+          {{ block.settings.tab_5_title }}
+        </button>
+      {% endif %}
+    </nav>
+
+    <div class="ai-vertical-tabs__content-{{ ai_gen_id }}">
+      {% if block.settings.tab_1_title != blank %}
+        <div 
+          id="panel-1-{{ ai_gen_id }}" 
+          class="ai-vertical-tabs__panel-{{ ai_gen_id }} active" 
+          role="tabpanel"
+          aria-labelledby="tab-1-{{ ai_gen_id }}"
+        >
+          <h3 class="ai-vertical-tabs__title-{{ ai_gen_id }}">{{ block.settings.tab_1_content_title }}</h3>
+          {% if block.settings.tab_1_features != blank %}
+            <ul class="ai-vertical-tabs__features-{{ ai_gen_id }}">
+              {% assign features = block.settings.tab_1_features | split: ',' %}
+              {% for feature in features %}
+                <li class="ai-vertical-tabs__feature-{{ ai_gen_id }}">
+                  <span class="ai-vertical-tabs__bullet-{{ ai_gen_id }}"></span>
+                  <span class="ai-vertical-tabs__feature-text-{{ ai_gen_id }}">{{ feature | strip }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}{% if block.settings.view_all_url != blank %}
+            <div class="ai-vertical-tabs__view-all-wrapper-{{ ai_gen_id }}">
+              <a href="{{ block.settings.view_all_url }}" class="ai-vertical-tabs__view-all-{{ ai_gen_id }}">
+                {{ block.settings.view_all_text }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.tab_2_title != blank %}
+        <div 
+          id="panel-2-{{ ai_gen_id }}" 
+          class="ai-vertical-tabs__panel-{{ ai_gen_id }}" 
+          role="tabpanel"
+          aria-labelledby="tab-2-{{ ai_gen_id }}"
+        >
+          <h3 class="ai-vertical-tabs__title-{{ ai_gen_id }}">{{ block.settings.tab_2_content_title }}</h3>
+          {% if block.settings.tab_2_features != blank %}
+            <ul class="ai-vertical-tabs__features-{{ ai_gen_id }}">
+              {% assign features = block.settings.tab_2_features | split: ',' %}
+              {% for feature in features %}
+                <li class="ai-vertical-tabs__feature-{{ ai_gen_id }}">
+                  <span class="ai-vertical-tabs__bullet-{{ ai_gen_id }}"></span>
+                  <span class="ai-vertical-tabs__feature-text-{{ ai_gen_id }}">{{ feature | strip }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          {% if block.settings.view_all_url != blank %}
+            <div class="ai-vertical-tabs__view-all-wrapper-{{ ai_gen_id }}">
+              <a href="{{ block.settings.view_all_url }}" class="ai-vertical-tabs__view-all-{{ ai_gen_id }}">
+                {{ block.settings.view_all_text }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.tab_3_title != blank %}
+        <div 
+          id="panel-3-{{ ai_gen_id }}" 
+          class="ai-vertical-tabs__panel-{{ ai_gen_id }}" 
+          role="tabpanel"
+          aria-labelledby="tab-3-{{ ai_gen_id }}"
+        >
+          <h3 class="ai-vertical-tabs__title-{{ ai_gen_id }}">{{ block.settings.tab_3_content_title }}</h3>
+          {% if block.settings.tab_3_features != blank %}
+            <ul class="ai-vertical-tabs__features-{{ ai_gen_id }}">
+              {% assign features = block.settings.tab_3_features | split: ',' %}
+              {% for feature in features %}
+                <li class="ai-vertical-tabs__feature-{{ ai_gen_id }}">
+                  <span class="ai-vertical-tabs__bullet-{{ ai_gen_id }}"></span>
+                  <span class="ai-vertical-tabs__feature-text-{{ ai_gen_id }}">{{ feature | strip }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          {% if block.settings.view_all_url != blank %}
+            <div class="ai-vertical-tabs__view-all-wrapper-{{ ai_gen_id }}">
+              <a href="{{ block.settings.view_all_url }}" class="ai-vertical-tabs__view-all-{{ ai_gen_id }}">
+                {{ block.settings.view_all_text }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.tab_4_title != blank %}
+        <div 
+          id="panel-4-{{ ai_gen_id }}" 
+          class="ai-vertical-tabs__panel-{{ ai_gen_id }}" 
+          role="tabpanel"
+          aria-labelledby="tab-4-{{ ai_gen_id }}"
+        >
+          <h3 class="ai-vertical-tabs__title-{{ ai_gen_id }}">{{ block.settings.tab_4_content_title }}</h3>
+          {% if block.settings.tab_4_features != blank %}
+            <ul class="ai-vertical-tabs__features-{{ ai_gen_id }}">
+              {% assign features = block.settings.tab_4_features | split: ',' %}
+              {% for feature in features %}
+                <li class="ai-vertical-tabs__feature-{{ ai_gen_id }}">
+                  <span class="ai-vertical-tabs__bullet-{{ ai_gen_id }}"></span>
+                  <span class="ai-vertical-tabs__feature-text-{{ ai_gen_id }}">{{ feature | strip }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          {% if block.settings.view_all_url != blank %}
+            <div class="ai-vertical-tabs__view-all-wrapper-{{ ai_gen_id }}">
+              <a href="{{ block.settings.view_all_url }}" class="ai-vertical-tabs__view-all-{{ ai_gen_id }}">
+                {{ block.settings.view_all_text }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.tab_5_title != blank %}
+        <div 
+          id="panel-5-{{ ai_gen_id }}" 
+          class="ai-vertical-tabs__panel-{{ ai_gen_id }}" 
+          role="tabpanel"
+          aria-labelledby="tab-5-{{ ai_gen_id }}"
+        >
+          <h3 class="ai-vertical-tabs__title-{{ ai_gen_id }}">{{ block.settings.tab_5_content_title }}</h3>
+          {% if block.settings.tab_5_features != blank %}
+            <ul class="ai-vertical-tabs__features-{{ ai_gen_id }}">
+              {% assign features = block.settings.tab_5_features | split: ',' %}
+              {% for feature in features %}
+                <li class="ai-vertical-tabs__feature-{{ ai_gen_id }}">
+                  <span class="ai-vertical-tabs__bullet-{{ ai_gen_id }}"></span>
+                  <span class="ai-vertical-tabs__feature-text-{{ ai_gen_id }}">{{ feature | strip }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          {% if block.settings.view_all_url != blank %}
+            <div class="ai-vertical-tabs__view-all-wrapper-{{ ai_gen_id }}">
+              <a href="{{ block.settings.view_all_url }}" class="ai-vertical-tabs__view-all-{{ ai_gen_id }}">
+                {{ block.settings.view_all_text }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</vertical-tabs-{{ ai_gen_id }}><script type="lazyload" >
+  (function() {
+    classVerticalTabs{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.tabs = this.querySelectorAll('.ai-vertical-tabs__tab-{{ ai_gen_id }}');
+        this.panels = this.querySelectorAll('.ai-vertical-tabs__panel-{{ ai_gen_id }}');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.tabs.forEach(tab => {
+          tab.addEventListener('click', (e) => {
+            e.preventDefault();
+            const tabNumber = e.target.getAttribute('data-tab');
+            this.switchTab(tabNumber);
+          });
+        });
+      }
+
+      switchTab(tabNumber) {
+        this.tabs.forEach(tab => {
+          tab.classList.remove('active');tab.setAttribute('aria-selected', 'false');
+        });
+
+        this.panels.forEach(panel => {
+          panel.classList.remove('active');
+        });
+
+        const activeTab = this.querySelector(`[data-tab="${tabNumber}"]`);
+        const activePanel = this.querySelector(`#panel-${tabNumber}-{{ ai_gen_id }}`);
+
+        if (activeTab && activePanel) {
+          activeTab.classList.add('active');
+          activeTab.setAttribute('aria-selected', 'true');
+          activePanel.classList.add('active');
+        }
+      }
+    }
+
+    customElements.define('vertical-tabs-{{ ai_gen_id }}', VerticalTabs{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Interactive vertical tabs",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width section",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "section_width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "label": "Section width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "section_border_width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Section border width",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "section_border_color",
+      "label": "Section border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "range",
+      "id": "section_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Section border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "content_border_width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Content border width",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "content_border_color",
+      "label": "Content border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "range",
+      "id": "content_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Content border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Tab layout"
+    },
+    {
+      "type": "color",
+      "id": "tabs_bg_color",
+      "label": "Tabs background color",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "range",
+      "id": "tab_border_width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Tab border width",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "tab_border_color",
+      "label": "Tab border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "range",
+      "id": "tab_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Tab border radius",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Tab1"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_title",
+      "label": "Tab title",
+      "default": "Features"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_content_title",
+      "label": "Content title",
+      "default": "Amazing Features"
+    },
+    {
+      "type": "textarea",
+      "id": "tab_1_features",
+      "label": "Features",
+      "info": "Separate each feature with a comma",
+      "default": "Advanced technology, User-friendly interface, 24/7 support, Fast performance"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_bg_color",
+      "label": "Tab background color",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_text_color",
+      "label": "Tab text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_active_bg_color",
+      "label": "Active tab background color",
+      "default": "#007bff"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_active_text_color",
+      "label": "Active tab text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Tab 2"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_title",
+      "label": "Tab title",
+      "default": "Benefits"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_content_title",
+      "label": "Content title",
+      "default": "Key Benefits"
+    },
+    {
+      "type": "textarea",
+      "id": "tab_2_features",
+      "label": "Features",
+      "info": "Separate each feature with a comma",
+      "default": "Increased productivity, Cost effective, Scalable solution, Easy integration"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_bg_color",
+      "label": "Tab background color",
+      "default": "#e3f2fd"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_text_color",
+      "label": "Tab text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_active_bg_color",
+      "label": "Active tab background color",
+      "default": "#2196f3"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_active_text_color",
+      "label": "Active tab text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Tab 3"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_title",
+      "label": "Tab title",
+      "default": "Specifications"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_content_title",
+      "label": "Content title",
+      "default": "Technical Specifications"
+    },
+    {
+      "type": "textarea",
+      "id": "tab_3_features",
+      "label": "Features",
+      "info": "Separate each feature with a comma",
+      "default": "Cloud-based architecture, API integration, Multi-platform support, Real-time analytics"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_bg_color",
+      "label": "Tab background color",
+      "default": "#f3e5f5"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_text_color",
+      "label": "Tab text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_active_bg_color",
+      "label": "Active tab background color",
+      "default": "#9c27b0"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_active_text_color",
+      "label": "Active tab text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Tab 4"
+    },
+    {
+      "type": "text",
+      "id": "tab_4_title",
+      "label": "Tab title"
+    },
+    {
+      "type": "text",
+      "id": "tab_4_content_title",
+      "label": "Content title"
+    },
+    {
+      "type": "textarea",
+      "id": "tab_4_features",
+      "label": "Features",
+      "info": "Separate each feature with a comma"
+    },
+    {
+      "type": "color",
+      "id": "tab_4_bg_color",
+      "label": "Tab background color",
+      "default": "#fff3e0"
+    },
+    {
+      "type": "color",
+      "id": "tab_4_text_color",
+      "label": "Tab text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "tab_4_active_bg_color",
+      "label": "Active tab background color",
+      "default": "#ff9800"
+    },
+    {
+      "type": "color",
+      "id": "tab_4_active_text_color",
+      "label": "Active tab text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Tab 5"
+    },
+    {
+      "type": "text",
+      "id": "tab_5_title",
+      "label": "Tab title"
+    },
+    {
+      "type": "text",
+      "id": "tab_5_content_title",
+      "label": "Content title"
+    },
+    {
+      "type": "textarea",
+      "id": "tab_5_features",
+      "label": "Features",
+      "info": "Separate each feature with a comma"
+    },
+    {
+      "type": "color",
+      "id": "tab_5_bg_color",
+      "label": "Tab background color",
+      "default": "#e8f5e8"
+    },
+    {
+      "type": "color",
+      "id": "tab_5_text_color",
+      "label": "Tab text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "tab_5_active_bg_color",
+      "label": "Active tab background color",
+      "default": "#4caf50"
+    },
+    {
+      "type": "color",
+      "id": "tab_5_active_text_color",
+      "label": "Active tab text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Content colors"
+    },
+    {
+      "type": "color",
+      "id": "content_bg_color",
+      "label": "Content background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "content_title_color",
+      "label": "Content title color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "content_text_color",
+      "label": "Content text color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "bullet_color",
+      "label": "Bullet color",
+      "default": "#007bff"
+    },
+    {
+      "type": "header",
+      "content": "View all button"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "Button text",
+      "default": "View All"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "view_all_width",
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Button width",
+      "default": 150
+    },
+    {
+      "type": "range",
+      "id": "view_all_border_width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Button border width",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "view_all_bg_color",
+      "label": "Button background color",
+      "default": "#007bff"
+    },
+    {
+      "type": "color",
+      "id": "view_all_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "view_all_border_color",
+      "label": "Button border color",
+      "default": "#007bff"
+    },
+    {
+      "type": "color",
+      "id": "view_all_hover_bg_color",
+      "label": "Button hover background color",
+      "default": "#0056b3"
+    },
+    {
+      "type": "color",
+      "id": "view_all_hover_text_color",
+      "label": "Button hover text color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Interactive vertical tabs"
+    }
+  ]
+}
+{% endschema %}

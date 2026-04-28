@@ -1,0 +1,82 @@
+{% comment %}
+  Section: Plan Dropdown
+  Lets merchant configure subscription plans + outputs a styled dropdown
+{% endcomment %}
+
+<section class="plan-dropdown-section">
+  <div class="plan-dropdown-wrapper">
+    <label for="planDropdown" class="plan-dropdown-label">
+      {{ section.settings.label }}
+    </label>
+    <select id="planDropdown" name="selling_plan" class="plan-dropdown">
+      <option value="">{{ section.settings.one_time_label }}</option>
+      {% for block in section.blocks %}
+        {% if block.settings.external_plan_id != blank %}
+          <option value="{{ block.settings.external_plan_id }}">
+            {{ block.settings.title }}
+          </option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  </div>
+</section>
+
+<style>
+.plan-dropdown-wrapper {
+  margin: 10px 0;
+}
+
+.plan-dropdown-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.plan-dropdown {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Infographics",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Dropdown label",
+      "default": "Choose your plan"
+    },
+    {
+      "type": "text",
+      "id": "one_time_label",
+      "label": "One-time purchase label",
+      "default": "One Time Purchase"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "plan",
+      "name": "Plan",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Plan title",
+          "default": "Monthly Plan"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Infographics",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}

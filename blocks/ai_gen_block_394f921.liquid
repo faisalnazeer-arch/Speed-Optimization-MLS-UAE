@@ -1,0 +1,532 @@
+{% doc %}
+  @prompt
+    Create a clean, modern 'Contact Us' section for a physical location landing page.
+    Use MLS UAE color theme: primary red #a70a10 for buttons and icons, accent red #dc2626 on hover, dark text #171717, white/light gray #f9f9f9 or #ffffff backgrounds.
+    Layout:
+    
+    Centered heading 'Get in touch, let us know how we can help' in bold dark text.
+    Three rounded cards/icons in a row (email, phone, address) with blue circle icons (change to red #a70a10), showing:
+    Email: Consulting@gmail.com
+    Phone: +1 (123) 456-7890
+    Address: 456 Business Ave, New York
+    Below: Google Maps embed (or placeholder image) on left or full width, with a simple contact form on right (fields: First Name, Last Name, Email, Message textarea, red Submit button #a70a10 with white text).
+    Minimal, luxurious style, plenty of padding, responsive, Inter or sans-serif font, subtle shadows on cards/form."
+    
+    Even shorter version (if the builder has character limit):
+    "Contact section: 'Get in touch, let us know how we can help'. Three red-icon cards (email/phone/address). Map left + form right (name, email, message, red #a70a10 button). MLS UAE theme: primary #a70a10, dark #171717 text, white bg, modern luxury.", 4 icons and 2x2 in a row on mobile 
+    
+    remove contact form
+    
+    , dont remove map, please use embed code not embed url
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-contact-section-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: 60px 40px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-contact-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-contact-heading-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: {{ block.settings.heading_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 48px;
+  }
+
+  .ai-contact-cards-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .ai-contact-card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: 32px 24px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ai-contact-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .ai-contact-icon-wrapper-{{ ai_gen_id }} {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    background-color: {{ block.settings.icon_background }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-contact-icon-{{ ai_gen_id }} {
+    width: 32px;
+    height: 32px;
+    color: {{ block.settings.icon_color }};
+  }
+
+  .ai-contact-card-title-{{ ai_gen_id }} {
+    font-size: 18px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 12px;
+  }
+
+  .ai-contact-card-text-{{ ai_gen_id }} {
+    font-size: 15px;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    word-break: break-word;
+  }
+
+  .ai-contact-card-link-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .ai-contact-card-link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.icon_color }};
+  }
+
+  .ai-contact-map-{{ ai_gen_id }} {
+    width: 100%;
+    border-radius: {{ block.settings.card_border_radius }}px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .ai-contact-map-embed-{{ ai_gen_id }} {
+    width: 100%;
+    min-height: {{ block.settings.map_height }}px;
+  }
+
+  .ai-contact-map-embed-{{ ai_gen_id }} iframe {
+    width: 100%;
+    height: {{ block.settings.map_height }}px;
+    border: 0;
+    display: block;
+  }
+
+  .ai-contact-map-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.map_height }}px;
+    background-color: {{ block.settings.card_background }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ block.settings.text_color }};
+    font-size: 16px;
+    text-align: center;
+    padding: 20px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-contact-section-{{ ai_gen_id }} {
+      padding: 40px 24px;
+    }
+
+    .ai-contact-cards-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .ai-contact-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.8 }}px;
+      margin-bottom: 32px;
+    }
+
+    .ai-contact-map-embed-{{ ai_gen_id }} iframe,
+    .ai-contact-map-placeholder-{{ ai_gen_id }} {
+      height: {{ block.settings.map_height | times: 0.7 }}px;
+    }
+  }
+{% endstyle %}
+
+<contact-section-{{ ai_gen_id }}
+  class="ai-contact-section-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-contact-container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <h2 class="ai-contact-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="ai-contact-cards-{{ ai_gen_id }}">
+      {% if block.settings.show_email %}
+        <div class="ai-contact-card-{{ ai_gen_id }}">
+          <div class="ai-contact-icon-wrapper-{{ ai_gen_id }}">
+            <svg
+              class="ai-contact-icon-{{ ai_gen_id }}"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m2 7 8.97 5.7a1.94 1.94 0 0 0 2.06 0L22 7"></path>
+            </svg>
+          </div>
+          <h3 class="ai-contact-card-title-{{ ai_gen_id }}">{{ block.settings.email_title }}</h3>
+          <p class="ai-contact-card-text-{{ ai_gen_id }}">
+            {% if block.settings.email != blank %}
+              <a
+                href="mailto:{{ block.settings.email }}"
+                class="ai-contact-card-link-{{ ai_gen_id }}"
+              >
+                {{ block.settings.email }}
+              </a>
+            {% else %}
+              your@email.com
+            {% endif %}
+          </p>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_phone %}
+        <div class="ai-contact-card-{{ ai_gen_id }}">
+          <div class="ai-contact-icon-wrapper-{{ ai_gen_id }}">
+            <svg
+              class="ai-contact-icon-{{ ai_gen_id }}"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+          <h3 class="ai-contact-card-title-{{ ai_gen_id }}">{{ block.settings.phone_title }}</h3>
+          <p class="ai-contact-card-text-{{ ai_gen_id }}">
+            {% if block.settings.phone != blank %}
+              <a
+                href="tel:{{ block.settings.phone | replace: ' ', '' | replace: '(', '' | replace: ')', '' | replace: '-', '' }}"
+                class="ai-contact-card-link-{{ ai_gen_id }}"
+              >
+                {{ block.settings.phone }}
+              </a>
+            {% else %}
+              +1 (123) 456-7890
+            {% endif %}
+          </p>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_address %}
+        <div class="ai-contact-card-{{ ai_gen_id }}">
+          <div class="ai-contact-icon-wrapper-{{ ai_gen_id }}">
+            <svg
+              class="ai-contact-icon-{{ ai_gen_id }}"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          <h3 class="ai-contact-card-title-{{ ai_gen_id }}">{{ block.settings.address_title }}</h3>
+          <p class="ai-contact-card-text-{{ ai_gen_id }}">
+            {% if block.settings.address != blank %}
+              {{ block.settings.address }}
+            {% else %}
+              456 Business Ave, New York
+            {% endif %}
+          </p>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_hours %}
+        <div class="ai-contact-card-{{ ai_gen_id }}">
+          <div class="ai-contact-icon-wrapper-{{ ai_gen_id }}">
+            <svg
+              class="ai-contact-icon-{{ ai_gen_id }}"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <h3 class="ai-contact-card-title-{{ ai_gen_id }}">{{ block.settings.hours_title }}</h3>
+          <p class="ai-contact-card-text-{{ ai_gen_id }}">
+            {% if block.settings.hours != blank %}
+              {{ block.settings.hours }}
+            {% else %}
+              Mon-Fri: 9am-5pm
+            {% endif %}
+          </p>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if block.settings.show_map %}
+      <div class="ai-contact-map-{{ ai_gen_id }}">
+        {% if block.settings.map_embed_code != blank %}
+          <div class="ai-contact-map-embed-{{ ai_gen_id }}">
+            {{ block.settings.map_embed_code }}
+          </div>
+        {% else %}
+          <div class="ai-contact-map-placeholder-{{ ai_gen_id }}">
+            Paste your Google Maps embed code in the block settings
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</contact-section-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ContactSection{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+      }
+    }
+
+    customElements.define('contact-section-{{ ai_gen_id }}', ContactSection{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Contact us",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Get in touch, let us know how we can help"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Email card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_email",
+      "label": "Show email card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "email_title",
+      "label": "Title",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email address",
+      "default": "Consulting@gmail.com"
+    },
+    {
+      "type": "header",
+      "content": "Phone card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone",
+      "label": "Show phone card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "phone_title",
+      "label": "Title",
+      "default": "Phone"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone number",
+      "default": "+1 (123) 456-7890"
+    },
+    {
+      "type": "header",
+      "content": "Address card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_address",
+      "label": "Show address card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "address_title",
+      "label": "Title",
+      "default": "Address"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address",
+      "default": "456 Business Ave, New York"
+    },
+    {
+      "type": "header",
+      "content": "Hours card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hours",
+      "label": "Show hours card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "hours_title",
+      "label": "Title",
+      "default": "Hours"
+    },
+    {
+      "type": "textarea",
+      "id": "hours",
+      "label": "Business hours",
+      "default": "Mon-Fri: 9am-5pm"
+    },
+    {
+      "type": "header",
+      "content": "Map"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_map",
+      "label": "Show map",
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "map_embed_code",
+      "label": "Google Maps embed code"
+    },
+    {
+      "type": "range",
+      "id": "map_height",
+      "label": "Map height",
+      "min": 200,
+      "max": 600,
+      "step": 50,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#171717"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon background",
+      "default": "#a70a10"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact us"
+    }
+  ]
+}
+{% endschema %}

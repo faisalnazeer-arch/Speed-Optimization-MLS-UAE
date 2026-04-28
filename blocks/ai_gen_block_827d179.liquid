@@ -1,0 +1,676 @@
+{% doc %}
+  @prompt
+    A magazine-style editorial layout
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-editorial-layout-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: {{ block.settings.section_padding }}px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-editorial-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+    align-items: start;
+  }
+
+  .ai-editorial-hero-{{ ai_gen_id }} {
+    grid-column: span 8;
+    position: relative;
+  }
+
+  .ai-editorial-hero-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.hero_height }}px;
+    object-fit: cover;
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-editorial-hero-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.hero_height }}px;
+    background-color: #f4f4f4;
+    border-radius: {{ block.settings.border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-editorial-hero-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+  .ai-editorial-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .ai-editorial-hero-content-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    color: white;
+    padding: 40px 30px 30px;
+    border-radius: 0 0 {{ block.settings.border_radius }}px {{ block.settings.border_radius }}px;
+  }
+
+  .ai-editorial-hero-category-{{ ai_gen_id }} {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: {{ block.settings.accent_color }};
+    font-weight: 600;
+  }
+
+  .ai-editorial-hero-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.hero_title_size }}px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 12px;
+  }
+
+  .ai-editorial-hero-excerpt-{{ ai_gen_id }} {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .ai-editorial-sidebar-{{ ai_gen_id }} {
+    grid-column: span 4;
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.sidebar_gap }}px;
+  }
+
+  .ai-editorial-card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ai-editorial-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-editorial-card-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .ai-editorial-card-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 180px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-editorial-card-placeholder-{{ ai_gen_id }} svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .ai-editorial-card-content-{{ ai_gen_id }} {
+    padding: 20px;
+  }
+
+  .ai-editorial-card-category-{{ ai_gen_id }} {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: {{ block.settings.accent_color }};
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .ai-editorial-card-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_title_size }}px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0 0 8px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-editorial-card-excerpt-{{ ai_gen_id }} {
+    font-size: 14px;
+    line-height: 1.4;
+    color: {{ block.settings.text_color }};
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  .ai-editorial-link-{{ ai_gen_id }} {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .ai-editorial-section-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.section_title_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 {{ block.settings.grid_gap }}px;
+    text-align: {{ block.settings.title_alignment }};
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-editorial-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.mobile_gap }}px;
+    }
+
+    .ai-editorial-hero-{{ ai_gen_id }},
+    .ai-editorial-sidebar-{{ ai_gen_id }} {
+      grid-column: span 1;
+    }
+
+    .ai-editorial-hero-{{ ai_gen_id }} {
+      order: {{ block.settings.mobile_hero_order }};
+    }
+
+    .ai-editorial-sidebar-{{ ai_gen_id }} {
+      order: {{ block.settings.mobile_sidebar_order }};
+    }
+
+    .ai-editorial-hero-content-{{ ai_gen_id }} {
+      padding: 30px 20px 20px;
+    }
+
+    .ai-editorial-hero-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.hero_title_size | times: 0.8 }}px;
+    }
+
+    .ai-editorial-card-content-{{ ai_gen_id }} {
+      padding: 16px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-editorial-layout-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.section_title != blank %}
+    <h2 class="ai-editorial-section-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+  {% endif %}
+
+  <div class="ai-editorial-grid-{{ ai_gen_id }}">
+    <article class="ai-editorial-hero-{{ ai_gen_id }}">
+      {% if block.settings.hero_link != blank %}
+        <a href="{{ block.settings.hero_link }}" class="ai-editorial-link-{{ ai_gen_id }}">
+      {% endif %}
+        {% if block.settings.hero_image %}
+          <img
+            src="{{ block.settings.hero_image | image_url: width: 800 }}"
+            alt="{{ block.settings.hero_image.alt | escape }}"
+            class="ai-editorial-hero-image-{{ ai_gen_id }}"
+            loading="lazy"
+            width="{{ block.settings.hero_image.width }}"
+            height="{{ block.settings.hero_image.height }}"
+          >
+        {% else %}
+          <div class="ai-editorial-hero-placeholder-{{ ai_gen_id }}">
+            {{ 'hero-apparel-1' | placeholder_svg_tag }}<div class="ai-editorial-empty-state-{{ ai_gen_id }}">
+              Add a hero image
+            </div>
+          </div>
+        {% endif %}
+        {% if block.settings.hero_title != blank or block.settings.hero_excerpt != blank or block.settings.hero_category != blank %}
+          <div class="ai-editorial-hero-content-{{ ai_gen_id }}">
+            {% if block.settings.hero_category != blank %}
+              <div class="ai-editorial-hero-category-{{ ai_gen_id }}">{{ block.settings.hero_category }}</div>
+            {% endif %}
+            {% if block.settings.hero_title != blank %}
+              <h3 class="ai-editorial-hero-title-{{ ai_gen_id }}">{{ block.settings.hero_title }}</h3>
+            {% endif %}
+            {% if block.settings.hero_excerpt != blank %}
+              <p class="ai-editorial-hero-excerpt-{{ ai_gen_id }}">{{ block.settings.hero_excerpt }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% if block.settings.hero_link != blank %}
+        </a>
+      {% endif %}
+    </article>
+
+    <aside class="ai-editorial-sidebar-{{ ai_gen_id }}">
+      {% for i in (1..4) %}
+        {% liquid
+          assign card_image_key = 'card_' | append: i | append: '_image'
+          assign card_title_key = 'card_' | append: i | append: '_title'
+          assign card_excerpt_key = 'card_' | append: i | append: '_excerpt'
+          assign card_category_key = 'card_' | append: i | append: '_category'
+          assign card_link_key = 'card_' | append: i | append: '_link'
+
+          assign card_image = block.settings[card_image_key]
+          assign card_title = block.settings[card_title_key]
+          assign card_excerpt = block.settings[card_excerpt_key]
+          assign card_category = block.settings[card_category_key]
+          assign card_link = block.settings[card_link_key]
+        %}
+
+        {% if card_title != blank or card_image %}
+          <article class="ai-editorial-card-{{ ai_gen_id }}">
+            {% if card_link != blank %}
+              <a href="{{ card_link }}" class="ai-editorial-link-{{ ai_gen_id }}">
+            {% endif %}
+              {% if card_image %}
+                <img
+                  src="{{ card_image | image_url: width: 400 }}"
+                  alt="{{ card_image.alt | escape }}"
+                  class="ai-editorial-card-image-{{ ai_gen_id }}"
+                  loading="lazy"
+                  width="{{ card_image.width }}"
+                  height="{{ card_image.height }}"
+                >
+              {% else %}
+                <div class="ai-editorial-card-placeholder-{{ ai_gen_id }}">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+              
+              <div class="ai-editorial-card-content-{{ ai_gen_id }}">
+                {% if card_category != blank %}
+                  <div class="ai-editorial-card-category-{{ ai_gen_id }}">{{ card_category }}</div>
+                {% endif %}
+                {% if card_title != blank %}
+                  <h4 class="ai-editorial-card-title-{{ ai_gen_id }}">{{ card_title }}</h4>
+                {% endif %}
+                {% if card_excerpt != blank %}
+                  <p class="ai-editorial-card-excerpt-{{ ai_gen_id }}">{{ card_excerpt }}</p>
+                {% endif %}
+              </div>
+            {% if card_link != blank %}
+              </a>
+            {% endif %}
+          </article>
+        {% endif %}
+      {% endfor %}
+    </aside>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Magazine editorial layout",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section title"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "section_title_size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Section title size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Hero article"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "hero_category",
+      "label": "Category",
+      "default": "Featured"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Title",
+      "default": "The Future of Sustainable Fashion"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_excerpt",
+      "label": "Excerpt",
+      "default": "Discover how innovative designers are revolutionizing the fashion industry with eco-friendly materials and ethical practices."
+    },
+    {
+      "type": "url",
+      "id": "hero_link",
+      "label": "Link"
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "min": 300,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "label": "Hero height",
+      "default": 480
+    },
+    {
+      "type": "range",
+      "id": "hero_title_size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Hero title size",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Card 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "card_1_category",
+      "label": "Category",
+      "default": "Style"
+    },
+    {
+      "type": "text",
+      "id": "card_1_title",
+      "label": "Title",
+      "default": "Minimalist Wardrobe Essentials"
+    },
+    {
+      "type": "textarea",
+      "id": "card_1_excerpt",
+      "label": "Excerpt",
+      "default": "Build a capsule wardrobe with these timeless pieces."
+    },
+    {
+      "type": "url",
+      "id": "card_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "card_2_category",
+      "label": "Category",
+      "default": "Trends"
+    },
+    {
+      "type": "text",
+      "id": "card_2_title",
+      "label": "Title",
+      "default": "Color Trends for 2024"
+    },
+    {
+      "type": "textarea",
+      "id": "card_2_excerpt",
+      "label": "Excerpt",
+      "default": "Explore the vibrant palette defining this season."
+    },
+    {
+      "type": "url",
+      "id": "card_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "card_3_category",
+      "label": "Category",
+      "default": "Guide"
+    },
+    {
+      "type": "text",
+      "id": "card_3_title",
+      "label": "Title",
+      "default": "Fabric Care Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "card_3_excerpt",
+      "label": "Excerpt",
+      "default": "Keep your clothes looking fresh with proper care."
+    },
+    {
+      "type": "url",
+      "id": "card_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "card_4_category",
+      "label": "Category",
+      "default": "Interview"
+    },
+    {
+      "type": "text",
+      "id": "card_4_title",
+      "label": "Title",
+      "default": "Designer Spotlight"
+    },
+    {
+      "type": "textarea",
+      "id": "card_4_excerpt",
+      "label": "Excerpt",
+      "default": "Meet the creative minds behind emerging brands."
+    },
+    {
+      "type": "url",
+      "id": "card_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Grid gap",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "sidebar_gap",
+      "min": 12,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "label": "Sidebar gap",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "min": 16,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile gap",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "mobile_hero_order",
+      "label": "Mobile hero order",
+      "options": [
+        {
+          "value": "1",
+          "label": "First"
+        },
+        {
+          "value": "2",
+          "label": "Second"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "select",
+      "id": "mobile_sidebar_order",
+      "label": "Mobile sidebar order",
+      "options": [
+        {
+          "value": "1",
+          "label": "First"
+        },
+        {
+          "value": "2",
+          "label": "Second"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card title size",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#e74c3c"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Magazine editorial layout"
+    }
+  ]
+}
+{% endschema %}

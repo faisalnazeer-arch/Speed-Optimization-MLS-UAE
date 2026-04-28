@@ -1,0 +1,831 @@
+{% doc %}
+  @prompt
+    Generate a custom Shopify section using the AI section generator that creates an interactive vertical accordion or tabs component based on the analyzed image. The section should feature three vertically stacked tabs connected by a thin vertical line on the left side, resembling a timeline or step-by-step hierarchy. Each tab has a circular icon on the left (about 40-50px diameter) with a solid fill color specific to the tab, and the tab title in matching color text next to it. The background for all tabs should be white (#FFFFFF) by default, but allow for per-tab background overrides if needed. Tabs are interactive: clicking one expands it to show its full content (subtitle and any bullet points), automatically collapsing the previously open tab (accordion-style behavior). For collapsed tabs, display a small white down arrow inside the colored circle. For expanded tabs, the circle remains solid without an arrow. Bullet points should use checkmark icons in the same color as the tab's theme color.
+    Specific tab details:
+    
+    Tab 1: Name "Economical", theme color blue (#007BFF or similar vibrant blue), circle filled blue. Subtitle: "Everyday Value for curries & rice" in black or dark gray text. Content: A bullet list with blue checkmark icons for the items "Indian Mutton", "Pakistani Beef & Mutton", "Omani Chicken", "Somali Beef & Mutton". This tab starts expanded by default.
+    Tab 2: Name "Classic", theme color red (#DC3545 or similar bright red), circle filled red with down arrow when collapsed. Subtitle: "Entry level and economical grass-fed beef & lamb" in black or dark gray text. No bullet points visible in the image, so keep content empty or optional. Starts collapsed.
+    Tab 3: Name "Signature", theme color dark gray or black (#343A40 or similar), circle filled dark with down arrow when collapsed. Subtitle: "Our most premium quality beef, the MLS Signature" in black or dark gray text. No bullet points visible in the image, so keep content empty or optional., Generate a cus, view all button on all tabs also needed and also this looks good on mobile but on desktop it should be horizontal tabs
+    
+    , all tabs closed on desktop  but on mobile first will be opened
+    
+    and arrow icon is not visible for first tab, not opening on mobile , center align text on desktop on mobile its good to go, no revert back to left aligned points only
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-vertical-accordion-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding: {{ block.settings.section_padding }}px 20px;
+  }
+
+  .ai-vertical-accordion__tabs-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .ai-vertical-accordion__timeline-{{ ai_gen_id }} {
+    position: absolute;
+    left: {{ block.settings.circle_size | divided_by: 2.0 }}px;
+    top: {{ block.settings.circle_size | divided_by: 2.0 }}px;
+    bottom: {{ block.settings.circle_size | divided_by: 2.0 }}px;
+    width: {{ block.settings.timeline_width }}px;
+    background-color: {{ block.settings.timeline_color }};
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+
+  .ai-vertical-accordion__tab-{{ ai_gen_id }} {
+    position: relative;
+    background-color: {{ block.settings.tab_bg_color }};
+    border-radius: {{ block.settings.tab_border_radius }}px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 1;
+  }
+
+  .ai-vertical-accordion__tab-{{ ai_gen_id }}:not(:last-child) {
+    margin-bottom: {{ block.settings.tab_spacing }}px;
+  }
+
+  .ai-vertical-accordion__tab-header-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.header_gap }}px;
+    padding: {{ block.settings.tab_padding }}px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-vertical-accordion__tab-header-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.tab_hover_bg_color }};
+  }
+
+  .ai-vertical-accordion__circle-{{ ai_gen_id }} {
+    width: {{ block.settings.circle_size }}px;
+    height: {{ block.settings.circle_size }}px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .ai-vertical-accordion__circle-icon-{{ ai_gen_id }} {
+    width: 50%;
+    height: 50%;
+    fill: white;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-vertical-accordion__tab-{{ ai_gen_id }}.active .ai-vertical-accordion__circle-icon-{{ ai_gen_id }} {
+    transform: rotate(180deg);
+  }
+
+  .ai-vertical-accordion__tab-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_font_size }}px;
+    font-weight: {{ block.settings.title_font_weight }};
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .ai-vertical-accordion__tab-content-{{ ai_gen_id }} {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    padding: 0 {{ block.settings.tab_padding }}px;
+  }
+
+  .ai-vertical-accordion__tab-{{ ai_gen_id }}.active .ai-vertical-accordion__tab-content-{{ ai_gen_id }} {
+    max-height: 1000px;
+    padding: 0 {{ block.settings.tab_padding }}px {{ block.settings.tab_padding }}px {{ block.settings.tab_padding }}px;
+  }
+
+  .ai-vertical-accordion__subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_font_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0 0 {{ block.settings.content_spacing }}px {{ block.settings.circle_size | plus: block.settings.header_gap }}px;
+  }
+
+  .ai-vertical-accordion__list-{{ ai_gen_id }} {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 {{ block.settings.content_spacing }}px {{ block.settings.circle_size | plus: block.settings.header_gap }}px;
+  }
+
+  .ai-vertical-accordion__list-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: {{ block.settings.list_item_spacing }}px;
+    font-size: {{ block.settings.list_font_size }}px;
+    color: {{ block.settings.list_text_color }};
+  }
+
+  .ai-vertical-accordion__list-item-{{ ai_gen_id }}:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-vertical-accordion__checkmark-{{ ai_gen_id }} {
+    width: {{ block.settings.checkmark_size }}px;
+    height: {{ block.settings.checkmark_size }}px;
+    flex-shrink: 0;
+  }
+
+  .ai-vertical-accordion__button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    background-color: transparent;
+    border: {{ block.settings.button_border_width }}px solid;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: {{ block.settings.button_font_size }}px;
+    font-weight: {{ block.settings.button_font_weight }};
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-left: {{ block.settings.circle_size | plus: block.settings.header_gap }}px;
+  }
+
+  .ai-vertical-accordion__button-{{ ai_gen_id }}:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-vertical-accordion__tabs-{{ ai_gen_id }} {
+      flex-direction: row;
+      gap: {{ block.settings.tab_spacing }}px;
+    }
+
+    .ai-vertical-accordion__timeline-{{ ai_gen_id }} {
+      left: {{ block.settings.circle_size | divided_by: 2.0 }}px;
+      right: {{ block.settings.circle_size | divided_by: 2.0 }}px;
+      top: {{ block.settings.circle_size | divided_by: 2.0 }}px;
+      bottom: auto;
+      width: auto;
+      height: {{ block.settings.timeline_width }}px;
+      transform: translateY(-50%);
+    }
+
+    .ai-vertical-accordion__tab-{{ ai_gen_id }} {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ai-vertical-accordion__tab-{{ ai_gen_id }}:not(:last-child) {
+      margin-bottom: 0;
+    }
+
+    .ai-vertical-accordion__tab-header-{{ ai_gen_id }} {
+      flex-direction: column;
+      text-align: center;
+      gap: {{ block.settings.header_gap | times: 0.75 }}px;
+    }
+
+    .ai-vertical-accordion__tab-title-{{ ai_gen_id }} {
+      text-align: center;
+    }
+
+    .ai-vertical-accordion__tab-content-{{ ai_gen_id }} {
+      padding: 0 {{ block.settings.tab_padding }}px;
+    }
+
+    .ai-vertical-accordion__tab-{{ ai_gen_id }}.active .ai-vertical-accordion__tab-content-{{ ai_gen_id }} {
+      padding: {{ block.settings.tab_padding }}px;
+    }
+
+    .ai-vertical-accordion__subtitle-{{ ai_gen_id }} {
+      margin-left: 0;
+      text-align: center;
+    }
+
+    .ai-vertical-accordion__list-{{ ai_gen_id }} {
+      margin-left: 0;
+    }
+
+    .ai-vertical-accordion__button-{{ ai_gen_id }} {
+      margin-left: 0;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-vertical-accordion-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding | times: 0.7 }}px 16px;
+    }
+
+    .ai-vertical-accordion__tab-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_font_size | times: 0.9 }}px;
+    }
+
+    .ai-vertical-accordion__subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtitle_font_size | times: 0.9 }}px;
+    }
+
+    .ai-vertical-accordion__list-item-{{ ai_gen_id }} {
+      font-size: {{ block.settings.list_font_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<vertical-accordion-{{ ai_gen_id }} class="ai-vertical-accordion-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-vertical-accordion__tabs-{{ ai_gen_id }}">
+    <div class="ai-vertical-accordion__timeline-{{ ai_gen_id }}"></div>
+
+    <div class="ai-vertical-accordion__tab-{{ ai_gen_id }} mobile-first-active" data-tab="1">
+      <div class="ai-vertical-accordion__tab-header-{{ ai_gen_id }}">
+        <div class="ai-vertical-accordion__circle-{{ ai_gen_id }}" style="background-color: {{ block.settings.tab_1_color }};">
+          <svg class="ai-vertical-accordion__circle-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 10l5 5 5-5z"/>
+          </svg>
+        </div>
+        <h3 class="ai-vertical-accordion__tab-title-{{ ai_gen_id }}" style="color: {{ block.settings.tab_1_color }};">
+          {{ block.settings.tab_1_title }}
+        </h3>
+      </div>
+      <div class="ai-vertical-accordion__tab-content-{{ ai_gen_id }}">
+        {% if block.settings.tab_1_subtitle != blank %}
+          <p class="ai-vertical-accordion__subtitle-{{ ai_gen_id }}">{{ block.settings.tab_1_subtitle }}</p>
+        {% endif %}
+        {% if block.settings.tab_1_list != blank %}
+          <ul class="ai-vertical-accordion__list-{{ ai_gen_id }}">
+            {% assign items = block.settings.tab_1_list | split: ',' %}
+            {% for item in items %}
+              <li class="ai-vertical-accordion__list-item-{{ ai_gen_id }}">
+                <svg class="ai-vertical-accordion__checkmark-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" stroke="{{ block.settings.tab_1_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>{{ item | strip }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% if block.settings.tab_1_button_text != blank and block.settings.tab_1_button_link != blank %}
+          <a 
+            href="{{ block.settings.tab_1_button_link }}" 
+            class="ai-vertical-accordion__button-{{ ai_gen_id }}"
+            style="color: {{ block.settings.tab_1_color }}; border-color: {{ block.settings.tab_1_color }};"
+          >
+            {{ block.settings.tab_1_button_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="ai-vertical-accordion__tab-{{ ai_gen_id }}" data-tab="2">
+      <div class="ai-vertical-accordion__tab-header-{{ ai_gen_id }}">
+        <div class="ai-vertical-accordion__circle-{{ ai_gen_id }}" style="background-color: {{ block.settings.tab_2_color }};">
+          <svg class="ai-vertical-accordion__circle-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 10l5 5 5-5z"/>
+          </svg>
+        </div>
+        <h3 class="ai-vertical-accordion__tab-title-{{ ai_gen_id }}" style="color: {{ block.settings.tab_2_color }};">
+          {{ block.settings.tab_2_title }}
+        </h3>
+      </div>
+      <div class="ai-vertical-accordion__tab-content-{{ ai_gen_id }}">
+        {% if block.settings.tab_2_subtitle != blank %}
+          <p class="ai-vertical-accordion__subtitle-{{ ai_gen_id }}">{{ block.settings.tab_2_subtitle }}</p>
+        {% endif %}
+        {% if block.settings.tab_2_list != blank %}
+          <ul class="ai-vertical-accordion__list-{{ ai_gen_id }}">
+            {% assign items = block.settings.tab_2_list | split: ',' %}
+            {% for item in items %}
+              <li class="ai-vertical-accordion__list-item-{{ ai_gen_id }}">
+                <svg class="ai-vertical-accordion__checkmark-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" stroke="{{ block.settings.tab_2_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>{{ item | strip }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% if block.settings.tab_2_button_text != blank and block.settings.tab_2_button_link != blank %}
+          <a 
+            href="{{ block.settings.tab_2_button_link }}" 
+            class="ai-vertical-accordion__button-{{ ai_gen_id }}"
+            style="color: {{ block.settings.tab_2_color }}; border-color: {{ block.settings.tab_2_color }};"
+          >
+            {{ block.settings.tab_2_button_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="ai-vertical-accordion__tab-{{ ai_gen_id }}" data-tab="3">
+      <div class="ai-vertical-accordion__tab-header-{{ ai_gen_id }}">
+        <div class="ai-vertical-accordion__circle-{{ ai_gen_id }}" style="background-color: {{ block.settings.tab_3_color }};">
+          <svg class="ai-vertical-accordion__circle-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 10l5 5 5-5z"/>
+          </svg>
+        </div>
+        <h3 class="ai-vertical-accordion__tab-title-{{ ai_gen_id }}" style="color: {{ block.settings.tab_3_color }};">
+          {{ block.settings.tab_3_title }}
+        </h3>
+      </div>
+      <div class="ai-vertical-accordion__tab-content-{{ ai_gen_id }}">
+        {% if block.settings.tab_3_subtitle != blank %}
+          <p class="ai-vertical-accordion__subtitle-{{ ai_gen_id }}">{{ block.settings.tab_3_subtitle }}</p>
+        {% endif %}
+        {% if block.settings.tab_3_list != blank %}
+          <ul class="ai-vertical-accordion__list-{{ ai_gen_id }}">
+            {% assign items = block.settings.tab_3_list | split: ',' %}
+            {% for item in items %}
+              <li class="ai-vertical-accordion__list-item-{{ ai_gen_id }}">
+                <svg class="ai-vertical-accordion__checkmark-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" stroke="{{ block.settings.tab_3_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>{{ item | strip }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% if block.settings.tab_3_button_text != blank and block.settings.tab_3_button_link != blank %}
+          <a 
+            href="{{ block.settings.tab_3_button_link }}" 
+            class="ai-vertical-accordion__button-{{ ai_gen_id }}"
+            style="color: {{ block.settings.tab_3_color }}; border-color: {{ block.settings.tab_3_color }};"
+          >
+            {{ block.settings.tab_3_button_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</vertical-accordion-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class VerticalAccordion{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.tabs = this.querySelectorAll('.ai-vertical-accordion__tab-{{ ai_gen_id }}');
+        this.initializeMobileFirst();
+        this.setupEventListeners();
+        this.handleResize();
+      }
+
+      initializeMobileFirst() {
+        if (window.innerWidth < 750) {
+          const firstTab = this.querySelector('.mobile-first-active');
+          if (firstTab) {
+            firstTab.classList.add('active');
+          }
+        }
+      }
+
+      setupEventListeners() {
+        this.tabs.forEach((tab) => {
+          const header = tab.querySelector('.ai-vertical-accordion__tab-header-{{ ai_gen_id }}');
+          
+          header.addEventListener('click', () => {
+            const isActive = tab.classList.contains('active');
+            
+            this.tabs.forEach((t) => {
+              t.classList.remove('active');
+            });
+            
+            if (!isActive) {
+              tab.classList.add('active');
+            }
+          });
+        });
+      }
+
+      handleResize() {
+        let previousWidth = window.innerWidth;
+        
+        window.addEventListener('resize', () => {
+          const currentWidth = window.innerWidth;
+          const wasMobile = previousWidth < 750;
+          const isMobile = currentWidth < 750;
+          
+          if (wasMobile !== isMobile) {
+            this.tabs.forEach((tab) => {
+              tab.classList.remove('active');
+            });
+            
+            if (isMobile) {
+              const firstTab = this.querySelector('.mobile-first-active');
+              if (firstTab) {
+                firstTab.classList.add('active');
+              }
+            }
+          }
+          
+          previousWidth = currentWidth;
+        });
+      }
+    }
+
+    customElements.define('vertical-accordion-{{ ai_gen_id }}', VerticalAccordion{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Vertical accordion tabs",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 400,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "tab_spacing",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Tab spacing",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "tab_padding",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Tab padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tab_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Tab border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Timeline"
+    },
+    {
+      "type": "range",
+      "id": "timeline_width",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "label": "Timeline width",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "timeline_color",
+      "label": "Timeline color",
+      "default": "#E0E0E0"
+    },
+    {
+      "type": "header",
+      "content": "Circle icons"
+    },
+    {
+      "type": "range",
+      "id": "circle_size",
+      "min": 30,
+      "max": 70,
+      "step": 5,
+      "unit": "px",
+      "label": "Circle size",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "header_gap",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between circle and title",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Tab style"
+    },
+    {
+      "type": "color",
+      "id": "tab_bg_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "tab_hover_bg_color",
+      "label": "Hover background",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Title font size",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "title_font_weight",
+      "label": "Title font weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle font size",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "list_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "List font size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "list_text_color",
+      "label": "List text color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "checkmark_size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Checkmark size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "content_spacing",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Content spacing",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "list_item_spacing",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "List item spacing",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "button_font_weight",
+      "label": "Font weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "header",
+      "content": "Tab 1 - Economical"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_title",
+      "label": "Title",
+      "default": "Economical"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_color",
+      "label": "Theme color",
+      "default": "#007BFF"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtitle",
+      "label": "Subtitle",
+      "default": "Everyday Value for curries & rice"
+    },
+    {
+      "type": "textarea",
+      "id": "tab_1_list",
+      "label": "List items",
+      "info": "Separate items with commas",
+      "default": "Indian Mutton, Pakistani Beef & Mutton, Omani Chicken, Somali Beef & Mutton"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_button_text",
+      "label": "Button text",
+      "default": "View All"
+    },
+    {
+      "type": "url",
+      "id": "tab_1_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Tab 2 - Classic"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_title",
+      "label": "Title",
+      "default": "Classic"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_color",
+      "label": "Theme color",
+      "default": "#DC3545"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtitle",
+      "label": "Subtitle",
+      "default": "Entry level and economical grass-fed beef & lamb"
+    },
+    {
+      "type": "textarea",
+      "id": "tab_2_list",
+      "label": "List items",
+      "info": "Separate items with commas"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_button_text",
+      "label": "Button text",
+      "default": "View All"
+    },
+    {
+      "type": "url",
+      "id": "tab_2_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Tab 3 - Signature"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_title",
+      "label": "Title",
+      "default": "Signature"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_color",
+      "label": "Theme color",
+      "default": "#343A40"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtitle",
+      "label": "Subtitle",
+      "default": "Our most premium quality beef, the MLS Signature"
+    },
+    {
+      "type": "textarea",
+      "id": "tab_3_list",
+      "label": "List items",
+      "info": "Separate items with commas"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_button_text",
+      "label": "Button text",
+      "default": "View All"
+    },
+    {
+      "type": "url",
+      "id": "tab_3_button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vertical accordion tabs"
+    }
+  ]
+}
+{% endschema %}

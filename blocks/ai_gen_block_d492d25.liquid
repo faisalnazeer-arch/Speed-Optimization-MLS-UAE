@@ -1,0 +1,843 @@
+{% doc %}
+  @prompt
+    Create a Shopify section for a product range display. The section should include a title 'Economic | Mid-Range | Signature' with a purple background and white text, and provide a color picker option to customize the background and text colors. Below the title, add a subtitle 'Everyday Value for curries & rice' in smaller text. Include a row of three circular flag upload options where store owners can upload custom flag images (USA, India, Pakistan as examples) with a light green background, and each flag should have a link input field to associate a URL, along with a color picker option to customize the background color for each flag. Add a bullet point list with the following items: '100% Halal', '100% Fresh', 'No hormones', 'Bespoke cutting', using purple bullets, and include a color picker option to customize the bullet color. Include a red 'Explore Range' button at the bottom with a color picker option to customize its background color. Ensure the design is clean and responsive, with a focus on the provided color scheme and layout., main titles supposed to be tab and features should be grid 2 above 2 down, all tabs should have different colors, all tabs should have their on eplore range features and flags they should be changed when we change tabs, it should be same in mobile as in desktop now 
+    
+    all tabs ina row all flags in a row 
+    features  2 above 2 down, just one last change add background color to flag section only, not full width background color should be till subtitle and border radius 6, no flags background should not be full width and border radius to 10, section should not be full width, flag background not be full width features center and button explore will be center, Create a Shopify section for a product range display. The section should include a title 'Economic | Mid-Range | Signature' with a purple background and white text, and provide a color picker option to customize the background and text colors. Below the title, add a subtitle 'Everyday Value for curries & rice' in smaller text. Include a row of three circular flag upload options where store owners can upload custom flag images (USA, India, Pakistan as examples) with a light green background, and each flag should have a link input field to associate a URL, along with a color picker option to customize the background color for each flag. Add a bullet point list with the following items: '100% Halal', '100% Fresh', 'No hormones', 'Bespoke cutting', using purple bullets, and inclu
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-range-{{ ai_gen_id }} {
+    max-width: {{ block.settings.section_max_width }}px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .ai-product-range-header-{{ ai_gen_id }} {
+    background-color: {{ block.settings.header_bg_color }};
+    padding: 30px 20px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+
+  .ai-product-range-tabs-{{ ai_gen_id }} {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: {{ block.settings.section_max_width }}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ai-product-range-tab-{{ ai_gen_id }} {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: white;
+  }
+
+  .ai-product-range-tab-{{ ai_gen_id }}:first-child {
+    background-color: {{ block.settings.tab_1_color }};
+  }
+
+  .ai-product-range-tab-{{ ai_gen_id }}:nth-child(2) {
+    background-color: {{ block.settings.tab_2_color }};
+  }
+
+  .ai-product-range-tab-{{ ai_gen_id }}:last-child {
+    background-color: {{ block.settings.tab_3_color }};
+  }
+
+  .ai-product-range-tab-{{ ai_gen_id }}.active {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+
+  .ai-product-range-tab-{{ ai_gen_id }}:not(.active) {
+    opacity: 0.7;
+  }
+
+  .ai-product-range-subtitle-{{ ai_gen_id }} {
+    color: {{ block.settings.header_text_color }};
+    font-size: 18px;
+    margin: 15px 0 0;
+    opacity: 0.9;
+    max-width: {{ block.settings.section_max_width }}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ai-product-range-content-{{ ai_gen_id }} {
+    display: none;
+    text-align: center;
+  }
+
+  .ai-product-range-content-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-product-range-flags-section-{{ ai_gen_id }} {
+    background-color: {{ block.settings.flags_section_bg_color }};
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px auto;
+    max-width: {{ block.settings.flags_section_width }}px;
+    width: fit-content;
+  }
+
+  .ai-product-range-flags-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .ai-product-range-flag-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .ai-product-range-flag-circle-{{ ai_gen_id }} {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-product-range-flag-circle-{{ ai_gen_id }}:hover {
+    transform: scale(1.05);
+  }
+
+  .ai-product-range-flag-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-product-range-flag-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-product-range-flag-placeholder-{{ ai_gen_id }} svg {
+    width: 40px;
+    height: 40px;
+    opacity: 0.5;
+  }
+
+  .ai-product-range-features-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 0 auto 30px;
+    max-width: 500px;
+    text-align: left;
+  }
+
+  .ai-product-range-feature-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+  }
+
+  .ai-product-range-bullet-{{ ai_gen_id }} {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .ai-product-range-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+  }
+
+  .ai-product-range-button-{{ ai_gen_id }}:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-product-range-{{ ai_gen_id }} {
+      padding: 15px;
+    }
+
+    .ai-product-range-header-{{ ai_gen_id }} {
+      padding: 25px 15px 15px;
+    }
+
+    .ai-product-range-tabs-{{ ai_gen_id }} {
+      flex-direction: row;
+      gap: 2px;
+      margin: 0 15px 20px;
+    }
+
+    .ai-product-range-tab-{{ ai_gen_id }} {
+      padding: 12px 10px;
+      font-size: 12px;
+    }
+
+    .ai-product-range-flags-section-{{ ai_gen_id }} {
+      max-width: none;
+      width: auto;
+      padding: 20px 15px;
+      margin: 20px 15px;
+    }
+
+    .ai-product-range-flags-{{ ai_gen_id }} {
+      gap: 20px;
+    }
+
+    .ai-product-range-flag-circle-{{ ai_gen_id }} {
+      width: 60px;
+      height: 60px;
+    }
+
+    .ai-product-range-features-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      max-width: none;
+    }
+
+    .ai-product-range-feature-{{ ai_gen_id }} {
+      font-size: 14px;
+    }
+
+    .ai-product-range-subtitle-{{ ai_gen_id }} {
+      margin: 15px 15px 0;
+    }
+  }
+{% endstyle %}
+
+<product-range-{{ ai_gen_id }} class="ai-product-range-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-product-range-header-{{ ai_gen_id }}">
+    <div class="ai-product-range-tabs-{{ ai_gen_id }}">
+      <button class="ai-product-range-tab-{{ ai_gen_id }} active" data-tab="1">
+        {{ block.settings.tab_1_title }}
+      </button>
+      <button class="ai-product-range-tab-{{ ai_gen_id }}" data-tab="2">
+        {{ block.settings.tab_2_title }}
+      </button>
+      <button class="ai-product-range-tab-{{ ai_gen_id }}" data-tab="3">
+        {{ block.settings.tab_3_title }}
+      </button>
+    </div>
+    <div class="ai-product-range-subtitle-{{ ai_gen_id }}" id="subtitle-{{ ai_gen_id }}">
+      {{ block.settings.tab_1_subtitle }}
+    </div>
+  </div>
+
+  <div class="ai-product-range-content-{{ ai_gen_id }} active" data-content="1">
+    <div class="ai-product-range-flags-section-{{ ai_gen_id }}">
+      <div class="ai-product-range-flags-{{ ai_gen_id }}">
+        {% for i in (1..3) %}
+          {% assign flag_key = 'tab_1_flag_' | append: i %}
+          {% assign flag_link_key = 'tab_1_flag_' | append: i | append: '_link' %}
+          {% assign flag_bg_key = 'tab_1_flag_' | append: i | append: '_bg_color' %}
+          <a href="{{ block.settings[flag_link_key] }}" class="ai-product-range-flag-{{ ai_gen_id }}">
+            <div class="ai-product-range-flag-circle-{{ ai_gen_id }}" style="background-color: {{ block.settings[flag_bg_key] }};">
+              {% if block.settings[flag_key] %}
+                <img src="{{ block.settings[flag_key] | image_url: width: 160}}" alt="Flag {{ i }}" class="ai-product-range-flag-image-{{ ai_gen_id }}" loading="lazy">
+              {% else %}
+                <div class="ai-product-range-flag-placeholder-{{ ai_gen_id }}">
+                  {{'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="ai-product-range-features-{{ ai_gen_id }}">
+      {% for i in (1..4) %}
+        {% assign feature_key = 'tab_1_feature_' | append: i %}
+        {% if block.settings[feature_key] != blank %}
+          <div class="ai-product-range-feature-{{ ai_gen_id }}">
+            <span class="ai-product-range-bullet-{{ ai_gen_id }}" style="background-color: {{ block.settings.tab_1_bullet_color }};"></span>
+            <span>{{ block.settings[feature_key] }}</span>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <a href="{{ block.settings.tab_1_button_link }}" class="ai-product-range-button-{{ ai_gen_id }}" style="background-color: {{ block.settings.tab_1_button_color }};">
+      {{ block.settings.tab_1_button_text }}
+    </a>
+  </div>
+
+  <div class="ai-product-range-content-{{ ai_gen_id }}" data-content="2">
+    <div class="ai-product-range-flags-section-{{ ai_gen_id }}">
+      <div class="ai-product-range-flags-{{ ai_gen_id }}">
+        {% for i in (1..3) %}
+          {% assign flag_key = 'tab_2_flag_' | append: i %}
+          {% assign flag_link_key = 'tab_2_flag_' | append: i | append: '_link' %}
+          {% assign flag_bg_key = 'tab_2_flag_' | append: i | append: '_bg_color' %}
+          
+          <a href="{{ block.settings[flag_link_key] }}" class="ai-product-range-flag-{{ ai_gen_id }}">
+            <div class="ai-product-range-flag-circle-{{ ai_gen_id }}" style="background-color: {{ block.settings[flag_bg_key] }};">
+              {% if block.settings[flag_key] %}
+                <img src="{{ block.settings[flag_key] | image_url: width: 160 }}" alt="Flag {{ i }}" class="ai-product-range-flag-image-{{ ai_gen_id }}" loading="lazy">
+              {% else %}
+                <div class="ai-product-range-flag-placeholder-{{ ai_gen_id }}">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="ai-product-range-features-{{ ai_gen_id }}">
+      {% for i in (1..4) %}
+        {% assign feature_key = 'tab_2_feature_' | append: i %}
+        {% if block.settings[feature_key] != blank %}
+          <div class="ai-product-range-feature-{{ ai_gen_id }}">
+            <span class="ai-product-range-bullet-{{ ai_gen_id }}" style="background-color: {{ block.settings.tab_2_bullet_color }};"></span>
+            <span>{{ block.settings[feature_key] }}</span>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <a href="{{ block.settings.tab_2_button_link }}" class="ai-product-range-button-{{ ai_gen_id }}" style="background-color: {{ block.settings.tab_2_button_color }};">
+      {{ block.settings.tab_2_button_text }}
+    </a>
+  </div>
+
+  <div class="ai-product-range-content-{{ ai_gen_id }}" data-content="3">
+    <div class="ai-product-range-flags-section-{{ ai_gen_id }}">
+      <div class="ai-product-range-flags-{{ ai_gen_id }}">
+        {% for i in (1..3) %}
+          {% assign flag_key = 'tab_3_flag_' | append: i %}
+          {% assign flag_link_key = 'tab_3_flag_' | append: i | append: '_link' %}
+          {% assign flag_bg_key = 'tab_3_flag_' | append: i | append: '_bg_color' %}
+          
+          <a href="{{ block.settings[flag_link_key] }}" class="ai-product-range-flag-{{ ai_gen_id }}">
+            <div class="ai-product-range-flag-circle-{{ ai_gen_id }}" style="background-color: {{ block.settings[flag_bg_key] }};">
+              {% if block.settings[flag_key] %}
+                <img src="{{ block.settings[flag_key] | image_url: width: 160 }}" alt="Flag {{ i }}" class="ai-product-range-flag-image-{{ ai_gen_id }}" loading="lazy">
+              {% else %}
+                <div class="ai-product-range-flag-placeholder-{{ ai_gen_id }}">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="ai-product-range-features-{{ ai_gen_id }}">
+      {% for i in (1..4) %}
+        {% assign feature_key = 'tab_3_feature_' | append: i %}
+        {% if block.settings[feature_key] != blank %}
+          <div class="ai-product-range-feature-{{ ai_gen_id }}">
+            <span class="ai-product-range-bullet-{{ ai_gen_id }}" style="background-color: {{ block.settings.tab_3_bullet_color }};"></span>
+            <span>{{ block.settings[feature_key] }}</span>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <a href="{{ block.settings.tab_3_button_link }}" class="ai-product-range-button-{{ ai_gen_id }}" style="background-color: {{ block.settings.tab_3_button_color }};">
+      {{ block.settings.tab_3_button_text }}
+    </a>
+  </div>
+</product-range-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ProductRange{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.tabs = this.querySelectorAll('.ai-product-range-tab-{{ ai_gen_id }}');
+        this.contents = this.querySelectorAll('.ai-product-range-content-{{ ai_gen_id }}');
+        this.subtitle = this.querySelector('#subtitle-{{ ai_gen_id }}');
+        this.subtitles = {
+          '1': '{{ block.settings.tab_1_subtitle }}',
+          '2': '{{ block.settings.tab_2_subtitle }}',
+          '3': '{{ block.settings.tab_3_subtitle }}'
+        };
+
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.tabs.forEach((tab) => {
+          tab.addEventListener('click', (e) => {
+            const tabNumber = e.target.getAttribute('data-tab');
+            this.switchTab(tabNumber);
+          });
+        });
+      }
+
+      switchTab(tabNumber) {
+        this.tabs.forEach((tab) => {
+          tab.classList.remove('active');
+        });
+
+        this.contents.forEach((content) => {
+          content.classList.remove('active');
+        });
+
+        const activeTab = this.querySelector(`[data-tab="${tabNumber}"]`);
+        const activeContent = this.querySelector(`[data-content="${tabNumber}"]`);
+
+        if (activeTab && activeContent) {
+          activeTab.classList.add('active');
+          activeContent.classList.add('active');
+          this.subtitle.textContent = this.subtitles[tabNumber];
+        }
+      }
+    }
+
+    customElements.define('product-range-{{ ai_gen_id }}', ProductRange{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product range display",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout settings"
+    },
+    {
+      "type": "range",
+      "id": "section_max_width",
+      "min": 800,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Section maximum width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "flags_section_width",
+      "min": 300,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "Flags section width",
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Header styling"
+    },
+    {
+      "type": "color",
+      "id": "header_bg_color",
+      "label": "Header background color",
+      "default": "#6B46C1"
+    },
+    {
+      "type": "color",
+      "id": "header_text_color",
+      "label": "Header text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "flags_section_bg_color",
+      "label": "Flags section background color",
+      "default": "#F0FDF4"
+    },
+    {
+      "type": "header",
+      "content": "Tab 1 - Economic"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_title",
+      "label": "Tab title",
+      "default": "Economic"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_color",
+      "label": "Tab color",
+      "default": "#10B981"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtitle",
+      "label": "Subtitle",
+      "default": "Everyday Value for curries & rice"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_1_flag_1",
+      "label": "Flag 1 image"
+    },
+    {
+      "type": "url",
+      "id": "tab_1_flag_1_link",
+      "label": "Flag 1 link"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_flag_1_bg_color",
+      "label": "Flag 1 background color",
+      "default": "#DCFCE7"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_1_flag_2",
+      "label": "Flag 2 image"
+    },
+    {
+      "type": "url",
+      "id": "tab_1_flag_2_link",
+      "label": "Flag 2 link"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_flag_2_bg_color",
+      "label": "Flag 2 background color",
+      "default": "#DCFCE7"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_1_flag_3",
+      "label": "Flag 3 image"
+    },
+    {
+      "type": "url",
+      "id": "tab_1_flag_3_link",
+      "label": "Flag 3 link"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_flag_3_bg_color",
+      "label": "Flag 3 background color",
+      "default": "#DCFCE7"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_feature_1",
+      "label": "Feature 1",
+      "default": "100% Halal"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_feature_2",
+      "label": "Feature 2",
+      "default": "100% Fresh"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_feature_3",
+      "label": "Feature 3",
+      "default": "No hormones"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_feature_4",
+      "label": "Feature 4",
+      "default": "Bespoke cutting"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_bullet_color",
+      "label": "Bullet color",
+      "default": "#6B46C1"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_button_text",
+      "label": "Button text",
+      "default": "Explore Range"
+    },
+    {
+      "type": "url",
+      "id": "tab_1_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_button_color",
+      "label": "Button color",
+      "default": "#DC2626"
+    },
+    {
+      "type": "header",
+      "content": "Tab 2 - Mid-Range"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_title",
+      "label": "Tab title",
+      "default": "Mid-Range"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_color",
+      "label": "Tab color",
+      "default": "#F59E0B"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtitle",
+      "label": "Subtitle",
+      "default": "Premium Quality for special occasions"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_2_flag_1",
+      "label": "Flag 1 image"
+    },
+    {
+      "type": "url",
+      "id": "tab_2_flag_1_link",
+      "label": "Flag 1 link"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_flag_1_bg_color",
+      "label": "Flag 1 background color",
+      "default": "#FEF3C7"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_2_flag_2",
+      "label": "Flag 2 image"
+    },
+    {
+      "type": "url",
+      "id": "tab_2_flag_2_link",
+      "label": "Flag 2 link"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_flag_2_bg_color",
+      "label": "Flag 2 background color",
+      "default": "#FEF3C7"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_2_flag_3",
+      "label": "Flag 3 image"
+    },
+    {
+      "type": "url",
+      "id": "tab_2_flag_3_link",
+      "label": "Flag 3 link"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_flag_3_bg_color",
+      "label": "Flag 3 background color",
+      "default": "#FEF3C7"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_feature_1",
+      "label": "Feature 1",
+      "default": "Premium Grade"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_feature_2",
+      "label": "Feature 2",
+      "default": "Aged to perfection"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_feature_3",
+      "label": "Feature 3",
+      "default": "Expert preparation"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_feature_4",
+      "label": "Feature 4",
+      "default": "Quality assured"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_bullet_color",
+      "label": "Bullet color",
+      "default": "#F59E0B"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_button_text",
+      "label": "Button text",
+      "default": "Explore Range"
+    },
+    {
+      "type": "url",
+      "id": "tab_2_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_button_color",
+      "label": "Button color",
+      "default": "#DC2626"
+    },
+    {
+      "type": "header",
+      "content": "Tab 3 - Signature"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_title",
+      "label": "Tab title",
+      "default": "Signature"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_color",
+      "label": "Tab color",
+      "default": "#8B5CF6"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtitle",
+      "label": "Subtitle",
+      "default": "Luxury Experience for connoisseurs"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_3_flag_1",
+      "label": "Flag 1 image"
+    },
+    {
+      "type": "url",
+      "id": "tab_3_flag_1_link",
+      "label": "Flag 1 link"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_flag_1_bg_color",
+      "label": "Flag 1 background color",
+      "default": "#EDE9FE"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_3_flag_2",
+      "label": "Flag 2 image"
+    },
+    {
+      "type": "url",
+      "id": "tab_3_flag_2_link",
+      "label": "Flag 2 link"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_flag_2_bg_color",
+      "label": "Flag 2 background color",
+      "default": "#EDE9FE"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_3_flag_3",
+      "label": "Flag 3 image"
+    },
+    {
+      "type": "url",
+      "id": "tab_3_flag_3_link",
+      "label": "Flag 3 link"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_flag_3_bg_color",
+      "label": "Flag 3 background color",
+      "default": "#EDE9FE"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_feature_1",
+      "label": "Feature 1",
+      "default": "Signature cuts"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_feature_2",
+      "label": "Feature 2",
+      "default": "Artisan crafted"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_feature_3",
+      "label": "Feature 3",
+      "default": "Limited edition"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_feature_4",
+      "label": "Feature 4",
+      "default": "Exclusive sourcing"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_bullet_color",
+      "label": "Bullet color",
+      "default": "#8B5CF6"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_button_text",
+      "label": "Button text",
+      "default": "Explore Range"
+    },
+    {
+      "type": "url",
+      "id": "tab_3_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_button_color",
+      "label": "Button color",
+      "default": "#DC2626"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product range display"
+    }
+  ]
+}
+{% endschema %}

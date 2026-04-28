@@ -1,0 +1,1587 @@
+{% doc %}
+  @prompt
+    need tab collections carousels and grid both options those tabs further divide into sub tabs in which i can connect collections and 3 in a row tabs 
+    
+    each tab should have 4 features above collection carousels  2 x2 2 below 2 above, features should be in bullet points and i can change their colors i also can change tabs colours and center tabs, grid and carousel option just for me not to show 
+    
+    remove border of features and these should be center 
+    
+    for carousels use theme style same as theme style product card same as theme style, feature collection still need imporvement there is no add to cart need add to cart same as theme options 
+    
+    image ratio should also be there
+    
+    option for gap between features
+    
+    add to cart height and width option needed, 3 tabs in a row on mobile 
+    
+    2 in a row on mobile for features
+    
+    add to cart should b aligned
+    
+    product cards width needed
+    
+    features gap right and left needed, tabs width 
+    
+    sub tabs width options needed
+    
+    need one banner image  for each collection 
+    
+    Quick Shop needed same as theme has
+    
+    Remove gaps between features now too much gaps moderate gaps plz, sub tabs acta s collections each sub tabs should have there own collection
+    
+    Features still has much gap between them remove all gap left and right
+    
+    Remove quick shop
+    
+    add add to cart instead of choose options, add to cart same as theme add to cart same size and align them with all carts
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-tab-collections-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .ai-tab-nav-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+    border-bottom: 2px solid {{ block.settings.tab_border_color }};
+    padding-bottom: 16px;{% if block.settings.center_tabs %}
+      justify-content: center;
+    {% endif %}
+  }
+
+  .ai-tab-button-{{ ai_gen_id }} {
+    padding: 12px 24px;
+    background: {{ block.settings.tab_bg_color }};
+    border: 2px solid {{ block.settings.tab_border_color }};
+    border-radius: {{ block.settings.tab_border_radius }}px;
+    color: {{ block.settings.tab_text_color }};
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    min-width: 0;
+    {% case block.settings.tab_width %}
+      {% when 'auto' %}
+        flex: 0 0 auto;
+      {% when 'equal' %}
+        flex: 1;
+      {% when 'full' %}
+        flex: 1 1 100%;
+    {% endcase %}
+  }
+
+  .ai-tab-button-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.tab_active_bg }};
+    color: {{ block.settings.tab_active_text }};
+    border-color: {{ block.settings.tab_active_bg }};
+  }
+
+  .ai-tab-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.tab_hover_bg }};
+    color: {{ block.settings.tab_hover_text }};
+  }
+
+  .ai-tab-content-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-tab-content-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-subtab-nav-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 24px;
+    justify-content: center;
+  }
+
+  .ai-subtab-button-{{ ai_gen_id }} {
+    padding: 8px 16px;
+    background: {{ block.settings.subtab_bg }};
+    border: 1px solid {{ block.settings.subtab_border_color }};
+    border-radius: {{ block.settings.subtab_border_radius }}px;
+    color: {{ block.settings.subtab_text_color }};
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    text-align: center;
+    min-width: 0;
+    {% case block.settings.subtab_width %}
+      {% when 'auto' %}
+        flex: 0 0 auto;
+      {% when 'equal' %}
+        flex: 1;
+      {% when 'full' %}
+        flex: 1 1 100%;
+    {% endcase %}
+  }
+
+  .ai-subtab-button-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.subtab_active_bg }};
+    color: {{ block.settings.subtab_active_text }};
+    border-color: {{ block.settings.subtab_active_bg }};
+  }
+
+  .ai-subtab-content-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-subtab-content-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-banner-image-{{ ai_gen_id }} {
+    width: 100%;
+    margin-bottom: 24px;
+    border-radius: {{ block.settings.banner_border_radius }}px;
+    overflow: hidden;
+  }
+
+  .ai-banner-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: {{ block.settings.banner_height }}px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .ai-banner-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.banner_height }}px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: {{ block.settings.banner_border_radius }}px;
+  }
+
+  .ai-banner-placeholder-{{ ai_gen_id }} svg {
+    width: 80px;
+    height: 80px;
+    color: #ccc;
+  }
+
+  .ai-features-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 24px;
+    justify-items: center;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ai-feature-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: {{ block.settings.feature_bg_color }};
+    border-radius: {{ block.settings.feature_border_radius }}px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .ai-feature-bullet-{{ ai_gen_id }} {
+    width: 6px;
+    height: 6px;
+    background-color: {{ block.settings.feature_bullet_color }};
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .ai-feature-text-{{ ai_gen_id }} {
+    color: {{ block.settings.feature_text_color }};
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .ai-collections-container-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-carousel-track-{{ ai_gen_id }} {
+    display: flex;
+    gap: 24px;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-collection-card-{{ ai_gen_id }} {
+    flex: 0 0 {{ block.settings.card_width }}px;
+    background: {{ settings.card_bg_color }};
+    border-radius: {{ settings.input_button_border_radius }}px;
+    overflow: hidden;
+    border: {{ settings.input_button_border_width }}px solid {{ settings.card_border_color }};
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    {% if settings.card_contain %}
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    {% endif %}
+  }
+
+  .ai-collection-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-collection-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.card_image_height }}px;
+    position: relative;
+    overflow: hidden;
+    background-color: {{ settings.blend_bg_color }};
+    {% if settings.card_contain_image_inset %}
+      margin: 8px;
+      border-radius: {{ settings.input_button_border_radius }}px;
+      width: calc(100% - 16px);
+      height: calc({{ block.settings.card_image_height }}px - 16px);
+    {% endif %}
+    {% case block.settings.image_ratio %}
+      {% when '0.75' %}
+        aspect-ratio: 3/4;
+        height: auto;
+      {% when '1' %}
+        aspect-ratio: 1/1;
+        height: auto;
+      {% when '1.33' %}
+        aspect-ratio: 4/3;
+        height: auto;
+      {% when '1.77' %}
+        aspect-ratio: 16/9;
+        height: auto;
+    {% endcase %}
+  }
+
+  .ai-collection-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: {{ settings.prod_card_image_fit }};
+    object-position: {{ settings.prod_card_image_align | default: 'center' }};
+  }
+
+  .ai-collection-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: {{ settings.blend_bg_color }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-collection-placeholder-{{ ai_gen_id }} svg {
+    width: 60px;
+    height: 60px;
+    color: #ccc;
+  }
+
+  .ai-collection-info-{{ ai_gen_id }} {
+    padding: 16px;
+    text-align: {{ settings.prod_card_text_align }};
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+    {% if settings.card_price_bottom %}
+      justify-content: space-between;
+    {% endif %}
+  }
+
+  .ai-collection-title-{{ ai_gen_id }} {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    color: {{ settings.card_text_color }};
+    font-family: {{ settings.heading_font.family }}, {{ settings.heading_font.fallback_families }};
+    line-height: 1.3;
+    {% if settings.heading_uppercase %}text-transform: uppercase;{% endif %}
+  }
+
+  .ai-collection-vendor-{{ ai_gen_id }} {
+    font-size: 12px;
+    color: {{ settings.text_color }};
+    opacity: 0.8;
+    margin: 0;
+    font-family: {{ settings.body_font.family }}, {{ settings.body_font.fallback_families }};
+  }
+
+  .ai-price-{{ ai_gen_id }} {
+    font-weight: 600;
+    color: {{ settings.text_color }};
+    font-family: {{ settings.body_font.family }}, {{ settings.body_font.fallback_families }};
+    font-size: 14px;
+    margin: 0;
+    {% if settings.card_price_bottom %}
+      margin-top: auto;
+    {% endif %}
+  }
+
+  .ai-price-{{ ai_gen_id }} .price-item--sale {
+    color: {{ settings.sale_price_color }};
+  }
+
+  .ai-price-compare-{{ ai_gen_id }} {
+    text-decoration: line-through;
+    opacity: 0.7;
+    margin-left: 8px;
+  }
+
+  .ai-collection-actions-{{ ai_gen_id }} {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    padding: 0 16px 16px;
+  }
+
+  .ai-add-to-cart-{{ ai_gen_id }} {
+    width: 100%;
+    min-height: 48px;
+    background-color: {{ settings.button_bg_color }};
+    color: {{ settings.button_text_color }};
+    border: {{ settings.input_button_border_width }}px solid {{ settings.button_bg_color }};
+    border-radius: {{ settings.input_button_border_radius }}px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: {{ settings.body_font_size }}px;
+    font-weight: 500;
+    font-family: {{ settings.body_font.family }}, {{ settings.body_font.fallback_families }};
+    {% if settings.button_text_uppercase %}text-transform: uppercase;{% endif %}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 12px 16px;
+    line-height: 1.2;
+  }
+
+  .ai-add-to-cart-{{ ai_gen_id }}:hover {
+    background-color: {{ settings.button_alt_bg_color }};
+    color: {{ settings.button_alt_text_color }};
+    border-color: {{ settings.button_alt_text_color }};
+  }
+
+  .ai-add-to-cart-{{ ai_gen_id }}:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: {{ settings.text_color }};
+    border-color: {{ settings.text_color }};
+    color: {{ settings.bg_color }};
+  }
+
+  .ai-view-product-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: transparent;
+    color: {{ settings.text_color }};
+    text-decoration: underline;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: {{ settings.body_font.family }}, {{ settings.body_font.fallback_families }};
+    text-align: center;
+    width: 100%;
+  }
+
+  .ai-view-product-{{ ai_gen_id }}:hover {
+    color: {{ settings.link_color }};
+  }
+
+  .ai-carousel-nav-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .ai-carousel-arrow-{{ ai_gen_id }} {
+    width: 40px;
+    height: 40px;
+    background: {{ settings.button_alt_bg_color }};
+    border: {{ settings.input_button_border_width }}px solid {{ settings.button_alt_text_color }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: {{ settings.button_alt_text_color }};
+    transition: all 0.3s ease;
+  }
+
+  .ai-carousel-arrow-{{ ai_gen_id }}:hover {
+    background: {{ settings.button_bg_color }};
+    color: {{ settings.button_text_color }};
+    border-color: {{ settings.button_bg_color }};
+  }
+
+  .ai-carousel-arrow-{{ ai_gen_id }}:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .ai-product-labels-{{ ai_gen_id }} {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 2;
+  }
+
+  .ai-product-label-{{ ai_gen_id }} {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-label-sale-{{ ai_gen_id }} {
+    background-color: {{ settings.sale_label_bg_color }};
+    color: {{ settings.sale_label_text_color }};
+  }
+
+  .ai-label-sold-out-{{ ai_gen_id }} {
+    background-color: {{ settings.sold_out_label_bg_color }};
+    color: {{ settings.sold_out_label_text_color }};
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-tab-nav-{{ ai_gen_id }} {
+      gap: 4px;
+    }
+
+    .ai-tab-button-{{ ai_gen_id }} {
+      padding: 10px 12px;
+      font-size: 14px;
+      {% if block.settings.tab_width == 'equal' %}
+        flex: 1;
+        min-width: calc(33.333% - 4px);
+      {% endif %}
+    }
+
+    .ai-subtab-button-{{ ai_gen_id }} {
+      padding: 6px 12px;
+      font-size: 12px;
+      {% if block.settings.subtab_width == 'equal' %}
+        flex: 1;
+        min-width: calc(33.333% - 4px);
+      {% endif %}
+    }
+
+    .ai-features-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    .ai-feature-item-{{ ai_gen_id }} {
+      padding: 6px 8px;
+    }
+
+    .ai-feature-text-{{ ai_gen_id }} {
+      font-size: 12px;
+    }
+
+    .ai-collection-card-{{ ai_gen_id }} {
+      flex: 0 0 {{ block.settings.card_width | times: 0.8 }}px;
+    }
+
+    .ai-add-to-cart-{{ ai_gen_id }} {
+      min-height: 44px;
+      font-size: {{ settings.body_font_size | times: 0.9 }}px;
+      padding: 10px 14px;
+    }
+
+    .ai-collection-info-{{ ai_gen_id }} {
+      padding: 12px;
+    }
+
+    .ai-collection-actions-{{ ai_gen_id }} {
+      padding: 0 12px 12px;
+    }
+
+    .ai-collection-title-{{ ai_gen_id }} {
+      font-size: 14px;
+    }
+
+    .ai-banner-image-{{ ai_gen_id }} img,
+    .ai-banner-placeholder-{{ ai_gen_id }} {
+      height: {{ block.settings.banner_height | times: 0.7 }}px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .ai-tab-button-{{ ai_gen_id }} {
+      padding: 8px 8px;
+      font-size: 12px;
+    }
+
+    .ai-subtab-button-{{ ai_gen_id }} {
+      padding: 6px 8px;
+      font-size: 11px;
+    }
+
+    .ai-collection-card-{{ ai_gen_id }} {
+      flex: 0 0 {{ block.settings.card_width | times: 0.7 }}px;
+    }
+
+    .ai-add-to-cart-{{ ai_gen_id }} {
+      min-height: 40px;
+      font-size: {{ settings.body_font_size | times: 0.8 }}px;
+      padding: 8px 12px;
+    }
+  }
+{% endstyle %}
+
+<tab-collections-{{ ai_gen_id }} class="ai-tab-collections-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-tab-nav-{{ ai_gen_id }}">
+    {% for i in (1..3) %}
+      {% assign tab_title_key = 'tab_' | append: i | append: '_title' %}
+      {% assign tab_title = block.settings[tab_title_key] %}
+      {% if tab_title != blank %}
+        <button 
+          class="ai-tab-button-{{ ai_gen_id }}{% if forloop.first %} active{% endif %}" 
+          data-tab="{{ i }}"
+        >
+          {{ tab_title }}
+        </button>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  {% for i in (1..3) %}
+    {% assign tab_title_key = 'tab_' | append: i | append: '_title' %}
+    {% assign tab_title = block.settings[tab_title_key] %}
+    {% if tab_title != blank %}
+      <div class="ai-tab-content-{{ ai_gen_id }}{% if forloop.first %} active{% endif %}" data-tab-content="{{ i }}">
+        
+        <div class="ai-subtab-nav-{{ ai_gen_id }}">
+          {% for j in (1..3) %}
+            {% assign subtab_title_key = 'tab_' | append: i | append: '_subtab_' | append: j | append: '_title' %}
+            {% assign subtab_title = block.settings[subtab_title_key] %}
+            {% if subtab_title != blank %}
+              <button 
+                class="ai-subtab-button-{{ ai_gen_id }}{% if forloop.first %} active{% endif %}" 
+                data-subtab="{{ i }}-{{ j }}"
+              >
+                {{ subtab_title }}
+              </button>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        {% for j in (1..3) %}
+          {% assign subtab_title_key = 'tab_' | append: i | append: '_subtab_' | append: j | append: '_title' %}
+          {% assign subtab_title = block.settings[subtab_title_key] %}
+          {% if subtab_title != blank %}
+            <div class="ai-subtab-content-{{ ai_gen_id }}{% if forloop.first %} active{% endif %}" data-subtab-content="{{ i }}-{{ j }}">
+              
+              {% assign banner_image_key = 'tab_' | append: i | append: '_subtab_' | append: j | append: '_banner' %}
+              {% assign banner_image = block.settings[banner_image_key] %}
+              <div class="ai-banner-image-{{ ai_gen_id }}">
+                {% if banner_image %}
+                  <img 
+                    src="{{ banner_image | image_url: width: 1200 }}" 
+                    alt="{{ banner_image.alt | escape }}"
+                    loading="lazy"
+                    width="1200"
+                    height="{{ block.settings.banner_height }}"
+                  >
+                {% else %}
+                  <div class="ai-banner-placeholder-{{ ai_gen_id }}">
+                    {{ 'hero-apparel-1' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="ai-features-grid-{{ ai_gen_id }}">
+                {% for k in (1..4) %}
+                  {% assign feature_text_key = 'tab_' | append: i | append: '_subtab_' | append: j | append: '_feature_' | append: k %}
+                  {% assign feature_text = block.settings[feature_text_key] %}
+                  {% if feature_text != blank %}
+                    <div class="ai-feature-item-{{ ai_gen_id }}">
+                      <div class="ai-feature-bullet-{{ ai_gen_id }}"></div>
+                      <div class="ai-feature-text-{{ ai_gen_id }}">{{ feature_text }}</div>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+
+              {% assign collection_key = 'tab_' | append: i | append: '_subtab_' | append: j | append: '_collection' %}
+              {% assign collection = block.settings[collection_key] %}
+              
+              <div class="ai-collections-container-{{ ai_gen_id }}">
+                {% if collection != blank and collection.products.size > 0 %}
+                  <div class="ai-carousel-track-{{ ai_gen_id }}" data-carousel-track>
+                    {% for product in collection.products limit: 12 %}
+                      <div class="ai-collection-card-{{ ai_gen_id }}">
+                        <div class="ai-collection-image-{{ ai_gen_id }}">
+                          {% if settings.show_sale_label and product.compare_at_price > product.price %}
+                            <div class="ai-product-labels-{{ ai_gen_id }}">
+                              <span class="ai-product-label-{{ ai_gen_id }} ai-label-sale-{{ ai_gen_id }}">
+                                {% if settings.sale_label_type == 'percent' %}
+                                  {% assign discount = product.compare_at_price | minus: product.price %}
+                                  {% assign discount_percent = discount | times: 100 | divided_by: product.compare_at_price %}
+                                  {{ discount_percent }}% off
+                                {% elsif settings.sale_label_type == 'money' %}
+                                  {% assign discount = product.compare_at_price | minus: product.price %}
+                                  Save {{ discount | money }}
+                                {% else %}
+                                  Sale
+                                {% endif %}
+                              </span>
+                            </div>
+                          {% endif %}
+                          {% unless product.available %}
+                            {% if settings.show_sold_out_label %}
+                              <div class="ai-product-labels-{{ ai_gen_id }}">
+                                <span class="ai-product-label-{{ ai_gen_id }} ai-label-sold-out-{{ ai_gen_id }}">
+                                  Sold out
+                                </span>
+                              </div>
+                            {% endif %}
+                          {% endunless %}
+
+                          {% if product.featured_image %}
+                            <img 
+                              src="{{ product.featured_image | image_url: width: 400 }}" 
+                              alt="{{ product.featured_image.alt | escape }}"
+                              loading="lazy"
+                              width="400"
+                              height="400"
+                            >
+                          {% else %}
+                            <div class="ai-collection-placeholder-{{ ai_gen_id }}">
+                              {{ 'product-1' | placeholder_svg_tag }}
+                            </div>
+                          {% endif %}
+                        </div>
+                        <div class="ai-collection-info-{{ ai_gen_id }}">
+                          {% if settings.card_show_vendor and product.vendor != blank %}
+                            <p class="ai-collection-vendor-{{ ai_gen_id }}">{{ product.vendor }}</p>
+                          {% endif %}
+                          
+                          <h3 class="ai-collection-title-{{ ai_gen_id }}">{{ product.title }}</h3><div class="ai-price-{{ ai_gen_id }}">
+                            {% if product.compare_at_price > product.price %}
+                              <span class="price-item--sale">{{ product.price | money }}</span>
+                              <span class="ai-price-compare-{{ ai_gen_id }}">{{ product.compare_at_price | money }}</span>
+                            {% else %}
+                              {{ product.price | money }}
+                            {% endif %}
+                          </div>
+                        </div>
+
+                        <div class="ai-collection-actions-{{ ai_gen_id }}">
+                          {% if product.available %}
+                            <form action="/cart/add" method="post" enctype="multipart/form-data" class="ai-product-form-{{ ai_gen_id }}">
+                              <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+                              <button type="submit" class="ai-add-to-cart-{{ ai_gen_id }}">
+                                Add to cart
+                              </button>
+                            </form>
+                          {% else %}
+                            <button class="ai-add-to-cart-{{ ai_gen_id }}" disabled>
+                              Sold out
+                            </button>
+                          {% endif %}
+                <a href="{{ product.url }}" class="ai-view-product-{{ ai_gen_id }}">View details</a>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                  <div class="ai-carousel-nav-{{ ai_gen_id }}">
+                    <button class="ai-carousel-arrow-{{ ai_gen_id }}" data-carousel-prev>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15,18 9,12 15,6"></polyline>
+                      </svg>
+                    </button>
+                    <button class="ai-carousel-arrow-{{ ai_gen_id }}" data-carousel-next>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9,18 15,12 9,6"></polyline>
+                      </svg>
+                    </button>
+                  </div>
+                {% else %}
+                  <div class="ai-collection-placeholder-{{ ai_gen_id }}" style="height: 200px; text-align: center; padding: 60px 20px;">
+                    <p style="color: #666; font-style: italic;">Select a collection to display products</p>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</tab-collections-{{ ai_gen_id }}>
+
+<script>
+(function() {
+  class TabCollections{{ ai_gen_id }} extends HTMLElement {
+    constructor() {
+      super();
+      this.currentSlide = {};
+    }
+
+    connectedCallback() {
+      this.setupTabs();
+      this.setupSubtabs();
+      this.setupCarousels();
+      this.setupAddToCart();
+    }
+
+    setupTabs() {
+      const tabButtons = this.querySelectorAll('.ai-tab-button-{{ ai_gen_id }}');
+      const tabContents = this.querySelectorAll('.ai-tab-content-{{ ai_gen_id }}');
+
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const tabId = button.dataset.tab;
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+          
+          button.classList.add('active');
+          const targetContent = this.querySelector(`[data-tab-content="${tabId}"]`);
+          if (targetContent) {
+            targetContent.classList.add('active');
+          }
+        });
+      });
+    }
+
+    setupSubtabs() {
+      const subtabButtons = this.querySelectorAll('.ai-subtab-button-{{ ai_gen_id }}');
+      const subtabContents = this.querySelectorAll('.ai-subtab-content-{{ ai_gen_id }}');
+
+      subtabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const subtabId = button.dataset.subtab;
+          const parentTab = subtabId.split('-')[0];
+          
+          const parentTabContent = this.querySelector(`[data-tab-content="${parentTab}"]`);
+          if (parentTabContent) {
+            const siblingButtons = parentTabContent.querySelectorAll('.ai-subtab-button-{{ ai_gen_id }}');
+            const siblingContents = parentTabContent.querySelectorAll('.ai-subtab-content-{{ ai_gen_id }}');
+            
+            siblingButtons.forEach(btn => btn.classList.remove('active'));
+            siblingContents.forEach(content => content.classList.remove('active'));
+          }
+          
+          button.classList.add('active');
+          const targetContent = this.querySelector(`[data-subtab-content="${subtabId}"]`);
+          if (targetContent) {
+            targetContent.classList.add('active');
+          }
+        });
+      });
+    }
+
+    setupCarousels() {
+      const carousels = this.querySelectorAll('.ai-collections-container-{{ ai_gen_id }}');
+      
+      carousels.forEach((carousel, index) => {
+        const track = carousel.querySelector('[data-carousel-track]');
+        const prevButton = carousel.querySelector('[data-carousel-prev]');
+        const nextButton = carousel.querySelector('[data-carousel-next]');
+        
+        if (!track) return;
+        
+        this.currentSlide[index] = 0;
+        const cards = track.querySelectorAll('.ai-collection-card-{{ ai_gen_id }}');
+        const cardWidth = parseInt('{{ block.settings.card_width }}') + 24;
+        const visibleCards = Math.floor(carousel.offsetWidth / cardWidth) || 1;
+        const maxSlide = Math.max(0, cards.length - visibleCards);
+        
+        const updateCarousel = () => {
+          const translateX = -this.currentSlide[index] * cardWidth;
+          track.style.transform = `translateX(${translateX}px)`;
+          
+          prevButton.disabled = this.currentSlide[index] === 0;
+          nextButton.disabled = this.currentSlide[index] >= maxSlide;
+        };
+        
+        prevButton.addEventListener('click', () => {
+          if (this.currentSlide[index] > 0) {
+            this.currentSlide[index]--;
+            updateCarousel();
+          }
+        });
+        
+        nextButton.addEventListener('click', () => {
+          if (this.currentSlide[index] < maxSlide) {
+            this.currentSlide[index]++;
+            updateCarousel();
+          }
+        });
+        
+        updateCarousel();
+      });
+    }
+
+    setupAddToCart() {
+      const forms = this.querySelectorAll('.ai-product-form-{{ ai_gen_id }}');
+      
+      forms.forEach(form => {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          
+          const formData = new FormData(form);
+          const button = form.querySelector('.ai-add-to-cart-{{ ai_gen_id }}');
+          const originalText = button.textContent;
+          
+          button.textContent = 'Adding...';
+          button.disabled = true;
+          
+          fetch('/cart/add.js', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            button.textContent = 'Added!';
+            setTimeout(() => {
+              button.textContent = originalText;
+              button.disabled = false;
+            }, 2000);
+            document.dispatchEvent(new CustomEvent('cart:updated'));
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            button.textContent = 'Error';
+            setTimeout(() => {
+              button.textContent = originalText;
+              button.disabled = false;
+            }, 2000);
+          });
+        });
+      });
+    }
+  }
+
+  customElements.define('tab-collections-{{ ai_gen_id }}', TabCollections{{ ai_gen_id }});
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Tab collections carousel",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Tab layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "center_tabs",
+      "label": "Center align tabs",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "tab_width",
+      "label": "Tab width",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto width"
+        },
+        {
+          "value": "equal",
+          "label": "Equal width"
+        },
+        {
+          "value": "full",
+          "label": "Full width"
+        }
+      ],
+      "default": "equal"
+    },
+    {
+      "type": "select",
+      "id": "subtab_width",
+      "label": "Subtab width",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto width"
+        },
+        {
+          "value": "equal",
+          "label": "Equal width"
+        },
+        {
+          "value": "full",
+          "label": "Full width"
+        }
+      ],
+      "default": "equal"
+    },
+    {
+      "type": "header",
+      "content": "Banner image"
+    },
+    {
+      "type": "range",
+      "id": "banner_height",
+      "min": 100,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Banner height",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "banner_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Banner border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Product card style"
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "min": 200,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Card width",
+      "default": 300
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        {
+          "value": "custom",
+          "label": "Custom height"
+        },
+        {
+          "value": "0.75",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "1.33",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "1.77",
+          "label": "Wide (16:9)"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "card_image_height",
+      "min": 150,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Custom image height",
+      "default": 200,
+      "info": "Only applies when 'Custom height' is selected"
+    },
+    {
+      "type": "header",
+      "content": "Main tabs"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_title",
+      "label": "Tab 1 title",
+      "default": "Featured"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_title",
+      "label": "Tab 2 title",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_title",
+      "label": "Tab 3 title",
+      "default": "Best Sellers"
+    },
+    {
+      "type": "header",
+      "content": "Tab 1 subtabs"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtab_1_title",
+      "label": "Subtab 1 title",
+      "default": "Men"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtab_2_title",
+      "label": "Subtab 2 title",
+      "default": "Women"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtab_3_title",
+      "label": "Subtab 3 title",
+      "default": "Kids"
+    },
+    {
+      "type": "header",
+      "content": "Tab 1 subtab 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_1_subtab_1_banner",
+      "label": "Banner image"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtab_1_feature_1",
+      "label": "Feature 1",
+      "default": "Free shipping on all orders"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtab_1_feature_2",
+      "label": "Feature 2",
+      "default": "30-day money back guarantee"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtab_1_feature_3",
+      "label": "Feature 3",
+      "default": "Premium quality materials"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtab_1_feature_4",
+      "label": "Feature 4",
+      "default": "24/7 customer support"
+    },
+    {
+      "type": "collection",
+      "id": "tab_1_subtab_1_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Tab 1 subtab 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_1_subtab_2_banner",
+      "label": "Banner image"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtab_2_feature_1",
+      "label": "Feature 1",
+      "default": "Free shipping on all orders"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtab_2_feature_2",
+      "label": "Feature 2",
+      "default": "30-day money back guarantee"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtab_2_feature_3",
+      "label": "Feature 3",
+      "default": "Premium quality materials"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtab_2_feature_4",
+      "label": "Feature 4",
+      "default": "24/7 customer support"
+    },
+    {
+      "type": "collection",
+      "id": "tab_1_subtab_2_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Tab 1 subtab 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_1_subtab_3_banner",
+      "label": "Banner image"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtab_3_feature_1",
+      "label": "Feature 1",
+      "default": "Free shipping on all orders"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtab_3_feature_2",
+      "label": "Feature 2",
+      "default": "30-day money back guarantee"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtab_3_feature_3",
+      "label": "Feature 3",
+      "default": "Premium quality materials"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_subtab_3_feature_4",
+      "label": "Feature 4",
+      "default": "24/7 customer support"
+    },
+    {
+      "type": "collection",
+      "id": "tab_1_subtab_3_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Tab 2 subtabs"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtab_1_title",
+      "label": "Subtab 1 title",
+      "default": "Electronics"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtab_2_title",
+      "label": "Subtab 2 title",
+      "default": "Accessories"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtab_3_title",
+      "label": "Subtab 3 title",
+      "default": "Home"
+    },
+    {
+      "type": "header",
+      "content": "Tab 2 subtab 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_2_subtab_1_banner",
+      "label": "Banner image"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtab_1_feature_1",
+      "label": "Feature 1",
+      "default": "Latest technology innovations"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtab_1_feature_2",
+      "label": "Feature 2",
+      "default": "Full warranty included"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtab_1_feature_3",
+      "label": "Feature 3",
+      "default": "Fast and secure delivery"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtab_1_feature_4",
+      "label": "Feature 4",
+      "default": "Expert technical support"
+    },
+    {
+      "type": "collection",
+      "id": "tab_2_subtab_1_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Tab 2 subtab 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_2_subtab_2_banner",
+      "label": "Banner image"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtab_2_feature_1",
+      "label": "Feature 1",
+      "default": "Latest technology innovations"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtab_2_feature_2",
+      "label": "Feature 2",
+      "default": "Full warranty included"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtab_2_feature_3",
+      "label": "Feature 3",
+      "default": "Fast and secure delivery"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtab_2_feature_4",
+      "label": "Feature 4",
+      "default": "Expert technical support"
+    },
+    {
+      "type": "collection",
+      "id": "tab_2_subtab_2_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Tab 2 subtab 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_2_subtab_3_banner",
+      "label": "Banner image"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtab_3_feature_1",
+      "label": "Feature 1",
+      "default": "Latest technology innovations"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtab_3_feature_2",
+      "label": "Feature 2",
+      "default": "Full warranty included"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtab_3_feature_3",
+      "label": "Feature 3",
+      "default": "Fast and secure delivery"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_subtab_3_feature_4",
+      "label": "Feature 4",
+      "default": "Expert technical support"
+    },
+    {
+      "type": "collection",
+      "id": "tab_2_subtab_3_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Tab 3 subtabs"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtab_1_title",
+      "label": "Subtab 1 title",
+      "default": "Sports"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtab_2_title",
+      "label": "Subtab 2 title",
+      "default": "Outdoor"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtab_3_title",
+      "label": "Subtab 3 title",
+      "default": "Fitness"
+    },
+    {
+      "type": "header",
+      "content": "Tab 3 subtab 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_3_subtab_1_banner",
+      "label": "Banner image"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtab_1_feature_1",
+      "label": "Feature 1",
+      "default": "Top performance gear"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtab_1_feature_2",
+      "label": "Feature 2",
+      "default": "Durable and long-lasting"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtab_1_feature_3",
+      "label": "Feature 3",
+      "default": "Professional grade quality"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtab_1_feature_4",
+      "label": "Feature 4",
+      "default": "Athlete tested and approved"
+    },
+    {
+      "type": "collection",
+      "id": "tab_3_subtab_1_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Tab 3 subtab 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_3_subtab_2_banner",
+      "label": "Banner image"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtab_2_feature_1",
+      "label": "Feature 1",
+      "default": "Top performance gear"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtab_2_feature_2",
+      "label": "Feature 2",
+      "default": "Durable and long-lasting"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtab_2_feature_3",
+      "label": "Feature 3",
+      "default": "Professional grade quality"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtab_2_feature_4",
+      "label": "Feature 4",
+      "default": "Athlete tested and approved"
+    },
+    {
+      "type": "collection",
+      "id": "tab_3_subtab_2_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Tab 3 subtab 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_3_subtab_3_banner",
+      "label": "Banner image"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtab_3_feature_1",
+      "label": "Feature 1",
+      "default": "Top performance gear"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtab_3_feature_2",
+      "label": "Feature 2",
+      "default": "Durable and long-lasting"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtab_3_feature_3",
+      "label": "Feature 3",
+      "default": "Professional grade quality"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_subtab_3_feature_4",
+      "label": "Feature 4",
+      "default": "Athlete tested and approved"
+    },
+    {
+      "type": "collection",
+      "id": "tab_3_subtab_3_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Tab colors"
+    },
+    {
+      "type": "color",
+      "id": "tab_bg_color",
+      "label": "Tab background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_border_color",
+      "label": "Tab border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "tab_text_color",
+      "label": "Tab text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_bg",
+      "label": "Active tab background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_text",
+      "label": "Active tab text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_hover_bg",
+      "label": "Tab hover background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "tab_hover_text",
+      "label": "Tab hover text",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Subtab colors"
+    },
+    {
+      "type": "color",
+      "id": "subtab_bg",
+      "label": "Subtab background",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "subtab_border_color",
+      "label": "Subtab border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "subtab_text_color",
+      "label": "Subtab text color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "subtab_active_bg",
+      "label": "Active subtab background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "subtab_active_text",
+      "label": "Active subtab text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Feature colors"
+    },
+    {
+      "type": "color",
+      "id": "feature_bg_color",
+      "label": "Feature background",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "feature_text_color",
+      "label": "Feature text",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "feature_bullet_color",
+      "label": "Feature bullet color",
+      "default": "#007acc"
+    },
+    {
+      "type": "header",
+      "content": "Border radius"
+    },
+    {
+      "type": "range",
+      "id": "tab_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Tab border radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "subtab_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Subtab border radius",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "feature_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Feature border radius",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tab collections carousel"
+    }
+  ]
+}
+{% endschema %}

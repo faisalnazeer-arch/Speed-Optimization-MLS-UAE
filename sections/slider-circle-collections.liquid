@@ -1,0 +1,342 @@
+{% comment %}
+  Circle Image Collection Slider Section for Ella Theme
+  Full-width section with circular images, links, and titles below each image
+  Features smaller image sizes, grid/carousel toggle, mobile 3-items-per-row
+  Removed slider_width for full-width and preserved circular images
+{% endcomment %}
+
+{%- style -%}
+  .circle-collection-slider {
+    padding: 40px 0;
+    background-color: {{ section.settings.bg_color }};
+    width: 100%;
+    max-width: 100%;
+  }
+  .circle-collection-slider__title {
+    text-align: center;
+    font-size: {{ section.settings.title_font_size }}px;
+    color: {{ section.settings.title_color }};
+    margin-bottom: 30px;
+  }
+  .circle-collection-slider__container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+  }
+  .circle-collection-slider__item {
+    width: {{ section.settings.item_width }}px;
+    margin-right: {{ section.settings.item_spacing }}px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .circle-collection-slider__image {
+    width: {{ section.settings.item_width }}px;
+    height: {{ section.settings.item_width }}px;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    display: block;
+    position: relative;
+  }
+  .circle-collection-slider__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .circle-collection-slider__image:hover {
+    transform: scale(1.05);
+  }
+  .circle-collection-slider__title-text {
+    font-size: {{ section.settings.text_font_size }}px;
+    color: {{ section.settings.text_color }};
+    margin-top: 15px;
+    text-decoration: none;
+    display: block;
+    font-weight: 500;
+  }
+  .circle-collection-slider__title-text:hover {
+    color: {{ section.settings.text_hover_color }};
+  }
+  .flickity-prev-next-button {
+    background: {{ section.settings.arrow_bg_color }};
+    color: {{ section.settings.arrow_color }};
+  }
+  .flickity-prev-next-button:hover {
+    background: {{ section.settings.arrow_hover_bg_color }};
+  }
+  /* Mobile styling for 3 items per row */
+  @media (max-width: 767px) {
+    .circle-collection-slider__item {
+      width: calc((100% - 2 * {{ section.settings.item_spacing }}px) / 3);
+      margin-right: {{ section.settings.item_spacing }}px;
+    }
+    .circle-collection-slider__image {
+      width: 100%;
+      height: 0;
+      padding-bottom: 100%;
+    }
+    .circle-collection-slider__image img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  /* Grid layout styling */
+  .circle-collection-slider__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax({{ section.settings.item_width }}px, 1fr));
+    gap: {{ section.settings.item_spacing }}px;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+  }
+  @media (max-width: 767px) {
+    .circle-collection-slider__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: {{ section.settings.item_spacing }}px;
+    }
+    .circle-collection-slider_grid .circle-collection-slider_item {
+      width: 100%;
+      margin-right: 0;
+    }
+  }
+{%- endstyle -%}
+
+{%- if section.settings.show_section -%}
+<div class="circle-collection-slider">
+  {%- if section.settings.section_title != blank -%}
+    <h2 class="circle-collection-slider__title">{{ section.settings.section_title }}</h2>
+  {%- endif -%}
+  {%- if section.settings.layout == 'carousel' -%}
+    <div class="circle-collection-slider_container circle-collection-slider_carousel" data-flickity='{
+      "cellAlign": "{{ section.settings.cell_align }}",
+      "contain": true,
+      "wrapAround": {{ section.settings.wrap_around }},
+      "autoPlay": {{ section.settings.autoplay | times: 1000 }},
+      "prevNextButtons": {{ section.settings.show_arrows }},
+      "pageDots": {{ section.settings.show_dots }}
+    }'>
+      {%- for block in section.blocks -%}
+        {%- assign collection = collections[block.settings.collection] -%}
+        {%- if collection != blank -%}
+          <div class="circle-collection-slider__item">
+            <a href="{{ collection.url }}" class="circle-collection-slider__image">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: section.settings.item_width | image_tag: alt: collection.title }}
+              {%- else -%}
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </a>
+            <a href="{{ collection.url }}" class="circle-collection-slider__title-text">
+              {{ collection.title }}
+            </a>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    <div class="circle-collection-slider_container circle-collection-slider_grid">
+      {%- for block in section.blocks -%}
+        {%- assign collection = collections[block.settings.collection] -%}
+        {%- if collection != blank -%}
+          <div class="circle-collection-slider__item">
+            <a href="{{ collection.url }}" class="circle-collection-slider__image">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: section.settings.item_width | image_tag: alt: collection.title }}
+              {%- else -%}
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </a>
+            <a href="{{ collection.url }}" class="circle-collection-slider__title-text">
+              {{ collection.title }}
+            </a>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Circle Collection Slider",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_section",
+      "label": "Show section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Featured Collections"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Section Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Section Title Font Size",
+      "min": 16,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Collection Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_hover_color",
+      "label": "Collection Title Hover Color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "text_font_size",
+      "label": "Collection Title Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "item_width",
+      "label": "Item Width (Desktop)",
+      "min": 80,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 150
+    },
+    {
+      "type": "range",
+      "id": "item_spacing",
+      "label": "Item Spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "carousel", "label": "Carousel" },
+        { "value": "grid", "label": "Grid" }
+      ],
+      "default": "carousel"
+    },
+    {
+      "type": "select",
+      "id": "cell_align",
+      "label": "Cell Alignment (Carousel)",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "wrap_around",
+      "label": "Wrap Around (Carousel)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay",
+      "label": "Auto-play (Carousel, seconds)",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show Navigation Arrows (Carousel)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show Pagination Dots (Carousel)",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Arrow Color (Carousel)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "arrow_bg_color",
+      "label": "Arrow Background Color (Carousel)",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "arrow_hover_bg_color",
+      "label": "Arrow Hover Background Color (Carousel)",
+      "default": "#333333"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Collection Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Circle Collection Slider",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}
+
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">

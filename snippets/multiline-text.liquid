@@ -1,0 +1,15 @@
+{%- assign split_text = multiline-text | split: '<br>' -%}
+{%- for line in split_text -%}
+  {%- unless forloop.first -%}
+    <br>
+  {%- endunless -%}
+  
+  {%- assign words = line | split: ' ' -%}
+  {%- for word in words -%}
+    {%- if word == 'special' -%}
+      <span style="color: red; font-weight: bold;">{{ word }}</span>
+    {%- else -%}
+      {{ word }}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}

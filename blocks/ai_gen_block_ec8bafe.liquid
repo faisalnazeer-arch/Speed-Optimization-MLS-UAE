@@ -1,0 +1,626 @@
+{% doc %}
+  @prompt
+    {
+      "name": "Product Range Carousel",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section Title",
+          "default": "SHOP BY RANGE"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Section Subtitle",
+          "default": "Explore our Economic, Classic, and Signature ranges under one roof."
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Text Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "subtitle_color",
+          "label": "Subtitle Text Color",
+          "default": "#666666"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Section Background Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "header",
+          "content": "Tabs Settings"
+        },
+        {
+          "type": "text",
+          "id": "tab1_label",
+          "label": "Tab 1 Label",
+          "default": "ECONOMIC"
+        },
+        {
+          "type": "text",
+          "id": "tab2_label",
+          "label": "Tab 2 Label",
+          "default": "SIGNATURE"
+        },
+        {
+          "type": "color",
+          "id": "tab_background_color",
+          "label": "Tab Background Color",
+          "default": "#FF0000"
+        },
+        {
+          "type": "color",
+          "id": "tab_text_color",
+          "label": "Tab Text Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "header",
+          "content": "Carousel Items"
+        },
+        {
+          "type": "collection",
+          "id": "carousel_items",
+          "label": "Carousel Items",
+          "default": [
+            {
+              "image_square": null,
+              "image_circle": null,
+              "label": "Economic Range"
+            },
+            {
+              "image_square": null,
+              "image_circle": null,
+              "label": "Classic Range"
+            },
+            {
+              "image_square": null,
+              "image_circle": null,
+              "label": "Signature Range"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image_square_1",
+          "label": "Economic Square Image"
+        },
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-range-carousel-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: 60px 20px;
+    text-align: center;
+  }
+
+  .ai-product-range-carousel__container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-product-range-carousel__title-{{ ai_gen_id }} {
+    color: {{ block.settings.title_color }};
+    font-size: 36px;
+    font-weight: bold;
+    margin: 0 0 16px;
+    letter-spacing: 2px;
+  }
+
+  .ai-product-range-carousel__subtitle-{{ ai_gen_id }} {
+    color: {{ block.settings.subtitle_color }};
+    font-size: 18px;
+    margin: 0 0 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ai-product-range-carousel__tabs-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+
+  .ai-product-range-carousel__tab-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_background_color }};
+    color: {{ block.settings.tab_text_color }};
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .ai-product-range-carousel__tab-{{ ai_gen_id }}:not(.active) {
+    opacity: 0.6;
+  }
+
+  .ai-product-range-carousel__tab-{{ ai_gen_id }}:hover {
+    opacity: 1;
+  }
+
+  .ai-product-range-carousel__content-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-product-range-carousel__track-{{ ai_gen_id }} {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 20px;
+  }
+
+  .ai-product-range-carousel__slide-{{ ai_gen_id }} {
+    flex: 0 0 auto;
+    width: 200px;
+    text-align: center;
+  }
+
+  .ai-product-range-carousel__image-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-product-range-carousel__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-product-range-carousel__placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+  }
+
+  .ai-product-range-carousel__placeholder-{{ ai_gen_id }} svg {
+    width: 80px;
+    height: 80px;
+    opacity: 0.5;
+  }
+
+  .ai-product-range-carousel__label-{{ ai_gen_id }} {
+    color: {{ block.settings.title_color }};
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .ai-product-range-carousel__navigation-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 30px;
+  }
+
+  .ai-product-range-carousel__nav-button-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_background_color }};
+    color: {{ block.settings.tab_text_color }};
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-product-range-carousel__nav-button-{{ ai_gen_id }}:hover {
+    opacity: 0.8;
+  }
+
+  .ai-product-range-carousel__nav-button-{{ ai_gen_id }}:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .ai-product-range-carousel__empty-state-{{ ai_gen_id }} {
+    color: {{ block.settings.subtitle_color }};
+    font-style: italic;
+    padding: 40px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-product-range-carousel__title-{{ ai_gen_id }} {
+      font-size: 28px;
+    }
+
+    .ai-product-range-carousel__subtitle-{{ ai_gen_id }} {
+      font-size: 16px;
+    }
+
+    .ai-product-range-carousel__tabs-{{ ai_gen_id }} {
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ai-product-range-carousel__slide-{{ ai_gen_id }} {
+      width: 150px;
+    }
+
+    .ai-product-range-carousel__image-container-{{ ai_gen_id }} {
+      width: 150px;
+      height: 150px;
+    }
+  }
+{% endstyle %}
+
+<product-range-carousel-{{ ai_gen_id }}
+  class="ai-product-range-carousel-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-product-range-carousel__container-{{ ai_gen_id }}">
+    {% if block.settings.title != blank %}
+      <h2 class="ai-product-range-carousel__title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+    {% endif %}
+
+    {% if block.settings.subtitle != blank %}
+      <p class="ai-product-range-carousel__subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+    {% endif %}
+
+    <div class="ai-product-range-carousel__tabs-{{ ai_gen_id }}">
+      {% if block.settings.tab1_label != blank %}
+        <button
+          class="ai-product-range-carousel__tab-{{ ai_gen_id }} active"
+          data-tab="economic"
+        >
+          {{ block.settings.tab1_label }}
+        </button>
+      {% endif %}
+      {% if block.settings.tab2_label != blank %}
+        <button
+          class="ai-product-range-carousel__tab-{{ ai_gen_id }}"
+          data-tab="signature"
+        >
+          {{ block.settings.tab2_label }}
+        </button>
+      {% endif %}
+    </div>
+
+    <div class="ai-product-range-carousel__content-{{ ai_gen_id }}">
+      {% if block.settings.economic_collection != blank or block.settings.signature_collection != blank %}
+        <div class="ai-product-range-carousel__track-{{ ai_gen_id }}" data-track><div class="ai-product-range-carousel__tab-content-{{ ai_gen_id }}" data-content="economic">
+            {% if block.settings.economic_collection != blank %}
+              {% for product in block.settings.economic_collection.products limit: 8 %}
+                <div class="ai-product-range-carousel__slide-{{ ai_gen_id }}">
+                  <div class="ai-product-range-carousel__image-container-{{ ai_gen_id }}">
+                    {% if product.featured_image %}
+                      <img
+                        src="{{ product.featured_image | image_url: width: 400 }}"
+                        alt="{{ product.featured_image.alt | escape }}"
+                        class="ai-product-range-carousel__image-{{ ai_gen_id }}"
+                        loading="lazy"
+                        width="400"
+                        height="400"
+                      >
+                    {% else %}
+                      <div class="ai-product-range-carousel__placeholder-{{ ai_gen_id }}">
+                        {{ 'product-apparel-1' | placeholder_svg_tag }}
+                      </div>
+                    {% endif %}
+                  </div>
+                  <h3 class="ai-product-range-carousel__label-{{ ai_gen_id }}">{{ product.title }}</h3>
+                </div>
+              {% endfor %}
+            {% else %}
+              {% for i in (1..6) %}
+                <div class="ai-product-range-carousel__slide-{{ ai_gen_id }}">
+                  <div class="ai-product-range-carousel__image-container-{{ ai_gen_id }}">
+                    <div class="ai-product-range-carousel__placeholder-{{ ai_gen_id }}">
+                      {{ 'product-apparel-1' | placeholder_svg_tag }}
+                    </div>
+                  </div>
+                  <h3 class="ai-product-range-carousel__label-{{ ai_gen_id }}">Economic Product {{ i }}</h3>
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <div class="ai-product-range-carousel__tab-content-{{ ai_gen_id }}" data-content="signature" style="display: none;">
+            {% if block.settings.signature_collection != blank %}
+              {% for product in block.settings.signature_collection.products limit: 8 %}
+                <div class="ai-product-range-carousel__slide-{{ ai_gen_id }}">
+                  <div class="ai-product-range-carousel__image-container-{{ ai_gen_id }}">
+                    {% if product.featured_image %}
+                      <img
+                        src="{{ product.featured_image | image_url: width: 400 }}"
+                        alt="{{ product.featured_image.alt | escape }}"
+                        class="ai-product-range-carousel__image-{{ ai_gen_id }}"
+                        loading="lazy"
+                        width="400"
+                        height="400"
+                      >
+                    {% else %}
+                      <div class="ai-product-range-carousel__placeholder-{{ ai_gen_id }}">
+                        {{ 'product-apparel-1' | placeholder_svg_tag }}
+                      </div>
+                    {% endif %}
+                  </div>
+                  <h3 class="ai-product-range-carousel__label-{{ ai_gen_id }}">{{ product.title }}</h3>
+                </div>
+              {% endfor %}
+            {% else %}
+              {% for i in (1..6) %}
+                <div class="ai-product-range-carousel__slide-{{ ai_gen_id }}">
+                  <div class="ai-product-range-carousel__image-container-{{ ai_gen_id }}">
+                    <div class="ai-product-range-carousel__placeholder-{{ ai_gen_id }}">
+                      {{ 'product-apparel-1' | placeholder_svg_tag }}
+                    </div>
+                  </div>
+                  <h3 class="ai-product-range-carousel__label-{{ ai_gen_id }}">Signature Product {{ i }}</h3>
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="ai-product-range-carousel__navigation-{{ ai_gen_id }}">
+          <button
+            class="ai-product-range-carousel__nav-button-{{ ai_gen_id }}"
+            data-direction="prev"
+            aria-label="Previous products"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"></polyline>
+            </svg>
+          </button>
+          <button
+            class="ai-product-range-carousel__nav-button-{{ ai_gen_id }}"
+            data-direction="next"
+            aria-label="Next products"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,18 15,12 9,6"></polyline>
+            </svg>
+          </button>
+        </div>
+      {% else %}
+        <div class="ai-product-range-carousel__empty-state-{{ ai_gen_id }}">
+          Select collections for Economic and Signature ranges to display products
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</product-range-carousel-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ProductRangeCarousel{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentTab = 'economic';
+        this.currentIndex = 0;
+        this.itemsPerView = 4;
+      }
+
+      connectedCallback() {
+        this.tabs = this.querySelectorAll('.ai-product-range-carousel__tab-{{ ai_gen_id }}');
+        this.tabContents = this.querySelectorAll('.ai-product-range-carousel__tab-content-{{ ai_gen_id }}');
+        this.track = this.querySelector('[data-track]');
+        this.prevButton = this.querySelector('[data-direction="prev"]');
+        this.nextButton = this.querySelector('[data-direction="next"]');
+
+        this.setupEventListeners();
+        this.updateCarousel();
+        this.updateNavigation();
+      }
+
+      setupEventListeners() {
+        this.tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            this.switchTab(tab.dataset.tab);
+          });
+        });
+
+        if (this.prevButton) {
+          this.prevButton.addEventListener('click', () => {
+            this.navigate('prev');
+          });
+        }
+
+        if (this.nextButton) {
+          this.nextButton.addEventListener('click', () => {
+            this.navigate('next');
+          });
+        }
+
+        window.addEventListener('resize', () => {
+          this.updateItemsPerView();
+          this.updateCarousel();
+          this.updateNavigation();
+        });
+
+        this.updateItemsPerView();
+      }
+
+      updateItemsPerView() {
+        if (window.innerWidth <= 768) {
+          this.itemsPerView = 2;
+        } else if (window.innerWidth <= 1024) {
+          this.itemsPerView = 3;
+        } else {
+          this.itemsPerView = 4;
+        }
+      }
+
+      switchTab(tabName) {
+        this.currentTab = tabName;
+        this.currentIndex = 0;
+
+        this.tabs.forEach(tab => {
+          tab.classList.toggle('active', tab.dataset.tab === tabName);
+        });
+
+        this.tabContents.forEach(content => {
+          if (content.dataset.content === tabName) {
+            content.style.display = 'flex';
+          } else {
+            content.style.display = 'none';
+          }
+        });
+
+        this.updateCarousel();
+        this.updateNavigation();
+      }
+
+      navigate(direction) {
+        const activeContent = this.querySelector(`[data-content="${this.currentTab}"]`);
+        const slides = activeContent.querySelectorAll('.ai-product-range-carousel__slide-{{ ai_gen_id }}');
+        const maxIndex = Math.max(0, slides.length - this.itemsPerView);
+
+        if (direction === 'next' && this.currentIndex < maxIndex) {
+          this.currentIndex++;
+        } else if (direction === 'prev' && this.currentIndex > 0) {
+          this.currentIndex--;
+        }
+
+        this.updateCarousel();
+        this.updateNavigation();
+      }
+
+      updateCarousel() {
+        const activeContent = this.querySelector(`[data-content="${this.currentTab}"]`);
+        if (activeContent) {
+          const slideWidth = 220;
+          const translateX = -this.currentIndex * slideWidth;
+          activeContent.style.transform = `translateX(${translateX}px)`;
+        }
+      }
+
+      updateNavigation() {
+        const activeContent = this.querySelector(`[data-content="${this.currentTab}"]`);
+        if (activeContent && this.prevButton && this.nextButton) {
+          const slides = activeContent.querySelectorAll('.ai-product-range-carousel__slide-{{ ai_gen_id }}');
+          const maxIndex = Math.max(0, slides.length - this.itemsPerView);
+
+          this.prevButton.disabled = this.currentIndex === 0;
+          this.nextButton.disabled = this.currentIndex >= maxIndex;
+        }
+      }
+    }
+
+    customElements.define('product-range-carousel-{{ ai_gen_id }}', ProductRangeCarousel{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product range carousel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "SHOP BY RANGE"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section subtitle",
+      "default": "Explore our Economic, Classic, and Signature ranges under one roof."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Tabs"
+    },
+    {
+      "type": "text",
+      "id": "tab1_label",
+      "label": "Tab 1 label",
+      "default": "ECONOMIC"
+    },
+    {
+      "type": "text",
+      "id": "tab2_label",
+      "label": "Tab 2 label",
+      "default": "SIGNATURE"
+    },
+    {
+      "type": "color",
+      "id": "tab_background_color",
+      "label": "Tab background color",
+      "default": "#ff0000"
+    },
+    {
+      "type": "color",
+      "id": "tab_text_color",
+      "label": "Tab text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Collections"
+    },
+    {
+      "type": "collection",
+      "id": "economic_collection",
+      "label": "Economic collection"
+    },
+    {
+      "type": "collection",
+      "id": "signature_collection",
+      "label": "Signature collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product range carousel"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

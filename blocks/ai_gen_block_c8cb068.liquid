@@ -1,0 +1,924 @@
+{% doc %}
+  @prompt
+    Create a full-width section with a background image of raw meat on a cutting board, featuring three evenly spaced columns. Each column should have a distinct colored background: the first column with a dark blue background, the second with a red background, and the third with a dark brown background. Each column should contain a centered title ('Economical' for the first, 'Classic' for the second, 'Signature' for the third) in white text, followed by a red-bordered 'View Collection' button with white text. Ensure the layout is fully responsive, maintaining three columns on both desktop and mobile devices, with no stacking on mobile. Use a modern, clean style with rounded corners on the columns and buttons, and adjust padding and spacing for a balanced look across all screen sizes, need button colors and needs small sizing for title on mobile, buttons are still not responsive button text is voming in 2 lines i want i single line
+    
+    each category has short info or description just after ttitle, add title and short info of section as well, each category button color and button text color should also be there, make it responsive in mobile 3 in a row on mobile as well, add gap option in button and title of category and also card width option and height also
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-meat-categories-section-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    background-image: url('{{ block.settings.background_image | image_url: width: 2000 }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px 40px;
+  }
+
+  .ai-meat-categories-section-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, {{ block.settings.overlay_opacity }});
+    z-index: 1;
+  }
+
+  .ai-meat-categories-placeholder-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    background-color: #8B4513;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .ai-meat-categories-placeholder-{{ ai_gen_id }} svg {
+    width: 200px;
+    height: 150px;
+    opacity: 0.3;
+  }
+
+  .ai-meat-categories-empty-state-{{ ai_gen_id }} {
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+    opacity: 0.8;
+  }
+
+  .ai-meat-categories-header-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-bottom: {{ block.settings.header_bottom_gap }}px;
+    max-width: 800px;
+  }
+
+  .ai-meat-categories-main-title-{{ ai_gen_id }} {
+    color: {{ block.settings.main_title_color }};
+    font-size: {{ block.settings.main_title_size }}px;
+    font-weight: 700;
+    margin: 0 0 {{ block.settings.title_description_gap }}px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .ai-meat-categories-main-description-{{ ai_gen_id }} {
+    color: {{ block.settings.main_description_color }};
+    font-size: {{ block.settings.main_description_size }}px;
+    margin: 0;
+    line-height: 1.5;
+    opacity: 0.9;
+  }
+
+  .ai-meat-categories-container-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: {{ block.settings.cards_gap }}px;
+    width: 100%;
+    max-width: {{ block.settings.container_max_width }}px;
+  }
+
+  .ai-meat-category-column-{{ ai_gen_id }} {
+    background-color: var(--column-bg-color);
+    border-radius: {{ block.settings.column_border_radius }}px;
+    padding: 40px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: {{ block.settings.card_height }}px;
+    width: 100%;
+    max-width: {{ block.settings.card_max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-meat-category-column-{{ ai_gen_id }}--economical {
+    --column-bg-color: {{ block.settings.economical_bg_color }};
+  }
+
+  .ai-meat-category-column-{{ ai_gen_id }}--classic {
+    --column-bg-color: {{ block.settings.classic_bg_color }};
+  }
+
+  .ai-meat-category-column-{{ ai_gen_id }}--signature {
+    --column-bg-color: {{ block.settings.signature_bg_color }};
+  }
+
+  .ai-meat-category-title-{{ ai_gen_id }} {
+    color: {{ block.settings.title_color }};
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 700;
+    margin: 0 0 {{ block.settings.title_description_gap_category }}px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .ai-meat-category-description-{{ ai_gen_id }} {
+    color: {{ block.settings.description_color }};
+    font-size: {{ block.settings.description_size }}px;
+    margin: 0 0 {{ block.settings.description_button_gap }}px;
+    line-height: 1.4;
+    opacity: 0.9;
+  }
+
+  .ai-meat-category-button-{{ ai_gen_id }} {
+    border-radius: {{ block.settings.button_border_radius }}px;
+    padding: 12px 20px;
+    font-size: {{ block.settings.button_text_size }}px;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    white-space: nowrap;
+    min-width: 140px;
+    border: 2px solid;
+    text-align: center;
+  }
+
+  .ai-meat-category-button-{{ ai_gen_id }}--economical {
+    background-color: {{ block.settings.economical_button_bg_color }};
+    color: {{ block.settings.economical_button_text_color }};
+    border-color: {{ block.settings.economical_button_border_color }};
+  }
+
+  .ai-meat-category-button-{{ ai_gen_id }}--economical:hover {
+    background-color: {{ block.settings.economical_button_hover_bg_color }};
+    color: {{ block.settings.economical_button_hover_text_color }};
+    border-color: {{ block.settings.economical_button_hover_border_color }};transform: translateY(-2px);
+  }
+
+  .ai-meat-category-button-{{ ai_gen_id }}--classic {
+    background-color: {{ block.settings.classic_button_bg_color }};
+    color: {{ block.settings.classic_button_text_color }};
+    border-color: {{ block.settings.classic_button_border_color }};
+  }
+
+  .ai-meat-category-button-{{ ai_gen_id }}--classic:hover {
+    background-color: {{ block.settings.classic_button_hover_bg_color }};
+    color: {{ block.settings.classic_button_hover_text_color }};
+    border-color: {{ block.settings.classic_button_hover_border_color }};
+    transform: translateY(-2px);
+  }
+
+  .ai-meat-category-button-{{ ai_gen_id }}--signature {
+    background-color: {{ block.settings.signature_button_bg_color }};
+    color: {{ block.settings.signature_button_text_color }};
+    border-color: {{ block.settings.signature_button_border_color }};
+  }
+
+  .ai-meat-category-button-{{ ai_gen_id }}--signature:hover {
+    background-color: {{ block.settings.signature_button_hover_bg_color }};
+    color: {{ block.settings.signature_button_hover_text_color }};
+    border-color: {{ block.settings.signature_button_hover_border_color }};
+    transform: translateY(-2px);
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-meat-categories-section-{{ ai_gen_id }} {
+      min-height: 400px;
+      padding: 40px 10px 30px;
+    }
+
+    .ai-meat-categories-header-{{ ai_gen_id }} {
+      margin-bottom: {{ block.settings.header_bottom_gap_mobile }}px;
+      padding: 0 10px;
+    }
+
+    .ai-meat-categories-main-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.main_title_size_mobile }}px;
+      margin-bottom: {{ block.settings.title_description_gap_mobile }}px;
+      letter-spacing: 1px;
+    }
+
+    .ai-meat-categories-main-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.main_description_size_mobile }}px;
+    }
+
+    .ai-meat-categories-container-{{ ai_gen_id }} {
+      gap: {{ block.settings.cards_gap_mobile }}px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .ai-meat-category-column-{{ ai_gen_id }} {
+      padding: 15px 8px;
+      min-height: {{ block.settings.card_height_mobile }}px;
+      max-width: none;
+    }
+
+    .ai-meat-category-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size_mobile }}px;
+      letter-spacing: 0.5px;
+      margin-bottom: {{ block.settings.title_description_gap_category_mobile }}px;
+    }
+
+    .ai-meat-category-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size_mobile }}px;
+      line-height: 1.3;
+      margin-bottom: {{ block.settings.description_button_gap_mobile }}px;
+    }
+
+    .ai-meat-category-button-{{ ai_gen_id }} {
+      padding: 8px 6px;
+      font-size: {{ block.settings.button_text_size_mobile }}px;
+      min-width: auto;
+      width: 100%;
+      letter-spacing: 0.3px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .ai-meat-categories-section-{{ ai_gen_id }} {
+      padding: 30px 8px 25px;
+    }
+
+    .ai-meat-categories-container-{{ ai_gen_id }} {
+      gap: {{ block.settings.cards_gap_mobile | minus: 2 }}px;
+    }
+
+    .ai-meat-category-column-{{ ai_gen_id }} {
+      padding: 12px 6px;
+      min-height: {{ block.settings.card_height_mobile | minus: 20 }}px;
+    }
+
+    .ai-meat-category-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size_mobile | minus: 2 }}px;margin-bottom: {{ block.settings.title_description_gap_category_mobile | minus: 2 }}px;
+    }
+
+    .ai-meat-category-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size_mobile | minus: 1 }}px;
+      margin-bottom: {{ block.settings.description_button_gap_mobile | minus: 2 }}px;
+    }
+
+    .ai-meat-category-button-{{ ai_gen_id }} {
+      padding: 6px 4px;
+      font-size: {{ block.settings.button_text_size_mobile | minus: 1 }}px;
+    }
+  }
+
+  @media screen and (max-width: 360px) {
+    .ai-meat-categories-container-{{ ai_gen_id }} {
+      gap: {{ block.settings.cards_gap_mobile | minus: 4 }}px;
+    }
+
+    .ai-meat-category-column-{{ ai_gen_id }} {
+      padding: 10px 4px;
+      min-height: {{ block.settings.card_height_mobile | minus: 40 }}px;
+    }
+
+    .ai-meat-category-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size_mobile | minus: 3 }}px;
+      margin-bottom: {{ block.settings.title_description_gap_category_mobile | minus: 4 }}px;
+    }
+
+    .ai-meat-category-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size_mobile | minus: 2 }}px;
+      margin-bottom: {{ block.settings.description_button_gap_mobile | minus: 4 }}px;
+    }
+
+    .ai-meat-category-button-{{ ai_gen_id }} {
+      padding: 5px 3px;
+      font-size: {{ block.settings.button_text_size_mobile | minus: 2 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-meat-categories-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% unless block.settings.background_image %}
+    <div class="ai-meat-categories-placeholder-{{ ai_gen_id }}">
+      {{ 'image' | placeholder_svg_tag }}<div class="ai-meat-categories-empty-state-{{ ai_gen_id }}">
+        Add a background image of raw meat on cutting board
+      </div>
+    </div>
+  {% endunless %}
+
+  {% if block.settings.main_title != blank or block.settings.main_description != blank %}
+    <div class="ai-meat-categories-header-{{ ai_gen_id }}">
+      {% if block.settings.main_title != blank %}
+        <h2 class="ai-meat-categories-main-title-{{ ai_gen_id }}">{{ block.settings.main_title }}</h2>
+      {% endif %}
+      {% if block.settings.main_description != blank %}
+        <p class="ai-meat-categories-main-description-{{ ai_gen_id }}">{{ block.settings.main_description }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="ai-meat-categories-container-{{ ai_gen_id }}">
+    <div class="ai-meat-category-column-{{ ai_gen_id }} ai-meat-category-column-{{ ai_gen_id }}--economical">
+      <h3 class="ai-meat-category-title-{{ ai_gen_id }}">{{ block.settings.economical_title }}</h3>
+      {% if block.settings.economical_description != blank %}
+        <p class="ai-meat-category-description-{{ ai_gen_id }}">{{ block.settings.economical_description }}</p>
+      {% endif %}
+      {% if block.settings.economical_link != blank %}
+        <a href="{{ block.settings.economical_link }}" class="ai-meat-category-button-{{ ai_gen_id }} ai-meat-category-button-{{ ai_gen_id }}--economical">
+          {{ block.settings.economical_button_text }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="ai-meat-category-column-{{ ai_gen_id }} ai-meat-category-column-{{ ai_gen_id }}--classic">
+      <h3 class="ai-meat-category-title-{{ ai_gen_id }}">{{ block.settings.classic_title }}</h3>
+      {% if block.settings.classic_description != blank %}
+        <p class="ai-meat-category-description-{{ ai_gen_id }}">{{ block.settings.classic_description }}</p>
+      {% endif %}
+      {% if block.settings.classic_link != blank %}
+        <a href="{{ block.settings.classic_link }}" class="ai-meat-category-button-{{ ai_gen_id }} ai-meat-category-button-{{ ai_gen_id }}--classic">
+          {{ block.settings.classic_button_text }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="ai-meat-category-column-{{ ai_gen_id }} ai-meat-category-column-{{ ai_gen_id }}--signature">
+      <h3 class="ai-meat-category-title-{{ ai_gen_id }}">{{ block.settings.signature_title }}</h3>
+      {% if block.settings.signature_description != blank %}
+        <p class="ai-meat-category-description-{{ ai_gen_id }}">{{ block.settings.signature_description }}</p>
+      {% endif %}
+      {% if block.settings.signature_link != blank %}
+        <a href="{{ block.settings.signature_link }}" class="ai-meat-category-button-{{ ai_gen_id }} ai-meat-category-button-{{ ai_gen_id }}--signature">
+          {{ block.settings.signature_button_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Meat categories section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "label": "Background overlay opacity",
+      "default": 0.3
+    },
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "text",
+      "id": "main_title",
+      "label": "Section title",
+      "default": "Our Meat Categories"
+    },
+    {
+      "type": "textarea",
+      "id": "main_description",
+      "label": "Section description",
+      "default": "Discover our carefully curated selection of premium meats, from budget-friendly options to signature cuts"
+    },
+    {
+      "type": "color",
+      "id": "main_title_color",
+      "label": "Section title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "main_title_size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Section title size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "main_title_size_mobile",
+      "min": 18,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Section title size on mobile",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "main_description_color",
+      "label": "Section description color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "main_description_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Section description size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "main_description_size_mobile",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Section description size on mobile",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "title_description_gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between section title and description",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "title_description_gap_mobile",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between section title and description on mobile",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "header_bottom_gap",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap below section header",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "header_bottom_gap_mobile",
+      "min": 15,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap below section header on mobile",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Cards layout"
+    },
+    {
+      "type": "range",
+      "id": "container_max_width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "label": "Container maximum width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "cards_gap",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "cards_gap_mobile",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between cards on mobile",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_max_width",
+      "min": 200,
+      "max": 500,
+      "step": 20,
+      "unit": "px",
+      "label": "Card maximum width",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "card_height",
+      "min": 200,
+      "max": 500,
+      "step": 20,
+      "unit": "px",
+      "label": "Card minimum height",
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "card_height_mobile",
+      "min": 120,
+      "max": 250,
+      "step": 10,
+      "unit": "px",
+      "label": "Card minimum height on mobile",
+      "default": 180
+    },
+    {
+      "type": "header",
+      "content": "Economical category"
+    },
+    {
+      "type": "text",
+      "id": "economical_title",
+      "label": "Title",
+      "default": "Economical"
+    },
+    {
+      "type": "textarea",
+      "id": "economical_description",
+      "label": "Description",
+      "default": "Quality cuts at affordable prices"
+    },
+    {
+      "type": "text",
+      "id": "economical_button_text",
+      "label": "Button text",
+      "default": "View Collection"
+    },
+    {
+      "type": "url",
+      "id": "economical_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "economical_bg_color",
+      "label": "Background color",
+      "default": "#1e3a8a"
+    },
+    {
+      "type": "color",
+      "id": "economical_button_bg_color",
+      "label": "Button background",
+      "default": "rgba(255, 255, 255, 0.1)"
+    },
+    {
+      "type": "color",
+      "id": "economical_button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "economical_button_border_color",
+      "label": "Button border",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "economical_button_hover_bg_color",
+      "label": "Button hover background",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "economical_button_hover_text_color",
+      "label": "Button hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "economical_button_hover_border_color",
+      "label": "Button hover border",
+      "default": "#dc2626"
+    },
+    {
+      "type": "header",
+      "content": "Classic category"
+    },
+    {
+      "type": "text",
+      "id": "classic_title",
+      "label": "Title",
+      "default": "Classic"
+    },
+    {
+      "type": "textarea",
+      "id": "classic_description",
+      "label": "Description",
+      "default": "Traditional favorites and popular cuts"
+    },
+    {
+      "type": "text",
+      "id": "classic_button_text",
+      "label": "Button text",
+      "default": "View Collection"
+    },
+    {
+      "type": "url",
+      "id": "classic_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "classic_bg_color",
+      "label": "Background color",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "classic_button_bg_color",
+      "label": "Button background",
+      "default": "rgba(255, 255, 255, 0.1)"
+    },
+    {
+      "type": "color",
+      "id": "classic_button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "classic_button_border_color",
+      "label": "Button border",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "classic_button_hover_bg_color",
+      "label": "Button hover background",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "classic_button_hover_text_color",
+      "label": "Button hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "classic_button_hover_border_color",
+      "label": "Button hover border",
+      "default": "#dc2626"
+    },
+    {
+      "type": "header",
+      "content": "Signature category"
+    },
+    {
+      "type": "text",
+      "id": "signature_title",
+      "label": "Title",
+      "default": "Signature"
+    },
+    {
+      "type": "textarea",
+      "id": "signature_description",
+      "label": "Description",
+      "default": "Premium selections and specialty cuts"
+    },
+    {
+      "type": "text",
+      "id": "signature_button_text",
+      "label": "Button text",
+      "default": "View Collection"
+    },
+    {
+      "type": "url",
+      "id": "signature_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "signature_bg_color",
+      "label": "Background color",
+      "default": "#7c2d12"
+    },
+    {
+      "type": "color",
+      "id": "signature_button_bg_color",
+      "label": "Button background",
+      "default": "rgba(255, 255, 255, 0.1)"
+    },
+    {
+      "type": "color",
+      "id": "signature_button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "signature_button_border_color",
+      "label": "Button border",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "signature_button_hover_bg_color",
+      "label": "Button hover background",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "signature_button_hover_text_color",
+      "label": "Button hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "signature_button_hover_border_color",
+      "label": "Button hover border",
+      "default": "#dc2626"
+    },
+    {
+      "type": "header",
+      "content": "Category text styling"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Category title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Category title size",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Category title size on mobile",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Category description color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Category description size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "description_size_mobile",
+      "min": 8,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "label": "Category description size on mobile",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Category spacing"
+    },
+    {
+      "type": "range",
+      "id": "title_description_gap_category",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between category title and description",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "title_description_gap_category_mobile",
+      "min": 4,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between category title and description on mobile",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "description_button_gap",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between description and button",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "description_button_gap_mobile",
+      "min": 4,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between description and button on mobile",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Button styling"
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Button text size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_text_size_mobile",
+      "min": 8,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "label": "Button text size on mobile",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Design"
+    },
+    {
+      "type": "range",
+      "id": "column_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Column border radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Meat categories section"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

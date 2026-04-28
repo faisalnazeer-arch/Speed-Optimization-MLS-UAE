@@ -1,0 +1,585 @@
+{% doc %}
+  @prompt
+    Create a full-width section with a background image of raw meat on a cutting board, featuring three evenly spaced columns. Each column should have a distinct colored background: the first column with a dark blue background, the second with a red background, and the third with a dark brown background. Each column should contain a centered title ('Economical' for the first, 'Classic' for the second, 'Signature' for the third) in white text, followed by a red-bordered 'View Collection' button with white text. Ensure the layout is fully responsive, maintaining three columns on both desktop and mobile devices, with no stacking on mobile. Use a modern, clean style with rounded corners on the columns and buttons, and adjust padding and spacing for a balanced look across all screen sizes, need button colors and needs small sizing for title on mobile, buttons are still not responsive button text is voming in 2 lines i want i single line
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-meat-categories-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    background-image: url('{{ block.settings.background_image | image_url: width: 2000 }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .ai-meat-categories-placeholder-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .ai-meat-categories-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    max-height: 400px;
+    opacity: 0.3;
+  }
+
+  .ai-meat-categories-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-meat-categories-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, {{ block.settings.overlay_opacity }});
+  }
+
+  .ai-meat-categories-container-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    max-width: {{ block.settings.max_width }}px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: {{ block.settings.column_gap }}px;
+  }
+
+  .ai-meat-categories-column-{{ ai_gen_id }} {
+    background-color: var(--column-bg-color);
+    border-radius: {{ block.settings.column_border_radius }}px;
+    padding: {{ block.settings.column_padding }}px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+  }
+
+  .ai-meat-categories-column-{{ ai_gen_id }}--economical {
+    --column-bg-color: {{ block.settings.economical_bg_color }};
+  }
+
+  .ai-meat-categories-column-{{ ai_gen_id }}--classic {
+    --column-bg-color: {{ block.settings.classic_bg_color }};
+  }
+
+  .ai-meat-categories-column-{{ ai_gen_id }}--signature {
+    --column-bg-color: {{ block.settings.signature_bg_color }};
+  }
+
+  .ai-meat-categories-title-{{ ai_gen_id }} {
+    color: {{ block.settings.title_color }};
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 700;
+    margin: 0 0 {{ block.settings.title_margin }}px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .ai-meat-categories-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    border-radius: {{ block.settings.button_border_radius }}px;
+    text-decoration: none;
+    font-size: {{ block.settings.button_font_size }}px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .ai-meat-categories-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+    color: {{ block.settings.button_hover_text_color }};
+    border-color: {{ block.settings.button_hover_border_color }};
+    transform: translateY(-2px);
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-meat-categories-{{ ai_gen_id }},
+    .ai-meat-categories-placeholder-{{ ai_gen_id }} {
+      min-height: 400px;
+      padding: 20px 10px;
+    }
+
+    .ai-meat-categories-container-{{ ai_gen_id }} {
+      gap: {{ block.settings.column_gap_mobile }}px;
+    }
+
+    .ai-meat-categories-column-{{ ai_gen_id }} {
+      padding: {{ block.settings.column_padding_mobile }}px {{ block.settings.column_padding_mobile | times: 0.5 }}px;
+      min-height: 150px;
+    }
+
+    .ai-meat-categories-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size_mobile }}px;
+      margin-bottom: {{ block.settings.title_margin_mobile }}px;
+    }
+
+    .ai-meat-categories-button-{{ ai_gen_id }} {
+      padding: {{ block.settings.button_padding_vertical_mobile }}px {{ block.settings.button_padding_horizontal_mobile }}px;
+      font-size: {{ block.settings.button_font_size_mobile }}px;
+      letter-spacing: 0.2px;
+      min-width: 0;
+      width: auto;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .ai-meat-categories-container-{{ ai_gen_id }} {
+      gap: {{ block.settings.column_gap_mobile | divided_by: 2 }}px;
+    }
+
+    .ai-meat-categories-column-{{ ai_gen_id }} {
+      padding: {{ block.settings.column_padding_mobile | times: 0.7 }}px {{ block.settings.column_padding_mobile | times: 0.3 }}px;
+    }
+
+    .ai-meat-categories-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size_mobile | times: 0.9 }}px;
+    }
+
+    .ai-meat-categories-button-{{ ai_gen_id }} {
+      font-size: {{ block.settings.button_font_size_mobile | times: 0.9 }}px;
+      padding: {{ block.settings.button_padding_vertical_mobile | times: 0.8 }}px {{ block.settings.button_padding_horizontal_mobile | times: 0.6 }}px;
+      letter-spacing: 0px;
+    }
+  }
+
+  @media screen and (max-width: 360px) {
+    .ai-meat-categories-button-{{ ai_gen_id }} {
+      font-size: {{ block.settings.button_font_size_mobile | times: 0.8 }}px;
+      padding: {{ block.settings.button_padding_vertical_mobile | times: 0.7 }}px {{ block.settings.button_padding_horizontal_mobile | times: 0.5 }}px;
+    }
+  }
+{% endstyle %}
+
+<div {{ block.shopify_attributes }}>
+  {% if block.settings.background_image %}
+    <div class="ai-meat-categories-{{ ai_gen_id }}">
+      <div class="ai-meat-categories-overlay-{{ ai_gen_id }}"></div>
+      <div class="ai-meat-categories-container-{{ ai_gen_id }}">
+        <div class="ai-meat-categories-column-{{ ai_gen_id }} ai-meat-categories-column-{{ ai_gen_id }}--economical">
+          <h3 class="ai-meat-categories-title-{{ ai_gen_id }}">{{ block.settings.economical_title }}</h3>
+          {% if block.settings.economical_link %}
+            <a href="{{ block.settings.economical_link }}" class="ai-meat-categories-button-{{ ai_gen_id }}">
+              {{ block.settings.economical_button_text }}
+            </a>
+          {% endif %}
+        </div>
+        <div class="ai-meat-categories-column-{{ ai_gen_id }} ai-meat-categories-column-{{ ai_gen_id }}--classic">
+          <h3 class="ai-meat-categories-title-{{ ai_gen_id }}">{{ block.settings.classic_title }}</h3>
+          {% if block.settings.classic_link %}
+            <a href="{{ block.settings.classic_link }}" class="ai-meat-categories-button-{{ ai_gen_id }}">
+              {{ block.settings.classic_button_text }}
+            </a>
+          {% endif %}
+        </div>
+        <div class="ai-meat-categories-column-{{ ai_gen_id }} ai-meat-categories-column-{{ ai_gen_id }}--signature">
+          <h3 class="ai-meat-categories-title-{{ ai_gen_id }}">{{ block.settings.signature_title }}</h3>
+          {% if block.settings.signature_link %}
+            <a href="{{ block.settings.signature_link }}" class="ai-meat-categories-button-{{ ai_gen_id }}">
+              {{ block.settings.signature_button_text }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="ai-meat-categories-placeholder-{{ ai_gen_id }}">
+      {{'hero-apparel-1' | placeholder_svg_tag }}<div class="ai-meat-categories-empty-state-{{ ai_gen_id }}">
+        Add a background image to get started
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Meat categories",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 0.8,
+      "step": 0.1,
+      "label": "Background overlay opacity",
+      "default": 0.3
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Column gap",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "column_gap_mobile",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "label": "Column gap on mobile",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Column style"
+    },
+    {
+      "type": "range",
+      "id": "column_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Column border radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "column_padding",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Column padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "column_padding_mobile",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Column padding on mobile",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Column colors"
+    },
+    {
+      "type": "color",
+      "id": "economical_bg_color",
+      "label": "Economical background",
+      "default": "#1e3a8a"
+    },
+    {
+      "type": "color",
+      "id": "classic_bg_color",
+      "label": "Classic background",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "signature_bg_color",
+      "label": "Signature background",
+      "default": "#451a03"
+    },
+    {
+      "type": "header",
+      "content": "Economical column"
+    },
+    {
+      "type": "text",
+      "id": "economical_title",
+      "label": "Title",
+      "default": "Economical"
+    },
+    {
+      "type": "text",
+      "id": "economical_button_text",
+      "label": "Button text",
+      "default": "View Collection"
+    },
+    {
+      "type": "url",
+      "id": "economical_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Classic column"
+    },
+    {
+      "type": "text",
+      "id": "classic_title",
+      "label": "Title",
+      "default": "Classic"
+    },
+    {
+      "type": "text",
+      "id": "classic_button_text",
+      "label": "Button text",
+      "default": "View Collection"
+    },
+    {
+      "type": "url",
+      "id": "classic_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Signature column"
+    },
+    {
+      "type": "text",
+      "id": "signature_title",
+      "label": "Title",
+      "default": "Signature"
+    },
+    {
+      "type": "text",
+      "id": "signature_button_text",
+      "label": "Button text",
+      "default": "View Collection"
+    },
+    {
+      "type": "url",
+      "id": "signature_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 16,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Title size on mobile",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "title_margin",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Title bottom margin",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "title_margin_mobile",
+      "min": 5,
+      "max": 25,
+      "step": 5,
+      "unit": "px",
+      "label": "Title bottom margin on mobile",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border color",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button hover background color",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Button hover border color",
+      "default": "#dc2626"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Button border width",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Button font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_font_size_mobile",
+      "min": 8,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "label": "Button font size on mobile",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Button vertical padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Button horizontal padding",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical_mobile",
+      "min": 4,
+      "max": 12,
+      "step": 2,
+      "unit": "px",
+      "label": "Button vertical padding on mobile",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal_mobile",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Button horizontal padding on mobile",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Meat categories"
+    }
+  ]
+}
+{% endschema %}

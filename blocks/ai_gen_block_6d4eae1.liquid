@@ -1,0 +1,767 @@
+{% doc %}
+  @prompt
+    {
+      "name": "Collection Filters",
+      "settings": [
+        {
+          "type": "text",
+          "id": "filter_section_title",
+          "label": "Filter Section Title",
+          "default": "Filter Products"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_filters",
+          "label": "Enable Filters",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Filter Options"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_category_filter",
+          "label": "Show Category Filter",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_price_filter",
+          "label": "Show Price Filter",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_color_filter",
+          "label": "Show Color Filter",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_size_filter",
+          "label": "Show Size Filter",
+          "default": false
+        }
+      ],
+      "blocks": [
+        {
+          "type": "filter_value",
+          "name": "Filter Value",
+          "settings": [
+            {
+              "type": "select",
+              "id": "filter_type",
+              "label": "Filter Type",
+              "options": [
+                { "value": "category", "label": "Category" },
+                { "value": "price", "label": "Price" },
+                { "value": "color", "label": "Color" },
+                { "value": "size", "label": "Size" }
+              ],
+              "default": "category"
+            },
+            {
+              "type": "text",
+              "id": "filter_value",
+              "label": "Filter Value",
+              "info": "E.g., 'Shirts', '$0-$50', 'Red', 'Medium'"
+            }
+          ]
+        }
+      ],
+      "presets": [
+        {
+          "name": "Collection Filters",
+          "settings": {
+            "filter_section_title": "Filter Products",
+            "show_filters": true,
+            "show_category_filter": true,
+            "show_price_filter": true,
+            "show_color_filter": false,
+            "show_size_filter": false
+          }
+        }
+      ]
+    }
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-collection-filters-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+    border: 1px solid {{ block.settings.border_color }};
+  }
+
+  .ai-collection-filters__title-{{ ai_gen_id }} {
+    color: {{ block.settings.title_color }};
+    font-size: {{ block.settings.title_size }}px;
+    margin: 0 0 20px 0;
+    font-weight: 600;
+  }
+
+  .ai-collection-filters__group-{{ ai_gen_id }} {
+    margin-bottom: 24px;
+  }
+
+  .ai-collection-filters__group-title-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 8px 0;
+  }
+
+  .ai-collection-filters__toggle-icon-{{ ai_gen_id }} {
+    transition: transform 0.3s ease;
+    width: 16px;
+    height: 16px;
+  }
+
+  .ai-collection-filters__group-title-{{ ai_gen_id }}[aria-expanded="true"] .ai-collection-filters__toggle-icon-{{ ai_gen_id }} {
+    transform: rotate(180deg);
+  }
+
+  .ai-collection-filters__options-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .ai-collection-filters__options-{{ ai_gen_id }}.collapsed {
+    max-height: 0;
+  }
+
+  .ai-collection-filters__options-{{ ai_gen_id }}.expanded {
+    max-height: 500px;
+  }
+
+  .ai-collection-filters__option-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ai-collection-filters__checkbox-{{ ai_gen_id }} {
+    width: 18px;
+    height: 18px;
+    border: 2px solid {{ block.settings.checkbox_border_color }};
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    background-color: {{ block.settings.checkbox_bg_color }};
+  }
+
+  .ai-collection-filters__checkbox-{{ ai_gen_id }} input {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .ai-collection-filters__checkbox-{{ ai_gen_id }} input:checked + .ai-collection-filters__checkmark-{{ ai_gen_id }} {
+    opacity: 1;
+  }
+
+  .ai-collection-filters__checkmark-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background-color: {{ block.settings.checkbox_check_color }};
+    border-radius: 1px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .ai-collection-filters__label-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .ai-collection-filters__price-range-{{ ai_gen_id }} {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .ai-collection-filters__price-input-{{ ai_gen_id }} {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid {{ block.settings.input_border_color }};
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: {{ block.settings.input_bg_color }};
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-collection-filters__apply-button-{{ ai_gen_id }} {
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-collection-filters__apply-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_color }};
+  }
+
+  .ai-collection-filters__clear-button-{{ ai_gen_id }} {
+    background: none;
+    border: 1px solid {{ block.settings.border_color }};
+    color: {{ block.settings.text_color }};
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .ai-collection-filters__empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-style: italic;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-collection-filters-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding | times: 0.75 }}px;
+    }
+  }
+{% endstyle %}
+
+<collection-filters-{{ ai_gen_id }}
+  class="ai-collection-filters-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.show_filters %}
+    {% if block.settings.filter_section_title != blank %}
+      <h3 class="ai-collection-filters__title-{{ ai_gen_id }}">
+        {{ block.settings.filter_section_title }}
+      </h3>
+    {% endif %}
+
+    {% if collection %}
+      {% comment %} Category Filter {% endcomment %}
+      {% if block.settings.show_category_filter %}
+        <div class="ai-collection-filters__group-{{ ai_gen_id }}">
+          <button
+            class="ai-collection-filters__group-title-{{ ai_gen_id }}"
+            aria-expanded="true"
+            data-filter-toggle="category"
+          >
+            Category
+            <svg class="ai-collection-filters__toggle-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6,9 12,15 18,9"></polyline>
+            </svg>
+          </button>
+          <div class="ai-collection-filters__options-{{ ai_gen_id }} expanded" data-filter-options="category">
+            {% assign product_types = collection.products | map: 'type' | uniq %}
+            {% for product_type in product_types %}
+              {% unless product_type == blank %}
+                <label class="ai-collection-filters__option-{{ ai_gen_id }}">
+                  <div class="ai-collection-filters__checkbox-{{ ai_gen_id }}">
+                    <input type="checkbox" name="category" value="{{ product_type | handle }}">
+                    <span class="ai-collection-filters__checkmark-{{ ai_gen_id }}"></span>
+                  </div>
+                  <span class="ai-collection-filters__label-{{ ai_gen_id }}">{{ product_type }}</span>
+                </label>
+              {% endunless %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% comment %} Price Filter {% endcomment %}
+      {% if block.settings.show_price_filter %}
+        <div class="ai-collection-filters__group-{{ ai_gen_id }}">
+          <button
+            class="ai-collection-filters__group-title-{{ ai_gen_id }}"
+            aria-expanded="true"
+            data-filter-toggle="price"
+          >
+            Price
+            <svg class="ai-collection-filters__toggle-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6,9 12,15 18,9"></polyline>
+            </svg>
+          </button>
+          <div class="ai-collection-filters__options-{{ ai_gen_id }} expanded" data-filter-options="price">
+            <div class="ai-collection-filters__price-range-{{ ai_gen_id }}">
+              <input
+                type="number"
+                class="ai-collection-filters__price-input-{{ ai_gen_id }}"
+                placeholder="Min"
+                name="price_min"
+                min="0"
+              >
+              <span>-</span>
+              <input
+                type="number"
+                class="ai-collection-filters__price-input-{{ ai_gen_id }}"
+                placeholder="Max"
+                name="price_max"
+                min="0"
+              >
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% comment %} Color Filter {% endcomment %}
+      {% if block.settings.show_color_filter %}
+        <div class="ai-collection-filters__group-{{ ai_gen_id }}">
+          <button
+            class="ai-collection-filters__group-title-{{ ai_gen_id }}"
+            aria-expanded="true"
+            data-filter-toggle="color"
+          >
+            Color
+            <svg class="ai-collection-filters__toggle-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6,9 12,15 18,9"></polyline>
+            </svg>
+          </button>
+          <div class="ai-collection-filters__options-{{ ai_gen_id }} expanded" data-filter-options="color">
+            {% assign color_options = collection.products | map: 'options' | map: 'first' | uniq %}
+            {% for color in color_options %}
+              {% unless color == blank %}
+                <label class="ai-collection-filters__option-{{ ai_gen_id }}">
+                  <div class="ai-collection-filters__checkbox-{{ ai_gen_id }}">
+                    <input type="checkbox" name="color" value="{{ color | handle }}">
+                    <span class="ai-collection-filters__checkmark-{{ ai_gen_id }}"></span>
+                  </div>
+                  <span class="ai-collection-filters__label-{{ ai_gen_id }}">{{ color }}</span>
+                </label>
+              {% endunless %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% comment %} Size Filter {% endcomment %}
+      {% if block.settings.show_size_filter %}
+        <div class="ai-collection-filters__group-{{ ai_gen_id }}">
+          <button
+            class="ai-collection-filters__group-title-{{ ai_gen_id }}"
+            aria-expanded="true"
+            data-filter-toggle="size"
+          >
+            Size
+            <svg class="ai-collection-filters__toggle-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6,9 12,15 18,9"></polyline>
+            </svg>
+          </button>
+          <div class="ai-collection-filters__options-{{ ai_gen_id }} expanded" data-filter-options="size">
+            {% assign size_options = collection.products | map: 'options' | map: 'last' | uniq %}
+            {% for size in size_options %}
+              {% unless size == blank %}
+                <label class="ai-collection-filters__option-{{ ai_gen_id }}">
+                  <div class="ai-collection-filters__checkbox-{{ ai_gen_id }}">
+                    <input type="checkbox" name="size" value="{{ size | handle }}">
+                    <span class="ai-collection-filters__checkmark-{{ ai_gen_id }}"></span>
+                  </div>
+                  <span class="ai-collection-filters__label-{{ ai_gen_id }}">{{ size }}</span>
+                </label>
+              {% endunless %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      <button class="ai-collection-filters__apply-button-{{ ai_gen_id }}" data-apply-filters>
+        Apply Filters
+      </button>
+      <button class="ai-collection-filters__clear-button-{{ ai_gen_id }}" data-clear-filters>
+        Clear All
+      </button>
+    {% else %}
+      <div class="ai-collection-filters__empty-state-{{ ai_gen_id }}">
+        This filter block works on collection pages. Add it to a collection template to see filters.
+      </div>
+    {% endif %}
+  {% endif %}
+</collection-filters-{{ ai_gen_id }}>
+
+<script type="lazyload">
+  (function() {
+    class CollectionFilters{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentFilters = new Map();
+      }
+
+      connectedCallback() {
+        this.setupEventListeners();
+        this.loadFiltersFromURL();
+      }
+
+      setupEventListeners() {
+        const toggleButtons = this.querySelectorAll('[data-filter-toggle]');
+        const applyButton = this.querySelector('[data-apply-filters]');
+        const clearButton = this.querySelector('[data-clear-filters]');
+        const checkboxes = this.querySelectorAll('input[type="checkbox"]');
+        const priceInputs = this.querySelectorAll('input[type="number"]');
+
+        toggleButtons.forEach(button => {
+          button.addEventListener('click', () => this.toggleFilterGroup(button));
+        });
+
+        if (applyButton) {
+          applyButton.addEventListener('click', () => this.applyFilters());
+        }
+
+        if (clearButton) {
+          clearButton.addEventListener('click', () => this.clearFilters());
+        }
+
+        checkboxes.forEach(checkbox => {
+          checkbox.addEventListener('change', () => this.updateFilters());
+        });
+
+        priceInputs.forEach(input => {
+          input.addEventListener('input', () => this.updateFilters());
+        });
+      }
+
+      toggleFilterGroup(button) {
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        const filterType = button.getAttribute('data-filter-toggle');
+        const optionsContainer = this.querySelector(`[data-filter-options="${filterType}"]`);
+
+        button.setAttribute('aria-expanded', !isExpanded);
+        
+        if (optionsContainer) {
+          optionsContainer.classList.toggle('collapsed', isExpanded);
+          optionsContainer.classList.toggle('expanded', !isExpanded);
+        }
+      }
+
+      updateFilters() {
+        this.currentFilters.clear();
+
+        const checkboxes = this.querySelectorAll('input[type="checkbox"]:checked');
+        checkboxes.forEach(checkbox => {
+          const filterType = checkbox.name;
+          const filterValue = checkbox.value;
+          
+          if (!this.currentFilters.has(filterType)) {
+            this.currentFilters.set(filterType, []);
+          }
+          this.currentFilters.get(filterType).push(filterValue);
+        });
+
+        const priceMin = this.querySelector('input[name="price_min"]')?.value;
+        const priceMax = this.querySelector('input[name="price_max"]')?.value;
+        
+        if (priceMin || priceMax) {
+          this.currentFilters.set('price', { min: priceMin, max: priceMax });
+        }
+      }
+
+      applyFilters() {
+        this.updateFilters();
+        const url = new URL(window.location);
+        url.searchParams.delete('filter.v.price.gte');
+        url.searchParams.delete('filter.v.price.lte');
+        url.searchParams.delete('filter.p.product_type');
+        url.searchParams.delete('filter.v.option.color');
+        url.searchParams.delete('filter.v.option.size');
+
+        this.currentFilters.forEach((values, filterType) => {
+          if (filterType === 'price' && typeof values === 'object') {
+            if (values.min) {
+              const minCents = parseFloat(values.min) * 100;
+              url.searchParams.set('filter.v.price.gte', minCents);
+            }
+            if (values.max) {
+              const maxCents = parseFloat(values.max) * 100;
+              url.searchParams.set('filter.v.price.lte', maxCents);
+            }
+          } else if (Array.isArray(values)) {
+            if (filterType === 'category') {
+              values.forEach(value => {
+                url.searchParams.append('filter.p.product_type', value);
+              });
+            } else if (filterType === 'color') {
+              values.forEach(value => {
+                url.searchParams.append('filter.v.option.color', value);
+              });
+            } else if (filterType === 'size') {
+              values.forEach(value => {
+                url.searchParams.append('filter.v.option.size', value);
+              });
+            }
+          }
+        });
+
+        window.location.href = url.toString();
+      }
+
+      clearFilters() {
+        const checkboxes = this.querySelectorAll('input[type="checkbox"]');
+        const priceInputs = this.querySelectorAll('input[type="number"]');
+        
+        checkboxes.forEach(checkbox => {
+          checkbox.checked = false;
+        });
+        
+        priceInputs.forEach(input => {
+          input.value = '';
+        });
+
+        this.currentFilters.clear();
+        
+        const url = new URL(window.location);
+        url.searchParams.delete('filter.v.price.gte');
+        url.searchParams.delete('filter.v.price.lte');
+        url.searchParams.delete('filter.p.product_type');
+        url.searchParams.delete('filter.v.option.color');
+        url.searchParams.delete('filter.v.option.size');
+        
+        window.location.href = url.toString();
+      }
+
+      loadFiltersFromURL() {
+        const url = new URL(window.location);
+        
+        const priceMin = url.searchParams.get('filter.v.price.gte');
+        const priceMax = url.searchParams.get('filter.v.price.lte');
+        
+        if (priceMin) {
+          const minInput = this.querySelector('input[name="price_min"]');
+          if (minInput) {
+            minInput.value = (parseFloat(priceMin) / 100).toString();
+          }
+        }
+        
+        if (priceMax) {
+          const maxInput = this.querySelector('input[name="price_max"]');
+          if (maxInput) {
+            maxInput.value = (parseFloat(priceMax) / 100).toString();
+          }
+        }
+
+        const productTypes = url.searchParams.getAll('filter.p.product_type');
+        productTypes.forEach(type => {
+          const checkbox = this.querySelector(`input[name="category"][value="${type}"]`);
+          if (checkbox) {
+            checkbox.checked = true;
+          }
+        });
+
+        const colors = url.searchParams.getAll('filter.v.option.color');
+        colors.forEach(color => {
+          const checkbox = this.querySelector(`input[name="color"][value="${color}"]`);
+          if (checkbox) {
+            checkbox.checked = true;
+          }
+        });
+
+        const sizes = url.searchParams.getAll('filter.v.option.size');
+        sizes.forEach(size => {
+          const checkbox = this.querySelector(`input[name="size"][value="${size}"]`);
+          if (checkbox) {
+            checkbox.checked = true;
+          }
+        });
+      }
+    }
+
+    customElements.define('collection-filters-{{ ai_gen_id }}', CollectionFilters{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Collection filters",
+  "settings": [
+    {
+      "type": "text",
+      "id": "filter_section_title",
+      "label": "Filter section title",
+      "default": "Filter products"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Enable filters",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Filter options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category_filter",
+      "label": "Show category filter",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price_filter",
+      "label": "Show price filter",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_filter",
+      "label": "Show color filter",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_size_filter",
+      "label": "Show size filter",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#e1e1e1"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#555555"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Checkbox style"
+    },
+    {
+      "type": "color",
+      "id": "checkbox_bg_color",
+      "label": "Checkbox background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "checkbox_border_color",
+      "label": "Checkbox border",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "checkbox_check_color",
+      "label": "Checkbox check color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Input style"
+    },
+    {
+      "type": "color",
+      "id": "input_bg_color",
+      "label": "Input background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border",
+      "default": "#cccccc"
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover background",
+      "default": "#555555"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection filters"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

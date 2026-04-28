@@ -1,0 +1,1062 @@
+{%- comment -%}
+This file has been modified by the Yoast SEO for Shopify app.
+You can learn more about this (and learn how to cleanly revert these changes) at https://yoa.st/removing-theme-changes.
+{%- endcomment -%}
+{%- liquid
+  assign rtl = false
+  assign rtl_iso_codes = 'ar,arc,dv,fa,ha,he,khw,ks,ku,ps,ur,yi' | split: ','
+  assign current_code_first_part = localization.language.iso_code | split: '-' | first
+
+  if rtl_iso_codes contains current_code_first_part
+    assign rtl = true
+  endif
+
+  assign dock_cart_drawer = false
+  if settings.dock_cart_drawer and settings.cart_type == 'drawer' and request.page_type != 'cart'
+    assign dock_cart_drawer = true
+  endif
+
+  assign body_font_bold = settings.body_font | font_modify: 'weight', '500'
+  assign body_font_italic = settings.body_font | font_modify: 'style', 'italic'
+  assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+
+  # constants
+  assign breakpoint_sm = 600
+  assign breakpoint_md = 769
+  assign gutter_sm = 20
+  assign gutter_md = 48
+  assign gutter_lg = 64
+-%}
+
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{% if rtl %}rtl{% else %}ltr{% endif %}">
+  {%- liquid
+  assign og_title = page_title | default: shop.name
+  assign og_description = page_description | default: shop.description
+  assign og_url = canonical_url | default: shop.url
+  assign og_type = 'website'
+  assign og_image = nil
+
+  case request.page_type
+
+    when 'index'
+      assign og_title = shop.name
+      assign og_description = shop.description
+      assign og_image = settings.share_image
+
+    when 'product'
+      assign og_type = 'product'
+      assign og_title = product.title
+      assign og_description = product.description | strip_html | truncatewords: 30
+      assign og_image = product.featured_media.preview_image
+
+    when 'collection'
+      assign og_type = 'website'
+      assign og_title = collection.title
+      assign og_description = collection.description | strip_html | truncatewords: 30 | default: shop.description
+      assign og_image = collection.image
+
+      if og_image == blank and collection.products_count > 0
+        assign og_image = collection.products.first.featured_media.preview_image
+      endif
+
+    when 'article'
+      assign og_type = 'article'
+      assign og_title = article.title
+      assign og_description = article.excerpt | strip_html | truncatewords: 30 | default: shop.description
+      assign og_image = article.image
+
+    when 'page'
+      assign og_title = page.title
+      assign og_description = page.content | strip_html | truncatewords: 30 | default: shop.description
+      assign og_image = page.image
+
+  endcase
+
+  if og_image == blank
+    assign og_image = settings.share_image
+  endif
+-%}
+
+
+  <head>{% render 'yoast-seo' %}
+    
+        {%- liquid
+  assign og_title = page_title | default: shop.name
+  assign og_description = page_description | default: shop.description
+  assign og_url = canonical_url | default: shop.url
+  assign og_type = 'website'
+  assign og_image = nil
+
+  case request.page_type
+
+    when 'index'
+      assign og_title = shop.name
+      assign og_description = shop.description
+      assign og_image = settings.share_image
+
+    when 'product'
+      assign og_type = 'product'
+      assign og_title = product.title
+      assign og_description = product.description | strip_html | truncatewords: 30
+      assign og_image = product.featured_media.preview_image
+
+    when 'collection'
+      assign og_type = 'website'
+      assign og_title = collection.title
+      assign og_description = collection.description | strip_html | truncatewords: 30 | default: shop.description
+      assign og_image = collection.image
+
+      if og_image == blank and collection.products_count > 0
+        assign og_image = collection.products.first.featured_media.preview_image
+      endif
+
+    when 'article'
+      assign og_type = 'article'
+      assign og_title = article.title
+      assign og_description = article.excerpt | strip_html | truncatewords: 30 | default: shop.description
+      assign og_image = article.image
+
+    when 'page'
+      assign og_title = page.title
+      assign og_description = page.content | strip_html | truncatewords: 30 | default: shop.description
+      assign og_image = page.image
+
+  endcase
+
+  if og_image == blank
+    assign og_image = settings.share_image
+  endif
+-%}
+{%- liquid
+  assign og_title = page_title | default: shop.name
+  assign og_description = page_description | default: shop.description
+  assign og_url = canonical_url | default: shop.url
+  assign og_type = 'website'
+  assign og_image = nil
+
+  case request.page_type
+
+    when 'index'
+      assign og_title = shop.name
+      assign og_description = shop.description
+      assign og_image = settings.share_image
+
+    when 'product'
+      assign og_type = 'product'
+      assign og_title = product.title
+      assign og_description = product.description | strip_html | truncatewords: 30
+      assign og_image = product.featured_media.preview_image
+
+    when 'collection'
+      assign og_type = 'website'
+      assign og_title = collection.title
+      assign og_description = collection.description | strip_html | truncatewords: 30 | default: shop.description
+      assign og_image = collection.image
+
+      if og_image == blank and collection.products_count > 0
+        assign og_image = collection.products.first.featured_media.preview_image
+      endif
+
+    when 'article'
+      assign og_type = 'article'
+      assign og_title = article.title
+      assign og_description = article.excerpt | strip_html | truncatewords: 30 | default: shop.description
+      assign og_image = article.image
+
+    when 'page'
+      assign og_title = page.title
+      assign og_description = page.content | strip_html | truncatewords: 30 | default: shop.description
+      assign og_image = page.image
+
+  endcase
+
+  if og_image == blank
+    assign og_image = settings.share_image
+  endif
+-%}
+
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:site_name" content="{{ shop.name }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:type" content="{{ og_type }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:title" content="{{ og_title | escape }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:description" content="{{ og_description | escape }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:url" content="{{ og_url | absolute_url }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+
+{%- if og_image != blank -%}
+  {%- assign og_image_url = og_image | image_url: width: 1200 -%}
+
+  {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:image" content="https:{{ og_image_url }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+  {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:image:secure_url" content="https:{{ og_image_url }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+  {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:image:width" content="1200">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+  {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:image:height" content="630">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+  <meta property="og:image:type" content="image/jpeg">
+
+  {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta name="twitter:image" content="https:{{ og_image_url }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- endif -%}
+
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta name="twitter:card" content="summary_large_image">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta name="twitter:title" content="{{ og_title | escape }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta name="twitter:description" content="{{ og_description | escape }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}  
+
+
+
+
+
+<!-- BEAE-GLOBAL-FONT --> 
+{% capture the_snippet_global_font %}{% include 'beae-global-font' %}{% endcapture %} {% unless the_snippet_global_font contains 'Liquid error' %} {{ the_snippet_global_font }} {% endunless %} 
+ <!-- END BEAE-GLOBAL-FONT -->
+
+
+
+
+
+
+
+<!-- BEAE-HEADER --> 
+{%- render 'beae_header' -%}
+<!-- END BEAE-HEADER -->
+    
+    {% render 'header_file' %}
+    {% render 'font-css' %}
+    {% render 'ecom_header' %}
+ <script type="lazyload" src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
+<script type="lazyload">
+    var klaviyo = klaviyo || [];
+    klaviyo.init({
+        account: 'RibCBS',
+        list: 'X9DcM9',
+        platform: 'shopify'
+    });
+
+    klaviyo.enable("backinstock", { 
+        trigger: {
+            product_page_text: "Notify Me When Available",
+            product_page_class: "product-form__submit button button--full-width button--primary",  // Strong match for Dawn/add-to-cart button
+            product_page_text_align: "center",
+            product_page_margin: "15px 0 0 0",
+            replace_anchor: true
+        },
+        modal: {
+            headline: "{product_name}",
+            body_content: "Register to receive a notification when this item comes back in stock.",
+            email_field_label: "Email",
+            button_label: "Notify me when available",
+            subscription_success_label: "You're in! We'll let you know when it's back.",
+            footer_content: '',
+            additional_styles: "@import url('https://fonts.googleapis.com/css?family=Helvetica+Neue'); .klaviyo-modal .klaviyo-form button { border-radius: 6px; padding: 14px; }",
+            drop_background_color: "#000",
+            background_color: "#fff",
+            text_color: "#222",
+            button_text_color: "#fff",
+            button_background_color: "#A70B10",
+            close_button_color: "#ccc",
+            error_background_color: "#fcd6d7",
+            error_text_color: "#C72E2F",
+            success_background_color: "#d3efcd",
+            success_text_color: "#1B9500"
+        }
+    });
+</script>
+
+<!-- Force background color + full width on Klaviyo trigger button -->
+<style>
+    .klaviyo-bis-trigger,
+    .klaviyo-bis-trigger.product-form__submit,
+    .klaviyo-bis-trigger.button--primary,
+    .klaviyo-bis-trigger.button--full-width {
+        background-color: #A70B10 !important;          /* Your blue color – change if needed */
+        color: #fff !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        display: block !important;
+        box-sizing: border-box !important;
+        padding: 1.2rem 2rem !important;
+        border: none !important;
+        border-radius: 4px !important;                 /* Match your theme's radius */
+        font-weight: bold !important;
+        cursor: pointer !important;
+        margin: 15px 0 0 0 !important;
+    }
+
+    /* Hover effect to match typical buttons */
+    .klaviyo-bis-trigger:hover {
+        background-color: #A70B10 !important;          /* Darker shade on hover – adjust as you like */
+    }
+</style>
+ <script type="lazyload">
+  document.addEventListener('DOMContentLoaded', function () {
+    const lazyScripts = document.querySelectorAll('script[type="lazyload_int"]');
+    lazyScripts.forEach((script) => {
+      const newScript = document.createElement('script');
+      newScript.src = script.getAttribute('data-src');
+      document.body.appendChild(newScript);
+    });
+  });
+</script>
+<script type="lazyload_int" data-src="https://cdn.tapcart.com/webbridge-sdk/webbridge.umd.js"></script>
+
+
+    <!-- Google Tag Manager -->
+    <script type="lazyload_int">
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-K59CLCPC');
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-K59CLCPC');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    {%- render 'doc-head-core' -%}
+    {%- render 'doc-head-social' -%}
+
+    <link rel="stylesheet" data-href="{{ 'fonts.css' | asset_url }}">
+    {%- style %}
+      :root {
+        --bg-color: {{ settings.bg_color.rgba }};
+        --bg-color-og: {{ settings.bg_color.rgba }};
+        --heading-color: {{ settings.heading_color.rgb }};
+        --text-color: {{ settings.text_color.rgb }};
+        --text-color-og: {{ settings.text_color.rgb }};
+        --scrollbar-color: {{ settings.text_color.rgb }};
+        --link-color: {{ settings.link_color.rgb }};
+        --link-color-og: {{ settings.link_color.rgb }};
+        --star-color: {{ settings.star_color.rgb }};
+        --sale-price-color: {{ settings.sale_price_color.rgb }};
+
+        {%- if settings.swatch_option_name != blank -%}
+          {%- liquid
+            assign swatch_border_color_default = settings.text_color | color_mix: settings.bg_color, 20
+            assign swatch_border_color_active = settings.text_color | color_mix: settings.bg_color, 50
+          -%}
+          --swatch-border-color-default: {{ swatch_border_color_default.rgb }};
+          --swatch-border-color-active: {{ swatch_border_color_active.rgb }};
+          --swatch-card-size: {{ settings.card_swatch_size }}px;
+          --swatch-variant-picker-size: {{ settings.variant_picker_swatch_size }}px;
+        {%- endif -%}
+
+        {%- assign color_scheme_1_btn_bg_hover = settings.color_scheme_1_btn_bg | color_mix: settings.color_scheme_1_btn_text, 85 | color_lighten: 3 -%}
+        --color-scheme-1-bg: {{ settings.color_scheme_1_bg.rgba }};
+        --color-scheme-1-grad: {{ settings.color_scheme_1_bg_grad }};
+        --color-scheme-1-heading: {{ settings.color_scheme_1_heading.rgb }};
+        --color-scheme-1-text: {{ settings.color_scheme_1_text.rgb }};
+        --color-scheme-1-btn-bg: {{ settings.color_scheme_1_btn_bg.rgb }};
+        --color-scheme-1-btn-text: {{ settings.color_scheme_1_btn_text.rgb }};
+        --color-scheme-1-btn-bg-hover: {{ color_scheme_1_btn_bg_hover.rgb }};
+
+        {%- assign color_scheme_2_btn_bg_hover = settings.color_scheme_2_btn_bg | color_mix: settings.color_scheme_2_btn_text, 85 | color_lighten: 3 -%}
+        --color-scheme-2-bg: {{ settings.color_scheme_2_bg.rgba }};
+        --color-scheme-2-grad: {{ settings.color_scheme_2_bg_grad }};
+        --color-scheme-2-heading: {{ settings.color_scheme_2_heading.rgb }};
+        --color-scheme-2-text: {{ settings.color_scheme_2_text.rgb }};
+        --color-scheme-2-btn-bg: {{ settings.color_scheme_2_btn_bg.rgb }};
+        --color-scheme-2-btn-text: {{ settings.color_scheme_2_btn_text.rgb }};
+        --color-scheme-2-btn-bg-hover: {{ color_scheme_2_btn_bg_hover.rgb }};
+
+        {%- assign color_scheme_3_btn_bg_hover = settings.color_scheme_3_btn_bg | color_mix: settings.color_scheme_3_btn_text, 85 | color_lighten: 3 -%}
+        --color-scheme-3-bg: {{ settings.color_scheme_3_bg.rgba }};
+        --color-scheme-3-grad: {{ settings.color_scheme_3_bg_grad }};
+        --color-scheme-3-heading: {{ settings.color_scheme_3_heading.rgb }};
+        --color-scheme-3-text: {{ settings.color_scheme_3_text.rgb }};
+        --color-scheme-3-btn-bg: {{ settings.color_scheme_3_btn_bg.rgb }};
+        --color-scheme-3-btn-text: {{ settings.color_scheme_3_btn_text.rgb }};
+        --color-scheme-3-btn-bg-hover: {{ color_scheme_3_btn_bg_hover.rgb }};
+
+        --drawer-bg-color: {{ settings.drawer_bg_color.rgba }};
+        --drawer-text-color: {{ settings.drawer_text_color.rgb }};
+
+        --panel-bg-color: {{ settings.panel_bg_color.rgba }};
+        --panel-heading-color: {{ settings.panel_heading_color.rgb }};
+        --panel-text-color: {{ settings.panel_text_color.rgb }};
+
+        --in-stock-text-color: {{ settings.in_stock_text_color.rgb }};
+        --low-stock-text-color: {{ settings.low_stock_text_color.rgb }};
+        --very-low-stock-text-color: {{ settings.very_low_stock_text_color.rgb }};
+        --no-stock-text-color: {{ settings.no_stock_text_color.rgb }};
+        --no-stock-backordered-text-color: {{ settings.no_stock_backordered_text_color.rgb }};
+
+        --error-bg-color: {{ settings.error_bg_color.rgb }};
+        --error-text-color: {{ settings.error_text_color.rgb }};
+        --success-bg-color: {{ settings.success_bg_color.rgb }};
+        --success-text-color: {{ settings.success_text_color.rgb }};
+        --info-bg-color: {{ settings.info_bg_color.rgb }};
+        --info-text-color: {{ settings.info_text_color.rgb }};
+
+        --heading-font-family: {{ settings.heading_font.family }}, {{ settings.heading_font.fallback_families }};
+        --heading-font-style: {{ settings.heading_font.style }};
+        --heading-font-weight: {{ settings.heading_font.weight }};
+        --heading-scale-start: {{ settings.heading_scale_start }};
+        --heading-letter-spacing: {{ settings.heading_letter_spacing | divided_by: 100.0 }}em;
+
+        --navigation-font-family: {{ settings.navigation_font.family }}, {{ settings.navigation_font.fallback_families }};
+        --navigation-font-style: {{ settings.navigation_font.style }};
+        --navigation-font-weight: {{ settings.navigation_font.weight }};
+        --navigation-letter-spacing: {{ settings.navigation_letter_spacing | divided_by: 100.0 }}em;
+
+        {%- if settings.heading_uppercase %}
+        --heading-text-transform: uppercase;
+        {%- else -%}
+        --heading-text-transform: none;
+        {%- endif %}
+        {%- if settings.subheading_uppercase %}
+        --subheading-text-transform: uppercase;
+        {%- else -%}
+        --subheading-text-transform: none;
+        {%- endif %}
+        --body-font-family: {{ settings.body_font.family }}, {{ settings.body_font.fallback_families }};
+        --body-font-style: {{ settings.body_font.style }};
+        --body-font-weight: {{ settings.body_font.weight }};
+        --body-font-size: {{ settings.body_font_size }};
+        --body-font-size-px: {{ settings.body_font_size }}px;
+        --body-letter-spacing: {{ settings.body_letter_spacing | divided_by: 100.0 }}em;
+
+        --section-gap: {{ settings.section_gap }};
+        --heading-gap: calc(8 * var(--space-unit));
+        {%- if settings.section_gap == '32' -%}
+          --heading-gap: calc(6 * var(--space-unit));
+        {%- endif -%}
+        --grid-column-gap: 20px;
+        --product-card-gap: {% if settings.card_contain and settings.card_contain_gapless %}0px{% else %}20px{% endif %};
+
+        {%- assign button_bg_color_hover = settings.button_bg_color | color_mix: settings.button_text_color, 85 | color_lighten: 3 -%}
+        --btn-bg-color: {{ settings.button_bg_color.rgb }};
+        --btn-bg-hover-color: {{ button_bg_color_hover.rgb }};
+        --btn-text-color: {{ settings.button_text_color.rgb }};
+        --btn-bg-color-og: {{ settings.button_bg_color.rgb }};
+        --btn-text-color-og: {{ settings.button_text_color.rgb }};
+        --btn-alt-bg-color: {{ settings.button_alt_bg_color.rgb }};
+        --btn-alt-bg-alpha: {{ settings.button_alt_bg_color.alpha }};
+        --btn-alt-text-color: {{ settings.button_alt_text_color.rgb }};
+        --btn-border-width: {{ settings.input_button_border_width }}px;
+        --btn-padding-y: 12px;
+        --btn-text-size: {% if settings.button_text_uppercase %}0.80em{% else %}0.92em{% endif %};
+
+        {% if settings.input_button_border_radius > 1 %}
+        --btn-border-radius: {{ settings.input_button_border_radius | plus: settings.input_button_border_width }}px;
+        {% endif %}
+
+        --btn-lg-border-radius: 50%;
+        --btn-icon-border-radius: 50%;
+        --input-with-btn-inner-radius: var(--btn-border-radius);
+
+        {%- if settings.button_text_uppercase %}
+        --btn-text-transform: uppercase;
+        {%- endif %}
+
+        --input-bg-color: {{ settings.bg_color.rgba }};
+        --input-text-color: {{ settings.text_color.rgb }};
+        --input-border-width: {{ settings.input_button_border_width }}px;
+        --input-border-radius: {{ settings.input_button_border_radius }}px;
+        --textarea-border-radius: {{ settings.input_button_border_radius | plus: 0 | at_most: 12 }}px;
+
+        {%- if settings.input_button_border_radius > 1 %}
+        --input-border-radius: {{ settings.input_button_border_radius | plus: settings.input_button_border_width }}px;
+        {%- endif -%}
+
+        {%- if settings.input_button_border_radius == 26 %}
+        --input-lg-border-radius: {{ settings.input_button_border_radius | plus: settings.input_button_border_width | plus: 6 }}px;
+        {%- endif -%}
+
+        {%- assign input_color_brightness = settings.bg_color | color_brightness -%}
+        {%- if input_color_brightness > 128 %}
+        --input-bg-color-diff-3: {{ settings.bg_color | color_darken: 3 }};
+        --input-bg-color-diff-6: {{ settings.bg_color | color_darken: 6 }};
+        {%- else -%}
+        --input-bg-color-diff-3: {{ settings.bg_color | color_lighten: 3 }};
+        --input-bg-color-diff-6: {{ settings.bg_color | color_lighten: 6 }};
+        {%- endif %}
+
+        --modal-border-radius: {{ settings.drawer_border_radius }}px;
+        --modal-overlay-color: 0 0 0;
+        --modal-overlay-opacity: 0.4;
+        --drawer-border-radius: {{ settings.drawer_border_radius }}px;
+        --overlay-border-radius: {{ settings.overlay_border_radius }}px;
+
+        {%- if settings.show_custom_label -%}
+        --custom-label-bg-color: {{ settings.custom_label_bg_color.rgb }};
+        --custom-label-text-color: {{ settings.custom_label_text_color.rgb }};
+        {%- endif -%}
+        {%- if settings.show_sale_label -%}
+        --sale-label-bg-color: {{ settings.sale_label_bg_color.rgb }};
+        --sale-label-text-color: {{ settings.sale_label_text_color.rgb }};
+        {%- endif -%}
+        {%- if settings.show_sold_out_label -%}
+        --sold-out-label-bg-color: {{ settings.sold_out_label_bg_color.rgb }};
+        --sold-out-label-text-color: {{ settings.sold_out_label_text_color.rgb }};
+        {%- endif -%}
+        {%- if settings.show_new_label -%}
+        --new-label-bg-color: {{ settings.new_label_bg_color.rgb }};
+        --new-label-text-color: {{ settings.new_label_text_color.rgb }};
+        {%- endif -%}
+
+        --preorder-label-bg-color: {{ settings.preorder_label_bg_color.rgb }};
+        --preorder-label-text-color: {{ settings.preorder_label_text_color.rgb }};
+
+        --page-width: {{ settings.max_page_width | default: 1320 }}px;
+        --gutter-sm: {{ gutter_sm }}px;
+        --gutter-md: {{ gutter_md }}px;
+        --gutter-lg: {{ gutter_lg }}px;
+
+        --payment-terms-bg-color: {{ settings.bg_color }};
+
+        --coll-card-bg-color: {{ settings.coll_bg_color }};
+        --coll-card-border-color: {{ settings.coll_border_color }};
+
+        --card-bg-color: {{ settings.card_bg_color.rgb }};
+        --card-text-color: {{ settings.card_text_color.rgb }};
+        --card-border-color: {{ settings.card_border_color }};
+
+        {%- if settings.blend_product_images or settings.blend_collection_images -%}
+          --blend-bg-color: {{ settings.blend_bg_color }};
+        {%- endif -%}
+
+        {% if settings.animations_enabled != "disabled" %}
+          {% if settings.animation_speed == "fast" %}
+            --aos-animate-duration: 0.7s;
+          {% elsif settings.animation_speed == "medium" %}
+            --aos-animate-duration: 1.1s;
+          {% elsif settings.animation_speed == "slow" %}
+            --aos-animate-duration: 1.3s;
+          {% endif %}
+
+          {% if settings.animations_enabled == "desktop" %}
+            --aos-min-width: {{ breakpoint_sm }};
+          {% else %}
+            --aos-min-width: 0;
+          {% endif %}
+        {% endif %}
+
+        --reading-width: 48em;
+
+        {%- if dock_cart_drawer -%}
+          --docked-cart-drawer-width: 0px;
+        {%- endif -%}
+
+        {% if settings.cart_show_savings %}
+          --cart-savings-color: {{ settings.cart_savings_color.rgb }}
+        {% endif %}
+      }
+
+      {%- if dock_cart_drawer -%}
+        @media (min-width: 1100px) {
+          :root {
+            --docked-cart-drawer-width: 320px;
+          }
+        }
+
+        @media (min-width: 1280px) {
+          :root {
+            --docked-cart-drawer-width: 360px;
+          }
+        }
+      {%- endif -%}
+
+      @media (max-width: {{ breakpoint_md }}px) {
+        :root {
+          --reading-width: 36em;
+        }
+      }
+
+      .custom_body.fixed .tc-button {
+    display: none !important;
+} 
+    {%- endstyle %}
+
+    {% if template contains "index" %}
+		{% render 'all-css' %}	
+	{% else %}
+		{% render 'all-css' %}	
+	{% endif %}
+
+    <link rel="stylesheet" data-href="{{ 'main.css' | asset_url }}">
+
+    <script type="lazyload_int" data-src="{{ 'main.js' | asset_url }}"></script>
+
+  
+
+    {%- if dock_cart_drawer -%}
+      <link rel="stylesheet" href="{{ 'dockable-side-drawer.css' | asset_url }}">
+    {%- endif -%}
+
+    {%- if request.page_type contains 'customers' -%}
+      <link rel="stylesheet" href="{{ 'customer.css' | asset_url }}">
+    {%- endif -%}
+
+    {%- if settings.swatch_colors != blank -%}
+      <link rel="stylesheet" href="{{ 'swatches.css' | asset_url }}" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="{{ 'swatches.css' | asset_url }}"></noscript>
+    {%- endif -%}
+
+    {%- if request.design_mode or template contains 'cart' or template contains 'checkout' -%}
+      {{ content_for_header }}
+    {%- else -%}
+      {% capture content_for_header2 %}{{ content_for_header }}{% endcapture %}
+      {{
+        content_for_header2
+        | replace: ' defer="defer" ', ' type="lazyload_int" '
+        | replace: ' src=', ' data-src='
+        | replace: 'DOMContentLoaded', 'w3-DOMContentLoaded'
+        | replace: "window.addEventListener('load', asyncLoad, false);",
+          "window.addEventListener('w3-DOMContentLoaded', asyncLoad, false);"
+        | replace: "addEventListener('load', prefetchAssets);",
+          "addEventListener('w3-DOMContentLoaded', prefetchAssets);"
+        | replace: "<script type='text/javascript' defer='defer'", "<script type='lazyload_int'"
+      }}
+      <script>
+        var trekkie=[];trekkie.integrations=!0;window.BOOMR={},window.BOOMR.version=true;
+      </script>
+    {%- endif -%}
+
+    {%- if request.design_mode -%}
+      <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    {%- if settings.show_blur_messages -%}
+      <script src="{{ 'blur-messages.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    {% if settings.animations_enabled != 'disabled' %}
+      <script type="lazyload_int" data-src="{{ 'animate-on-scroll.js' | asset_url }}"></script>
+      <link rel="stylesheet" data-href="{{ 'animate-on-scroll.css' | asset_url }}">
+    {% endif %}
+
+    <script  type="lazyload_int">
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+
+    {%- if settings.custom_html_head -%}
+      <!-- CC Custom Head Start -->
+      {{- settings.custom_html_head -}}
+      <!-- CC Custom Head End -->
+    {%- endif -%}
+    {% render 'custom-css' %}
+    {% render 'app-block' %}
+    {% render 'customer-events' %}
+    {% render 'judgeme_core' %}
+  
+
+{% capture the_snippet_beae-global-theme-setting %}{% include 'beae-global-theme-setting' %}{% endcapture %}
+            {% unless the_snippet_beae-global-theme-setting contains 'Liquid error' %}
+                {{ the_snippet_beae-global-theme-setting }}
+            {% endunless %}
+   
+</head>
+
+<body
+  
+    class="{% if settings.animations_enabled != 'disabled' %}cc-animate-enabled {{ page.handle }} {{ page_title | replace: " ", "-" }}{% endif %} custom_body"
+  
+>
+
+
+  <script src="{{ 'your-custom-script.js' | asset_url }}" defer></script>
+
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-K59CLCPC"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      >
+        height="0" width="0" style="display:none;visibility:hidden"></iframe
+      ></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
+
+    <a class="skip-link btn btn--primary visually-hidden" href="#main-content" data-cc-role="skip">
+      {{- 'accessibility.skip_to_content' | t -}}
+    </a>
+
+    {%- sections 'header-group' -%}
+
+    <main id="main-content">
+      {%- liquid
+        assign show_breadcrumbs = false
+        if settings.show_breadcrumbs_product and request.page_type == 'product'
+          assign show_breadcrumbs = true
+        elsif settings.show_breadcrumbs_collection and request.page_type == 'collection'
+          assign show_breadcrumbs = true
+        elsif settings.show_breadcrumbs_collection_list and request.page_type == 'list-collections'
+          assign show_breadcrumbs = true
+        elsif settings.show_breadcrumbs_article and request.page_type == 'article'
+          assign show_breadcrumbs = true
+        elsif settings.show_breadcrumbs_blog and request.page_type == 'blog'
+          assign show_breadcrumbs = true
+        endif
+      -%}
+      {%- if show_breadcrumbs -%}
+        <div class="container container--breadcrumbs {% if request.page_type == 'product' %} product-breadcrumbs{% endif %}">
+          {%- liquid
+            assign show_rss_link = false
+            if template.name == 'blog'
+              assign show_rss_link = settings.show_breadcrumbs_blog_rss
+            endif
+          -%}
+          {% render 'breadcrumbs', show_rss_link: show_rss_link %}
+        </div>
+      {%- endif -%}
+
+      {{ content_for_layout }}
+    </main>
+
+    {%- sections 'overlay-group' -%}
+    {%- sections 'footer-group' -%}
+
+    {%- liquid
+      if request.page_type == 'collection' or request.page_type == 'search'
+        if settings.enable_compare
+          echo 'compare-toggle.css' | asset_url | stylesheet_tag
+          render 'product-compare'
+        endif
+      endif
+
+      if settings.enable_quick_add
+        render 'quick-add-drawer'
+      endif
+    -%}
+
+    <div class="overlay fixed top-0 right-0 bottom-0 left-0 js-overlay"></div>
+    <script>
+      window.theme = {
+        info: {
+          name: 'Canopy',
+          version: '6.1.1'
+        },
+        mediaQueries: {
+          sm: '(min-width: 600px)',
+          md: '(min-width: 769px)',
+          lg: '(min-width: 1024px)',
+          xl: '(min-width: 1280px)',
+          xxl: '(min-width: 1536px)',
+          portrait: '(orientation: portrait)'
+        },
+        device: {
+          hasTouch: window.matchMedia('(any-pointer: coarse)').matches,
+          hasHover: window.matchMedia('(hover: hover)').matches
+        },
+        routes: {
+          cart: '{{ routes.cart_url }}',
+          cartAdd: '{{ routes.cart_add_url }}',
+          cartChange: '{{ routes.cart_change_url }}',
+          cartUpdate: '{{ routes.cart_update_url }}',
+          cartClear: '{{ routes.cart_clear_url }}',
+          predictiveSearch: '{{ routes.predictive_search_url }}'
+        },
+        settings: {
+          moneyWithCurrencyFormat: {{ shop.money_with_currency_format | json }},
+          pSearchLimit: {{ settings.predictive_search_limit | json }},
+          pSearchLimitScope: 'each',
+          pSearchIncludeSkus: {{ settings.predictive_search_include_skus | json }},
+          pSearchIncludeTags: {{ settings.predictive_search_include_tags | json }},
+          sliderItemsPerNav: '{{ settings.slider_items_per_nav }}',
+          {% if settings.show_blur_messages %}
+            blurMessage1: {{ settings.blur_message_1 | json }},
+            blurMessage2: {{ settings.blur_message_2 | json }},
+            blurMessageDelay: {{ settings.blur_message_delay }},
+          {% endif %}
+          vibrateOnATC: {{ settings.vibrate_on_atc | json }},
+          compareToggle: true,
+          compareShowEmptyMetafields: {{ settings.compare_show_empty_metafields | json }},
+          blendProductImages: {{ settings.blend_product_images | json }},
+          externalLinksNewTab: {{ settings.external_links_new_tab | json }},
+          afterAtc: {{ settings.after_add_to_cart | json }},
+          cartType: {{ settings.cart_type | json }},
+          dockCartDrawer: {{ dock_cart_drawer | json }}
+        },
+        strings: {
+          addCartNote: '{{ "cart.note.add" | t }}',
+          editCartNote: '{{ "cart.note.edit" | t }}',
+          cartError: '{{ "cart.general.error" | t }}',
+          cartQtyError: '{{ "cart.items.quantity_error" | t: quantity: "[quantity]" }}',
+          confirmEmptyCart: '{{ "cart.general.confirm_empty_cart" | t }}',
+          cartTermsConfirmation: '{{ "cart.terms.confirmation" | t }}',
+          imageAvailable: '{{ "products.product.media.image_available" | t: index: "[index]" }}',
+          veryLowStock: '{{ 'products.inventory.very_low_stock' | t }}',
+          lowStock: '{{ 'products.inventory.low_stock' | t }}',
+          inStock: '{{ 'products.inventory.in_stock' | t }}',
+          noStock: '{{ "products.variant.no_stock" | t }}',
+          noVariant: '{{ "products.variant.non_existent" | t }}',
+          onlyXLeft: '{{ "products.inventory.only_x_left" | t: quantity: "[quantity]" }}',
+          awaitingSale: '{{ "products.product.awaiting_sale" | t }}',
+          shippingCalculator: {
+            singleRate: '{{ "cart.shipping_calculator.single_rate" | t }}',
+            multipleRates: '{{ "cart.shipping_calculator.multiple_rates" | t }}',
+            noRates: '{{ "cart.shipping_calculator.no_rates" | t }}'
+          },
+          viewDetails: '{{ "products.product.view_details" | t }}',
+          compare: {
+            limit: '{{ 'products.compare.drawer.limit_reached' | t: quantity: '[quantity]' }}',
+            more: '{{ 'products.compare.drawer.select_more' | t }}',
+            empty: '{{ 'products.compare.drawer.empty' | t }}',
+            continue: '{{ 'products.compare.drawer.close_continue' | t }}'
+          },
+          discountCopyFail: '{{ 'general.discount_code.copy_fail' | t }}',
+          quickNav: {
+            button_standard: '{{ 'general.quick_navigation_panel.button_label' | t }}',
+            show_products_none: '{{ 'general.quick_navigation_panel.show_products_none' | t }}',
+            button_one: '{{ 'general.quick_navigation_panel.show_products_one' | t: quantity: '[quantity]' }}',
+            button_other: '{{ 'general.quick_navigation_panel.show_products_other' | t: quantity: '[quantity]' }}',
+          },
+        },
+        scripts: {
+          cartItems: '{{ "cart-items.js" | asset_url }}',
+          countryProvinceSelector: '{{ "country-province-selector.js" | asset_url }}',
+          shippingCalculator: '{{ "shipping-calculator.js" | asset_url }}'
+        }
+      };
+
+      // Save product ID to localStorage, for use in the 'Recently viewed products' section.
+      {%- if request.page_type == 'product' %}
+        try {
+          const items = JSON.parse(localStorage.getItem('cc-recently-viewed') || '[]');
+
+          // If product ID is not already in the recently viewed list, add it to the beginning.
+          if (!items.includes({{ product.id | json }})) {
+            items.unshift({{ product.id | json }});
+          }
+
+          // Set recently viewed list and limit to 12 products.
+          localStorage.setItem('cc-recently-viewed', JSON.stringify(items.slice(0, 12)));
+        } catch (e) {}
+      {%- endif %}
+    </script>
+
+    {%- if request.design_mode == false and settings.preload_links -%}
+      <script type="lazyload_int" data-src="{{ 'instant-page.js' | asset_url }}" data-w3-type="module"></script>
+    {%- endif -%}
+
+   
+
+    {%- render 'ecom_footer' -%}
+    {% render 'footer_file' %}
+    {% render 'footer-app-block' %}
+    <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const lazyScripts = document.querySelectorAll('script[type="lazyload_int"]');
+    lazyScripts.forEach((script) => {
+      const s = document.createElement('script');
+      s.src = script.getAttribute('data-src');
+      document.body.appendChild(s);
+    });
+  });
+</script>
+
+<script  type="lazyload_int">
+    var klaviyo = klaviyo || [];
+    klaviyo.init({
+      account: "RibCBS",
+      platform: "shopify"
+    });
+    klaviyo.enable("backinstock", { 
+      trigger: {
+        product_page_text: "Notify Me When Available",
+        product_page_class: "button",
+        product_page_text_align: "center",
+        product_page_margin: "0px",
+        replace_anchor: false
+      },
+      modal: {
+        headline: "{product_name}",
+        body_content: "Register to receive a notification when this item comes back in stock.",
+        email_field_label: "Email",
+        button_label: "Notify me when available",
+        subscription_success_label: "You're in! We'll let you know when it's back.",
+        footer_content: '',
+        additional_styles: "@import url('https://fonts.googleapis.com/css?family=Helvetica+Neue');",
+        drop_background_color: "#000",
+        background_color: "#fff",
+        text_color: "#222",
+        button_text_color: "#fff",
+        button_background_color: "#B81A24",  /* Updated button color */
+        close_button_color: "#ccc",
+        error_background_color: "#fcd6d7",
+        error_text_color: "#C72E2F",
+        success_background_color: "#d3efcd",
+        success_text_color: "#1B9500"
+      }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+<!-- BEAE-FOOTER --> 
+{%- render 'beae_footer' -%}
+<!-- END BEAE-FOOTER -->
+
+
+
+
+
+
+<!-- BEAE-AB-SNIPPET --> 
+{%- render 'beae_ab_snippet' -%}
+<!-- END BEAE-AB-SNIPPET -->
+
+
+</body>
+</html>
+
+{% if request.path == '/apps/subscriptions/bb/10S7bGr5' %}
+  <style>
+    /* Custom CSS to hide the button */
+    button.search__submit.text-current.absolute.focus-inset.start {
+        display: none;
+    }
+  </style>
+{% endif %}
+
+
+
+<script  type="lazyload_int">
+  console.log(document.body.innerHTML); // Log entire HTML to check the DOM structure
+</script>
+
+
+
+<script type="lazyload_int">
+  // Helper function to normalize the text for comparison (lowercase and removing special characters)
+  function normalizeText(text) {
+    // Replace different apostrophe characters, lowercase, remove special characters, and replace multiple spaces with a single space
+    return text.toLowerCase()
+      .replace(/[^\w\s'-]/g, '')  // Allows apostrophes and dashes
+      .replace(/\s+/g, ' ')       // Replace multiple spaces with a single space
+      .trim();
+  }
+
+  
+
+<script type="lazyload_int">
+         document.addEventListener('DOMContentLoaded', function() {
+             setTimeout(function() {
+             console.log("point check run");
+
+
+     let pointsText = document.querySelector('.yotpo-points-balance-text-part.notranslate').textContent.trim();
+               console.log("pointsText",pointsText);
+             // Use a regular expression to extract the numeric value
+             let pointsBalance = parseInt(pointsText.replace(/\D/g, '')); // Remove non-numeric characters
+             console.log("pointsBalance",pointsBalance);
+             // Check if the points balance is less than 100
+                if (!isNaN(pointsBalance) && pointsBalance < 200) {
+                  console.log("Desktop list")
+                 // Get the element with the class yotpo-redemption-option-id-834687
+                 let redemptionItem = document.querySelector('.yotpo-redemption-options-list');
+                let redemptionItem1 = document.querySelector('.yotpo-redemption-options-mobile-list');
+                  console.log(redemptionItem1);
+
+                 if (redemptionItem1) {
+                   console.log("hidding from mobile");
+                     redemptionItem1.style.display = 'none';
+                 }
+                  else if (redemptionItem) {
+                   console.log("redemptionItem",redemptionItem);
+                     redemptionItem.style.display = 'none';
+                 }
+
+
+                  let messageDiv = document.createElement('div');
+                  messageDiv.classList.add('insufficient-points-message');
+
+
+                  // Add message text
+                  let messageText = document.createElement('p');
+                  messageText.style.margin = '10px';
+                  messageText.textContent = "You don't have enough points.";
+                  messageDiv.appendChild(messageText);
+                   messageDiv.style.color = '#a70a10';
+                  messageDiv.style.marginTop = '-20px';
+                  messageDiv.style.fontSize = '20px';
+                  messageDiv.style.fontWeight = '800';
+
+                  // Create the button
+                  let button = document.createElement('button');
+                  button.textContent = "Earn More Points";
+                  button.classList.add('earn-more-points-button');
+                  button.style.backgroundColor = '#a70a10';
+                  button.style.color = 'white';
+                  button.style.padding = '10px 25px 10px 25px';
+                  button.style.borderRadius = '8px';
+                  button.style.textAlign = 'center';
+
+                  // Optionally, you can add a link or event listener to the button
+                  // Example: Redirect to a page to earn more points
+                  button.onclick = function() {
+                      window.location.href = '/pages/mls-rewards'; // Modify this URL to where the user can earn points
+                  };
+
+                  // Append the button to the message div
+                  messageDiv.appendChild(button);
+
+                  // Insert the new message content into the parent container (before or after the redemption item)
+                  // redemptionItem.parentElement.appendChild(messageDiv);
+
+  if (redemptionItem) {
+          redemptionItem.parentElement.appendChild(messageDiv);
+      }
+
+      if (redemptionItem1) {
+          redemptionItem1.parentElement.appendChild(messageDiv);
+      }
+
+         });
+</script> 
+

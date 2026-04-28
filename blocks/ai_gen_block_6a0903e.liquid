@@ -1,0 +1,297 @@
+{% doc %}
+  @prompt
+    generate a reel section with yt link embeded autoplay option and loop also controls needed mute it
+    
+    centeralized it
+    
+    i can add more as well , only load yt reel not full youtube website its loading full website, i said reel its width is videos width reel size only
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-video-reel-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: 40px 20px;
+  }
+
+  .ai-video-reel-container-{{ ai_gen_id }} {
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .ai-video-reel-grid-{{ ai_gen_id }} {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .ai-video-reel-item-{{ ai_gen_id }} {
+    position: relative;
+    width: {{ block.settings.reel_width }}px;
+    height: calc({{ block.settings.reel_width }}px * 1.78);
+    background-color: #000000;
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .ai-video-reel-iframe-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .ai-video-reel-empty-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    color: #666666;
+  }
+
+  .ai-video-reel-empty-icon-{{ ai_gen_id }} {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 16px;
+    opacity: 0.3;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-video-reel-item-{{ ai_gen_id }} {
+      width: {{ block.settings.reel_width | times: 0.8 }}px;
+      height: calc({{ block.settings.reel_width | times: 0.8 }}px * 1.78);
+    }
+  }
+{% endstyle %}
+
+<video-reel-{{ ai_gen_id }} class="ai-video-reel-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-video-reel-container-{{ ai_gen_id }}">
+    {% liquid
+      assign video_1 = block.settings.video_url_1
+      assign video_2 = block.settings.video_url_2
+      assign video_3 = block.settings.video_url_3
+      assign video_4 = block.settings.video_url_4
+      assign has_videos = false
+      
+      if video_1 != blank or video_2 != blank or video_3 != blank or video_4 != blank
+        assign has_videos = true
+      endif
+    %}
+
+    {% if has_videos %}
+      <div class="ai-video-reel-grid-{{ ai_gen_id }}">
+        {% for i in (1..4) %}
+          {% liquid
+            assign video_key = 'video_url_' | append: i
+            assign video_url = block.settings[video_key]
+          %}
+          
+          {% if video_url != blank %}
+            <div class="ai-video-reel-item-{{ ai_gen_id }}">
+              <iframe
+                class="ai-video-reel-iframe-{{ ai_gen_id }}"
+                data-video-url="{{ video_url }}"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="ai-video-reel-empty-{{ ai_gen_id }}">
+        <div class="ai-video-reel-empty-icon-{{ ai_gen_id }}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="23 7 16 12 23 17 23 7"></polygon>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+          </svg>
+        </div>
+        <p>Add YouTube video URLs to display your video reel</p>
+      </div>
+    {% endif %}
+  </div>
+</video-reel-{{ ai_gen_id }}>
+
+<script type="lazyload">
+  (function() {
+    class VideoReel{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.processVideoUrls();
+      }
+
+      processVideoUrls() {
+        const iframes = this.querySelectorAll('.ai-video-reel-iframe-{{ ai_gen_id }}');
+        
+        iframes.forEach((iframe) => {
+          const videoUrl = iframe.getAttribute('data-video-url');
+          
+          if (videoUrl) {
+            const videoId = this.extractVideoId(videoUrl);
+            
+            if (videoId) {
+              const embedUrl = this.buildEmbedUrl(videoId);
+              iframe.setAttribute('src', embedUrl);
+            }
+          }
+        });
+      }
+
+      extractVideoId(url) {
+        const patterns = [
+          /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
+          /^([a-zA-Z0-9_-]{11})$/
+        ];
+        
+        for (const pattern of patterns) {
+          const match = url.match(pattern);
+          if (match && match[1]) {
+            return match[1];
+          }
+        }
+        
+        return null;
+      }
+
+      buildEmbedUrl(videoId) {
+        const autoplay = '{{ block.settings.autoplay }}' === 'true' ? '1' : '0';
+        const loop = '{{ block.settings.loop }}' === 'true' ? '1' : '0';
+        const controls = '{{ block.settings.controls }}' === 'true' ? '1' : '0';
+        const mute = '{{ block.settings.mute }}' === 'true' ? '1' : '0';
+        
+        let params = [];
+        params.push(`autoplay=${autoplay}`);
+        params.push(`controls=${controls}`);
+        params.push(`mute=${mute}`);
+        params.push('modestbranding=1');
+        params.push('rel=0');
+        
+        if (loop === '1') {
+          params.push(`loop=1`);
+          params.push(`playlist=${videoId}`);
+        }
+        
+        const embedUrl = `https://www.youtube.com/embed/${videoId}?${params.join('&')}`;
+        
+        return embedUrl;
+      }
+    }
+
+    customElements.define('video-reel-{{ ai_gen_id }}', VideoReel{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Video reel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video URLs"
+    },
+    {
+      "type": "paragraph",
+      "content": "Add YouTube video URLs or video IDs. Supports YouTube Shorts, regular videos, or just the video ID"
+    },
+    {
+      "type": "text",
+      "id": "video_url_1",
+      "label": "Video 1 URL or ID"
+    },
+    {
+      "type": "text",
+      "id": "video_url_2",
+      "label": "Video 2 URL or ID"
+    },
+    {
+      "type": "text",
+      "id": "video_url_3",
+      "label": "Video 3 URL or ID"
+    },
+    {
+      "type": "text",
+      "id": "video_url_4",
+      "label": "Video 4 URL or ID"
+    },
+    {
+      "type": "header",
+      "content": "Video settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay videos",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop videos",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "controls",
+      "label": "Show video controls",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "mute",
+      "label": "Mute videos",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "reel_width",
+      "label": "Reel width",
+      "min": 200,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video reel"
+    }
+  ]
+}
+{% endschema %}

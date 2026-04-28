@@ -1,0 +1,1172 @@
+{% doc %}
+  @prompt
+    an interactive vertical tabs with features in bulles 
+    need bullets colors option and also tabs colors
+    content on right and it changes oin click
+    
+    view all button with width and border option, responsive on mobile and width option for section
+    
+    tab title color and adding title option for active and non active, color option for all tabs and text color, all tabs colors options one by one like tab1 color tab2 color and also text color, tab text colors is not changing, border on content and on mobile content right as well not on bottom
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-vertical-tabs-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.section_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-vertical-tabs-{{ ai_gen_id }} {
+    display: flex;
+    gap: 40px;
+    max-width: 100%;
+  }
+
+  .ai-vertical-tabs__nav-{{ ai_gen_id }} {
+    flex: 0 0 {{ block.settings.tabs_width }}%;
+    min-width: 200px;
+  }
+
+  .ai-vertical-tabs__content-{{ ai_gen_id }} {
+    flex: 1;
+    min-height: 300px;
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 16px 20px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: {{ block.settings.tab_border_radius }}px;
+    margin-bottom: 8px;
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="1"] {
+    background-color: {{ block.settings.tab_1_bg_color }};}
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="1"] .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tab_1_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="1"]:hover {
+    background-color: {{ block.settings.tab_1_hover_bg_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="1"]:hover .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tab_1_hover_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="1"].active {
+    background-color: {{ block.settings.tab_1_active_bg_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="1"].active .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tab_1_active_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="2"] {
+    background-color: {{ block.settings.tab_2_bg_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="2"] .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tab_2_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="2"]:hover {
+    background-color: {{ block.settings.tab_2_hover_bg_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="2"]:hover .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tab_2_hover_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="2"].active {
+    background-color: {{ block.settings.tab_2_active_bg_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="2"].active .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tab_2_active_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="3"] {
+    background-color: {{ block.settings.tab_3_bg_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="3"] .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tab_3_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="3"]:hover {
+    background-color: {{ block.settings.tab_3_hover_bg_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="3"]:hover .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tab_3_hover_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="3"].active {
+    background-color: {{ block.settings.tab_3_active_bg_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="3"].active .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tab_3_active_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="4"] {
+    background-color: {{ block.settings.tab_4_bg_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="4"] .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tab_4_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="4"]:hover {
+    background-color: {{ block.settings.tab_4_hover_bg_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="4"]:hover .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tab_4_hover_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="4"].active {
+    background-color: {{ block.settings.tab_4_active_bg_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="4"].active .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tab_4_active_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="5"] {
+    background-color: {{ block.settings.tab_5_bg_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="5"] .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tab_5_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="5"]:hover {
+    background-color: {{ block.settings.tab_5_hover_bg_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="5"]:hover .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tab_5_hover_text_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="5"].active {
+    background-color: {{ block.settings.tab_5_active_bg_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="5"].active .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tab_5_active_text_color }};
+  }
+
+  .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    width: {{ block.settings.bullet_size }}px;
+    height: {{ block.settings.bullet_size }}px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="1"] .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_1_bullet_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="1"]:hover .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_1_bullet_hover_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="1"].active .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_1_bullet_active_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="2"] .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_2_bullet_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="2"]:hover .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_2_bullet_hover_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="2"].active .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_2_bullet_active_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="3"] .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_3_bullet_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="3"]:hover .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_3_bullet_hover_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="3"].active .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_3_bullet_active_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="4"] .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_4_bullet_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="4"]:hover .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_4_bullet_hover_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="4"].active .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_4_bullet_active_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="5"] .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_5_bullet_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="5"]:hover .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_5_bullet_hover_color }};
+  }
+
+  .ai-vertical-tabs__tab-{{ ai_gen_id }}[data-tab-id="5"].active .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+    background-color: {{ block.settings.tab_5_bullet_active_color }};
+  }
+
+  .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.tab_font_size }}px;
+    font-weight: 600;
+    margin: 0;
+    transition: color 0.3s ease;
+  }
+
+  .ai-vertical-tabs__panel-{{ ai_gen_id }} {
+    display: none;
+    padding: 20px;
+    background-color: {{ block.settings.content_bg_color }};
+    border-radius: {{ block.settings.content_border_radius }}px;
+    color: {{ block.settings.content_text_color }};
+    {% if block.settings.content_border_width > 0 %}
+      border: {{ block.settings.content_border_width }}px solid {{ block.settings.content_border_color }};
+    {% endif %}
+  }
+
+  .ai-vertical-tabs__panel-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-vertical-tabs__panel-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.content_title_size }}px;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    color: {{ block.settings.content_title_color }};
+  }
+
+  .ai-vertical-tabs__panel-content-{{ ai_gen_id }} {
+    font-size: {{ block.settings.content_text_size }}px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .ai-vertical-tabs__view-all-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: {{ block.settings.button_font_size }}px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: {{ block.settings.button_width }}%;
+    text-align: center;
+    {% if block.settings.button_border_width > 0 %}
+      border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    {% else %}
+      border: none;
+    {% endif %}
+  }
+
+  .ai-vertical-tabs__view-all-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+    color: {{ block.settings.button_hover_text_color }};
+    {% if block.settings.button_border_width > 0 %}
+      border-color: {{ block.settings.button_hover_border_color }};
+    {% endif %}
+  }
+
+  .ai-vertical-tabs__empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 40px20px;
+    color: #666;
+    font-style: italic;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .ai-vertical-tabs-container-{{ ai_gen_id }} {
+      padding: 0 16px;
+    }
+
+    .ai-vertical-tabs-{{ ai_gen_id }} {
+      gap: 30px;
+    }
+
+    .ai-vertical-tabs__nav-{{ ai_gen_id }} {
+      flex: 0 0 40%;
+      min-width: 180px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-vertical-tabs-container-{{ ai_gen_id }} {
+      padding: 0 12px;
+    }
+
+    .ai-vertical-tabs-{{ ai_gen_id }} {
+      flex-direction: row;
+      gap: 20px;
+    }
+
+    .ai-vertical-tabs__nav-{{ ai_gen_id }} {
+      flex: none;
+      width: 40%;
+      min-width: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ai-vertical-tabs__content-{{ ai_gen_id }} {
+      flex: 1;
+      min-height: 200px;
+    }
+
+    .ai-vertical-tabs__tab-{{ ai_gen_id }} {
+      padding: 12px 16px;
+      margin-bottom: 0;
+    }
+
+    .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.tab_font_size | times: 0.9 }}px;
+    }
+
+    .ai-vertical-tabs__panel-{{ ai_gen_id }} {
+      padding: 16px;
+    }
+
+    .ai-vertical-tabs__panel-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.content_title_size | times: 0.9 }}px;
+      margin-bottom: 12px;
+    }
+
+    .ai-vertical-tabs__panel-content-{{ ai_gen_id }} {
+      font-size: {{ block.settings.content_text_size | times: 0.9 }}px;
+      margin-bottom: 16px;
+    }
+
+    .ai-vertical-tabs__view-all-{{ ai_gen_id }} {
+      width: 100%;
+      padding: 14px 24px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .ai-vertical-tabs-container-{{ ai_gen_id }} {
+      padding: 0 8px;
+    }
+
+    .ai-vertical-tabs-{{ ai_gen_id }} {
+      flex-direction: row;
+      gap: 15px;
+    }
+
+    .ai-vertical-tabs__nav-{{ ai_gen_id }} {
+      width: 35%;
+    }
+
+    .ai-vertical-tabs__tab-{{ ai_gen_id }} {
+      padding: 10px 12px;
+      gap: 10px;
+    }
+
+    .ai-vertical-tabs__bullet-{{ ai_gen_id }} {
+      width: {{ block.settings.bullet_size | times: 0.8 }}px;
+      height: {{ block.settings.bullet_size | times: 0.8 }}px;
+    }
+
+    .ai-vertical-tabs__tab-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.tab_font_size | times: 0.8 }}px;
+    }
+
+    .ai-vertical-tabs__panel-{{ ai_gen_id }} {
+      padding: 12px;
+    }
+
+    .ai-vertical-tabs__panel-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.content_title_size | times: 0.8 }}px;
+    }
+
+    .ai-vertical-tabs__panel-content-{{ ai_gen_id }} {
+      font-size: {{ block.settings.content_text_size | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-vertical-tabs-container-{{ ai_gen_id }}">
+  <vertical-tabs-{{ ai_gen_id }}
+    class="ai-vertical-tabs-{{ ai_gen_id }}"
+    {{ block.shopify_attributes }}>
+    <div class="ai-vertical-tabs__nav-{{ ai_gen_id }}">
+      {% for i in (1..5) %}
+        {% liquid
+          assign tab_title_key = 'tab_' | append: i | append: '_title'
+          assign tab_content_key = 'tab_' | append: i | append: '_content'
+          assign tab_title = block.settings[tab_title_key]
+          assign tab_content = block.settings[tab_content_key]
+        %}
+        
+        {% if tab_title != blank %}
+          <button
+            class="ai-vertical-tabs__tab-{{ ai_gen_id }} {% if forloop.first %}active{% endif %}"
+            data-tab-id="{{ i }}"
+            aria-controls="ai-vertical-tabs-panel-{{ ai_gen_id }}-{{ i }}"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            role="tab"
+          >
+            <div class="ai-vertical-tabs__bullet-{{ ai_gen_id }}"></div>
+            <h3 class="ai-vertical-tabs__tab-title-{{ ai_gen_id }}">{{ tab_title }}</h3>
+          </button>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="ai-vertical-tabs__content-{{ ai_gen_id }}">
+      {% assign has_content = false %}
+      {% for i in (1..5) %}
+        {% liquid
+          assign tab_title_key = 'tab_' | append: i | append: '_title'
+          assign tab_content_key = 'tab_' | append: i | append: '_content'
+          assign tab_title = block.settings[tab_title_key]
+          assign tab_content = block.settings[tab_content_key]
+        %}
+        
+        {% if tab_title != blank %}
+          {% assign has_content = true %}
+          <div
+            class="ai-vertical-tabs__panel-{{ ai_gen_id }} {% if forloop.first %}active{% endif %}"
+            id="ai-vertical-tabs-panel-{{ ai_gen_id }}-{{ i }}"
+            role="tabpanel"
+            aria-labelledby="ai-vertical-tabs-tab-{{ ai_gen_id }}-{{ i }}"
+          >
+            <h2 class="ai-vertical-tabs__panel-title-{{ ai_gen_id }}">{{ tab_title }}</h2>
+            {% if tab_content != blank %}
+              <div class="ai-vertical-tabs__panel-content-{{ ai_gen_id }}">
+                {{ tab_content }}
+              </div>
+            {% endif %}{% if block.settings.view_all_text != blank and block.settings.view_all_url != blank %}
+              <a
+                href="{{ block.settings.view_all_url }}"
+                class="ai-vertical-tabs__view-all-{{ ai_gen_id }}"
+              >
+                {{ block.settings.view_all_text }}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      {% unless has_content %}
+        <div class="ai-vertical-tabs__empty-state-{{ ai_gen_id }}">
+          Add tab titles and content to get started
+        </div>
+      {% endunless %}
+    </div>
+  </vertical-tabs-{{ ai_gen_id }}>
+</div>
+
+<script>
+  (function() {
+    class VerticalTabs{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.tabs = this.querySelectorAll('.ai-vertical-tabs__tab-{{ ai_gen_id }}');
+        this.panels = this.querySelectorAll('.ai-vertical-tabs__panel-{{ ai_gen_id }}');
+        this.setupEventListeners();
+        this.setupKeyboardNavigation();
+      }
+
+      setupEventListeners() {
+        this.tabs.forEach((tab) => {
+          tab.addEventListener('click', () => {
+            const tabId = tab.getAttribute('data-tab-id');
+            this.switchTab(tabId);
+          });
+
+          tab.addEventListener('keydown', (e) => {
+            this.handleKeydown(e, tab);
+          });
+        });
+      }
+
+      setupKeyboardNavigation() {
+        this.tabs.forEach((tab, index) => {
+          tab.setAttribute('tabindex', index === 0 ? '0' : '-1');
+        });
+      }
+
+      handleKeydown(e, currentTab) {
+        const currentIndex = Array.from(this.tabs).indexOf(currentTab);
+        let targetIndex;
+
+        switch (e.key) {
+          case 'Enter':
+          case ' ':
+            e.preventDefault();
+            const tabId = currentTab.getAttribute('data-tab-id');
+            this.switchTab(tabId);
+            break;
+          case 'ArrowDown':
+            e.preventDefault();
+            targetIndex = currentIndex + 1;
+            if (targetIndex >= this.tabs.length) targetIndex = 0;
+            this.focusTab(targetIndex);
+            break;
+          case 'ArrowUp':
+            e.preventDefault();
+            targetIndex = currentIndex - 1;
+            if (targetIndex < 0) targetIndex = this.tabs.length - 1;
+            this.focusTab(targetIndex);
+            break;
+          case 'Home':
+            e.preventDefault();
+            this.focusTab(0);
+            break;
+          case 'End':
+            e.preventDefault();
+            this.focusTab(this.tabs.length - 1);
+            break;
+        }
+      }
+
+      focusTab(index) {
+        this.tabs.forEach((tab, i) => {
+          tab.setAttribute('tabindex', i === index ? '0' : '-1');
+        });
+        this.tabs[index].focus();
+      }
+
+      switchTab(tabId) {
+        this.tabs.forEach((tab) => {
+          const isActive = tab.getAttribute('data-tab-id') === tabId;
+          tab.classList.toggle('active', isActive);tab.setAttribute('aria-selected', isActive);
+          tab.setAttribute('tabindex', isActive ? '0' : '-1');
+        });
+
+        this.panels.forEach((panel) => {
+          const isActive = panel.id === `ai-vertical-tabs-panel-{{ ai_gen_id }}-${tabId}`;
+          panel.classList.toggle('active', isActive);
+        });
+      }
+    }
+
+    customElements.define('vertical-tabs-{{ ai_gen_id }}', VerticalTabs{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Vertical tabs",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section layout"
+    },
+    {
+      "type": "range",
+      "id": "section_width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "label": "Maximum section width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "tabs_width",
+      "min": 20,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "label": "Tabs width",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "tab_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Tab border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "tab_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tab font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "bullet_size",
+      "min": 6,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Bullet size",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Content style"
+    },
+    {
+      "type": "color",
+      "id": "content_bg_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "content_title_color",
+      "label": "Title color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "content_text_color",
+      "label": "Text color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "content_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "content_border_width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "content_border_color",
+      "label": "Border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "range",
+      "id": "content_title_size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "content_text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "View all button"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "Button text",
+      "default": "View all features"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "button_width",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Width",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Hover background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Hover border color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Tab1 colors"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_bg_color",
+      "label": "Background",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_text_color",
+      "label": "Text",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_hover_bg_color",
+      "label": "Hover background",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_hover_text_color",
+      "label": "Hover text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_active_bg_color",
+      "label": "Active background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_active_text_color",
+      "label": "Active text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_bullet_color",
+      "label": "Bullet color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_bullet_hover_color",
+      "label": "Bullet hover color",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "tab_1_bullet_active_color",
+      "label": "Bullet active color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Tab 2 colors"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_bg_color",
+      "label": "Background",
+      "default": "#f0f8ff"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_text_color",
+      "label": "Text",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_hover_bg_color",
+      "label": "Hover background",
+      "default": "#e0f0ff"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_hover_text_color",
+      "label": "Hover text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_active_bg_color",
+      "label": "Active background",
+      "default": "#0066cc"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_active_text_color",
+      "label": "Active text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_bullet_color",
+      "label": "Bullet color",
+      "default": "#99ccff"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_bullet_hover_color",
+      "label": "Bullet hover color",
+      "default": "#6699ff"
+    },
+    {
+      "type": "color",
+      "id": "tab_2_bullet_active_color",
+      "label": "Bullet active color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Tab 3 colors"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_bg_color",
+      "label": "Background",
+      "default": "#f0fff0"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_text_color",
+      "label": "Text",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_hover_bg_color",
+      "label": "Hover background",
+      "default": "#e0ffe0"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_hover_text_color",
+      "label": "Hover text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_active_bg_color",
+      "label": "Active background",
+      "default": "#00cc66"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_active_text_color",
+      "label": "Active text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_bullet_color",
+      "label": "Bullet color",
+      "default": "#99ff99"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_bullet_hover_color",
+      "label": "Bullet hover color",
+      "default": "#66ff66"
+    },
+    {
+      "type": "color",
+      "id": "tab_3_bullet_active_color",
+      "label": "Bullet active color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Tab 4 colors"
+    },
+    {
+      "type": "color",
+      "id": "tab_4_bg_color",
+      "label": "Background",
+      "default": "#fff8f0"
+    },
+    {
+      "type": "color",
+      "id": "tab_4_text_color",
+      "label": "Text",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "tab_4_hover_bg_color",
+      "label": "Hover background",
+      "default": "#ffe8d0"
+    },
+    {
+      "type": "color",
+      "id": "tab_4_hover_text_color",
+      "label": "Hover text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_4_active_bg_color",
+      "label": "Active background",
+      "default": "#ff6600"
+    },
+    {
+      "type": "color",
+      "id": "tab_4_active_text_color",
+      "label": "Active text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_4_bullet_color",
+      "label": "Bullet color",
+      "default": "#ffcc99"
+    },
+    {
+      "type": "color",
+      "id": "tab_4_bullet_hover_color",
+      "label": "Bullet hover color",
+      "default": "#ff9966"
+    },
+    {
+      "type": "color",
+      "id": "tab_4_bullet_active_color",
+      "label": "Bullet active color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Tab 5 colors"
+    },
+    {
+      "type": "color",
+      "id": "tab_5_bg_color",
+      "label": "Background",
+      "default": "#fff0f8"
+    },
+    {
+      "type": "color",
+      "id": "tab_5_text_color",
+      "label": "Text",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "tab_5_hover_bg_color",
+      "label": "Hover background",
+      "default": "#ffe0f0"
+    },
+    {
+      "type": "color",
+      "id": "tab_5_hover_text_color",
+      "label": "Hover text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_5_active_bg_color",
+      "label": "Active background",
+      "default": "#cc0066"
+    },
+    {
+      "type": "color",
+      "id": "tab_5_active_text_color",
+      "label": "Active text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_5_bullet_color",
+      "label": "Bullet color",
+      "default": "#ff99cc"
+    },
+    {
+      "type": "color",
+      "id": "tab_5_bullet_hover_color",
+      "label": "Bullet hover color",
+      "default": "#ff6699"
+    },
+    {
+      "type": "color",
+      "id": "tab_5_bullet_active_color",
+      "label": "Bullet active color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Tab 1"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_title",
+      "label": "Title",
+      "default": "Feature 1"
+    },
+    {
+      "type": "richtext",
+      "id": "tab_1_content",
+      "label": "Content",
+      "default": "<p>Describe your first feature here. Explain how it benefits your customers and what makes it special.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Tab 2"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_title",
+      "label": "Title",
+      "default": "Feature 2"
+    },
+    {
+      "type": "richtext",
+      "id": "tab_2_content",
+      "label": "Content",
+      "default": "<p>Describe your second feature here. Highlight the value it provides to your customers.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Tab 3"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_title",
+      "label": "Title",
+      "default": "Feature 3"
+    },
+    {
+      "type": "richtext",
+      "id": "tab_3_content",
+      "label": "Content",
+      "default": "<p>Describe your third feature here. Show customers why this matters to them.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Tab 4"
+    },
+    {
+      "type": "text",
+      "id": "tab_4_title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "tab_4_content",
+      "label": "Content"
+    },
+    {
+      "type": "header",
+      "content": "Tab 5"
+    },
+    {
+      "type": "text",
+      "id": "tab_5_title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "tab_5_content",
+      "label": "Content"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vertical tabs"
+    }
+  ]
+}
+{% endschema %}

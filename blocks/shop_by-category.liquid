@@ -1,0 +1,765 @@
+{% doc %}
+  @prompt
+    Create a "Shop by Category" section for my online meat store.
+    
+    Section title: "Shop by Category" (centered, bold, large text)
+    Show 20 category cards in a responsive grid layout.
+    Desktop: 5 cards per row
+    Mobile: 3 cards per row
+    Each card should be a square with:
+    Rounded corners (border radius 12px)
+    Light background color (soft pink or light beige)
+    A centered image/icon at the top (allow me to upload a custom image for each category)
+    Category name in bold text below the image
+    Make each card clickable (allow me to add a link for each category)
+    
+    Add a toggle or buttons at the top to switch between Grid view (default) and Carousel view (horizontal scroll)
+    Categories to include:
+    
+    
+    Beef
+    Lamb
+    Chicken
+    Veal
+    Ostrich
+    Turkey
+    Venison
+    Seasoned
+    Whole Cuts
+    Whole Carcass
+    
+    
+    Keep the design clean, modern, and simple with plenty of space between cards. Use red or dark red text for category names to match a meat theme.
+    , view should be on backend not for customers to select
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-shop-category-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: 40px 20px;
+  }
+
+  .ai-shop-category-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-shop-category-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .ai-shop-category-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.title_color }};
+    margin: 0;
+  }
+
+  .ai-shop-category-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: {{ block.settings.card_gap }}px;
+  }
+
+  .ai-shop-category-carousel-{{ ai_gen_id }} {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: {{ block.settings.card_gap }}px;
+  }
+
+  .ai-shop-category-carousel-{{ ai_gen_id }}::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ai-shop-category-carousel-{{ ai_gen_id }} .ai-shop-category-card-{{ ai_gen_id }} {
+    flex: 0 0 auto;
+    width: 200px;
+    scroll-snap-align: start;
+  }
+
+  .ai-shop-category-card-{{ ai_gen_id }} {
+    position: relative;
+    aspect-ratio: 1;
+    background-color: {{ block.settings.card_bg_color }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-decoration: none;
+  }
+
+  .ai-shop-category-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-shop-category-image-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .ai-shop-category-image-{{ ai_gen_id }} {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .ai-shop-category-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+  }
+
+  .ai-shop-category-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-shop-category-name-{{ ai_gen_id }} {
+    font-size: {{ block.settings.category_name_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.category_name_color }};
+    text-align: center;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-shop-category-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .ai-shop-category-carousel-{{ ai_gen_id }} .ai-shop-category-card-{{ ai_gen_id }} {
+      width: 150px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-shop-category-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+
+    .ai-shop-category-card-{{ ai_gen_id }} {
+      padding: 16px;
+    }
+
+    .ai-shop-category-name-{{ ai_gen_id }} {
+      font-size: {{ block.settings.category_name_size | times: 0.9 }}px;
+    }
+  }
+
+  {% if block.settings.layout_style == 'carousel' %}
+    .ai-shop-category-grid-{{ ai_gen_id }} {
+      display: none;
+    }
+  {% else %}
+    .ai-shop-category-carousel-{{ ai_gen_id }} {
+      display: none;
+    }
+  {% endif %}
+{% endstyle %}
+
+<div
+  class="ai-shop-category-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-shop-category-container-{{ ai_gen_id }}">
+    <div class="ai-shop-category-header-{{ ai_gen_id }}">
+      {% if block.settings.section_title != blank %}
+        <h2 class="ai-shop-category-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+      {% endif %}
+    </div>
+
+    <div class="ai-shop-category-grid-{{ ai_gen_id }}">
+      {% for i in (1..20) %}
+        {% liquid
+          assign category_name_key = 'category_' | append: i | append: '_name'
+          assign category_image_key = 'category_' | append: i | append: '_image'
+          assign category_link_key = 'category_' | append: i | append: '_link'
+
+          assign category_name = block.settings[category_name_key]
+          assign category_image = block.settings[category_image_key]
+          assign category_link = block.settings[category_link_key]
+        %}
+
+        {% if category_name != blank %}
+          <a
+            href="{{ category_link }}"
+            class="ai-shop-category-card-{{ ai_gen_id }}"
+          >
+            <div class="ai-shop-category-image-wrapper-{{ ai_gen_id }}">
+              {% if category_image %}
+                <img
+                  src="{{ category_image | image_url: width: 300 }}"
+                  alt="{{ category_name | escape }}"
+                  class="ai-shop-category-image-{{ ai_gen_id }}"
+                  loading="lazy"
+                  width="300"
+                  height="300"
+                >
+              {% else %}
+                <div class="ai-shop-category-placeholder-{{ ai_gen_id }}">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </div>
+            <h3 class="ai-shop-category-name-{{ ai_gen_id }}">{{ category_name }}</h3>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="ai-shop-category-carousel-{{ ai_gen_id }}">
+      {% for i in (1..20) %}
+        {% liquid
+          assign category_name_key = 'category_' | append: i | append: '_name'
+          assign category_image_key = 'category_' | append: i | append: '_image'
+          assign category_link_key = 'category_' | append: i | append: '_link'
+
+          assign category_name = block.settings[category_name_key]
+          assign category_image = block.settings[category_image_key]
+          assign category_link = block.settings[category_link_key]
+        %}
+
+        {% if category_name != blank %}
+          <a
+            href="{{ category_link }}"
+            class="ai-shop-category-card-{{ ai_gen_id }}"
+          >
+            <div class="ai-shop-category-image-wrapper-{{ ai_gen_id }}">
+              {% if category_image %}
+                <img
+                  src="{{ category_image | image_url: width: 300 }}"
+                  alt="{{ category_name | escape }}"
+                  class="ai-shop-category-image-{{ ai_gen_id }}"
+                  loading="lazy"
+                  width="300"
+                  height="300"
+                >
+              {% else %}
+                <div class="ai-shop-category-placeholder-{{ ai_gen_id }}">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </div>
+            <h3 class="ai-shop-category-name-{{ ai_gen_id }}">{{ category_name }}</h3>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop by category",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Shop by Category"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout_style",
+      "label": "Layout style",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid"
+        },
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Background",
+      "default": "#faecec"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "category_name_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Category name size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "category_name_color",
+      "label": "Category name color",
+      "default": "#a70a10"
+    },
+    {
+      "type": "header",
+      "content": "Category 1"
+    },
+    {
+      "type": "text",
+      "id": "category_1_name",
+      "label": "Name",
+      "default": "Beef"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 2"
+    },
+    {
+      "type": "text",
+      "id": "category_2_name",
+      "label": "Name",
+      "default": "Lamb"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 3"
+    },
+    {
+      "type": "text",
+      "id": "category_3_name",
+      "label": "Name",
+      "default": "Chicken"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 4"
+    },
+    {
+      "type": "text",
+      "id": "category_4_name",
+      "label": "Name",
+      "default": "Veal"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 5"
+    },
+    {
+      "type": "text",
+      "id": "category_5_name",
+      "label": "Name",
+      "default": "Ostrich"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_5_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_5_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 6"
+    },
+    {
+      "type": "text",
+      "id": "category_6_name",
+      "label": "Name",
+      "default": "Turkey"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_6_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_6_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 7"
+    },
+    {
+      "type": "text",
+      "id": "category_7_name",
+      "label": "Name",
+      "default": "Venison"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_7_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_7_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 8"
+    },
+    {
+      "type": "text",
+      "id": "category_8_name",
+      "label": "Name",
+      "default": "Seasoned"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_8_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_8_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 9"
+    },
+    {
+      "type": "text",
+      "id": "category_9_name",
+      "label": "Name",
+      "default": "Whole Cuts"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_9_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_9_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 10"
+    },
+    {
+      "type": "text",
+      "id": "category_10_name",
+      "label": "Name",
+      "default": "Whole Carcass"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_10_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_10_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 11"
+    },
+    {
+      "type": "text",
+      "id": "category_11_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_11_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_11_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 12"
+    },
+    {
+      "type": "text",
+      "id": "category_12_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_12_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_12_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 13"
+    },
+    {
+      "type": "text",
+      "id": "category_13_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_13_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_13_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 14"
+    },
+    {
+      "type": "text",
+      "id": "category_14_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_14_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_14_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 15"
+    },
+    {
+      "type": "text",
+      "id": "category_15_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_15_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_15_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 16"
+    },
+    {
+      "type": "text",
+      "id": "category_16_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_16_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_16_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 17"
+    },
+    {
+      "type": "text",
+      "id": "category_17_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_17_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_17_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 18"
+    },
+    {
+      "type": "text",
+      "id": "category_18_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_18_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_18_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 19"
+    },
+    {
+      "type": "text",
+      "id": "category_19_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_19_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_19_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 20"
+    },
+    {
+      "type": "text",
+      "id": "category_20_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_20_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "category_20_link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by category"
+    }
+  ]
+}
+{% endschema %}

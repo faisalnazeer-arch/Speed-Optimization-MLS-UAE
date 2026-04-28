@@ -1,0 +1,649 @@
+{% doc %}
+  @prompt
+    Create a custom section with two layouts:
+    Mobile View:
+    
+    First: Store information (title, subtitle, address, opening hours)
+    Second: Store photo (full width)
+    Third: Google Map (full width)
+    
+    Desktop View:
+    
+    Side-by-side layout: Left side = Store information + photo, Right side = Google Map
+    
+    Section Title: MLS Gourmet Butchery
+    Content:
+    
+    Main Title: MLS Gourmet Butchery - Abu Dhabi
+    Subtitle: Meat Market, Mushrif Mall, Abu Dhabi
+    Hours: Everyday: 10am - 10pm
+    Image: Use the butcher shop interior photo with 4 staff members behind the meat counter
+    Map: Show Google Map centered on Mushrif Mall, Abu Dhabi
+    
+    Style: Clean, modern, professional, with blue accents matching the screenshot. Make it responsive., three columns in desktop in a row first info then image and then map
+    
+    mobile is good to go, also needed button of get diredctions with direction icon below the timings on store, map should be in dark mode
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-store-location-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding }}px 20px;
+  }
+
+  .ai-store-location-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-store-location-title-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.spacing_between_elements }}px;
+    font-weight: 700;
+  }
+
+  .ai-store-location-content-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: {{ block.settings.spacing_between_elements }}px;
+  }
+
+  .ai-store-location-info-{{ ai_gen_id }} {
+    background-color: {{ block.settings.info_bg_color }};
+    padding: {{ block.settings.info_padding }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+  }
+
+  .ai-store-location-info-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.info_title_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 8px;
+    font-weight: 700;
+  }
+
+  .ai-store-location-info-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.info_text_size }}px;
+    color: {{ block.settings.accent_color }};
+    margin: 0 0 16px;
+    font-weight: 600;
+  }
+
+  .ai-store-location-info-details-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .ai-store-location-info-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .ai-store-location-info-icon-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: {{ block.settings.accent_color }};
+    margin-top: 2px;
+  }
+
+  .ai-store-location-info-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.info_text_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .ai-store-location-info-text-{{ ai_gen_id }} a {
+    color: {{ block.settings.text_color }};
+    text-decoration: none;
+  }
+
+  .ai-store-location-info-text-{{ ai_gen_id }} a:hover {
+    text-decoration: underline;
+  }
+
+  .ai-store-location-directions-btn-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: {{ block.settings.info_text_size }}px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-store-location-directions-btn-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+  }
+
+  .ai-store-location-directions-icon-{{ ai_gen_id }} {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .ai-store-location-photo-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+  }
+
+  .ai-store-location-photo-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-store-location-photo-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-store-location-photo-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    max-height: 300px;
+  }
+
+  .ai-store-location-map-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: {{ block.settings.map_height_mobile }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+  }
+
+  .ai-store-location-map-{{ ai_gen_id }} iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    filter: {% if block.settings.map_dark_mode %}invert(90%) hue-rotate(180deg){% else %}none{% endif %};
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-store-location-content-{{ ai_gen_id }} {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: {{ block.settings.spacing_between_elements }}px;
+    }
+
+    .ai-store-location-info-{{ ai_gen_id }} {
+      height: 100%;
+    }
+
+    .ai-store-location-photo-{{ ai_gen_id }} {
+      height: {{ block.settings.map_height_desktop }}px;
+    }
+
+    .ai-store-location-map-{{ ai_gen_id }} {
+      height: {{ block.settings.map_height_desktop }}px;
+    }
+  }
+{% endstyle %}
+
+<store-location-{{ ai_gen_id }}
+  class="ai-store-location-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-store-location-container-{{ ai_gen_id }}">
+    {% if block.settings.section_title != blank %}
+      <h2 class="ai-store-location-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+    {% endif %}
+
+    <div class="ai-store-location-content-{{ ai_gen_id }}">
+      <div class="ai-store-location-info-{{ ai_gen_id }}">
+        {% if block.settings.store_name != blank %}
+          <h3 class="ai-store-location-info-title-{{ ai_gen_id }}">{{ block.settings.store_name }}</h3>
+        {% endif %}
+
+        {% if block.settings.store_subtitle != blank %}
+          <p class="ai-store-location-info-subtitle-{{ ai_gen_id }}">{{ block.settings.store_subtitle }}</p>
+        {% endif %}
+
+        <div class="ai-store-location-info-details-{{ ai_gen_id }}">
+          {% if block.settings.store_address != blank %}
+            <div class="ai-store-location-info-item-{{ ai_gen_id }}">
+              <svg
+                class="ai-store-location-info-icon-{{ ai_gen_id }}"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <p class="ai-store-location-info-text-{{ ai_gen_id }}">{{ block.settings.store_address }}</p>
+            </div>
+          {% endif %}
+
+          {% if block.settings.store_hours != blank %}
+            <div class="ai-store-location-info-item-{{ ai_gen_id }}">
+              <svg
+                class="ai-store-location-info-icon-{{ ai_gen_id }}"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <p class="ai-store-location-info-text-{{ ai_gen_id }}">{{ block.settings.store_hours }}</p>
+            </div>
+          {% endif %}
+
+          {% if block.settings.store_phone != blank %}
+            <div class="ai-store-location-info-item-{{ ai_gen_id }}">
+              <svg
+                class="ai-store-location-info-icon-{{ ai_gen_id }}"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+              <p class="ai-store-location-info-text-{{ ai_gen_id }}">
+                <a href="tel:{{ block.settings.store_phone | replace: ' ', '' }}">{{ block.settings.store_phone }}</a>
+              </p>
+            </div>
+          {% endif %}
+        </div>
+
+        {% if block.settings.directions_url != blank %}
+          <a
+            href="{{ block.settings.directions_url }}"
+            class="ai-store-location-directions-btn-{{ ai_gen_id }}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg
+              class="ai-store-location-directions-icon-{{ ai_gen_id }}"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+            </svg>
+            {{ block.settings.directions_button_text }}
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="ai-store-location-photo-{{ ai_gen_id }}">
+        {% if block.settings.store_image %}
+          <img
+            src="{{ block.settings.store_image | image_url: width: 1200 }}"
+            alt="{{ block.settings.store_image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.store_image.width }}"
+            height="{{ block.settings.store_image.height }}"
+          >
+        {% else %}
+          <div class="ai-store-location-photo-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-store-location-map-{{ ai_gen_id }}">
+        {% if block.settings.google_maps_embed != blank %}
+          {{ block.settings.google_maps_embed }}
+        {% else %}
+          <div
+            style="
+              width: 100%;
+              height: 100%;
+              background-color: #f4f4f4;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: #666;
+              font-size: 14px;
+              text-align: center;
+              padding: 20px;
+            "
+          >
+            Add your Google Maps embed code in the block settings
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</store-location-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class StoreLocation{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.init();
+      }
+
+      init() {
+        const mapContainer = this.querySelector('.ai-store-location-map-{{ ai_gen_id }}');
+        if (mapContainer) {
+          const iframe = mapContainer.querySelector('iframe');
+          if (iframe) {
+            iframe.setAttribute('loading', 'lazy');
+          }
+        }
+      }
+    }
+
+    customElements.define('store-location-{{ ai_gen_id }}', StoreLocation{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "MLS Gourmet Butchery",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section title",
+      "default": "MLS Gourmet Butchery"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "spacing_between_elements",
+      "label": "Spacing between elements",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Store information"
+    },
+    {
+      "type": "text",
+      "id": "store_name",
+      "label": "Store name",
+      "default": "MLS Gourmet Butchery - Abu Dhabi"
+    },
+    {
+      "type": "text",
+      "id": "store_subtitle",
+      "label": "Subtitle",
+      "default": "Meat Market, Mushrif Mall, Abu Dhabi"
+    },
+    {
+      "type": "textarea",
+      "id": "store_address",
+      "label": "Address",
+      "default": "Mushrif Mall, Abu Dhabi, United Arab Emirates"
+    },
+    {
+      "type": "text",
+      "id": "store_hours",
+      "label": "Opening hours",
+      "default": "Everyday: 10am - 10pm"
+    },
+    {
+      "type": "text",
+      "id": "store_phone",
+      "label": "Phone number"
+    },
+    {
+      "type": "header",
+      "content": "Directions button"
+    },
+    {
+      "type": "url",
+      "id": "directions_url",
+      "label": "Directions URL"
+    },
+    {
+      "type": "text",
+      "id": "directions_button_text",
+      "label": "Button text",
+      "default": "Get Directions"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#1a66d2"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button hover background",
+      "default": "#0d4fa3"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Store photo"
+    },
+    {
+      "type": "image_picker",
+      "id": "store_image",
+      "label": "Store image"
+    },
+    {
+      "type": "header",
+      "content": "Google Map"
+    },
+    {
+      "type": "html",
+      "id": "google_maps_embed",
+      "label": "Google Maps embed code",
+      "info": "Paste the full iframe embed code from Google Maps"
+    },
+    {
+      "type": "checkbox",
+      "id": "map_dark_mode",
+      "label": "Enable dark mode for map",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "map_height_mobile",
+      "label": "Map height on mobile",
+      "min": 200,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "map_height_desktop",
+      "label": "Map height on desktop",
+      "min": 300,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 500
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Section title",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "info_bg_color",
+      "label": "Info box background",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#1a66d2"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#e1e1e1"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Section title size",
+      "min": 20,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "info_title_size",
+      "label": "Store name size",
+      "min": 16,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "info_text_size",
+      "label": "Info text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "info_padding",
+      "label": "Info box padding",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    }
+  ],
+  "presets": [
+    {
+      "name": "MLS Gourmet Butchery"
+    }
+  ]
+}
+{% endschema %}

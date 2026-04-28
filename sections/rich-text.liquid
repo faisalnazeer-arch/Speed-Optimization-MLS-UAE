@@ -1,0 +1,560 @@
+<link rel="stylesheet" data-href="{{ 'text-overlay.css' | asset_url }}">
+
+{%- liquid
+  assign color_scheme = section.settings.color_scheme
+  assign bg_color = false
+
+  if color_scheme == '1'
+    assign bg_color = settings.color_scheme_1_bg
+  elsif color_scheme == '2'
+    assign bg_color = settings.color_scheme_2_bg
+  elsif color_scheme == '3'
+    assign bg_color = settings.color_scheme_3_bg
+  endif
+
+  if bg_color == settings.bg_color or bg_color == 'rgba(0,0,0,0)'
+    assign bg_color = false
+  endif
+-%}
+
+{%- unless section.settings.full_width -%}
+  <div class="container">
+{%- endunless -%}
+
+<div class="section{% unless bg_color == false %} section--padded{% if section.settings.full_width %} section--full-width{% endif %}{% endunless %}{% unless color_scheme == 'none' %} color-scheme color-scheme--{{ color_scheme }}{% endunless %}{% if bg_color == false %} color-scheme--transparent{% endif %} custom-richtext" id="{{ section.id }}"{% if settings.animations_enabled != "disabled" and section.settings.prevent_animation == false %} data-cc-animate{% endif %}>
+  <div class="container flex {{ section.settings.text_position }} {{ section.settings.text_align }}{% if section.settings.mob_center_text %} md-down:text-center{% endif %}"
+    {% if section.settings.section-id != noneid %}
+  id="{{section.settings.section-id}}"
+{% endif %}
+    >
+    <div class="max-w-text-overlay">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'heading' -%}
+            {%- if block.settings.heading != blank -%}
+              <{% if block.settings.heading_h1 %}h1{% else %}h2{% endif %} class="section__block section__block--heading md-down:px-gutter {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
+                <span class="contained-heading inline-block">{{- block.settings.heading | escape -}}</span>
+              </{% if block.settings.heading_h1 %}h1{% else %}h2{% endif %}>
+            {%- endif -%}
+
+          {%- when 'subheading' -%}
+            {%- if block.settings.text != blank -%}
+              <p class="section__block section__block--subheading subheading md-down:px-gutter" {{ block.shopify_attributes }}>
+                <span class="contained-heading inline-block">{{- block.settings.text | escape -}}</span>
+              </p>
+            {%- endif -%}
+
+          {%- when 'text' -%}
+            {%- if block.settings.text != blank -%}
+              <div class="section__block reading-width--inline md-down:px-gutter rte{% if section.settings.text_align == 'text-start' %} mr-auto{% elsif section.settings.text_align == 'text-end' %} ml-auto{% else %} mx-auto{% endif %}{% if block.settings.enlarge_text %} enlarge-text{% endif %}" {{ block.shopify_attributes }}>
+                {{ block.settings.text }}
+              </div>
+            {%- endif -%}
+
+          {%- when 'button' -%}
+            {%- if block.settings.button_1_label != blank or block.settings.button_2_label != blank -%}
+               <div class="section__block section__block--buttons md-down:px-gutter inline-flex flex-wrap 
+                {% if section.settings.text_align == 'text-start' %} justify-start
+                {% elsif section.settings.text_align == 'text-end' %} justify-end
+                {% else %} justify-center{% endif %}
+                {% if section.settings.mob_center_text %} md-down:center{% endif %}" {{ block.shopify_attributes }}>
+
+                {%- if block.settings.button_1_label != blank -%}
+                  <a class="btn {{ block.settings.button_1_style }} btn-1-{{ block.id }}" 
+                    {% if block.settings.button_1_link == blank %}role="link" aria-disabled="true"{% else %}href="{{ block.settings.button_1_link }}"{% endif %}
+                    style="background-color: {{ block.settings.button_1_bg }}; color: {{ block.settings.button_1_color }};">
+                    {{- block.settings.button_1_label | escape -}}
+                  </a>
+                  <style>
+                    .btn-1-{{ block.id }}:hover {
+                      background-color: {{ block.settings.button_1_hover_bg }} !important;
+                      color: {{ block.settings.button_1_hover_color}} !important;
+                      border: 1px solid {{ block.settings.button_1_hover_bg }};
+                    }
+                    .btn-1-{{ block.id }} {
+                      border: 1px solid {{ block.settings.button_1_hover_bg }};
+                    }
+                    .section__block--buttons .btn.link.active.btn-1-{{ block.id }} {
+                      background-color: {{ block.settings.button_1_hover_bg }} !important;
+                      color: {{ block.settings.button_1_hover_color}} !important;
+                    }
+                  </style>
+                {%- endif -%}
+
+                {%- if block.settings.button_2_label != blank -%}
+                  <a class="btn {{ block.settings.button_2_style }} btn-2-{{ block.id }}" 
+                    {% if block.settings.button_2_link == blank %}role="link" aria-disabled="true"{% else %}href="{{ block.settings.button_2_link }}"{% endif %}
+                    style="background-color: {{ block.settings.button_2_bg }}; color: {{ block.settings.button_2_color }};">
+                    {{- block.settings.button_2_label | escape -}}
+                  </a>
+                  <style>
+                    .btn-2-{{ block.id }}:hover {
+                      background-color: {{ block.settings.button_2_hover_bg }} !important;
+                      color: {{ block.settings.button_2_hover_color }} !important;
+                      border: 1px solid {{ block.settings.button_2_hover_bg }};
+                    }
+                    .btn-2-{{ block.id }} {
+                      border: 1px solid {{ block.settings.button_2_hover_bg }};
+                    }
+                    .section__block--buttons .btn.link.active.btn-2-{{ block.id }} {
+                      background-color: {{ block.settings.button_2_hover_bg }} !important;
+                      color: {{ block.settings.button_2_hover_color}} !important;
+                    }
+                  </style>
+                {%- endif -%}
+
+                {%- if block.settings.button_3_label != blank -%}
+                  <a class="btn {{ block.settings.button_3_style }} btn-3-{{ block.id }}" 
+                    {% if block.settings.button_3_link == blank %}role="link" aria-disabled="true"{% else %}href="{{ block.settings.button_3_link }}"{% endif %}
+                    style="background-color: {{ block.settings.button_3_bg }}; color: {{ block.settings.button_3_color }};">
+                    {{- block.settings.button_3_label | escape -}}
+                  </a>
+                  <style>
+                    .btn-3-{{ block.id }}:hover {
+                      background-color: {{ block.settings.button_3_hover_bg }} !important;
+                      color: {{ block.settings.button_3_hover_color }} !important;
+                      border: 1px solid {{ block.settings.button_3_hover_bg }};
+                    }
+                    .btn-3-{{ block.id }} {
+                      border: 1px solid {{ block.settings.button_3_hover_bg }};
+                    }
+                    .section__block--buttons .btn.link.active.btn-3-{{ block.id }} {
+                      background-color: {{ block.settings.button_3_hover_bg }} !important;
+                      color: {{ block.settings.button_3_hover_color}} !important;
+                    }
+                  </style>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{%- unless section.settings.full_width -%}
+  </div>
+{%- endunless -%}
+
+
+<style>
+  .section__block--buttons .btn.link.active {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    border-radius: 8px;
+  }
+  div#multiple_buttons {
+    padding: 20px 10px;
+}
+div#multiple_buttons a.btn.link {
+    text-decoration: none;
+        padding: 12px 15px;
+}
+.custom-richtext .btn  {
+  opacity: 1;
+}
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const headerHeight = document.querySelector("header")?.offsetHeight || 50; // fallback
+    const buttons = document.querySelectorAll(".section__block--buttons .btn.link");
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", e => {
+        e.preventDefault();
+
+        // Remove active from all buttons
+        buttons.forEach(b => b.classList.remove("active"));
+
+        // Add active to clicked one
+        btn.classList.add("active");
+
+        // Smooth scroll with header offset
+        const targetId = btn.getAttribute("href").substring(1);
+        const targetEl = document.getElementById(targetId);
+
+        if (targetEl) {
+          // Extra space on mobile
+          const mobileExtra = window.innerWidth <= 768 ? 20 : 0;
+          const offsetTop = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight - mobileExtra;
+
+          window.scrollTo({ top: offsetTop, behavior: "smooth" });
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+{% schema %}
+{
+  "name": "Rich text",
+  "class": "cc-rich-text",
+  "settings": [
+     {
+          "type": "text",
+          "id": "section-id",
+          "label": "Extra id",
+          "default": "noneid"
+        },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text position",
+      "options": [
+        {
+          "value": "justify-start",
+          "label": "Left"
+        },
+        {
+          "value": "justify-center",
+          "label": "Center"
+        },
+        {
+          "value": "justify-end",
+          "label": "Right"
+        }
+      ],
+      "default": "justify-center"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "text-start",
+          "label": "Left"
+        },
+        {
+          "value": "text-center",
+          "label": "Center"
+        },
+        {
+          "value": "text-end",
+          "label": "Right"
+        }
+      ],
+      "default": "text-center"
+    },
+    {
+      "type": "checkbox",
+      "id": "mob_center_text",
+      "label": "Center text on mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "none",
+          "label": "Default"
+        },
+        {
+          "value": "1",
+          "label": "Scheme 1"
+        },
+        {
+          "value": "2",
+          "label": "Scheme 2"
+        },
+        {
+          "value": "3",
+          "label": "Scheme 3"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section background full width",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "SEO"
+    },
+    {
+      "type": "checkbox",
+      "id": "prevent_animation",
+      "label": "Load the section without animation",
+      "info": "If this section is visible when the page loads, enabling this setting can reduce CLS and may improve site speed scores. [Read more](https://cleancanvas.co.uk/support/canopy/performance-guide)",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Rich text headline"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "options": [
+            {
+              "value": "h6",
+              "label": "Extra extra small"
+            },
+            {
+              "value": "h5",
+              "label": "Extra small"
+            },
+            {
+              "value": "h4",
+              "label": "Small"
+            },
+            {
+              "value": "h3",
+              "label": "Medium"
+            },
+            {
+              "value": "h2",
+              "label": "Large"
+            },
+            {
+              "value": "h1",
+              "label": "Extra large"
+            },
+            {
+              "value": "h0",
+              "label": "Extra extra large"
+            }
+          ],
+          "default": "h2"
+        },
+        {
+          "type": "checkbox",
+          "id": "heading_h1",
+          "label": "Set as page heading (uses h1 tag)",
+          "info": "For optimum SEO, a page should only have one h1 and it should be the first heading on the page.",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "subheading",
+      "name": "Subheading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Subheading",
+          "default": "Subheading"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Share information about your store with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "enlarge_text",
+          "label": "Enlarge text",
+          "default": false
+        }
+      ]
+    },
+    {
+  "type": "button",
+  "name": "Button",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Button 1 label",
+      "default": "Button 1"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "select",
+      "id": "button_1_style",
+      "label": "Button 1 style",
+      "options": [
+        { "value": "link", "label": "Link" },
+        { "value": "btn--primary", "label": "Primary button" },
+        { "value": "btn--secondary", "label": "Secondary button" }
+      ],
+      "default": "btn--primary"
+    },
+    {
+      "type": "color",
+      "id": "button_1_bg",
+      "label": "Button 1 background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_1_color",
+      "label": "Button 1 text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_1_hover_bg",
+      "label": "Button 1 hover background color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_1_hover_color",
+      "label": "Button 1 hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Button 2 label",
+      "default": "Button 2"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "select",
+      "id": "button_2_style",
+      "label": "Button 2 style",
+      "options": [
+        { "value": "link", "label": "Link" },
+        { "value": "btn--primary", "label": "Primary button" },
+        { "value": "btn--secondary", "label": "Secondary button" }
+      ],
+      "default": "btn--secondary"
+    },
+    {
+      "type": "color",
+      "id": "button_2_bg",
+      "label": "Button 2 background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_2_color",
+      "label": "Button 2 text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_2_hover_bg",
+      "label": "Button 2 hover background color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_2_hover_color",
+      "label": "Button 2 hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "button_3_label",
+      "label": "Button 3 label",
+      "default": "Button 3"
+    },
+    {
+      "type": "url",
+      "id": "button_3_link",
+      "label": "Button 3 link"
+    },
+    {
+      "type": "select",
+      "id": "button_3_style",
+      "label": "Button 3 style",
+      "options": [
+        { "value": "link", "label": "Link" },
+        { "value": "btn--primary", "label": "Primary button" },
+        { "value": "btn--secondary", "label": "Secondary button" }
+      ],
+      "default": "btn--primary"
+    },
+    {
+      "type": "color",
+      "id": "button_3_bg",
+      "label": "Button 3 background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_3_color",
+      "label": "Button 3 text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_3_hover_bg",
+      "label": "Button 3 hover background color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_3_hover_color",
+      "label": "Button 3 hover text color",
+      "default": "#ffffff"
+    }
+  ]
+}
+  ],
+  "presets": [
+    {
+      "name": "Rich text",
+      "blocks": [
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer",
+      "aside"
+    ]
+  }
+}
+{% endschema %}

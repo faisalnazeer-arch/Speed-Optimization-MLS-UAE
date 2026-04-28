@@ -1,0 +1,46 @@
+<script type="lazyload_int">
+  (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "o54b753gku");
+</script>
+
+<script type="lazyload_int">
+// Step 1. Initialize the JavaScript pixel SDK (make sure to exclude HTML)
+// Step 2. Subscribe to customer events with analytics.subscribe(), and add tracking
+//  analytics.subscribe("event_name", event => {
+//    pixel("track", "event_name", event.data);
+//  });
+
+function heatmapLoadConversionSnippet(url) {
+  var script = document.createElement("script"); script.type = "text/javascript";
+  script.src = url; script.async = false; script.defer = true; document.head.appendChild(script);
+}
+heatmapLoadConversionSnippet("https://dashboard.heatmap.com/conversions.js?siteId=2040");
+
+analytics.subscribe('checkout_completed', async (event) => {
+  const data = event.data.checkout;
+  async function glocalStore(key) {
+    try {
+      return Promise.resolve(browser.localStorage.getItem(key));
+    } catch (error) {}
+  }
+  const payload = {
+    idorder: data.order.id,
+    revenue: data.totalPrice.amount,
+    products: JSON.stringify(data.lineItems),
+    currency: data.currencyCode,
+    _idv: await glocalStore('_heatVid'),
+    _id: await glocalStore('_mr_vid'),
+    idsite: 2040,
+    quicktransaction: 1,
+    device_type: await glocalStore('_heatDeviceType'),
+  };
+  fetch('https://dashboard.heatmap.com/heatmap.php?siteId=2040', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      keepalive: true,
+  });
+});
+</script>

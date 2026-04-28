@@ -1,0 +1,1354 @@
+{% doc %}
+  @prompt
+    Create a Shopify section for a product range display. The section should include a title 'Economic | Mid-Range | Signature' with a purple background and white text, and provide a color picker option to customize the background and text colors. Below the title, add a subtitle 'Everyday Value for curries & rice' in smaller text. Include a row of three circular flag upload options where store owners can upload custom flag images (USA, India, Pakistan as examples) with a light green background, and each flag should have a link input field to associate a URL, along with a color picker option to customize the background color for each flag. Add a bullet point list with the following items: '100% Halal', '100% Fresh', 'No hormones', 'Bespoke cutting', using purple bullets, and include a color picker option to customize the bullet color. Include a red 'Explore Range' button at the bottom with a color picker option to customize its background color. Add a product carousel sub-tab section below the button, maintaining the same theme layout with consistent styling, including a color picker option for the carousel background and text,, Economic | Mid-Range | Signature
+    
+    these should be main tabs under these should be 3 sub tabs of product carousels, flags below tabs
+    
+    and tabs carousels not working
+
+{% enddoc %}
+{% assign ai_gen_id = section.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-range-{{ ai_gen_id }} {
+    padding: {{ section.settings.section_padding }}px 20px;
+    background-color: {{ section.settings.section_bg_color }};
+  }
+
+  .ai-product-range-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-product-range-subtitle-{{ ai_gen_id }} {
+    font-size: {{ section.settings.subtitle_size }}px;
+    color: {{ section.settings.subtitle_color }};
+    margin: 0 0 30px;font-style: italic;
+    text-align: center;
+  }
+
+  .ai-product-range-features-{{ ai_gen_id }} {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .ai-product-range-features-list-{{ ai_gen_id }} {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    text-align: left;
+  }
+
+  .ai-product-range-features-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: {{ section.settings.features_text_size }}px;
+    color: {{ section.settings.features_text_color }};
+  }
+
+  .ai-product-range-features-bullet-{{ ai_gen_id }} {
+    width: 8px;
+    height: 8px;
+    background-color: {{ section.settings.bullet_color }};
+    border-radius: 50%;
+    margin-right: 15px;
+    flex-shrink: 0;
+  }
+
+  .ai-product-range-button-wrapper-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .ai-product-range-button-{{ ai_gen_id }} {
+    display: inline-block;
+    background-color: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    padding:15px 40px;
+    border-radius: {{ section.settings.button_border_radius }}px;
+    text-decoration: none;
+    font-size: {{ section.settings.button_text_size }}px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .ai-product-range-button-{{ ai_gen_id }}:hover {
+    background-color: {{ section.settings.button_hover_color }};
+    transform: translateY(-2px);
+  }
+
+  .ai-product-range-tabs-section-{{ ai_gen_id }} {
+    background-color: {{ section.settings.tabs_bg_color }};
+    padding: 40px 20px;
+    border-radius: {{ section.settings.border_radius }}px;
+  }
+
+  .ai-product-range-main-tabs-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid {{ section.settings.tab_border_color }};
+    flex-wrap: wrap;
+  }
+
+  .ai-product-range-main-tab-{{ ai_gen_id }} {
+    background: none;
+    border: none;
+    padding: 15px 30px;
+    font-size: {{ section.settings.main_tab_size }}px;
+    font-weight: 600;
+    color: {{ section.settings.tab_inactive_color }};
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .ai-product-range-main-tab-{{ ai_gen_id }}.active {
+    color: {{ section.settings.tab_active_color }};
+    border-bottom-color: {{ section.settings.tab_active_color }};
+  }
+
+  .ai-product-range-main-tab-{{ ai_gen_id }}:hover {
+    color: {{ section.settings.tab_active_color }};
+  }
+
+  .ai-product-range-main-tab-content-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-product-range-main-tab-content-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-product-range-flags-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .ai-product-range-flag-item-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .ai-product-range-flag-circle-{{ ai_gen_id }} {
+    width: {{ section.settings.flag_size }}px;
+    height: {{ section.settings.flag_size }}px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-product-range-flag-circle-{{ ai_gen_id }}:hover {
+    transform: scale(1.05);
+  }
+
+  .ai-product-range-flag-circle-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-product-range-flag-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+  }
+
+  .ai-product-range-flag-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;opacity: 0.5;
+  }
+
+  .ai-product-range-flag-label-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ section.settings.flag_label_color }};
+    font-weight: 500;
+  }
+
+  .ai-product-range-sub-tabs-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .ai-product-range-sub-tab-{{ ai_gen_id }} {
+    background-color: {{ section.settings.sub_tab_bg_color }};
+    border: 1px solid {{ section.settings.sub_tab_border_color }};
+    padding: 10px 20px;
+    font-size: {{ section.settings.sub_tab_size }}px;
+    color: {{ section.settings.sub_tab_inactive_color }};
+    cursor: pointer;
+    border-radius: {{ section.settings.sub_tab_border_radius }}px;
+    transition: all 0.3s ease;
+  }
+
+  .ai-product-range-sub-tab-{{ ai_gen_id }}.active {
+    background-color: {{ section.settings.sub_tab_active_bg }};
+    color: {{ section.settings.sub_tab_active_color }};
+    border-color: {{ section.settings.sub_tab_active_bg }};
+  }
+
+  .ai-product-range-sub-tab-{{ ai_gen_id }}:hover {
+    background-color: {{ section.settings.sub_tab_active_bg }};
+    color: {{ section.settings.sub_tab_active_color }};
+  }
+
+  .ai-product-range-sub-tab-content-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-product-range-sub-tab-content-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-product-range-carousel-{{ ai_gen_id }} {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0;
+    scroll-behavior: smooth;
+  }
+
+  .ai-product-range-carousel-item-{{ ai_gen_id }} {
+    flex: 0 0 250px;
+    background-color: {{ section.settings.carousel_card_bg }};
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .ai-product-range-carousel-item-{{ ai_gen_id }}:hover {
+    transform: translateY(-5px);
+  }
+
+  .ai-product-range-carousel-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 15px;
+  }
+
+  .ai-product-range-carousel-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 200px;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-product-range-carousel-image-placeholder-{{ ai_gen_id }} svg {
+    width: 60px;
+    height: 60px;
+    opacity: 0.5;
+  }
+
+  .ai-product-range-carousel-product-title-{{ ai_gen_id }} {
+    font-size: 16px;
+    font-weight: 600;
+    color: {{ section.settings.carousel_text_color }};
+    margin-bottom: 8px;
+  }
+
+  .ai-product-range-carousel-product-price-{{ ai_gen_id }} {
+    font-size: 18px;
+    color: {{ section.settings.carousel_price_color }};
+    font-weight: 700;
+  }
+
+  .ai-product-range-empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-style: italic;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-product-range-flags-{{ ai_gen_id }} {
+      gap: 20px;
+    }
+
+    .ai-product-range-main-tabs-{{ ai_gen_id }} {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .ai-product-range-main-tab-{{ ai_gen_id }} {
+      font-size: {{ section.settings.main_tab_size | times: 0.9 }}px;
+      padding: 12px 20px;
+    }
+
+    .ai-product-range-carousel-item-{{ ai_gen_id }} {
+      flex: 0 0 200px;
+    }
+  }
+{% endstyle %}
+
+<product-range-tabs-{{ ai_gen_id }} class="ai-product-range-{{ ai_gen_id }}" {{ section.shopify_attributes }}>
+  <div class="ai-product-range-container-{{ ai_gen_id }}">
+    {% if section.settings.subtitle != blank %}
+      <p class="ai-product-range-subtitle-{{ ai_gen_id }}">{{ section.settings.subtitle }}</p>
+    {% endif %}
+
+    <div class="ai-product-range-features-{{ ai_gen_id }}">
+      <ul class="ai-product-range-features-list-{{ ai_gen_id }}">
+        {% for i in (1..4) %}
+          {% liquid
+            assign feature_key = 'feature_' | append: i
+            assign feature_text = section.settings[feature_key]
+          %}
+          {% if feature_text != blank %}
+            <li class="ai-product-range-features-item-{{ ai_gen_id }}">
+              <span class="ai-product-range-features-bullet-{{ ai_gen_id }}"></span>
+              {{ feature_text }}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="ai-product-range-button-wrapper-{{ ai_gen_id }}">
+      {% if section.settings.button_text != blank %}
+        <a href="{{ section.settings.button_link }}" class="ai-product-range-button-{{ ai_gen_id }}">
+          {{ section.settings.button_text }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="ai-product-range-tabs-section-{{ ai_gen_id }}">
+      <div class="ai-product-range-main-tabs-{{ ai_gen_id }}">
+        <button class="ai-product-range-main-tab-{{ ai_gen_id }} active" data-main-tab="economic">
+          {{ section.settings.economic_tab_title }}
+        </button>
+        <button class="ai-product-range-main-tab-{{ ai_gen_id }}" data-main-tab="midrange">
+          {{ section.settings.midrange_tab_title }}
+        </button>
+        <button class="ai-product-range-main-tab-{{ ai_gen_id }}" data-main-tab="signature">
+          {{ section.settings.signature_tab_title }}
+        </button>
+      </div>
+
+      <div class="ai-product-range-main-tab-content-{{ ai_gen_id }} active" data-main-content="economic">
+        <div class="ai-product-range-flags-{{ ai_gen_id }}">
+          {% for i in (1..3) %}
+            {% liquid
+              assign flag_image_key = 'flag_' | append: i | append: '_image'
+              assign flag_link_key = 'flag_' | append: i | append: '_link'
+              assign flag_bg_key = 'flag_' | append: i | append: '_bg_color'
+              assign flag_label_key = 'flag_' | append: i | append: '_label'
+              assign flag_image = section.settings[flag_image_key]
+              assign flag_link = section.settings[flag_link_key]
+              assign flag_bg = section.settings[flag_bg_key]
+              assign flag_label = section.settings[flag_label_key]
+            %}
+
+            {% if flag_link != blank %}
+              <a href="{{ flag_link }}" class="ai-product-range-flag-item-{{ ai_gen_id }}">
+            {% else %}
+              <div class="ai-product-range-flag-item-{{ ai_gen_id }}">
+            {% endif %}
+              <div class="ai-product-range-flag-circle-{{ ai_gen_id }}" style="background-color: {{ flag_bg }};">
+                {% if flag_image %}
+                  <img src="{{ flag_image | image_url: width: 200 }}" alt="{{ flag_label | escape }}" loading="lazy">
+                {% else %}
+                  <div class="ai-product-range-flag-placeholder-{{ ai_gen_id }}">
+                    {{'image' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </div>
+              {% if flag_label != blank %}
+                <span class="ai-product-range-flag-label-{{ ai_gen_id }}">{{ flag_label }}</span>
+              {% endif %}
+            {% if flag_link != blank %}
+              </a>
+            {% else %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="ai-product-range-sub-tabs-{{ ai_gen_id }}">
+          <button class="ai-product-range-sub-tab-{{ ai_gen_id }} active" data-sub-tab="economic" data-sub-index="1">
+            {{ section.settings.economic_sub_1_title }}
+          </button>
+          <button class="ai-product-range-sub-tab-{{ ai_gen_id }}" data-sub-tab="economic" data-sub-index="2">
+            {{ section.settings.economic_sub_2_title }}
+          </button>
+          <button class="ai-product-range-sub-tab-{{ ai_gen_id }}" data-sub-tab="economic" data-sub-index="3">
+            {{ section.settings.economic_sub_3_title }}
+          </button>
+        </div>
+
+        <div class="ai-product-range-sub-tab-content-{{ ai_gen_id }} active" data-sub-content="economic-1">
+          {% if section.settings.economic_collection_1 != blank %}
+            <div class="ai-product-range-carousel-{{ ai_gen_id }}">
+              {% for product in section.settings.economic_collection_1.products limit: section.settings.products_to_show %}
+                <div class="ai-product-range-carousel-item-{{ ai_gen_id }}">
+                  {% if product.featured_image %}
+                    <img
+                      src="{{ product.featured_image | image_url: width: 300 }}" 
+                      alt="{{ product.featured_image.alt | escape }}"
+                      class="ai-product-range-carousel-image-{{ ai_gen_id }}"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <div class="ai-product-range-carousel-image-placeholder-{{ ai_gen_id }}">
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                  <h4 class="ai-product-range-carousel-product-title-{{ ai_gen_id }}">{{ product.title }}</h4>
+                  <p class="ai-product-range-carousel-product-price-{{ ai_gen_id }}">{{ product.price | money }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="ai-product-range-empty-state-{{ ai_gen_id }}">
+              Select a collection for {{ section.settings.economic_sub_1_title }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="ai-product-range-sub-tab-content-{{ ai_gen_id }}" data-sub-content="economic-2">
+          {% if section.settings.economic_collection_2 != blank %}
+            <div class="ai-product-range-carousel-{{ ai_gen_id }}">
+              {% for product in section.settings.economic_collection_2.products limit: section.settings.products_to_show %}
+                <div class="ai-product-range-carousel-item-{{ ai_gen_id }}">
+                  {% if product.featured_image %}
+                    <img 
+                      src="{{ product.featured_image | image_url: width: 300 }}" 
+                      alt="{{ product.featured_image.alt | escape }}"
+                      class="ai-product-range-carousel-image-{{ ai_gen_id }}"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <div class="ai-product-range-carousel-image-placeholder-{{ ai_gen_id }}">
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                  <h4 class="ai-product-range-carousel-product-title-{{ ai_gen_id }}">{{ product.title }}</h4>
+                  <p class="ai-product-range-carousel-product-price-{{ ai_gen_id }}">{{ product.price | money }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="ai-product-range-empty-state-{{ ai_gen_id }}">
+              Select a collection for {{ section.settings.economic_sub_2_title }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="ai-product-range-sub-tab-content-{{ ai_gen_id }}" data-sub-content="economic-3">
+          {% if section.settings.economic_collection_3 != blank %}
+            <div class="ai-product-range-carousel-{{ ai_gen_id }}">
+              {% for product in section.settings.economic_collection_3.products limit: section.settings.products_to_show %}
+                <div class="ai-product-range-carousel-item-{{ ai_gen_id }}">
+                  {% if product.featured_image %}
+                    <img 
+                      src="{{ product.featured_image | image_url: width: 300 }}" 
+                      alt="{{ product.featured_image.alt | escape }}"
+                      class="ai-product-range-carousel-image-{{ ai_gen_id }}"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <div class="ai-product-range-carousel-image-placeholder-{{ ai_gen_id }}">
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                  <h4 class="ai-product-range-carousel-product-title-{{ ai_gen_id }}">{{ product.title }}</h4>
+                  <p class="ai-product-range-carousel-product-price-{{ ai_gen_id }}">{{ product.price | money }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="ai-product-range-empty-state-{{ ai_gen_id }}">
+              Select a collection for {{ section.settings.economic_sub_3_title }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ai-product-range-main-tab-content-{{ ai_gen_id }}" data-main-content="midrange">
+        <div class="ai-product-range-flags-{{ ai_gen_id }}">
+          {% for i in (1..3) %}
+            {% liquid
+              assign flag_image_key = 'flag_' | append: i | append: '_image'
+              assign flag_link_key = 'flag_' | append: i | append: '_link'
+              assign flag_bg_key = 'flag_' | append: i | append: '_bg_color'
+              assign flag_label_key = 'flag_' | append: i | append: '_label'
+              assign flag_image = section.settings[flag_image_key]
+              assign flag_link = section.settings[flag_link_key]
+              assign flag_bg = section.settings[flag_bg_key]
+              assign flag_label = section.settings[flag_label_key]
+            %}
+
+            {% if flag_link != blank %}
+              <a href="{{ flag_link }}" class="ai-product-range-flag-item-{{ ai_gen_id }}">
+            {% else %}
+              <div class="ai-product-range-flag-item-{{ ai_gen_id }}">
+            {% endif %}
+              <div class="ai-product-range-flag-circle-{{ ai_gen_id }}" style="background-color: {{ flag_bg }};">
+                {% if flag_image %}
+                  <img src="{{ flag_image | image_url: width: 200 }}" alt="{{ flag_label | escape }}" loading="lazy">
+                {% else %}
+                  <div class="ai-product-range-flag-placeholder-{{ ai_gen_id }}">
+                    {{'image' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </div>
+              {% if flag_label != blank %}
+                <span class="ai-product-range-flag-label-{{ ai_gen_id }}">{{ flag_label }}</span>
+              {% endif %}
+            {% if flag_link != blank %}
+              </a>
+            {% else %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="ai-product-range-sub-tabs-{{ ai_gen_id }}">
+          <button class="ai-product-range-sub-tab-{{ ai_gen_id }} active" data-sub-tab="midrange" data-sub-index="1">
+            {{ section.settings.midrange_sub_1_title }}
+          </button>
+          <button class="ai-product-range-sub-tab-{{ ai_gen_id }}" data-sub-tab="midrange" data-sub-index="2">
+            {{ section.settings.midrange_sub_2_title }}
+          </button>
+          <button class="ai-product-range-sub-tab-{{ ai_gen_id }}" data-sub-tab="midrange" data-sub-index="3">
+            {{ section.settings.midrange_sub_3_title }}
+          </button>
+        </div>
+
+        <div class="ai-product-range-sub-tab-content-{{ ai_gen_id }} active" data-sub-content="midrange-1">
+          {% if section.settings.midrange_collection_1 != blank %}
+            <div class="ai-product-range-carousel-{{ ai_gen_id }}">
+              {% for product in section.settings.midrange_collection_1.products limit: section.settings.products_to_show %}
+                <div class="ai-product-range-carousel-item-{{ ai_gen_id }}">
+                  {% if product.featured_image %}
+                    <img 
+                      src="{{ product.featured_image | image_url: width: 300 }}" 
+                      alt="{{ product.featured_image.alt | escape }}"
+                      class="ai-product-range-carousel-image-{{ ai_gen_id }}"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <div class="ai-product-range-carousel-image-placeholder-{{ ai_gen_id }}">
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                  <h4 class="ai-product-range-carousel-product-title-{{ ai_gen_id }}">{{ product.title }}</h4>
+                  <p class="ai-product-range-carousel-product-price-{{ ai_gen_id }}">{{ product.price | money }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="ai-product-range-empty-state-{{ ai_gen_id }}">
+              Select a collection for {{ section.settings.midrange_sub_1_title }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="ai-product-range-sub-tab-content-{{ ai_gen_id }}" data-sub-content="midrange-2">
+          {% if section.settings.midrange_collection_2 != blank %}
+            <div class="ai-product-range-carousel-{{ ai_gen_id }}">
+              {% for product in section.settings.midrange_collection_2.products limit: section.settings.products_to_show %}
+                <div class="ai-product-range-carousel-item-{{ ai_gen_id }}">
+                  {% if product.featured_image %}
+                    <img 
+                      src="{{ product.featured_image | image_url: width: 300 }}" 
+                      alt="{{ product.featured_image.alt | escape }}"
+                      class="ai-product-range-carousel-image-{{ ai_gen_id }}"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <div class="ai-product-range-carousel-image-placeholder-{{ ai_gen_id }}">
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                  <h4 class="ai-product-range-carousel-product-title-{{ ai_gen_id }}">{{ product.title }}</h4>
+                  <p class="ai-product-range-carousel-product-price-{{ ai_gen_id }}">{{ product.price | money }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="ai-product-range-empty-state-{{ ai_gen_id }}">
+              Select a collection for {{ section.settings.midrange_sub_2_title }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="ai-product-range-sub-tab-content-{{ ai_gen_id }}" data-sub-content="midrange-3">
+          {% if section.settings.midrange_collection_3 != blank %}
+            <div class="ai-product-range-carousel-{{ ai_gen_id }}">
+              {% for product in section.settings.midrange_collection_3.products limit: section.settings.products_to_show %}
+                <div class="ai-product-range-carousel-item-{{ ai_gen_id }}">
+                  {% if product.featured_image %}
+                    <img 
+                      src="{{ product.featured_image | image_url: width: 300 }}" 
+                      alt="{{ product.featured_image.alt | escape }}"
+                      class="ai-product-range-carousel-image-{{ ai_gen_id }}"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <div class="ai-product-range-carousel-image-placeholder-{{ ai_gen_id }}">
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                  <h4 class="ai-product-range-carousel-product-title-{{ ai_gen_id }}">{{ product.title }}</h4>
+                  <p class="ai-product-range-carousel-product-price-{{ ai_gen_id }}">{{ product.price | money }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="ai-product-range-empty-state-{{ ai_gen_id }}">
+              Select a collection for {{ section.settings.midrange_sub_3_title }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ai-product-range-main-tab-content-{{ ai_gen_id }}" data-main-content="signature">
+        <div class="ai-product-range-flags-{{ ai_gen_id }}">
+          {% for i in (1..3) %}
+            {% liquid
+              assign flag_image_key = 'flag_' | append: i | append: '_image'
+              assign flag_link_key = 'flag_' | append: i | append: '_link'
+              assign flag_bg_key = 'flag_' | append: i | append: '_bg_color'
+              assign flag_label_key = 'flag_' | append: i | append: '_label'
+              assign flag_image = section.settings[flag_image_key]
+              assign flag_link = section.settings[flag_link_key]
+              assign flag_bg = section.settings[flag_bg_key]
+              assign flag_label = section.settings[flag_label_key]
+            %}
+
+            {% if flag_link != blank %}
+              <a href="{{ flag_link }}" class="ai-product-range-flag-item-{{ ai_gen_id }}">
+            {% else %}
+              <div class="ai-product-range-flag-item-{{ ai_gen_id }}">
+            {% endif %}
+              <div class="ai-product-range-flag-circle-{{ ai_gen_id }}" style="background-color: {{ flag_bg }};">
+                {% if flag_image %}
+                  <img src="{{ flag_image | image_url: width: 200 }}" alt="{{ flag_label | escape }}" loading="lazy">
+                {% else %}
+                  <div class="ai-product-range-flag-placeholder-{{ ai_gen_id }}">
+                    {{'image' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </div>
+              {% if flag_label != blank %}
+                <span class="ai-product-range-flag-label-{{ ai_gen_id }}">{{ flag_label }}</span>
+              {% endif %}
+            {% if flag_link != blank %}
+              </a>
+            {% else %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="ai-product-range-sub-tabs-{{ ai_gen_id }}">
+          <button class="ai-product-range-sub-tab-{{ ai_gen_id }} active" data-sub-tab="signature" data-sub-index="1">
+            {{ section.settings.signature_sub_1_title }}
+          </button>
+          <button class="ai-product-range-sub-tab-{{ ai_gen_id }}" data-sub-tab="signature" data-sub-index="2">
+            {{ section.settings.signature_sub_2_title }}
+          </button>
+          <button class="ai-product-range-sub-tab-{{ ai_gen_id }}" data-sub-tab="signature" data-sub-index="3">
+            {{ section.settings.signature_sub_3_title }}
+          </button>
+        </div>
+
+        <div class="ai-product-range-sub-tab-content-{{ ai_gen_id }} active" data-sub-content="signature-1">
+          {% if section.settings.signature_collection_1 != blank %}
+            <div class="ai-product-range-carousel-{{ ai_gen_id }}">
+              {% for product in section.settings.signature_collection_1.products limit: section.settings.products_to_show %}
+                <div class="ai-product-range-carousel-item-{{ ai_gen_id }}">
+                  {% if product.featured_image %}
+                    <img 
+                      src="{{ product.featured_image | image_url: width: 300 }}" 
+                      alt="{{ product.featured_image.alt | escape }}"
+                      class="ai-product-range-carousel-image-{{ ai_gen_id }}"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <div class="ai-product-range-carousel-image-placeholder-{{ ai_gen_id }}">
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                  <h4 class="ai-product-range-carousel-product-title-{{ ai_gen_id }}">{{ product.title }}</h4>
+                  <p class="ai-product-range-carousel-product-price-{{ ai_gen_id }}">{{ product.price | money }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="ai-product-range-empty-state-{{ ai_gen_id }}">
+              Select a collection for {{ section.settings.signature_sub_1_title }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="ai-product-range-sub-tab-content-{{ ai_gen_id }}" data-sub-content="signature-2">
+          {% if section.settings.signature_collection_2 != blank %}
+            <div class="ai-product-range-carousel-{{ ai_gen_id }}">
+              {% for product in section.settings.signature_collection_2.products limit: section.settings.products_to_show %}
+                <div class="ai-product-range-carousel-item-{{ ai_gen_id }}">
+                  {% if product.featured_image %}
+                    <img 
+                      src="{{ product.featured_image | image_url: width: 300 }}" 
+                      alt="{{ product.featured_image.alt | escape }}"
+                      class="ai-product-range-carousel-image-{{ ai_gen_id }}"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <div class="ai-product-range-carousel-image-placeholder-{{ ai_gen_id }}">
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                  <h4 class="ai-product-range-carousel-product-title-{{ ai_gen_id }}">{{ product.title }}</h4>
+                  <p class="ai-product-range-carousel-product-price-{{ ai_gen_id }}">{{ product.price | money }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="ai-product-range-empty-state-{{ ai_gen_id }}">
+              Select a collection for {{ section.settings.signature_sub_2_title }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="ai-product-range-sub-tab-content-{{ ai_gen_id }}" data-sub-content="signature-3">
+          {% if section.settings.signature_collection_3 != blank %}
+            <div class="ai-product-range-carousel-{{ ai_gen_id }}">
+              {% for product in section.settings.signature_collection_3.products limit: section.settings.products_to_show %}
+                <div class="ai-product-range-carousel-item-{{ ai_gen_id }}">
+                  {% if product.featured_image %}
+                    <img 
+                      src="{{ product.featured_image | image_url: width: 300 }}" 
+                      alt="{{ product.featured_image.alt | escape }}"
+                      class="ai-product-range-carousel-image-{{ ai_gen_id }}"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <div class="ai-product-range-carousel-image-placeholder-{{ ai_gen_id }}">
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                  <h4 class="ai-product-range-carousel-product-title-{{ ai_gen_id }}">{{ product.title }}</h4>
+                  <p class="ai-product-range-carousel-product-price-{{ ai_gen_id }}">{{ product.price | money }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="ai-product-range-empty-state-{{ ai_gen_id }}">
+              Select a collection for {{ section.settings.signature_sub_3_title }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</product-range-tabs-{{ ai_gen_id }}>
+
+<script type="lazyload">
+  (function() {
+    class ProductRangeTabs{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupMainTabs();
+        this.setupSubTabs();
+      }
+
+      setupMainTabs() {
+        const mainTabs = this.querySelectorAll('.ai-product-range-main-tab-{{ ai_gen_id }}');
+        const mainContents = this.querySelectorAll('.ai-product-range-main-tab-content-{{ ai_gen_id }}');
+
+        mainTabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            const targetTab = tab.dataset.mainTab;
+
+            mainTabs.forEach(t => t.classList.remove('active'));
+            mainContents.forEach(c => c.classList.remove('active'));
+
+            tab.classList.add('active');
+            const targetContent = this.querySelector(`[data-main-content="${targetTab}"]`);
+            if (targetContent) {
+              targetContent.classList.add('active');
+              const firstSubTab = targetContent.querySelector('.ai-product-range-sub-tab-{{ ai_gen_id }}');
+              const firstSubContent = targetContent.querySelector('.ai-product-range-sub-tab-content-{{ ai_gen_id }}');
+              if (firstSubTab && firstSubContent) {
+                targetContent.querySelectorAll('.ai-product-range-sub-tab-{{ ai_gen_id }}').forEach(st => st.classList.remove('active'));
+                targetContent.querySelectorAll('.ai-product-range-sub-tab-content-{{ ai_gen_id }}').forEach(sc => sc.classList.remove('active'));
+                firstSubTab.classList.add('active');
+                firstSubContent.classList.add('active');
+              }
+            }
+          });
+        });
+      }
+
+      setupSubTabs() {
+        const subTabs = this.querySelectorAll('.ai-product-range-sub-tab-{{ ai_gen_id }}');
+
+        subTabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            const targetSubTab = tab.dataset.subTab;
+            const subIndex = tab.dataset.subIndex;
+            const parentContent = tab.closest('.ai-product-range-main-tab-content-{{ ai_gen_id }}');
+
+            if (parentContent) {
+              const siblingSubTabs = parentContent.querySelectorAll('.ai-product-range-sub-tab-{{ ai_gen_id }}');
+              const siblingSubContents = parentContent.querySelectorAll('.ai-product-range-sub-tab-content-{{ ai_gen_id }}');
+
+              siblingSubTabs.forEach(st => st.classList.remove('active'));
+              siblingSubContents.forEach(sc => sc.classList.remove('active'));
+
+              tab.classList.add('active');
+              const targetContent = parentContent.querySelector(`[data-sub-content="${targetSubTab}-${subIndex}"]`);
+              if (targetContent) {
+                targetContent.classList.add('active');
+              }
+            }
+          });
+        });
+      }
+    }
+
+    customElements.define('product-range-tabs-{{ ai_gen_id }}', ProductRangeTabs{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product range tabs",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 60
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Everyday Value for curries & rice"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Flags"
+    },
+    {
+      "type": "range",
+      "id": "flag_size",
+      "min": 60,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Flag size",
+      "default": 100
+    },
+    {
+      "type": "color",
+      "id": "flag_label_color",
+      "label": "Flag label color",
+      "default": "#333333"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_1_image",
+      "label": "Flag 1 image"
+    },
+    {
+      "type": "url",
+      "id": "flag_1_link",
+      "label": "Flag 1 link"
+    },
+    {
+      "type": "text",
+      "id": "flag_1_label",
+      "label": "Flag 1 label",
+      "default": "USA"
+    },
+    {
+      "type": "color",
+      "id": "flag_1_bg_color",
+      "label": "Flag 1 background",
+      "default": "#90EE90"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_2_image",
+      "label": "Flag 2 image"
+    },
+    {
+      "type": "url",
+      "id": "flag_2_link",
+      "label": "Flag 2 link"
+    },
+    {
+      "type": "text",
+      "id": "flag_2_label",
+      "label": "Flag 2 label",
+      "default": "India"
+    },
+    {
+      "type": "color",
+      "id": "flag_2_bg_color",
+      "label": "Flag 2 background",
+      "default": "#90EE90"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_3_image",
+      "label": "Flag 3 image"
+    },
+    {
+      "type": "url",
+      "id": "flag_3_link",
+      "label": "Flag 3 link"
+    },
+    {
+      "type": "text",
+      "id": "flag_3_label",
+      "label": "Flag 3 label",
+      "default": "Pakistan"
+    },
+    {
+      "type": "color",
+      "id": "flag_3_bg_color",
+      "label": "Flag 3 background",
+      "default": "#90EE90"
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "text",
+      "id": "feature_1",
+      "label": "Feature 1",
+      "default": "100% Halal"
+    },
+    {
+      "type": "text",
+      "id": "feature_2",
+      "label": "Feature 2",
+      "default": "100% Fresh"
+    },
+    {
+      "type": "text",
+      "id": "feature_3",
+      "label": "Feature 3",
+      "default": "No hormones"
+    },
+    {
+      "type": "text",
+      "id": "feature_4",
+      "label": "Feature 4",
+      "default": "Bespoke cutting"
+    },
+    {
+      "type": "range",
+      "id": "features_text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Features text size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "features_text_color",
+      "label": "Features text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "bullet_color",
+      "label": "Bullet color",
+      "default": "#6b46c1"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Explore Range"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Button text size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover background",
+      "default": "#b91c1c"
+    },
+    {
+      "type": "header",
+      "content": "Main tabs"
+    },
+    {
+      "type": "text",
+      "id": "economic_tab_title",
+      "label": "Economic tab title",
+      "default": "Economic"
+    },
+    {
+      "type": "text",
+      "id": "midrange_tab_title",
+      "label": "Mid-range tab title",
+      "default": "Mid-Range"
+    },
+    {
+      "type": "text",
+      "id": "signature_tab_title",
+      "label": "Signature tab title",
+      "default": "Signature"
+    },
+    {
+      "type": "range",
+      "id": "main_tab_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Main tab text size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "tabs_bg_color",
+      "label": "Tabs section background",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "tab_border_color",
+      "label": "Tab border color",
+      "default": "#e9ecef"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_color",
+      "label": "Active tab color",
+      "default": "#6b46c1"
+    },
+    {
+      "type": "color",
+      "id": "tab_inactive_color",
+      "label": "Inactive tab color",
+      "default": "#6c757d"
+    },
+    {
+      "type": "header",
+      "content": "Sub tabs"
+    },
+    {
+      "type": "range",
+      "id": "sub_tab_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Sub tab text size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "sub_tab_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Sub tab border radius",
+      "default": 6
+    },
+    {
+      "type": "color",
+      "id": "sub_tab_bg_color",
+      "label": "Sub tab background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "sub_tab_border_color",
+      "label": "Sub tab border",
+      "default": "#dee2e6"
+    },
+    {
+      "type": "color",
+      "id": "sub_tab_active_bg",
+      "label": "Active sub tab background",
+      "default": "#6b46c1"
+    },
+    {
+      "type": "color",
+      "id": "sub_tab_active_color",
+      "label": "Active sub tab text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "sub_tab_inactive_color",
+      "label": "Inactive sub tab text",
+      "default": "#6c757d"
+    },
+    {
+      "type": "header",
+      "content": "Economic sub tabs"
+    },
+    {
+      "type": "text",
+      "id": "economic_sub_1_title",
+      "label": "Economic sub tab 1 title",
+      "default": "Beef"
+    },
+    {
+      "type": "collection",
+      "id": "economic_collection_1",
+      "label": "Economic collection 1"
+    },
+    {
+      "type": "text",
+      "id": "economic_sub_2_title",
+      "label": "Economic sub tab 2 title",
+      "default": "Lamb"
+    },
+    {
+      "type": "collection",
+      "id": "economic_collection_2",
+      "label": "Economic collection 2"
+    },
+    {
+      "type": "text",
+      "id": "economic_sub_3_title",
+      "label": "Economic sub tab 3 title",
+      "default": "Chicken"
+    },
+    {
+      "type": "collection",
+      "id": "economic_collection_3",
+      "label": "Economic collection 3"
+    },
+    {
+      "type": "header",
+      "content": "Mid-range sub tabs"
+    },
+    {
+      "type": "text",
+      "id": "midrange_sub_1_title",
+      "label": "Mid-range sub tab 1 title",
+      "default": "Premium Beef"
+    },
+    {
+      "type": "collection",
+      "id": "midrange_collection_1",
+      "label": "Mid-range collection 1"
+    },
+    {
+      "type": "text",
+      "id": "midrange_sub_2_title",
+      "label": "Mid-range sub tab 2 title",
+      "default": "Premium Lamb"
+    },
+    {
+      "type": "collection",
+      "id": "midrange_collection_2",
+      "label": "Mid-range collection 2"
+    },
+    {
+      "type": "text",
+      "id": "midrange_sub_3_title",
+      "label": "Mid-range sub tab 3 title",
+      "default": "Premium Chicken"
+    },
+    {
+      "type": "collection",
+      "id": "midrange_collection_3",
+      "label": "Mid-range collection 3"
+    },
+    {
+      "type": "header",
+      "content": "Signature sub tabs"
+    },
+    {
+      "type": "text",
+      "id": "signature_sub_1_title",
+      "label": "Signature sub tab 1 title",
+      "default": "Wagyu Beef"
+    },
+    {
+      "type": "collection",
+      "id": "signature_collection_1",
+      "label": "Signature collection 1"
+    },
+    {
+      "type": "text",
+      "id": "signature_sub_2_title",
+      "label": "Signature sub tab 2 title",
+      "default": "Signature Lamb"
+    },
+    {
+      "type": "collection",
+      "id": "signature_collection_2",
+      "label": "Signature collection 2"
+    },
+    {
+      "type": "text",
+      "id": "signature_sub_3_title",
+      "label": "Signature sub tab 3 title",
+      "default": "Organic Chicken"
+    },
+    {
+      "type": "collection",
+      "id": "signature_collection_3",
+      "label": "Signature collection 3"
+    },
+    {
+      "type": "header",
+      "content": "Product carousel"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 6
+    },
+    {
+      "type": "color",
+      "id": "carousel_text_color",
+      "label": "Carousel text",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "carousel_card_bg",
+      "label": "Carousel card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "carousel_price_color",
+      "label": "Carousel price color",
+      "default": "#dc2626"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product range tabs"
+    }
+  ]
+}
+{% endschema %}

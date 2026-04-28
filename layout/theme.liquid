@@ -79,7 +79,12 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 -%}
 
 
-  <head>{% render 'yoast-seo' %}
+  <head>
+    <link rel="preconnect" href="https://a.klaviyo.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://cdn.tapcart.com">
+    <link rel="dns-prefetch" href="https://cdn.shopify.com">
+    {% render 'yoast-seo' %}
     
         {%- liquid
   assign og_title = page_title | default: shop.name
@@ -349,12 +354,8 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 
 
     <!-- Google Tag Manager -->
-    <script type="lazyload_int">
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-K59CLCPC');
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-K59CLCPC');
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-K59CLCPC');
     </script>
     <!-- End Google Tag Manager -->
 
@@ -613,11 +614,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 } 
     {%- endstyle %}
 
-    {% if template contains "index" %}
-		{% render 'all-css' %}	
-	{% else %}
-		{% render 'all-css' %}	
-	{% endif %}
+    {% render 'all-css' %}
 
     <link rel="stylesheet" data-href="{{ 'main.css' | asset_url }}">
 
@@ -698,9 +695,6 @@ You can learn more about this (and learn how to cleanly revert these changes) at
     class="{% if settings.animations_enabled != 'disabled' %}cc-animate-enabled {{ page.handle }} {{ page_title | replace: " ", "-" }}{% endif %} custom_body"
   
 >
-
-
-  <script src="{{ 'your-custom-script.js' | asset_url }}" defer></script>
 
 
     <!-- Google Tag Manager (noscript) -->
@@ -894,41 +888,6 @@ You can learn more about this (and learn how to cleanly revert these changes) at
   });
 </script>
 
-<script  type="lazyload_int">
-    var klaviyo = klaviyo || [];
-    klaviyo.init({
-      account: "RibCBS",
-      platform: "shopify"
-    });
-    klaviyo.enable("backinstock", { 
-      trigger: {
-        product_page_text: "Notify Me When Available",
-        product_page_class: "button",
-        product_page_text_align: "center",
-        product_page_margin: "0px",
-        replace_anchor: false
-      },
-      modal: {
-        headline: "{product_name}",
-        body_content: "Register to receive a notification when this item comes back in stock.",
-        email_field_label: "Email",
-        button_label: "Notify me when available",
-        subscription_success_label: "You're in! We'll let you know when it's back.",
-        footer_content: '',
-        additional_styles: "@import url('https://fonts.googleapis.com/css?family=Helvetica+Neue');",
-        drop_background_color: "#000",
-        background_color: "#fff",
-        text_color: "#222",
-        button_text_color: "#fff",
-        button_background_color: "#B81A24",  /* Updated button color */
-        close_button_color: "#ccc",
-        error_background_color: "#fcd6d7",
-        error_text_color: "#C72E2F",
-        success_background_color: "#d3efcd",
-        success_text_color: "#1B9500"
-      }
-    });
-</script>
 
 
 
@@ -966,9 +925,6 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 
 
 
-<script  type="lazyload_int">
-  console.log(document.body.innerHTML); // Log entire HTML to check the DOM structure
-</script>
 
 
 

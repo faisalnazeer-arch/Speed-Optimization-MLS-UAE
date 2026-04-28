@@ -362,7 +362,8 @@ You can learn more about this (and learn how to cleanly revert these changes) at
     {%- render 'doc-head-core' -%}
     {%- render 'doc-head-social' -%}
 
-    <link rel="stylesheet" data-href="{{ 'fonts.css' | asset_url }}">
+    <link rel="preload" href="{{ 'fonts.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ 'fonts.css' | asset_url }}"></noscript>
     {%- style %}
       :root {
         --bg-color: {{ settings.bg_color.rgba }};
@@ -616,7 +617,8 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 
     {% render 'all-css' %}
 
-    <link rel="stylesheet" data-href="{{ 'main.css' | asset_url }}">
+    <link rel="preload" href="{{ 'main.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ 'main.css' | asset_url }}"></noscript>
 
     <script type="lazyload_int" data-src="{{ 'main.js' | asset_url }}"></script>
 

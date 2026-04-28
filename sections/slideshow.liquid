@@ -154,9 +154,11 @@
           assign m_img = block.settings.image_mobile
           assign overlay_position = block.settings.overlay_position | split: ' '
           assign lazy_load = true
+          assign img_attributes = ''
           if forloop.first
             if section.index == 1 or section.settings.prevent_animation
               assign lazy_load = false
+              assign img_attributes = 'fetchpriority="high"'
             endif
           endif
 
@@ -260,7 +262,8 @@
     sizes: sizes,
     class: 'img-fit sm:hidden',
     lazy_load: lazy_load,
-    src_placeholder: true
+    src_placeholder: true,
+    attributes: img_attributes
   -%}
 {%- endif -%}
 
@@ -272,7 +275,8 @@
               sizes: sizes,
               quality: 1,
               class: desktop_image_class,
-              lazy_load: lazy_load
+              lazy_load: lazy_load,
+              attributes: img_attributes
             -%}
           {%- else -%}
             {%- if block.settings.mobile_video_url != blank -%}

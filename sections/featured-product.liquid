@@ -1,19 +1,13 @@
 {%- comment -%}theme-check-disable NestedSnippet{%- endcomment -%}
 
-{%- if section.index > 2 -%}
-  <link rel="stylesheet" href="{{ 'media-with-text.css' | asset_url }}" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="{{ 'product.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="preload" href="{{ 'media-with-text.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'media-with-text.css' | asset_url }}"></noscript>
+<link rel="preload" href="{{ 'product.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'product.css' | asset_url }}"></noscript>
 
-  {%- if section.settings.product.media.size > 0 -%}
-    {{ 'media-gallery.css' | asset_url | stylesheet_tag }}
-  {%- endif -%}
-{%- else -%}
-  {{ 'media-with-text.css' | asset_url | stylesheet_tag }}
-  {{ 'product.css' | asset_url | stylesheet_tag }}
-
-  {%- if section.settings.product.media.size > 0 -%}
-    {{ 'media-gallery.css' | asset_url | stylesheet_tag }}
-  {%- endif -%}
+{%- if section.settings.product.media.size > 0 -%}
+  <link rel="preload" href="{{ 'media-gallery.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ 'media-gallery.css' | asset_url }}"></noscript>
 {%- endif -%}
 
 {%- if product.metafields.reviews.rating.value != blank -%}

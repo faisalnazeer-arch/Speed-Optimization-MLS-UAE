@@ -161,6 +161,7 @@
            {% if lazy_load and src_placeholder %}src="{{ placeholder_image }}" {% endif -%}
            {% if js_class %}class="{{ js_class }}" {% endif -%}
            {% if attributes %}{{ attributes }} {% endif -%}
+           {% if fetchpriority %}fetchpriority="{{ fetchpriority }}" {% endif -%}
            {% if disable_focal_point == false and image.presentation %}style="object-position: {{ image.presentation.focal_point }}" {% endif -%}
            loading="{% if lazy_load %}lazy{% else %}eager{% endif %}"
            width="{{ image_width }}"

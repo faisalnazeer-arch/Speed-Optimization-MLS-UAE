@@ -1,16 +1,20 @@
 {%- comment -%}theme-check-disable LiquidTag, NestedSnippet, TemplateLength{%- endcomment -%}
 {%- comment -%}Build: bg-info-bg text-info-text{%- endcomment -%}
-{{ 'product.css' | asset_url | stylesheet_tag }}
-{{ 'product-page.css' | asset_url | stylesheet_tag }}
+<link rel="preload" href="{{ 'product.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'product.css' | asset_url }}"></noscript>
+<link rel="preload" href="{{ 'product-page.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'product-page.css' | asset_url }}"></noscript>
 
 {%- assign messages = section.blocks | where: 'type', 'message' -%}
 {%- if messages -%}
   <script type="lazyload_int" data-src="{{ 'product-message.js' | asset_url }}"></script>
-  {{ 'product-message.css' | asset_url | stylesheet_tag }}
+  <link rel="preload" href="{{ 'product-message.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ 'product-message.css' | asset_url }}"></noscript>
 {%- endif -%}
 
 {%- if product.metafields.spr.reviews -%}
-  {{ 'reviews.css' | asset_url | stylesheet_tag }}
+  <link rel="preload" href="{{ 'reviews.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ 'reviews.css' | asset_url }}"></noscript>
 {%- endif -%}
 
 {%- if product.media.size > 0 -%}

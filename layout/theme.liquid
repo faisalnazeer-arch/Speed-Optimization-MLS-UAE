@@ -161,34 +161,17 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 
 {%- if og_image != blank -%}
   {%- assign og_image_url = og_image | image_url: width: 1200 -%}
-
-  {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
-{%- if disabled_by_yoast_seo -%}
-<meta property="og:image" content="https:{{ og_image_url }}">
-{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
-{%- endif -%}
-  {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
-{%- if disabled_by_yoast_seo -%}
-<meta property="og:image:secure_url" content="https:{{ og_image_url }}">
-{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
-{%- endif -%}
-  {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
-{%- if disabled_by_yoast_seo -%}
-<meta property="og:image:width" content="1200">
-{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
-{%- endif -%}
-  {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
-{%- if disabled_by_yoast_seo -%}
-<meta property="og:image:height" content="630">
-{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
-{%- endif -%}
+  {%- if og_image.aspect_ratio -%}
+    {%- assign og_image_height = 1200 | divided_by: og_image.aspect_ratio | round -%}
+  {%- else -%}
+    {%- assign og_image_height = 630 -%}
+  {%- endif -%}
+  <meta property="og:image" content="https:{{ og_image_url }}">
+  <meta property="og:image:secure_url" content="https:{{ og_image_url }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="{{ og_image_height }}">
   <meta property="og:image:type" content="image/jpeg">
-
-  {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
-{%- if disabled_by_yoast_seo -%}
-<meta name="twitter:image" content="https:{{ og_image_url }}">
-{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
-{%- endif -%}
+  <meta name="twitter:image" content="https:{{ og_image_url }}">
 {%- endif -%}
 
 {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}

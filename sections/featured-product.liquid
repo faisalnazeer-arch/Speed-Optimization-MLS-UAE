@@ -1,13 +1,10 @@
 {%- comment -%}theme-check-disable NestedSnippet{%- endcomment -%}
 
-<link rel="preload" href="{{ 'media-with-text.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="{{ 'media-with-text.css' | asset_url }}"></noscript>
-<link rel="preload" href="{{ 'product.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="{{ 'product.css' | asset_url }}"></noscript>
+<link rel="stylesheet" data-href="{{ 'media-with-text.css' | asset_url }}">
+<link rel="stylesheet" data-href="{{ 'product.css' | asset_url }}">
 
 {%- if section.settings.product.media.size > 0 -%}
-  <link rel="preload" href="{{ 'media-gallery.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="{{ 'media-gallery.css' | asset_url }}"></noscript>
+  <link rel="stylesheet" data-href="{{ 'media-gallery.css' | asset_url }}">
 {%- endif -%}
 
 {%- if product.metafields.reviews.rating.value != blank -%}

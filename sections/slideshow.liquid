@@ -1,3 +1,30 @@
+{%- if section.index == 1 and section.blocks.size > 0 -%}
+  {%- liquid
+    assign lcp_slide = section.blocks.first
+    assign lcp_m_img = lcp_slide.settings.image_mobile
+    assign lcp_d_img = lcp_slide.settings.image_desktop
+    assign lcp_q = settings.image_quality
+    assign lcp_m_w1 = 480 | times: lcp_q | round
+    assign lcp_m_w2 = 980 | times: lcp_q | round
+    assign lcp_d_w1 = 980 | times: lcp_q | round
+    assign lcp_d_w2 = 1400 | times: lcp_q | round
+  -%}
+  {%- if lcp_m_img -%}
+    <link rel="preload" as="image" fetchpriority="high"
+      href="{{ lcp_m_img | image_url: width: lcp_m_w2 }}"
+      imagesrcset="{{ lcp_m_img | image_url: width: lcp_m_w1 }} 480w, {{ lcp_m_img | image_url: width: lcp_m_w2 }} 980w"
+      imagesizes="100vw"
+      media="(max-width: 600px)">
+  {%- endif -%}
+  {%- if lcp_d_img -%}
+    <link rel="preload" as="image" fetchpriority="high"
+      href="{{ lcp_d_img | image_url: width: lcp_d_w2 }}"
+      imagesrcset="{{ lcp_d_img | image_url: width: lcp_d_w1 }} 980w, {{ lcp_d_img | image_url: width: lcp_d_w2 }} 1400w"
+      imagesizes="100vw"
+      media="{% if lcp_m_img %}(min-width: 601px){% else %}all{% endif %}">
+  {%- endif -%}
+{%- endif -%}
+
 {%- if section.index > 2 -%}
   <link rel="stylesheet" data-href="{{ 'slideshow.css' | asset_url }}">
   <link rel="stylesheet" data-href="{{ 'text-overlay.css' | asset_url }}">

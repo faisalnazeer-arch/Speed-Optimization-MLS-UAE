@@ -6934,85 +6934,19 @@ li.slider__item.fourth-child{
 .custom_body.fixed .tc-button {
     display: none !important;
 } 
-/* UAE Arabic RTL mobile fix - eliminate scroller flash and unresponsiveness */
-html[dir="rtl"][data-country-code="AE"] {
-  width: 100vw !important;
-  max-width: 100vw !important;
-  overflow-x: hidden !important;
-  overflow-y: auto !important; /* Ensure vertical scrolling */
-  margin: 0 !important;
-  padding: 0 !important;
-  touch-action: manipulation !important; /* Optimize touch scrolling */
-  -webkit-overflow-scrolling: touch !important; /* Smooth iOS scrolling */
+/* RTL horizontal scroll fix - data-country-code selector removed as it is never set */
+html[dir="rtl"],
+html[dir="rtl"] body {
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 @media only screen and (max-width: 769px) {
-  html[dir="rtl"][data-country-code="AE"] {
-    width: 100vw !important;
-    max-width: 100vw !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    scroll-behavior: auto !important; /* Prevent scroll animation flash */
-    overscroll-behavior-x: none !important; /* Prevent horizontal overscroll */
-    touch-action: manipulation !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-
-  html[dir="rtl"][data-country-code="AE"] main,
-  html[dir="rtl"][data-country-code="AE"] [class*="container"],
-  html[dir="rtl"][data-country-code="AE"] [class*="wrapper"],
-  html[dir="rtl"][data-country-code="AE"] [class*="content"],
-  html[dir="rtl"][data-country-code="AE"] [class*="section"],
-  html[dir="rtl"][data-country-code="AE"] [class*="banner"],
-  html[dir="rtl"][data-country-code="AE"] [class*="header"],
-  html[dir="rtl"][data-country-code="AE"] [class*="footer"] {
-    width: 100% !important;
-    max-width: 100vw !important;
-    margin-inline: 0 !important;
-    padding-inline: 10px !important; /* Half of gutter_sm = 20 */
-    box-sizing: border-box !important;
-    overflow: hidden !important; /* Prevent child overflow */
-  }
-
-  html[dir="rtl"][data-country-code="AE"] *,
-  html[dir="rtl"][data-country-code="AE"] img,
-  html[dir="rtl"][data-country-code="AE"] video,
-  html[dir="rtl"][data-country-code="AE"] iframe,
-  html[dir="rtl"][data-country-code="AE"] div,
-  html[dir="rtl"][data-country-code="AE"] section {
-    max-width: 100vw !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-  }
-
-  /* Handle UAE-specific text overflow (e.g., AED, Arabic text) */
-  html[dir="rtl"][data-country-code="AE"] [class*="text"],
-  html[dir="rtl"][data-country-code="AE"] [class*="currency"],
-  html[dir="rtl"][data-country-code="AE"] [class*="price"],
-  html[dir="rtl"][data-country-code="AE"] [class*="label"] {
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    max-width: 100% !important;
-  }
-
-  /* Fix RTL floats and margins */
-  html[dir="rtl"][data-country-code="AE"] [class*="float-left"],
-  html[dir="rtl"][data-country-code="AE"] [class*="float_start"] {
-    float: right !important;
-  }
-
-  html[dir="rtl"][data-country-code="AE"] [class*="margin-left"],
-  html[dir="rtl"][data-country-code="AE"] [class*="margin_start"] {
-    margin-inline-start: 10px !important;
-    margin-inline-end: 0 !important;
-  }
-
-  /* Prevent layout shifts during load */
-  html[dir="rtl"][data-country-code="AE"] [class*="animate"],
-  html[dir="rtl"][data-country-code="AE"] [class*="transition"] {
-    transform: none !important;
-    transition: none !important; /* Disable animations on load */
+  html[dir="rtl"],
+  html[dir="rtl"] body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    overscroll-behavior-x: none;
   }
 }
 

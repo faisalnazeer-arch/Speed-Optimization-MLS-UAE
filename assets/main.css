@@ -3074,6 +3074,7 @@ body:not(.dom-loaded) .main-menu__disclosure::after {
 [dir=rtl] body:not(.dom-loaded) .main-menu__disclosure::after {
   right: 50%;
   left: auto;
+  transform: translateX(50%);
 }
 
 .main-menu {

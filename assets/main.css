@@ -6935,10 +6935,13 @@ li.slider__item.fourth-child{
 .custom_body.fixed .tc-button {
     display: none !important;
 } 
-/* RTL layout: prevent overscroll from exposing blank overflow area on either side.
-   html overflow stays at default (visible) so body's overflow-x:hidden propagates to
-   the viewport correctly — do NOT set overflow-x on html[dir="rtl"]. */
-html[dir="rtl"],
+/* RTL horizontal overflow fix:
+   html overflow-x:hidden clips position:fixed elements that escape body's clipping.
+   scrollLeft=0 on the html scroll container = RTL right edge (content start) in all
+   modern browsers. JS in theme.liquid forces this after load. */
+html[dir="rtl"] {
+  overflow-x: hidden;
+}
 html[dir="rtl"] body {
   overscroll-behavior-x: none;
 }

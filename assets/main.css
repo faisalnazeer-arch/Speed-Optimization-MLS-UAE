@@ -6935,18 +6935,18 @@ li.slider__item.fourth-child{
 .custom_body.fixed .tc-button {
     display: none !important;
 } 
-/* RTL horizontal scroll fix - data-country-code selector removed as it is never set */
-html[dir="rtl"],
+/* RTL horizontal scroll fix */
+/* overflow-x:clip on html avoids creating a new scroll container (which causes wrong initial
+   scroll position in RTL). overflow-x:hidden on body clips content without that side-effect. */
+html[dir="rtl"] {
+  overflow-x: clip;
+}
 html[dir="rtl"] body {
   overflow-x: hidden;
-  max-width: 100vw;
 }
 
 @media only screen and (max-width: 769px) {
-  html[dir="rtl"],
   html[dir="rtl"] body {
-    overflow-x: hidden;
-    max-width: 100vw;
     overscroll-behavior-x: none;
   }
 }

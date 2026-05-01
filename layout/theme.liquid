@@ -614,7 +614,24 @@ You can learn more about this (and learn how to cleanly revert these changes) at
             {% unless the_snippet_beae-global-theme-setting contains 'Liquid error' %}
                 {{ the_snippet_beae-global-theme-setting }}
             {% endunless %}
-   
+
+{%- if rtl -%}
+<script>
+// Fix RTL blank-left-half: page sometimes loads with non-zero horizontal scroll position,
+// showing empty overflow area on the left. Reset x to 0 (RTL right-edge = content start).
+(function () {
+  function resetHScroll() {
+    if (window.scrollX !== 0) window.scrollTo(0, window.scrollY);
+  }
+  resetHScroll();
+  document.addEventListener('DOMContentLoaded', resetHScroll, { once: true });
+  window.addEventListener('load', resetHScroll, { once: true });
+  window.addEventListener('scroll', function () {
+    if (window.scrollX !== 0) window.scrollTo(0, window.scrollY);
+  }, { passive: true });
+}());
+</script>
+{%- endif -%}
 </head>
 
 <body

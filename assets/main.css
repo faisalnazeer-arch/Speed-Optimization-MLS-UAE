@@ -6935,20 +6935,12 @@ li.slider__item.fourth-child{
 .custom_body.fixed .tc-button {
     display: none !important;
 } 
-/* RTL horizontal scroll fix */
-/* overflow-x:clip on html avoids creating a new scroll container (which causes wrong initial
-   scroll position in RTL). overflow-x:hidden on body clips content without that side-effect. */
-html[dir="rtl"] {
-  overflow-x: clip;
-}
+/* RTL layout: prevent overscroll from exposing blank overflow area on either side.
+   html overflow stays at default (visible) so body's overflow-x:hidden propagates to
+   the viewport correctly — do NOT set overflow-x on html[dir="rtl"]. */
+html[dir="rtl"],
 html[dir="rtl"] body {
-  overflow-x: hidden;
-}
-
-@media only screen and (max-width: 769px) {
-  html[dir="rtl"] body {
-    overscroll-behavior-x: none;
-  }
+  overscroll-behavior-x: none;
 }
 
 a.btn.cart_button {

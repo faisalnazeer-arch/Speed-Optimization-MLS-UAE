@@ -617,18 +617,20 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 
 {%- if rtl -%}
 <script>
-// Fix RTL blank-left-half: page sometimes loads with non-zero horizontal scroll position,
-// showing empty overflow area on the left. Reset x to 0 (RTL right-edge = content start).
+// RTL blank-left-half fix: iOS Safari reports scrollX=0 even when the viewport is at the
+// wrong LTR-default position. Remove the scrollX check and ALWAYS force x=0 at multiple
+// timings so the browser settles at the correct RTL right-edge (content start).
 (function () {
-  function resetHScroll() {
-    if (window.scrollX !== 0) window.scrollTo(0, window.scrollY);
-  }
-  resetHScroll();
-  document.addEventListener('DOMContentLoaded', resetHScroll, { once: true });
-  window.addEventListener('load', resetHScroll, { once: true });
-  window.addEventListener('scroll', function () {
-    if (window.scrollX !== 0) window.scrollTo(0, window.scrollY);
-  }, { passive: true });
+  function fixRTL() { window.scrollTo(0, window.scrollY); }
+  fixRTL();
+  document.addEventListener('DOMContentLoaded', fixRTL, { once: true });
+  window.addEventListener('load', function () {
+    fixRTL();
+    requestAnimationFrame(function () {
+      fixRTL();
+      setTimeout(fixRTL, 50);
+    });
+  }, { once: true });
 }());
 </script>
 {%- endif -%}

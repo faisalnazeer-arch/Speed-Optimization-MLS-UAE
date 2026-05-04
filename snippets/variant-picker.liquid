@@ -255,4 +255,8 @@
   input.opt-btn.hide + label.opt-label--btn {
     display: none;
   }
+  /* Hide the entire option selector (including its label heading) when all buttons are unavailable */
+  .option-selector:not(:has(input.opt-btn:not(.hide))) {
+    display: none;
+  }
 </style>

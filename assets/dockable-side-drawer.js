@@ -179,7 +179,8 @@ class DockableSideDrawer extends HTMLElement {
     document.documentElement.style.height = '';
     document.body.style.top = '';
     document.body.classList.remove('fixed');
-    window.scrollTo(0, this.scrollY);
+    document.documentElement.scrollTop = this.scrollY;
+    document.documentElement.scrollLeft = 0;
 
     // Remove event listeners added on drawer opening.
     this.removeEventListener('click', this.clickHandler);

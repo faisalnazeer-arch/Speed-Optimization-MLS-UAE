@@ -111,7 +111,8 @@ class Modal extends HTMLElement {
     // Restore page position and scroll behaviour.
     document.body.style.top = '';
     document.body.classList.remove('fixed');
-    window.scrollTo(0, this.scrollY);
+    document.documentElement.scrollTop = this.scrollY;
+    document.documentElement.scrollLeft = 0;
 
     this.removeAttribute('open');
 

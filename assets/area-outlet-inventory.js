@@ -118,7 +118,7 @@ class AreaOutletInventory {
               nodes {
                 id
                 storeAvailability(locationId: $locationId, first: 1) {
-                  nodes { available }
+                  nodes { available quantityAvailable }
                 }
               }
             }
@@ -192,7 +192,11 @@ class AreaOutletInventory {
     products.forEach(product => {
       const variant  = product.variants.nodes[0];
       const avail    = variant?.storeAvailability?.nodes?.[0];
-      const inStock  = avail ? avail.available : false;
+      // quantityAvailable is null when inventory tracking is off (treat as in stock).
+      // When tracking is on, use actual quantity > 0.
+      const inStock  = avail
+        ? (avail.quantityAvailable != null ? avail.quantityAvailable > 0 : avail.available)
+        : false;
       const { amount, currencyCode } = product.priceRange.minVariantPrice;
 
       const formatted = new Intl.NumberFormat(lang, {

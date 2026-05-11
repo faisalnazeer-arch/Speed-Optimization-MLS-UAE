@@ -617,14 +617,13 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 
 {%- if rtl -%}
 <script>
-// RTL blank-left-half fix:
-// html[dir="rtl"] has overflow-x:hidden so it is the scroll container.
-// In all modern browsers, scrollLeft=0 on an RTL scroll container = RIGHT edge = content start.
-// window.scrollTo(0,y) is NOT used — that sets LTR left edge (the blank area).
+// RTL blank-left-half fix: run immediately (before first paint) and again on load.
+// scrollLeft=0 on an RTL overflow-x:hidden html = RIGHT edge = content start.
 (function () {
   function fixRTL() {
     document.documentElement.scrollLeft = 0;
   }
+  fixRTL(); // immediate — runs synchronously before any paint
   document.addEventListener('DOMContentLoaded', fixRTL, { once: true });
   window.addEventListener('load', function () {
     fixRTL();
@@ -639,10 +638,13 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 </head>
 
 <body
-  
+
     class="{% if settings.animations_enabled != 'disabled' %}cc-animate-enabled {{ page.handle }} {{ page_title | replace: " ", "-" }}{% endif %} custom_body"
-  
+
 >
+{%- if rtl -%}
+<script>document.documentElement.scrollLeft = 0;</script>
+{%- endif -%}
 
 
     <!-- Google Tag Manager (noscript) -->

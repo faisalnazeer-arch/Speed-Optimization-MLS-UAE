@@ -521,9 +521,10 @@ class ProductOutletChecker {
     this.variantInput = document.querySelector('input[name="id"]');
     this._lastLocationId = null;
 
-    if (!this.addBtn || !this.variantInput) return; // not a product page
+    if (!this.addBtn || !this.variantInput) return;
 
-    this._originalText = this.addBtn.textContent.trim();
+    // Use data-add-to-cart-text attribute (set by theme) as source of truth
+    this._originalText = this.addBtn.dataset.addToCartText || this.addBtn.textContent.trim();
     this._bindEvents();
   }
 
@@ -533,20 +534,17 @@ class ProductOutletChecker {
   }
 
   _bindEvents() {
-    // Area changed via header dropdown
     document.addEventListener('aoi:area-changed', async e => {
       const { locationId } = e.detail;
       if (locationId) await this._check(locationId);
     });
 
-    // Re-check when variant changes (size/colour selection)
+    // Re-check when variant changes (size/colour)
     document.addEventListener('change', async e => {
       if (e.target.name === 'id' && this._lastLocationId) {
         await this._check(this._lastLocationId);
       }
     });
-
-    // Dawn / Prestige themes dispatch this on variant switch
     document.addEventListener('variant:change', async () => {
       if (this._lastLocationId) await this._check(this._lastLocationId);
     });
@@ -558,24 +556,38 @@ class ProductOutletChecker {
     if (!variantGid) return;
 
     try {
+      // Fetch ALL storeAvailability nodes (no locationId filter) then match client-side.
+      // Filtering by locationId server-side can silently return empty when the location
+      // is not configured for in-store pickup, making it impossible to distinguish
+      // "0 stock" from "location not in pickup list".
       const data = await this._gql(`
-        query($id: ID!, $locationId: ID!) {
+        query($id: ID!) {
           node(id: $id) {
             ... on ProductVariant {
-              storeAvailability(locationId: $locationId, first: 1) {
-                nodes { available quantityAvailable }
+              storeAvailability(first: 50) {
+                nodes {
+                  available
+                  quantityAvailable
+                  location { id }
+                }
               }
             }
           }
         }
-      `, { id: variantGid, locationId });
+      `, { id: variantGid });
 
-      const avail   = data?.node?.storeAvailability?.nodes?.[0];
-      const inStock = avail
-        ? (avail.quantityAvailable != null ? avail.quantityAvailable > 0 : avail.available)
-        : false;
+      const nodes = data?.node?.storeAvailability?.nodes || [];
+      console.log('[ProductOutletChecker] storeAvailability nodes:', nodes, 'looking for locationId:', locationId);
 
-      this._updateButton(inStock);
+      const match   = nodes.find(n => n.location.id === locationId);
+      const inStock = match
+        ? (match.quantityAvailable != null ? match.quantityAvailable > 0 : match.available)
+        : null; // null = location not in storeAvailability (pickup not enabled)
+
+      console.log('[ProductOutletChecker] match:', match, 'inStock:', inStock);
+
+      // Only update button if we got a definitive answer
+      if (inStock !== null) this._updateButton(inStock);
     } catch (err) {
       console.error('[ProductOutletChecker]', err);
     }
@@ -598,18 +610,8 @@ class ProductOutletChecker {
 
   _updateButton(inStock) {
     if (!this.addBtn) return;
-    if (inStock) {
-      this.addBtn.disabled = false;
-      // Restore original button text (handle span wrappers in themed buttons)
-      const textEl = this.addBtn.querySelector('[data-add-to-cart-text], .btn-text, span');
-      if (textEl) textEl.textContent = this._originalText;
-      else this.addBtn.textContent = this._originalText;
-    } else {
-      this.addBtn.disabled = true;
-      const textEl = this.addBtn.querySelector('[data-add-to-cart-text], .btn-text, span');
-      if (textEl) textEl.textContent = 'Out of Stock at this outlet';
-      else this.addBtn.textContent = 'Out of Stock at this outlet';
-    }
+    this.addBtn.disabled = !inStock;
+    this.addBtn.textContent = inStock ? this._originalText : 'Out of Stock at this outlet';
   }
 }
 

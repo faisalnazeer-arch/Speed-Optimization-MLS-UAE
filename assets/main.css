@@ -6941,15 +6941,55 @@ li.slider__item.fourth-child{
 .custom_body.fixed .tc-button {
     display: none !important;
 } 
-/* RTL horizontal overflow fix:
-   html overflow-x:hidden clips position:fixed elements that escape body's clipping.
-   scrollLeft=0 on the html scroll container = RTL right edge (content start) in all
-   modern browsers. JS in theme.liquid forces this after load. */
+/* RTL horizontal overflow fix */
 html[dir="rtl"] {
-  overflow-x: hidden;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  touch-action: manipulation !important;
+  -webkit-overflow-scrolling: touch !important;
 }
+
 html[dir="rtl"] body {
   overscroll-behavior-x: none;
+  overflow-x: hidden !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+}
+
+@media only screen and (max-width: 769px) {
+  html[dir="rtl"] {
+    scroll-behavior: auto !important;
+    overscroll-behavior-x: none !important;
+  }
+
+  html[dir="rtl"] main,
+  html[dir="rtl"] [class*="container"],
+  html[dir="rtl"] [class*="wrapper"],
+  html[dir="rtl"] [class*="content"],
+  html[dir="rtl"] [class*="section"],
+  html[dir="rtl"] [class*="banner"],
+  html[dir="rtl"] [class*="header"],
+  html[dir="rtl"] [class*="footer"] {
+    width: 100% !important;
+    max-width: 100vw !important;
+    margin-inline: 0 !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  html[dir="rtl"] *,
+  html[dir="rtl"] img,
+  html[dir="rtl"] video,
+  html[dir="rtl"] iframe,
+  html[dir="rtl"] div,
+  html[dir="rtl"] section {
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+  }
 }
 
 a.btn.cart_button {

@@ -68,6 +68,7 @@ class AreaOutletInventory {
       {
         metaobjects(type: "delivery_area", first: 250) {
           nodes {
+            displayName
             fields { key value }
           }
         }
@@ -77,9 +78,11 @@ class AreaOutletInventory {
     const seen = new Set();
     this.areas = data.metaobjects.nodes.reduce((acc, node) => {
       const f = Object.fromEntries(node.fields.map(({ key, value }) => [key, value]));
-      if (f.name && !seen.has(f.name)) {
-        seen.add(f.name);
-        acc.push({ name: f.name, outletName: f.outlet_name });
+      const areaName   = f.name || node.displayName;
+      const outletName = f.outlet_name;
+      if (areaName && !seen.has(areaName)) {
+        seen.add(areaName);
+        acc.push({ name: areaName, outletName });
       }
       return acc;
     }, []);
@@ -328,15 +331,16 @@ class HeaderAreaSelector {
     this.areas       = [];
     this.locationMap = {};
 
-    this.btn        = document.getElementById('hdr-area-btn');
-    this.panel      = document.getElementById('hdr-area-panel');
-    this.label      = document.getElementById('hdr-area-label');
-    this.select     = document.getElementById('hdr-area-select');
-    this.outletEl   = document.getElementById('hdr-area-outlet');
-    this.outletName = document.getElementById('hdr-area-outlet-name');
-    this.errorEl    = document.getElementById('hdr-area-error');
-    this.errorMsg   = document.getElementById('hdr-area-error-msg');
-    this.retryBtn   = document.getElementById('hdr-area-retry');
+    // Scope all queries to root element to avoid ID collisions
+    this.btn        = el.querySelector('.hdr-area__btn');
+    this.panel      = el.querySelector('.hdr-area__panel');
+    this.label      = el.querySelector('.hdr-area__label');
+    this.select     = el.querySelector('.hdr-area__select');
+    this.outletEl   = el.querySelector('.hdr-area__outlet');
+    this.outletName = el.querySelector('.hdr-area__outlet strong');
+    this.errorEl    = el.querySelector('.hdr-area__error');
+    this.errorMsg   = el.querySelector('#hdr-area-error-msg');
+    this.retryBtn   = el.querySelector('#hdr-area-retry');
 
     this._init();
   }
@@ -368,13 +372,39 @@ class HeaderAreaSelector {
   }
 
   async _loadAreas() {
-    const data = await this._gql(`{ metaobjects(type: "delivery_area", first: 250) { nodes { fields { key value } } } }`);
+    const data = await this._gql(`{
+      metaobjects(type: "delivery_area", first: 250) {
+        nodes {
+          displayName
+          fields { key value }
+        }
+      }
+    }`);
+
+    if (!data.metaobjects || !data.metaobjects.nodes.length) {
+      throw new Error(
+        'No delivery_area metaobjects found. ' +
+        'Make sure the metaobject type is "delivery_area" and Storefront API access is enabled ' +
+        '(Admin → Content → Metaobjects → Delivery Area → Manage definition → Storefront API access).'
+      );
+    }
+
     const seen = new Set();
     this.areas = data.metaobjects.nodes.reduce((acc, node) => {
       const f = Object.fromEntries(node.fields.map(({ key, value }) => [key, value]));
-      if (f.name && !seen.has(f.name)) { seen.add(f.name); acc.push({ name: f.name, outletName: f.outlet_name }); }
+      // "Display name" in Shopify admin maps to displayName on the node OR a field with key "name"
+      const areaName = f.name || node.displayName;
+      const outletName = f.outlet_name;
+      if (areaName && !seen.has(areaName)) {
+        seen.add(areaName);
+        acc.push({ name: areaName, outletName });
+      }
       return acc;
     }, []);
+
+    if (!this.areas.length) {
+      throw new Error('Metaobjects loaded but no valid entries found. Check that each entry has "name" and "outlet_name" fields.');
+    }
   }
 
   async _loadLocations() {

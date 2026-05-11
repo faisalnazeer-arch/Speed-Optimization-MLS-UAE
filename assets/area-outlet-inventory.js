@@ -1,0 +1,321 @@
+/* ============================================================
+   Area → Outlet → Inventory  |  area-outlet-inventory.js
+   ============================================================ */
+
+class AreaOutletInventory {
+  constructor(el) {
+    this.root        = el;
+    this.shopDomain  = el.dataset.shopDomain;
+    this.token       = el.dataset.storefrontToken;
+    this.apiVersion  = el.dataset.apiVersion || '2024-01';
+    this.endpoint    = `https://${this.shopDomain}/api/${this.apiVersion}/graphql.json`;
+
+    // Runtime state
+    this.areas       = [];   // [{ name, outletName }]
+    this.locationMap = {};   // { 'Outlet Name': 'gid://shopify/Location/123' }
+
+    // DOM refs (elements are prefixed with the section's unique id)
+    const id = el.id;
+    this.areaSelect   = el.querySelector(`#${id}-area`);
+    this.outletEl     = el.querySelector(`#${id}-outlet`);
+    this.outletNameEl = el.querySelector(`#${id}-outlet-name`);
+    this.gridEl       = el.querySelector(`#${id}-grid`);
+    this.skeletonsEl  = el.querySelector(`#${id}-skeletons`);
+    this.errorEl      = el.querySelector(`#${id}-error`);
+    this.errorMsgEl   = el.querySelector(`#${id}-error-msg`);
+    this.retryBtn     = el.querySelector(`#${id}-retry`);
+
+    this._init();
+  }
+
+  /* ── Bootstrap ─────────────────────────────────────────────────────────── */
+
+  async _init() {
+    try {
+      await Promise.all([this._loadAreas(), this._loadLocations()]);
+      this._buildSelect();
+      this._bindEvents();
+    } catch (err) {
+      this._showError(err.message, () => this._init());
+    }
+  }
+
+  /* ── GraphQL helper ─────────────────────────────────────────────────────── */
+
+  async _gql(query, variables) {
+    const res = await fetch(this.endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': this.token,
+      },
+      body: JSON.stringify({ query, variables: variables || {} }),
+    });
+
+    if (!res.ok) throw new Error(`API error ${res.status}: ${res.statusText}`);
+
+    const json = await res.json();
+    if (json.errors && json.errors.length) {
+      throw new Error(json.errors[0].message);
+    }
+    return json.data;
+  }
+
+  /* ── Data loaders ───────────────────────────────────────────────────────── */
+
+  async _loadAreas() {
+    const data = await this._gql(`
+      {
+        metaobjects(type: "delivery_area", first: 250) {
+          nodes {
+            fields { key value }
+          }
+        }
+      }
+    `);
+
+    const seen = new Set();
+    this.areas = data.metaobjects.nodes.reduce((acc, node) => {
+      const f = Object.fromEntries(node.fields.map(({ key, value }) => [key, value]));
+      if (f.name && !seen.has(f.name)) {
+        seen.add(f.name);
+        acc.push({ name: f.name, outletName: f.outlet_name });
+      }
+      return acc;
+    }, []);
+  }
+
+  async _loadLocations() {
+    const data = await this._gql(`
+      {
+        locations(first: 100) {
+          nodes { id name }
+        }
+      }
+    `);
+
+    this.locationMap = {};
+    data.locations.nodes.forEach(({ id, name }) => {
+      this.locationMap[name] = id;
+    });
+  }
+
+  async _loadProducts(locationId) {
+    const data = await this._gql(
+      `query Products($locationId: ID!) {
+        products(first: 250) {
+          nodes {
+            id
+            title
+            handle
+            featuredImage { url altText }
+            priceRange {
+              minVariantPrice { amount currencyCode }
+            }
+            variants(first: 1) {
+              nodes {
+                id
+                storeAvailability(locationId: $locationId, first: 1) {
+                  nodes { available }
+                }
+              }
+            }
+          }
+        }
+      }`,
+      { locationId }
+    );
+    return data.products.nodes;
+  }
+
+  /* ── Select builder ─────────────────────────────────────────────────────── */
+
+  _buildSelect() {
+    this.areaSelect.innerHTML = '<option value="">Choose an area…</option>';
+    this.areas.forEach(({ name }) => {
+      const opt = document.createElement('option');
+      opt.value       = name;
+      opt.textContent = name;
+      this.areaSelect.appendChild(opt);
+    });
+    this.areaSelect.disabled = false;
+  }
+
+  /* ── Area change handler ────────────────────────────────────────────────── */
+
+  async _onAreaChange(areaName) {
+    this._hideError();
+    this.outletEl.hidden   = true;
+    this.gridEl.hidden     = true;
+    this.skeletonsEl.hidden = true;
+    this.gridEl.innerHTML  = '';
+
+    if (!areaName) return;
+
+    const area = this.areas.find(a => a.name === areaName);
+    if (!area) return;
+
+    const locationId = this.locationMap[area.outletName];
+    if (!locationId) {
+      this._showError(
+        `No Shopify Location found for outlet “${area.outletName}”. Verify the outlet_name matches a Location name exactly.`,
+        () => this._onAreaChange(areaName)
+      );
+      return;
+    }
+
+    // Show outlet name
+    this.outletNameEl.textContent = area.outletName;
+    this.outletEl.hidden          = false;
+
+    // Show skeleton loader
+    this.skeletonsEl.hidden = false;
+
+    try {
+      const products = await this._loadProducts(locationId);
+      this._renderGrid(products);
+    } catch (err) {
+      this._showError(err.message, () => this._onAreaChange(areaName));
+    } finally {
+      this.skeletonsEl.hidden = true;
+    }
+  }
+
+  /* ── Grid renderer ──────────────────────────────────────────────────────── */
+
+  _renderGrid(products) {
+    const lang     = document.documentElement.lang || 'en';
+    const fragment = document.createDocumentFragment();
+
+    products.forEach(product => {
+      const variant  = product.variants.nodes[0];
+      const avail    = variant?.storeAvailability?.nodes?.[0];
+      const inStock  = avail ? avail.available : false;
+      const { amount, currencyCode } = product.priceRange.minVariantPrice;
+
+      const formatted = new Intl.NumberFormat(lang, {
+        style:    'currency',
+        currency: currencyCode,
+      }).format(amount);
+
+      const card = document.createElement('div');
+      card.className = `aoi-card${inStock ? '' : ' aoi-card--oos'}`;
+
+      const imgHTML = product.featuredImage
+        ? `<img
+            src="${product.featuredImage.url}&width=400"
+            alt="${this._esc(product.featuredImage.altText || product.title)}"
+            loading="lazy"
+            width="400"
+            height="400"
+           >`
+        : `<div class="aoi-card__img-placeholder"></div>`;
+
+      card.innerHTML = `
+        <div class="aoi-card__img-wrap">
+          ${imgHTML}
+          ${inStock ? '' : '<span class="aoi-badge">Out of Stock</span>'}
+        </div>
+        <div class="aoi-card__body">
+          <h3 class="aoi-card__title">
+            <a href="/products/${product.handle}">${this._esc(product.title)}</a>
+          </h3>
+          <p class="aoi-card__price">${formatted}</p>
+          <button
+            class="aoi-card__btn button button--primary"
+            data-variant-id="${variant?.id || ''}"
+            ${inStock ? '' : 'disabled title="Not available at this outlet"'}
+          >${inStock ? 'Add to Cart' : 'Out of Stock'}</button>
+        </div>
+      `;
+
+      fragment.appendChild(card);
+    });
+
+    this.gridEl.innerHTML = '';
+    this.gridEl.appendChild(fragment);
+    this.gridEl.hidden = false;
+
+    this._bindAddToCart();
+  }
+
+  /* ── Add to cart ────────────────────────────────────────────────────────── */
+
+  _bindAddToCart() {
+    this.gridEl.querySelectorAll('.aoi-card__btn:not([disabled])').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const gid = btn.dataset.variantId;
+        if (!gid) return;
+
+        // Storefront API returns GIDs like gid://shopify/ProductVariant/12345
+        const numericId = gid.split('/').pop();
+
+        const label = btn.textContent;
+        btn.disabled    = true;
+        btn.textContent = 'Adding…';
+
+        try {
+          const res = await fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: numericId, quantity: 1 }),
+          });
+          if (!res.ok) throw new Error('Add to cart failed');
+
+          btn.textContent = 'Added ✓';
+
+          // Notify theme cart drawer / mini-cart listeners
+          document.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true }));
+
+          setTimeout(() => {
+            btn.textContent = label;
+            btn.disabled    = false;
+          }, 1800);
+        } catch {
+          btn.textContent = 'Error – Retry';
+          btn.disabled    = false;
+        }
+      });
+    });
+  }
+
+  /* ── Events ─────────────────────────────────────────────────────────────── */
+
+  _bindEvents() {
+    this.areaSelect.addEventListener('change', e => this._onAreaChange(e.target.value));
+  }
+
+  /* ── Error handling ─────────────────────────────────────────────────────── */
+
+  _showError(msg, retryFn) {
+    this.errorMsgEl.textContent = msg;
+    this.errorEl.hidden         = false;
+    this.retryBtn.onclick = () => {
+      this._hideError();
+      retryFn();
+    };
+  }
+
+  _hideError() {
+    this.errorEl.hidden = true;
+  }
+
+  /* ── Utility ────────────────────────────────────────────────────────────── */
+
+  _esc(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+}
+
+/* Bootstrap every section instance on the page */
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.aoi-wrapper[data-storefront-token]').forEach(el => {
+    if (el.dataset.storefrontToken) {
+      new AreaOutletInventory(el);
+    }
+  });
+});

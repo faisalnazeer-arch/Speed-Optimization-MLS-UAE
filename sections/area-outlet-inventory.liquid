@@ -1,0 +1,147 @@
+{{- 'area-outlet-inventory.css' | asset_url | stylesheet_tag -}}
+
+{%- liquid
+  assign section_id   = 'aoi-' | append: section.id
+  assign cols_desktop = section.settings.columns_desktop | default: '4'
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="aoi-wrapper"
+  style="--aoi-cols: {{ cols_desktop }};"
+  data-storefront-token="{{ section.settings.storefront_access_token }}"
+  data-shop-domain="{{ shop.permanent_domain }}"
+  data-api-version="2024-01"
+>
+
+  {%- comment -%} ── Controls ── {%- endcomment -%}
+  <div class="aoi-controls">
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="aoi-heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    <div class="aoi-row">
+
+      {%- comment -%} Area dropdown {%- endcomment -%}
+      <div class="aoi-field">
+        <label for="{{ section_id }}-area" class="aoi-label">
+          {{- section.settings.area_label | default: 'Select Delivery Area' | escape -}}
+        </label>
+        <div class="aoi-select-wrap">
+          <select id="{{ section_id }}-area" class="aoi-select" disabled>
+            <option value="">{{ 'general.loading' | t | default: 'Loading…' }}</option>
+          </select>
+        </div>
+      </div>
+
+      {%- comment -%} Outlet pill (shown after area is selected) {%- endcomment -%}
+      <div class="aoi-outlet" id="{{ section_id }}-outlet" hidden>
+        <span class="aoi-outlet__label">
+          {{- section.settings.outlet_label | default: 'Outlet' | escape -}}:
+        </span>
+        <strong class="aoi-outlet__name" id="{{ section_id }}-outlet-name"></strong>
+      </div>
+
+    </div>
+
+    {%- comment -%} Inline error {%- endcomment -%}
+    <div class="aoi-error" id="{{ section_id }}-error" hidden>
+      <p class="aoi-error__msg" id="{{ section_id }}-error-msg"></p>
+      <button class="aoi-error__retry" id="{{ section_id }}-retry" type="button">
+        {{ 'general.retry' | t | default: 'Retry' }}
+      </button>
+    </div>
+
+  </div>
+
+  {%- comment -%} ── Skeleton loader (8 cards) ── {%- endcomment -%}
+  <div class="aoi-skeletons" id="{{ section_id }}-skeletons" hidden aria-hidden="true">
+    {%- for i in (1..8) -%}
+      <div class="aoi-skeleton-card">
+        <div class="aoi-skeleton aoi-skeleton--image"></div>
+        <div class="aoi-skeleton aoi-skeleton--title"></div>
+        <div class="aoi-skeleton aoi-skeleton--price"></div>
+        <div class="aoi-skeleton aoi-skeleton--btn"></div>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- comment -%} ── Product grid (populated by JS) ── {%- endcomment -%}
+  <div class="aoi-grid" id="{{ section_id }}-grid" hidden></div>
+
+</div>
+
+<script src="{{ 'area-outlet-inventory.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Area → Outlet Inventory",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Delivery Area"
+    },
+    {
+      "type": "text",
+      "id": "area_label",
+      "label": "Area dropdown label",
+      "default": "Select Delivery Area"
+    },
+    {
+      "type": "text",
+      "id": "outlet_label",
+      "label": "Outlet label",
+      "default": "Outlet"
+    },
+    {
+      "type": "paragraph",
+      "content": "Paste your Storefront API access token below. Get it from Shopify Admin → Settings → Apps and sales channels → Develop apps → your headless app → API credentials."
+    },
+    {
+      "type": "text",
+      "id": "storefront_access_token",
+      "label": "Storefront API Access Token"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns (desktop)",
+      "options": [
+        { "value": "3", "label": "3 columns" },
+        { "value": "4", "label": "4 columns" }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Area → Outlet Inventory"
+    }
+  ]
+}
+{% endschema %}

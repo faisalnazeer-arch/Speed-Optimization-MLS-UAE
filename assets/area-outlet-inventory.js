@@ -311,11 +311,185 @@ class AreaOutletInventory {
   }
 }
 
-/* Bootstrap every section instance on the page */
+/* ============================================================
+   Header Delivery Area Selector
+   ============================================================ */
+
+const AOI_STORAGE_KEY = 'aoi_selected_area';
+
+class HeaderAreaSelector {
+  constructor(el) {
+    this.root       = el;
+    this.shopDomain = el.dataset.shopDomain;
+    this.token      = el.dataset.storefrontToken;
+    this.apiVersion = '2024-01';
+    this.endpoint   = `https://${this.shopDomain}/api/${this.apiVersion}/graphql.json`;
+
+    this.areas       = [];
+    this.locationMap = {};
+
+    this.btn        = document.getElementById('hdr-area-btn');
+    this.panel      = document.getElementById('hdr-area-panel');
+    this.label      = document.getElementById('hdr-area-label');
+    this.select     = document.getElementById('hdr-area-select');
+    this.outletEl   = document.getElementById('hdr-area-outlet');
+    this.outletName = document.getElementById('hdr-area-outlet-name');
+    this.errorEl    = document.getElementById('hdr-area-error');
+    this.errorMsg   = document.getElementById('hdr-area-error-msg');
+    this.retryBtn   = document.getElementById('hdr-area-retry');
+
+    this._init();
+  }
+
+  async _init() {
+    try {
+      await Promise.all([this._loadAreas(), this._loadLocations()]);
+      this._buildSelect();
+      this._restoreFromStorage();
+      this._bindEvents();
+    } catch (err) {
+      this._showError(err.message, () => this._init());
+    }
+  }
+
+  async _gql(query, variables) {
+    const res = await fetch(this.endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': this.token,
+      },
+      body: JSON.stringify({ query, variables: variables || {} }),
+    });
+    if (!res.ok) throw new Error(`API error ${res.status}`);
+    const json = await res.json();
+    if (json.errors && json.errors.length) throw new Error(json.errors[0].message);
+    return json.data;
+  }
+
+  async _loadAreas() {
+    const data = await this._gql(`{ metaobjects(type: "delivery_area", first: 250) { nodes { fields { key value } } } }`);
+    const seen = new Set();
+    this.areas = data.metaobjects.nodes.reduce((acc, node) => {
+      const f = Object.fromEntries(node.fields.map(({ key, value }) => [key, value]));
+      if (f.name && !seen.has(f.name)) { seen.add(f.name); acc.push({ name: f.name, outletName: f.outlet_name }); }
+      return acc;
+    }, []);
+  }
+
+  async _loadLocations() {
+    const data = await this._gql(`{ locations(first: 100) { nodes { id name } } }`);
+    this.locationMap = {};
+    data.locations.nodes.forEach(({ id, name }) => { this.locationMap[name] = id; });
+  }
+
+  _buildSelect() {
+    this.select.innerHTML = '<option value="">Choose an area…</option>';
+    this.areas.forEach(({ name }) => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name;
+      this.select.appendChild(opt);
+    });
+    this.select.disabled = false;
+  }
+
+  _restoreFromStorage() {
+    const saved = localStorage.getItem(AOI_STORAGE_KEY);
+    if (saved) {
+      this.select.value = saved;
+      this._applySelection(saved, false);
+    }
+  }
+
+  _applySelection(areaName, saveToStorage) {
+    if (!areaName) {
+      this.label.textContent = this.root.dataset.defaultLabel || 'Select Area';
+      this.outletEl.hidden   = true;
+      return;
+    }
+    const area = this.areas.find(a => a.name === areaName);
+    if (!area) return;
+
+    // Update header button label
+    this.label.textContent = area.name;
+
+    // Show outlet in panel
+    this.outletName.textContent = area.outletName;
+    this.outletEl.hidden        = false;
+
+    if (saveToStorage) {
+      localStorage.setItem(AOI_STORAGE_KEY, areaName);
+    }
+
+    // Notify any AOI page sections to reload
+    const locationId = this.locationMap[area.outletName];
+    document.dispatchEvent(new CustomEvent('aoi:area-changed', {
+      detail: { areaName, outletName: area.outletName, locationId },
+      bubbles: true,
+    }));
+  }
+
+  _bindEvents() {
+    // Toggle panel open/close
+    this.btn.addEventListener('click', () => {
+      const isOpen = this.panel.hidden === false;
+      this.panel.hidden = isOpen;
+      this.btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', e => {
+      if (!this.root.contains(e.target)) {
+        this.panel.hidden = true;
+        this.btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Area change
+    this.select.addEventListener('change', e => {
+      this._applySelection(e.target.value, true);
+    });
+
+    // Retry
+    if (this.retryBtn) {
+      this.retryBtn.addEventListener('click', () => {
+        this._hideError();
+        this._init();
+      });
+    }
+  }
+
+  _showError(msg, retryFn) {
+    this.errorMsg.textContent = msg;
+    this.errorEl.hidden       = false;
+    if (retryFn) this.retryBtn.onclick = () => { this._hideError(); retryFn(); };
+  }
+
+  _hideError() { this.errorEl.hidden = true; }
+}
+
+/* ============================================================
+   Bootstrap
+   ============================================================ */
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Header selector
+  const hdrEl = document.getElementById('hdr-area');
+  if (hdrEl && hdrEl.dataset.storefrontToken) {
+    new HeaderAreaSelector(hdrEl);
+  }
+
+  // Page section grid(s)
   document.querySelectorAll('.aoi-wrapper[data-storefront-token]').forEach(el => {
     if (el.dataset.storefrontToken) {
-      new AreaOutletInventory(el);
+      const instance = new AreaOutletInventory(el);
+
+      // If header selector fires an area-changed event, reload the grid
+      document.addEventListener('aoi:area-changed', e => {
+        const { locationId, outletName } = e.detail;
+        if (locationId) instance._onAreaChange(e.detail.areaName);
+      });
     }
   });
 });

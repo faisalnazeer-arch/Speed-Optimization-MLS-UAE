@@ -2,6 +2,126 @@
    Area → Outlet → Inventory  |  area-outlet-inventory.css
    ============================================================ */
 
+/* ── Header area selector ──────────────────────────────────── */
+
+.hdr-area {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.hdr-area__btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  color: currentColor;
+  font-size: 0.8rem;
+  padding: 5px 8px;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.hdr-area__btn:hover,
+.hdr-area__btn[aria-expanded="true"] {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.hdr-area__pin { flex-shrink: 0; }
+
+.hdr-area__label {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hdr-area__chevron {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.hdr-area__btn[aria-expanded="true"] .hdr-area__chevron {
+  transform: rotate(180deg);
+}
+
+/* Dropdown panel */
+.hdr-area__panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px;
+  min-width: 230px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.13);
+  z-index: 200;
+}
+
+[dir="rtl"] .hdr-area__panel {
+  right: auto;
+  left: 0;
+}
+
+.hdr-area__panel-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.hdr-area__select {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: #fff;
+  cursor: pointer;
+}
+
+.hdr-area__select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hdr-area__outlet {
+  margin: 10px 0 0;
+  font-size: 0.85rem;
+  color: #6b7280;
+  padding: 6px 10px;
+  background: #f3f4f6;
+  border-radius: 6px;
+}
+
+.hdr-area__outlet strong { color: #111; }
+
+.hdr-area__error {
+  margin: 8px 0 0;
+  font-size: 0.8rem;
+  color: #b91c1c;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hdr-area__error button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #b91c1c;
+  font-size: 1rem;
+  padding: 0;
+  line-height: 1;
+}
+
 .aoi-wrapper {
   max-width: var(--page-width, 1320px);
   margin: 0 auto;

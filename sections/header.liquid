@@ -151,6 +151,40 @@
     {%- endif -%}
 
     <div class="header__icons flex justify-end mis-auto js-closes-menu">
+      {%- if section.settings.show_area_selector and section.settings.storefront_access_token != blank -%}
+        {{- 'area-outlet-inventory.css' | asset_url | stylesheet_tag -}}
+        <div class="hdr-area js-closes-menu"
+             id="hdr-area"
+             data-storefront-token="{{ section.settings.storefront_access_token }}"
+             data-shop-domain="{{ shop.permanent_domain }}">
+          <button class="hdr-area__btn" type="button" aria-expanded="false" aria-controls="hdr-area-panel">
+            <svg class="hdr-area__pin" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+            </svg>
+            <span class="hdr-area__label" id="hdr-area-label">
+              {{- section.settings.area_selector_label | default: 'Select Area' | escape -}}
+            </span>
+            <svg class="hdr-area__chevron" width="10" height="10" viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M1 1l5 5 5-5"/>
+            </svg>
+          </button>
+          <div class="hdr-area__panel" id="hdr-area-panel" hidden>
+            <p class="hdr-area__panel-title">{{ section.settings.area_selector_label | default: 'Select Delivery Area' | escape }}</p>
+            <select class="hdr-area__select" id="hdr-area-select" disabled>
+              <option value="">Loading…</option>
+            </select>
+            <p class="hdr-area__outlet" id="hdr-area-outlet" hidden>
+              {{ 'sections.header.outlet' | t | default: 'Outlet' }}:
+              <strong id="hdr-area-outlet-name"></strong>
+            </p>
+            <p class="hdr-area__error" id="hdr-area-error" hidden>
+              <span id="hdr-area-error-msg"></span>
+              <button type="button" id="hdr-area-retry" title="Retry">&#8635;</button>
+            </p>
+          </div>
+        </div>
+        <script src="{{ 'area-outlet-inventory.js' | asset_url }}" defer></script>
+      {%- endif -%}
       {%- if section.settings.enable_search and search_is_minimised -%}
         {%- unless center_logo
           and section.settings.minimise_search_mobile == false
@@ -1295,6 +1329,28 @@
       "id": "mobile_menu_text_color",
       "label": "Mobile menu text color",
       "default": "#222222"
+    },
+    {
+      "type": "header",
+      "content": "Delivery Area Selector"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_area_selector",
+      "label": "Show delivery area selector in header",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "area_selector_label",
+      "label": "Selector label",
+      "default": "Select Area"
+    },
+    {
+      "type": "text",
+      "id": "storefront_access_token",
+      "label": "Storefront API Access Token",
+      "info": "Shopify Admin → Settings → Apps → Develop apps → your app → Storefront API access token"
     }
   ],
   "blocks": [

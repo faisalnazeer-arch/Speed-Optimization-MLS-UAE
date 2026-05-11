@@ -617,20 +617,30 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 
 {%- if rtl -%}
 <script>
-// RTL blank-left-half fix: run immediately (before first paint) and again on load.
-// scrollLeft=0 on an RTL overflow-x:hidden html = RIGHT edge = content start.
+// RTL fix: main.css is lazy-loaded (data-href), so overflow-x:hidden hasn't
+// applied yet when this script runs. Set it via inline style immediately so
+// html becomes the RTL scroll container NOW, before any content renders.
 (function () {
+  var html = document.documentElement;
+
+  // Make html the RTL scroll container before CSS lazy-loads.
+  html.style.overflowX = 'hidden';
+
   function fixRTL() {
-    document.documentElement.scrollLeft = 0;
+    html.scrollLeft = 0;
   }
-  fixRTL(); // immediate — runs synchronously before any paint
-  document.addEventListener('DOMContentLoaded', fixRTL, { once: true });
+
+  function nudgeRTL() {
+    // 1px nudge forces browser to re-snap to RTL right edge (imperceptible).
+    html.scrollLeft = -1;
+    requestAnimationFrame(fixRTL);
+  }
+
+  fixRTL();
+  document.addEventListener('DOMContentLoaded', nudgeRTL, { once: true });
   window.addEventListener('load', function () {
-    fixRTL();
-    requestAnimationFrame(function () {
-      fixRTL();
-      setTimeout(fixRTL, 100);
-    });
+    nudgeRTL();
+    setTimeout(fixRTL, 300);
   }, { once: true });
 }());
 </script>
@@ -643,7 +653,15 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 
 >
 {%- if rtl -%}
-<script>document.documentElement.scrollLeft = 0;</script>
+<script>
+// Second nudge at body-start after HTML is being painted.
+(function () {
+  var html = document.documentElement;
+  html.style.overflowX = 'hidden';
+  html.scrollLeft = -1;
+  requestAnimationFrame(function () { html.scrollLeft = 0; });
+}());
+</script>
 {%- endif -%}
 
 

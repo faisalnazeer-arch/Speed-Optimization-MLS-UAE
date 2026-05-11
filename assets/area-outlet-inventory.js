@@ -342,17 +342,21 @@ class HeaderAreaSelector {
     this.errorMsg   = el.querySelector('#hdr-area-error-msg');
     this.retryBtn   = el.querySelector('#hdr-area-retry');
 
+    this._bindEvents(); // bind UI immediately so the panel always opens
     this._init();
   }
 
   async _init() {
+    this._hideError();
+    this.select.innerHTML = '<option value="">Loading…</option>';
+    this.select.disabled = true;
     try {
       await Promise.all([this._loadAreas(), this._loadLocations()]);
       this._buildSelect();
       this._restoreFromStorage();
-      this._bindEvents();
     } catch (err) {
-      this._showError(err.message, () => this._init());
+      console.error('[HeaderAreaSelector] init failed:', err);
+      this._showError(err.message);
     }
   }
 
@@ -461,6 +465,9 @@ class HeaderAreaSelector {
   }
 
   _bindEvents() {
+    if (this._eventsBound) return;
+    this._eventsBound = true;
+
     // Toggle panel open/close
     this.btn.addEventListener('click', () => {
       const isOpen = this.panel.hidden === false;
@@ -481,7 +488,7 @@ class HeaderAreaSelector {
       this._applySelection(e.target.value, true);
     });
 
-    // Retry
+    // Retry always re-runs _init()
     if (this.retryBtn) {
       this.retryBtn.addEventListener('click', () => {
         this._hideError();
@@ -490,10 +497,9 @@ class HeaderAreaSelector {
     }
   }
 
-  _showError(msg, retryFn) {
+  _showError(msg) {
     this.errorMsg.textContent = msg;
     this.errorEl.hidden       = false;
-    if (retryFn) this.retryBtn.onclick = () => { this._hideError(); retryFn(); };
   }
 
   _hideError() { this.errorEl.hidden = true; }

@@ -507,6 +507,113 @@ class HeaderAreaSelector {
 }
 
 /* ============================================================
+   Product Page – Outlet Availability Checker
+   ============================================================ */
+
+class ProductOutletChecker {
+  constructor(hdrEl) {
+    this.token      = hdrEl.dataset.storefrontToken;
+    this.shopDomain = hdrEl.dataset.shopDomain;
+    this.apiVersion = '2024-01';
+    this.endpoint   = `https://${this.shopDomain}/api/${this.apiVersion}/graphql.json`;
+
+    this.addBtn       = document.querySelector('button[name="add"]');
+    this.variantInput = document.querySelector('input[name="id"]');
+    this._lastLocationId = null;
+
+    if (!this.addBtn || !this.variantInput) return; // not a product page
+
+    this._originalText = this.addBtn.textContent.trim();
+    this._bindEvents();
+  }
+
+  _getVariantGid() {
+    const id = this.variantInput.value;
+    return id ? `gid://shopify/ProductVariant/${id}` : null;
+  }
+
+  _bindEvents() {
+    // Area changed via header dropdown
+    document.addEventListener('aoi:area-changed', async e => {
+      const { locationId } = e.detail;
+      if (locationId) await this._check(locationId);
+    });
+
+    // Re-check when variant changes (size/colour selection)
+    document.addEventListener('change', async e => {
+      if (e.target.name === 'id' && this._lastLocationId) {
+        await this._check(this._lastLocationId);
+      }
+    });
+
+    // Dawn / Prestige themes dispatch this on variant switch
+    document.addEventListener('variant:change', async () => {
+      if (this._lastLocationId) await this._check(this._lastLocationId);
+    });
+  }
+
+  async _check(locationId) {
+    this._lastLocationId = locationId;
+    const variantGid = this._getVariantGid();
+    if (!variantGid) return;
+
+    try {
+      const data = await this._gql(`
+        query($id: ID!, $locationId: ID!) {
+          node(id: $id) {
+            ... on ProductVariant {
+              storeAvailability(locationId: $locationId, first: 1) {
+                nodes { available quantityAvailable }
+              }
+            }
+          }
+        }
+      `, { id: variantGid, locationId });
+
+      const avail   = data?.node?.storeAvailability?.nodes?.[0];
+      const inStock = avail
+        ? (avail.quantityAvailable != null ? avail.quantityAvailable > 0 : avail.available)
+        : false;
+
+      this._updateButton(inStock);
+    } catch (err) {
+      console.error('[ProductOutletChecker]', err);
+    }
+  }
+
+  async _gql(query, variables) {
+    const res = await fetch(this.endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': this.token,
+      },
+      body: JSON.stringify({ query, variables }),
+    });
+    if (!res.ok) throw new Error(`API error ${res.status}`);
+    const json = await res.json();
+    if (json.errors?.length) throw new Error(json.errors[0].message);
+    return json.data;
+  }
+
+  _updateButton(inStock) {
+    if (!this.addBtn) return;
+    if (inStock) {
+      this.addBtn.disabled = false;
+      // Restore original button text (handle span wrappers in themed buttons)
+      const textEl = this.addBtn.querySelector('[data-add-to-cart-text], .btn-text, span');
+      if (textEl) textEl.textContent = this._originalText;
+      else this.addBtn.textContent = this._originalText;
+    } else {
+      this.addBtn.disabled = true;
+      const textEl = this.addBtn.querySelector('[data-add-to-cart-text], .btn-text, span');
+      if (textEl) textEl.textContent = 'Out of Stock at this outlet';
+      else this.addBtn.textContent = 'Out of Stock at this outlet';
+    }
+  }
+}
+
+/* ============================================================
    Bootstrap
    ============================================================ */
 
@@ -515,6 +622,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const hdrEl = document.getElementById('hdr-area');
   if (hdrEl && hdrEl.dataset.storefrontToken) {
     new HeaderAreaSelector(hdrEl);
+    new ProductOutletChecker(hdrEl); // product page outlet check
   }
 
   // Page section grid(s)
@@ -524,7 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // If header selector fires an area-changed event, reload the grid
       document.addEventListener('aoi:area-changed', e => {
-        const { locationId, outletName } = e.detail;
+        const { locationId } = e.detail;
         if (locationId) instance._onAreaChange(e.detail.areaName);
       });
     }

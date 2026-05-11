@@ -1,1 +1,364 @@
-{"type":"header","name":"Header Group","sections":{"blocks_c74eXT":{"type":"_blocks","blocks":{"announcement_strip_Hf8h9z":{"type":"announcement-strip","settings":{"show_on_all":true,"show_on_homepage":false,"show_on_collections":false,"icon_1":"shield","text_1":"The Largest Online Fresh Meat Store with 500+ Products","icon_2":"truck","text_2":"Delivered within 2 hours across Dubai","icon_3":"refresh","text_3":"","icon_4":"phone","text_4":"","desktop_width_percent":85,"max_width":1200,"items_per_row_desktop":"2","items_per_row_mobile":"2","alignment":"center","alignment_mobile":"center","gap":30,"gap_mobile":20,"icon_text_gap":12,"padding_vertical":20,"padding_vertical_mobile":15,"hide_icons":false,"icon_size":34,"icon_size_mobile":16,"icon_color":"#000000","text_size":16,"text_size_mobile":12,"text_weight":"600","text_color":"#000000","background_color":"#ffffff"},"blocks":{}}},"block_order":["announcement_strip_Hf8h9z"],"custom_css":[".ai-icon-strip-ay2nsrjjkrg9vchv3eannouncementstriphf8h9z {font-size: 9px;}"],"name":"Icon strip","settings":{}},"announcement":{"type":"announcement","blocks":{"announcement_FEqNQF":{"type":"announcement","settings":{"text":"<p><strong>100% free returns & replacements because you deserve only the best!<\/strong><\/p>"}},"announcement_qHDUwn":{"type":"announcement","settings":{"text":"<p><strong>Get 10% off from the MLS app by using the code APPONLY. <\/strong><a href=\"http:\/\/order.mlsuae.ae\/app\" title=\"Download Mobile app\"><strong>Download Now<\/strong><\/a><\/p>"}},"announcement_aJntcN":{"type":"announcement","disabled":true,"settings":{"text":"<p>Get 10% off on your AED 600 purchase.<\/p>"}},"announcement-1":{"type":"announcement","settings":{"text":"<p><strong>We deliver fresh within 2 hours across Dubai and Abu Dhabi all days of the week.<\/strong><\/p>"}}},"block_order":["announcement_FEqNQF","announcement_qHDUwn","announcement_aJntcN","announcement-1"],"custom_css":["p {margin-top: 0px !important; margin-bottom: 0px;}"],"settings":{"announcement_homepage_only":false,"link1":"","link1_label":"","link2":"","link2_label":"","enable_country_selector":false,"enable_language_selector":true,"bg_color":"#a70a10","text_color":"#ffffff","text_type_scale":"small","read_time":8}},"header":{"type":"header","blocks":{"columns_NFepWy":{"type":"columns","settings":{"title":"Shop Beef,Shop Lamb & Mutton,Shop Australian Wagyu Beef,Shop Poultry,Shop Value Boxes,  MLS Subscriptions, About MLS,Shop Seasoned & Sauce, Year End Sale","collection_images":"none","collection_use_product_image":false,"show_underline":true,"promo_position":"bottom","promo_min_height":200,"promo_text_color":"#ffffff","promo_tint_color":"#000000","promo_tint_opacity":20,"promo1_content":"","promo1_link_url":"","promo1_text_size":16,"promo1_text_width":100,"promo1_text_alignment":"justify-center items-center text-center","promo2_content":"","promo2_link_url":"","promo2_text_size":16,"promo2_text_width":100,"promo2_text_alignment":"justify-center items-center text-center","promo3_content":"","promo3_link_url":"","promo3_text_size":16,"promo3_text_width":100,"promo3_text_alignment":"justify-center items-center text-center","badge1_color":"#000000","badge1_link":"","badge1_text":"","badge2_color":"#000000","badge2_link":"","badge2_text":"","badge3_color":"#000000","badge3_link":"","badge3_text":""}},"columns_4ER7dh":{"type":"columns","settings":{"title":"اكتشف اللحوم,صناديق القيمة,تسوق التوابل والصلصات,متجر الدواجن,تسوق لحوم البقر ,تسوق خروف, تسوق لحم البقر الواغيو الأسترالي","collection_images":"none","collection_use_product_image":false,"show_underline":true,"promo_position":"bottom","promo_min_height":200,"promo_text_color":"#ffffff","promo_tint_color":"#000000","promo_tint_opacity":20,"promo1_content":"","promo1_link_url":"","promo1_text_size":16,"promo1_text_width":100,"promo1_text_alignment":"justify-center items-center text-center","promo2_content":"","promo2_link_url":"","promo2_text_size":16,"promo2_text_width":100,"promo2_text_alignment":"justify-center items-center text-center","promo3_content":"","promo3_link_url":"","promo3_text_size":16,"promo3_text_width":100,"promo3_text_alignment":"justify-center items-center text-center","badge1_color":"#000000","badge1_link":"","badge1_text":"","badge2_color":"#000000","badge2_link":"","badge2_text":"","badge3_color":"#000000","badge3_link":"","badge3_text":""}},"columns_N4fi4N":{"type":"columns","settings":{"title":"معلومات عنا","collection_images":"none","collection_use_product_image":true,"show_underline":true,"promo_position":"bottom","promo_min_height":200,"promo_text_color":"#ffffff","promo_tint_color":"#000000","promo_tint_opacity":20,"promo1_content":"","promo1_link_url":"","promo1_text_size":16,"promo1_text_width":100,"promo1_text_alignment":"justify-center items-center text-center","promo2_content":"","promo2_link_url":"","promo2_text_size":16,"promo2_text_width":100,"promo2_text_alignment":"justify-center items-center text-center","promo3_content":"","promo3_link_url":"","promo3_text_size":16,"promo3_text_width":100,"promo3_text_alignment":"justify-center items-center text-center","badge1_color":"#000000","badge1_link":"","badge1_text":"","badge2_color":"#000000","badge2_link":"","badge2_text":"","badge3_color":"#000000","badge3_link":"","badge3_text":""}},"columns_JgMrhd":{"type":"columns","settings":{"title":"Shop Venison Meat, Shop Whole Cuts","collection_images":"none","collection_use_product_image":false,"show_underline":true,"promo_position":"bottom","promo_min_height":200,"promo_text_color":"#ffffff","promo_tint_color":"#000000","promo_tint_opacity":20,"promo1_content":"","promo1_link_url":"","promo1_text_size":16,"promo1_text_width":100,"promo1_text_alignment":"justify-center items-center text-center","promo2_content":"","promo2_link_url":"","promo2_text_size":16,"promo2_text_width":100,"promo2_text_alignment":"justify-center items-center text-center","promo3_content":"","promo3_link_url":"","promo3_text_size":16,"promo3_text_width":100,"promo3_text_alignment":"justify-center items-center text-center","badge1_color":"#000000","badge1_link":"","badge1_text":"","badge2_color":"#000000","badge2_link":"","badge2_text":"","badge3_color":"#000000","badge3_link":"","badge3_text":""}}},"block_order":["columns_NFepWy","columns_4ER7dh","columns_N4fi4N","columns_JgMrhd"],"settings":{"mobile_menu_position":"burger-left","enable_sticky":true,"hide_menu":true,"logo_text":"","logo_text_font":"nunito_sans_n7","logo_type_scale":"1.5","logo":"shopify:\/\/shop_images\/MLS-Logo_Red_Black_af3de979-2aa8-482c-b4d1-cb66623c2baa.png","logo_width":60,"logo_h1":true,"logo_position":"top-left","enable_search":true,"minimise_search_mobile":false,"minimise_search_desktop":false,"menu":"new-test-menu","menu_center":true,"repeat_links":true,"menu_featured_link":"Sale","cta_show":false,"cta_icon":"phone","cta_label":"Call to Action","cta_link":"","cta_border_color":"#ebebeb","cta_bg_color":"#ebebeb","cta_text_color":"#222222","bg_color":"#ffffff","text_color":"#222222","accent_color":"#afafaf","desktop_menu_bg_color":"#ffffff","desktop_menu_text_color":"#333333","mobile_menu_bg_color":"#ffffff","mobile_menu_text_color":"#222222"}},"promo_strip_QLcH46":{"type":"promo-strip","blocks":{"heading_RAFRCV":{"type":"heading","settings":{"heading":"Promotion","heading_size":"h5","show_on_mobile":true,"show_on_desktop":true}},"text_PwkiA7":{"type":"text","settings":{"text":"<p>Share something special with your customers.<\/p>","enlarge_text":false,"show_on_mobile":false,"show_on_desktop":true}},"discount_HztBeh":{"type":"discount","settings":{"discount_code":"DISCOUNTCODE"}}},"block_order":["heading_RAFRCV","text_PwkiA7","discount_HztBeh"],"disabled":true,"settings":{"section_height":"small","color_scheme":"1","full_width":true,"dividers":"border-bottom","prevent_animation":false}}},"order":["blocks_c74eXT","announcement","header","promo_strip_QLcH46"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header Group",
+  "sections": {
+    "blocks_c74eXT": {
+      "type": "_blocks",
+      "blocks": {
+        "announcement_strip_Hf8h9z": {
+          "type": "announcement-strip",
+          "settings": {
+            "show_on_all": true,
+            "show_on_homepage": false,
+            "show_on_collections": false,
+            "icon_1": "shield",
+            "text_1": "The Largest Online Fresh Meat Store with 500+ Products",
+            "icon_2": "truck",
+            "text_2": "Delivered within 2 hours across Dubai",
+            "icon_3": "refresh",
+            "text_3": "",
+            "icon_4": "phone",
+            "text_4": "",
+            "desktop_width_percent": 85,
+            "max_width": 1200,
+            "items_per_row_desktop": "2",
+            "items_per_row_mobile": "2",
+            "alignment": "center",
+            "alignment_mobile": "center",
+            "gap": 30,
+            "gap_mobile": 20,
+            "icon_text_gap": 12,
+            "padding_vertical": 20,
+            "padding_vertical_mobile": 15,
+            "hide_icons": false,
+            "icon_size": 34,
+            "icon_size_mobile": 16,
+            "icon_color": "#000000",
+            "text_size": 16,
+            "text_size_mobile": 12,
+            "text_weight": "600",
+            "text_color": "#000000",
+            "background_color": "#ffffff"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "announcement_strip_Hf8h9z"
+      ],
+      "custom_css": [
+        ".ai-icon-strip-ay2nsrjjkrg9vchv3eannouncementstriphf8h9z {font-size: 9px;}"
+      ],
+      "name": "Icon strip",
+      "settings": {}
+    },
+    "announcement": {
+      "type": "announcement",
+      "blocks": {
+        "announcement_FEqNQF": {
+          "type": "announcement",
+          "settings": {
+            "text": "<p><strong>100% free returns & replacements because you deserve only the best!</strong></p>"
+          }
+        },
+        "announcement_qHDUwn": {
+          "type": "announcement",
+          "settings": {
+            "text": "<p><strong>Get 10% off from the MLS app by using the code APPONLY. </strong><a href=\"http://order.mlsuae.ae/app\" title=\"Download Mobile app\"><strong>Download Now</strong></a></p>"
+          }
+        },
+        "announcement_aJntcN": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Get 10% off on your AED 600 purchase.</p>"
+          }
+        },
+        "announcement-1": {
+          "type": "announcement",
+          "settings": {
+            "text": "<p><strong>We deliver fresh within 2 hours across Dubai and Abu Dhabi all days of the week.</strong></p>"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_FEqNQF",
+        "announcement_qHDUwn",
+        "announcement_aJntcN",
+        "announcement-1"
+      ],
+      "custom_css": [
+        "p {margin-top: 0px !important; margin-bottom: 0px;}"
+      ],
+      "settings": {
+        "announcement_homepage_only": false,
+        "link1": "",
+        "link1_label": "",
+        "link2": "",
+        "link2_label": "",
+        "enable_country_selector": false,
+        "enable_language_selector": true,
+        "bg_color": "#a70a10",
+        "text_color": "#ffffff",
+        "text_type_scale": "small",
+        "read_time": 8
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "columns_NFepWy": {
+          "type": "columns",
+          "settings": {
+            "title": "Shop Beef,Shop Lamb & Mutton,Shop Australian Wagyu Beef,Shop Poultry,Shop Value Boxes,  MLS Subscriptions, About MLS,Shop Seasoned & Sauce, Year End Sale",
+            "collection_images": "none",
+            "collection_use_product_image": false,
+            "show_underline": true,
+            "promo_position": "bottom",
+            "promo_min_height": 200,
+            "promo_text_color": "#ffffff",
+            "promo_tint_color": "#000000",
+            "promo_tint_opacity": 20,
+            "promo1_content": "",
+            "promo1_link_url": "",
+            "promo1_text_size": 16,
+            "promo1_text_width": 100,
+            "promo1_text_alignment": "justify-center items-center text-center",
+            "promo2_content": "",
+            "promo2_link_url": "",
+            "promo2_text_size": 16,
+            "promo2_text_width": 100,
+            "promo2_text_alignment": "justify-center items-center text-center",
+            "promo3_content": "",
+            "promo3_link_url": "",
+            "promo3_text_size": 16,
+            "promo3_text_width": 100,
+            "promo3_text_alignment": "justify-center items-center text-center",
+            "badge1_color": "#000000",
+            "badge1_link": "",
+            "badge1_text": "",
+            "badge2_color": "#000000",
+            "badge2_link": "",
+            "badge2_text": "",
+            "badge3_color": "#000000",
+            "badge3_link": "",
+            "badge3_text": ""
+          }
+        },
+        "columns_4ER7dh": {
+          "type": "columns",
+          "settings": {
+            "title": "اكتشف اللحوم,صناديق القيمة,تسوق التوابل والصلصات,متجر الدواجن,تسوق لحوم البقر ,تسوق خروف, تسوق لحم البقر الواغيو الأسترالي",
+            "collection_images": "none",
+            "collection_use_product_image": false,
+            "show_underline": true,
+            "promo_position": "bottom",
+            "promo_min_height": 200,
+            "promo_text_color": "#ffffff",
+            "promo_tint_color": "#000000",
+            "promo_tint_opacity": 20,
+            "promo1_content": "",
+            "promo1_link_url": "",
+            "promo1_text_size": 16,
+            "promo1_text_width": 100,
+            "promo1_text_alignment": "justify-center items-center text-center",
+            "promo2_content": "",
+            "promo2_link_url": "",
+            "promo2_text_size": 16,
+            "promo2_text_width": 100,
+            "promo2_text_alignment": "justify-center items-center text-center",
+            "promo3_content": "",
+            "promo3_link_url": "",
+            "promo3_text_size": 16,
+            "promo3_text_width": 100,
+            "promo3_text_alignment": "justify-center items-center text-center",
+            "badge1_color": "#000000",
+            "badge1_link": "",
+            "badge1_text": "",
+            "badge2_color": "#000000",
+            "badge2_link": "",
+            "badge2_text": "",
+            "badge3_color": "#000000",
+            "badge3_link": "",
+            "badge3_text": ""
+          }
+        },
+        "columns_N4fi4N": {
+          "type": "columns",
+          "settings": {
+            "title": "معلومات عنا",
+            "collection_images": "none",
+            "collection_use_product_image": true,
+            "show_underline": true,
+            "promo_position": "bottom",
+            "promo_min_height": 200,
+            "promo_text_color": "#ffffff",
+            "promo_tint_color": "#000000",
+            "promo_tint_opacity": 20,
+            "promo1_content": "",
+            "promo1_link_url": "",
+            "promo1_text_size": 16,
+            "promo1_text_width": 100,
+            "promo1_text_alignment": "justify-center items-center text-center",
+            "promo2_content": "",
+            "promo2_link_url": "",
+            "promo2_text_size": 16,
+            "promo2_text_width": 100,
+            "promo2_text_alignment": "justify-center items-center text-center",
+            "promo3_content": "",
+            "promo3_link_url": "",
+            "promo3_text_size": 16,
+            "promo3_text_width": 100,
+            "promo3_text_alignment": "justify-center items-center text-center",
+            "badge1_color": "#000000",
+            "badge1_link": "",
+            "badge1_text": "",
+            "badge2_color": "#000000",
+            "badge2_link": "",
+            "badge2_text": "",
+            "badge3_color": "#000000",
+            "badge3_link": "",
+            "badge3_text": ""
+          }
+        },
+        "columns_JgMrhd": {
+          "type": "columns",
+          "settings": {
+            "title": "Shop Venison Meat, Shop Whole Cuts",
+            "collection_images": "none",
+            "collection_use_product_image": false,
+            "show_underline": true,
+            "promo_position": "bottom",
+            "promo_min_height": 200,
+            "promo_text_color": "#ffffff",
+            "promo_tint_color": "#000000",
+            "promo_tint_opacity": 20,
+            "promo1_content": "",
+            "promo1_link_url": "",
+            "promo1_text_size": 16,
+            "promo1_text_width": 100,
+            "promo1_text_alignment": "justify-center items-center text-center",
+            "promo2_content": "",
+            "promo2_link_url": "",
+            "promo2_text_size": 16,
+            "promo2_text_width": 100,
+            "promo2_text_alignment": "justify-center items-center text-center",
+            "promo3_content": "",
+            "promo3_link_url": "",
+            "promo3_text_size": 16,
+            "promo3_text_width": 100,
+            "promo3_text_alignment": "justify-center items-center text-center",
+            "badge1_color": "#000000",
+            "badge1_link": "",
+            "badge1_text": "",
+            "badge2_color": "#000000",
+            "badge2_link": "",
+            "badge2_text": "",
+            "badge3_color": "#000000",
+            "badge3_link": "",
+            "badge3_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "columns_NFepWy",
+        "columns_4ER7dh",
+        "columns_N4fi4N",
+        "columns_JgMrhd"
+      ],
+      "settings": {
+        "mobile_menu_position": "burger-left",
+        "enable_sticky": true,
+        "hide_menu": true,
+        "logo_text": "",
+        "logo_text_font": "nunito_sans_n7",
+        "logo_type_scale": "1.5",
+        "logo": "shopify://shop_images/MLS-Logo_Red_Black_af3de979-2aa8-482c-b4d1-cb66623c2baa.png",
+        "logo_width": 60,
+        "logo_h1": true,
+        "logo_position": "top-left",
+        "enable_search": true,
+        "minimise_search_mobile": false,
+        "minimise_search_desktop": false,
+        "menu": "new-test-menu",
+        "menu_center": true,
+        "repeat_links": true,
+        "menu_featured_link": "Sale",
+        "cta_show": false,
+        "cta_icon": "phone",
+        "cta_label": "Call to Action",
+        "cta_link": "",
+        "cta_border_color": "#ebebeb",
+        "cta_bg_color": "#ebebeb",
+        "cta_text_color": "#222222",
+        "bg_color": "#ffffff",
+        "text_color": "#222222",
+        "accent_color": "#afafaf",
+        "desktop_menu_bg_color": "#ffffff",
+        "desktop_menu_text_color": "#333333",
+        "mobile_menu_bg_color": "#ffffff",
+        "mobile_menu_text_color": "#222222",
+        "show_area_selector": true,
+        "area_selector_label": "Select Area",
+        "storefront_access_token": ""
+      }
+    },
+    "promo_strip_QLcH46": {
+      "type": "promo-strip",
+      "blocks": {
+        "heading_RAFRCV": {
+          "type": "heading",
+          "settings": {
+            "heading": "Promotion",
+            "heading_size": "h5",
+            "show_on_mobile": true,
+            "show_on_desktop": true
+          }
+        },
+        "text_PwkiA7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Share something special with your customers.</p>",
+            "enlarge_text": false,
+            "show_on_mobile": false,
+            "show_on_desktop": true
+          }
+        },
+        "discount_HztBeh": {
+          "type": "discount",
+          "settings": {
+            "discount_code": "DISCOUNTCODE"
+          }
+        }
+      },
+      "block_order": [
+        "heading_RAFRCV",
+        "text_PwkiA7",
+        "discount_HztBeh"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_height": "small",
+        "color_scheme": "1",
+        "full_width": true,
+        "dividers": "border-bottom",
+        "prevent_animation": false
+      }
+    }
+  },
+  "order": [
+    "blocks_c74eXT",
+    "announcement",
+    "header",
+    "promo_strip_QLcH46"
+  ]
+}

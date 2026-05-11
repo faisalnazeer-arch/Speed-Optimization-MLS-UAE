@@ -68,7 +68,6 @@ class AreaOutletInventory {
       {
         metaobjects(type: "delivery_area", first: 250) {
           nodes {
-            displayName
             fields { key value }
           }
         }
@@ -78,7 +77,7 @@ class AreaOutletInventory {
     const seen = new Set();
     this.areas = data.metaobjects.nodes.reduce((acc, node) => {
       const f = Object.fromEntries(node.fields.map(({ key, value }) => [key, value]));
-      const areaName   = f.name || node.displayName;
+      const areaName   = f.name;
       const outletName = f.outlet_name;
       if (areaName && !seen.has(areaName)) {
         seen.add(areaName);
@@ -379,7 +378,6 @@ class HeaderAreaSelector {
     const data = await this._gql(`{
       metaobjects(type: "delivery_area", first: 250) {
         nodes {
-          displayName
           fields { key value }
         }
       }
@@ -396,8 +394,7 @@ class HeaderAreaSelector {
     const seen = new Set();
     this.areas = data.metaobjects.nodes.reduce((acc, node) => {
       const f = Object.fromEntries(node.fields.map(({ key, value }) => [key, value]));
-      // "Display name" in Shopify admin maps to displayName on the node OR a field with key "name"
-      const areaName = f.name || node.displayName;
+      const areaName = f.name;
       const outletName = f.outlet_name;
       if (areaName && !seen.has(areaName)) {
         seen.add(areaName);

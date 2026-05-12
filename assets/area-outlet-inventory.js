@@ -575,12 +575,13 @@ class ProductOutletChecker {
       console.log('[ProductOutletChecker] storeAvailability nodes:', nodes, 'looking for locationId:', locationId);
 
       const match   = nodes.find(n => n.location.id === locationId);
-      const inStock = match ? match.available : null; // null = location not in storeAvailability
+      // If location isn't in storeAvailability (pickup not configured), default to enabled
+      // so we never permanently block purchase due to missing pickup config.
+      const inStock = match ? match.available : true;
 
-      console.log('[ProductOutletChecker] match:', match, 'inStock:', inStock);
+      console.log('[ProductOutletChecker] nodes:', nodes.length, 'match:', match, 'inStock:', inStock);
 
-      // Only update button if we got a definitive answer
-      if (inStock !== null) this._updateButton(inStock);
+      this._updateButton(inStock);
     } catch (err) {
       console.error('[ProductOutletChecker]', err);
     }
@@ -602,9 +603,16 @@ class ProductOutletChecker {
   }
 
   _updateButton(inStock) {
-    if (!this.addBtn) return;
-    this.addBtn.disabled = !inStock;
-    this.addBtn.textContent = inStock ? this._originalText : 'Out of Stock at this outlet';
+    // Re-query each time — theme JS may re-render the button between calls
+    const btn = document.querySelector('button[name="add"]');
+    if (!btn) return;
+    if (inStock) {
+      btn.removeAttribute('disabled');
+      btn.textContent = btn.dataset.addToCartText || this._originalText;
+    } else {
+      btn.setAttribute('disabled', 'disabled');
+      btn.textContent = 'Out of Stock at this outlet';
+    }
   }
 }
 

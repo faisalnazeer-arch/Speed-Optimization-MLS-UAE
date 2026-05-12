@@ -118,7 +118,7 @@ class AreaOutletInventory {
               nodes {
                 id
                 storeAvailability(locationId: $locationId, first: 1) {
-                  nodes { available quantityAvailable }
+                  nodes { available }
                 }
               }
             }
@@ -191,12 +191,8 @@ class AreaOutletInventory {
 
     products.forEach(product => {
       const variant  = product.variants.nodes[0];
-      const avail    = variant?.storeAvailability?.nodes?.[0];
-      // quantityAvailable is null when inventory tracking is off (treat as in stock).
-      // When tracking is on, use actual quantity > 0.
-      const inStock  = avail
-        ? (avail.quantityAvailable != null ? avail.quantityAvailable > 0 : avail.available)
-        : false;
+      const avail   = variant?.storeAvailability?.nodes?.[0];
+      const inStock = avail ? avail.available : false;
       const { amount, currencyCode } = product.priceRange.minVariantPrice;
 
       const formatted = new Intl.NumberFormat(lang, {
@@ -567,7 +563,6 @@ class ProductOutletChecker {
               storeAvailability(first: 50) {
                 nodes {
                   available
-                  quantityAvailable
                   location { id }
                 }
               }
@@ -580,9 +575,7 @@ class ProductOutletChecker {
       console.log('[ProductOutletChecker] storeAvailability nodes:', nodes, 'looking for locationId:', locationId);
 
       const match   = nodes.find(n => n.location.id === locationId);
-      const inStock = match
-        ? (match.quantityAvailable != null ? match.quantityAvailable > 0 : match.available)
-        : null; // null = location not in storeAvailability (pickup not enabled)
+      const inStock = match ? match.available : null; // null = location not in storeAvailability
 
       console.log('[ProductOutletChecker] match:', match, 'inStock:', inStock);
 

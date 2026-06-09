@@ -61,63 +61,91 @@
 
 {% if template.name == 'collection' and template.suffix == 'signature' %}
 <style>
-  /* === Signature Collection — dark theme. Only loads on collection.signature template === */
+  /* === Signature Collection — dark theme. Scoped to #main-content only, header/footer untouched === */
 
-  body, main { background-color: #212020 !important; }
+  #main-content, #main-content .shopify-section { background-color: #212020; }
 
-  body .shopify-section { background-color: #212020; }
+  #main-content h1, #main-content h2, #main-content h3,
+  #main-content h4, #main-content h5, #main-content h6,
+  #main-content p, #main-content span, #main-content li,
+  #main-content label, #main-content td, #main-content th { color: #ffffff; }
 
-  body h1, body h2, body h3, body h4, body h5, body h6,
-  body p, body span, body li, body label, body td, body th { color: #ffffff; }
+  #main-content a { color: #ffffff; }
+  #main-content a:hover { color: rgba(255,255,255,0.75); }
 
-  body a { color: #ffffff; }
-  body a:hover { color: rgba(255,255,255,0.75); }
-
-  body .breadcrumbs, body .breadcrumbs a, body .breadcrumbs span { color: #ffffff; }
+  #main-content .breadcrumbs,
+  #main-content .breadcrumbs a,
+  #main-content .breadcrumbs span { color: #ffffff; }
 
   /* Toolbar */
-  body .products-toolbar { background-color: transparent; border-color: rgba(255,255,255,0.15); }
-  body .products-toolbar__filter-btn,
-  body .products-toolbar__sort select,
-  body .products-toolbar__sort label { color: #ffffff; background-color: #212020; border-color: rgba(255,255,255,0.3); }
-  body .products-toolbar__sort select option { background-color: #212020; color: #ffffff; }
-  body hr { border-color: rgba(255,255,255,0.12); }
+  #main-content .products-toolbar { background-color: transparent; border-color: rgba(255,255,255,0.15); }
+  #main-content .products-toolbar__filter-btn,
+  #main-content .products-toolbar__sort select,
+  #main-content .products-toolbar__sort label { color: #ffffff; background-color: #212020; border-color: rgba(255,255,255,0.3); }
+  #main-content .products-toolbar__sort select option { background-color: #212020; color: #ffffff; }
+  #main-content hr { border-color: rgba(255,255,255,0.12); }
 
   /* Filter sidebar */
-  body .main-products-grid__filters,
-  body .facets, body .drawer, body .drawer__content, body .drawer__header,
-  body .disclosure__panel, body .facets__filters { background-color: #2a2929; color: #ffffff; }
-  body .filter__toggle, body .filter__label, body .active-filter,
-  body .active-filters-header, body .disclosure__toggle, body .link { color: #ffffff; }
-  body .filter__count { color: rgba(255,255,255,0.55); }
-  body .checkbox::before { border-color: rgba(255,255,255,0.4); }
-  body input[type="text"], body input[type="number"] {
+  #main-content .main-products-grid__filters,
+  #main-content .facets, #main-content .drawer__content,
+  #main-content .drawer__header, #main-content .disclosure__panel,
+  #main-content .facets__filters { background-color: #2a2929; color: #ffffff; }
+  #main-content .filter__toggle, #main-content .filter__label,
+  #main-content .active-filter, #main-content .active-filters-header,
+  #main-content .disclosure__toggle, #main-content .link { color: #ffffff; }
+  #main-content .filter__count { color: rgba(255,255,255,0.55); }
+  #main-content .checkbox::before { border-color: rgba(255,255,255,0.4); }
+  #main-content input[type="text"], #main-content input[type="number"] {
     background-color: #2a2929; color: #ffffff; border-color: rgba(255,255,255,0.3);
   }
 
   /* Product cards */
-  body .card, body .card--product,
-  body .card__info-container, body .card__info, body .card__info-inner {
+  #main-content .card, #main-content .card--product,
+  #main-content .card__info-container, #main-content .card__info,
+  #main-content .card__info-inner {
     background-color: #2a2929 !important; border-color: rgba(255,255,255,0.08) !important;
   }
-  body .card__title, body .card-link, body .card__vendor,
-  body .card__subtitle, body .card__weight { color: #ffffff !important; }
-  body .text-theme-light { color: rgba(255,255,255,0.6) !important; }
-  body .price, body .price__regular, body .price__sale,
-  body .price-item, body [class*="price"] { color: #ffffff !important; }
+  #main-content .card__title, #main-content .card-link, #main-content .card__vendor,
+  #main-content .card__subtitle, #main-content .card__weight { color: #ffffff !important; }
+  #main-content .text-theme-light { color: rgba(255,255,255,0.6) !important; }
+  #main-content .price, #main-content .price__regular, #main-content .price__sale,
+  #main-content .price-item, #main-content [class*="price"] { color: #ffffff !important; }
 
-  /* Buttons */
-  body .btn--primary { background-color: #a70a10 !important; border-color: #a70a10 !important; color: #ffffff !important; }
-  body .btn--secondary, body .quick-add-view-btn {
-    background-color: transparent !important; border-color: #ffffff !important; color: #ffffff !important;
+  /* Shop Now / Add to Cart button — white bg, black text; hover inverts */
+  #main-content .btn--primary,
+  #main-content .btn--atc {
+    background-color: #ffffff !important;
+    border-color: #ffffff !important;
+    color: #000000 !important;
+  }
+  #main-content .btn--primary:hover,
+  #main-content .btn--atc:hover {
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+    color: #ffffff !important;
+  }
+
+  /* Secondary / view button */
+  #main-content .btn--secondary,
+  #main-content .quick-add-view-btn {
+    background-color: transparent !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+  }
+  #main-content .btn--secondary:hover,
+  #main-content .quick-add-view-btn:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
   }
 
   /* Section headings */
-  body .section__heading, body [class*="section__title"] { color: #ffffff; }
+  #main-content .section__heading,
+  #main-content [class*="section__title"] { color: #ffffff; }
 
   /* Pagination */
-  body .pagination a, body .pagination span { color: #ffffff; border-color: rgba(255,255,255,0.3); }
-  body .pagination__item--current { background-color: #a70a10; border-color: #a70a10; }
+  #main-content .pagination a,
+  #main-content .pagination span { color: #ffffff; border-color: rgba(255,255,255,0.3); }
+  #main-content .pagination__item--current { background-color: #a70a10; border-color: #a70a10; }
 </style>
 {% endif %}
 

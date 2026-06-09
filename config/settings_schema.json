@@ -231,6 +231,46 @@
       },
       {
         "type": "header",
+        "content": "Section color scheme 4"
+      },
+      {
+        "type": "color",
+        "id": "color_scheme_4_bg",
+        "label": "Background",
+        "default": "#212020"
+      },
+      {
+        "type": "color_background",
+        "id": "color_scheme_4_bg_grad",
+        "label": "Background gradient",
+        "info": "If set, replaces the background color."
+      },
+      {
+        "type": "color",
+        "id": "color_scheme_4_heading",
+        "label": "Headings",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_scheme_4_text",
+        "label": "Text",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_scheme_4_btn_bg",
+        "label": "Button background",
+        "default": "#a70a10"
+      },
+      {
+        "type": "color",
+        "id": "color_scheme_4_btn_text",
+        "label": "Button text",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
         "content": "Content panels"
       },
       {

@@ -414,6 +414,15 @@ You can learn more about this (and learn how to cleanly revert these changes) at
         --color-scheme-3-btn-text: {{ settings.color_scheme_3_btn_text.rgb }};
         --color-scheme-3-btn-bg-hover: {{ color_scheme_3_btn_bg_hover.rgb }};
 
+        {%- assign color_scheme_4_btn_bg_hover = settings.color_scheme_4_btn_bg | color_mix: settings.color_scheme_4_btn_text, 85 | color_lighten: 3 -%}
+        --color-scheme-4-bg: {{ settings.color_scheme_4_bg.rgba }};
+        --color-scheme-4-grad: {{ settings.color_scheme_4_bg_grad }};
+        --color-scheme-4-heading: {{ settings.color_scheme_4_heading.rgb }};
+        --color-scheme-4-text: {{ settings.color_scheme_4_text.rgb }};
+        --color-scheme-4-btn-bg: {{ settings.color_scheme_4_btn_bg.rgb }};
+        --color-scheme-4-btn-text: {{ settings.color_scheme_4_btn_text.rgb }};
+        --color-scheme-4-btn-bg-hover: {{ color_scheme_4_btn_bg_hover.rgb }};
+
         --drawer-bg-color: {{ settings.drawer_bg_color.rgba }};
         --drawer-text-color: {{ settings.drawer_text_color.rgb }};
 

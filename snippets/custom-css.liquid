@@ -59,3 +59,65 @@
 }
 </style>
 
+{% if template.name == 'collection' and template.suffix == 'signature' %}
+<style>
+  /* === Signature Collection — dark theme. Only loads on collection.signature template === */
+
+  body, main { background-color: #212020 !important; }
+
+  body .shopify-section { background-color: #212020; }
+
+  body h1, body h2, body h3, body h4, body h5, body h6,
+  body p, body span, body li, body label, body td, body th { color: #ffffff; }
+
+  body a { color: #ffffff; }
+  body a:hover { color: rgba(255,255,255,0.75); }
+
+  body .breadcrumbs, body .breadcrumbs a, body .breadcrumbs span { color: #ffffff; }
+
+  /* Toolbar */
+  body .products-toolbar { background-color: transparent; border-color: rgba(255,255,255,0.15); }
+  body .products-toolbar__filter-btn,
+  body .products-toolbar__sort select,
+  body .products-toolbar__sort label { color: #ffffff; background-color: #212020; border-color: rgba(255,255,255,0.3); }
+  body .products-toolbar__sort select option { background-color: #212020; color: #ffffff; }
+  body hr { border-color: rgba(255,255,255,0.12); }
+
+  /* Filter sidebar */
+  body .main-products-grid__filters,
+  body .facets, body .drawer, body .drawer__content, body .drawer__header,
+  body .disclosure__panel, body .facets__filters { background-color: #2a2929; color: #ffffff; }
+  body .filter__toggle, body .filter__label, body .active-filter,
+  body .active-filters-header, body .disclosure__toggle, body .link { color: #ffffff; }
+  body .filter__count { color: rgba(255,255,255,0.55); }
+  body .checkbox::before { border-color: rgba(255,255,255,0.4); }
+  body input[type="text"], body input[type="number"] {
+    background-color: #2a2929; color: #ffffff; border-color: rgba(255,255,255,0.3);
+  }
+
+  /* Product cards */
+  body .card, body .card--product,
+  body .card__info-container, body .card__info, body .card__info-inner {
+    background-color: #2a2929 !important; border-color: rgba(255,255,255,0.08) !important;
+  }
+  body .card__title, body .card-link, body .card__vendor,
+  body .card__subtitle, body .card__weight { color: #ffffff !important; }
+  body .text-theme-light { color: rgba(255,255,255,0.6) !important; }
+  body .price, body .price__regular, body .price__sale,
+  body .price-item, body [class*="price"] { color: #ffffff !important; }
+
+  /* Buttons */
+  body .btn--primary { background-color: #a70a10 !important; border-color: #a70a10 !important; color: #ffffff !important; }
+  body .btn--secondary, body .quick-add-view-btn {
+    background-color: transparent !important; border-color: #ffffff !important; color: #ffffff !important;
+  }
+
+  /* Section headings */
+  body .section__heading, body [class*="section__title"] { color: #ffffff; }
+
+  /* Pagination */
+  body .pagination a, body .pagination span { color: #ffffff; border-color: rgba(255,255,255,0.3); }
+  body .pagination__item--current { background-color: #a70a10; border-color: #a70a10; }
+</style>
+{% endif %}
+

@@ -141,21 +141,16 @@
     color: #000000 !important;
   }
 
-  /* Sort dropdown — listbox bg is light (from theme global bg vars), but our li/span rules force white
-     text, causing invisible options. Override listbox to dark bg so white text is readable. */
-  #main-content .products-toolbar__sort .custom-select__btn {
-    background: transparent !important;
-  }
-  #main-content .products-toolbar__sort .custom-select__btn span { color: #ffffff !important; }
+  /* Sort dropdown — do not touch the button; only give the opened listbox a dark background
+     so the white option text (inherited from the li rule above) is visible against it */
+  #main-content .products-toolbar__sort .custom-select__btn span,
+  #main-content .products-toolbar__sort .custom-select__option span { color: inherit !important; }
   #main-content .products-toolbar__sort .custom-select__listbox {
-    background: #2a2929 !important;
-    color: #ffffff !important;
+    background-color: #2a2929 !important;
     border-color: rgba(255,255,255,0.25) !important;
   }
-  #main-content .products-toolbar__sort .custom-select__option { color: #ffffff !important; }
   #main-content .products-toolbar__sort .custom-select__option.is-focused {
-    background: rgba(255,255,255,0.12) !important;
-    color: #ffffff !important;
+    background-color: rgba(255,255,255,0.1) !important;
   }
 
   /* Price range filter inputs — white bg, black text */

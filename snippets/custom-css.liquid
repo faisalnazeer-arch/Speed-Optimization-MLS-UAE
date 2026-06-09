@@ -127,6 +127,8 @@
     color: #ffffff !important;
     border-color: #000000 !important;
   }
+  /* Force spans inside buttons to inherit button color, not the global white span rule */
+  #main-content .btn span { color: inherit !important; }
 
   /* Secondary / view button */
   #main-content .btn.btn--secondary,
@@ -140,6 +142,32 @@
     background: #ffffff !important;
     color: #000000 !important;
   }
+
+  /* Sort dropdown (custom-select component, not a native select) */
+  #main-content .products-toolbar__sort .custom-select__btn,
+  #main-content .products-toolbar__sort .input {
+    background-color: #2a2929 !important;
+    color: #ffffff !important;
+    border-color: rgba(255,255,255,0.3) !important;
+  }
+  #main-content .products-toolbar__sort .custom-select__listbox {
+    background-color: #2a2929;
+    border-color: rgba(255,255,255,0.2);
+  }
+  #main-content .products-toolbar__sort .custom-select__option { color: #ffffff; }
+  #main-content .products-toolbar__sort .custom-select__option:hover,
+  #main-content .products-toolbar__sort .custom-select__option[aria-selected="true"] {
+    background-color: rgba(255,255,255,0.1);
+  }
+
+  /* Price range filter inputs — white bg, black text */
+  #main-content .price-range .input,
+  #main-content .price-range__input-wrapper .input {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #cccccc !important;
+  }
+  #main-content .price-range__currency { color: #ffffff; }
 
   /* Section headings */
   #main-content .section__heading,

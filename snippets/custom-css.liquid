@@ -57,6 +57,178 @@
 #cart-icon {
     cursor: pointer;
 }
+
+/* ===== Empty Cart Design ===== */
+.mls-cart-empty {
+  width: 100%;
+  padding: 16px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+.mls-cart-empty__hero {
+  background: linear-gradient(135deg, #1a0002 0%, #a70a10 60%, #d41219 100%);
+  border-radius: 16px;
+  padding: 28px 20px 24px;
+  width: 100%;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.mls-cart-empty__hero::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 120px; height: 120px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+}
+.mls-cart-empty__hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; left: -20px;
+  width: 90px; height: 90px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+.mls-cart-empty__icon-wrap {
+  width: 64px; height: 64px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 14px;
+  font-size: 28px;
+  position: relative; z-index: 1;
+}
+.mls-cart-empty__hero-title {
+  font-size: 1.25em;
+  font-weight: 700;
+  margin: 0 0 6px;
+  line-height: 1.3;
+  position: relative; z-index: 1;
+}
+.mls-cart-empty__hero-sub {
+  font-size: 0.82em;
+  opacity: 0.85;
+  margin: 0;
+  position: relative; z-index: 1;
+}
+.mls-cart-empty__section-label {
+  font-size: 0.7em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #a70a10;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 2px;
+}
+.mls-cart-empty__collections {
+  width: 100%;
+}
+.mls-cart-empty__coll-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+.mls-cart-empty__coll-card {
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+  background: #f7f7f7;
+  border: 1px solid #efefef;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.mls-cart-empty__coll-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(167,10,16,0.18);
+}
+.mls-cart-empty__coll-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+.mls-cart-empty__coll-img-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+}
+.mls-cart-empty__coll-name {
+  font-size: 0.68em;
+  font-weight: 600;
+  color: #1a1a1a;
+  padding: 7px 4px;
+  line-height: 1.3;
+  text-align: center;
+}
+.mls-cart-empty__perks {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.mls-cart-empty__perk {
+  background: #fff8f4;
+  border: 1px solid #fde0d0;
+  border-radius: 10px;
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.mls-cart-empty__perk-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+.mls-cart-empty__perk-text {
+  font-size: 0.6em;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.3;
+  text-align: center;
+}
+.mls-cart-empty__cta {
+  width: 100%;
+  background: #a70a10 !important;
+  color: #fff !important;
+  border-color: #a70a10 !important;
+  font-size: 0.95em;
+  padding: 13px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  display: block;
+  transition: background 0.2s, transform 0.15s;
+}
+.mls-cart-empty__cta:hover {
+  background: #8a0810 !important;
+  border-color: #8a0810 !important;
+  color: #fff !important;
+  transform: translateY(-1px);
+}
+.mls-cart-empty__promo {
+  width: 100%;
+  background: #212020;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+.mls-cart-empty__promo-icon { font-size: 22px; flex-shrink: 0; }
+.mls-cart-empty__promo-text { color: #fff; font-size: 0.75em; line-height: 1.4; }
+.mls-cart-empty__promo-text strong { display: block; font-size: 1.1em; margin-bottom: 2px; }
 </style>
 
 {% if template.name == 'collection' and template.suffix == 'signature' %}

@@ -24,22 +24,74 @@
   data-empty="{% if cart == empty %}true{% else %}false{% endif %}"
 >
   {%- if cart == empty -%}
-    <div class="cart-empty flex flex-col justify-center items-center h-full js-cart-empty">
-      {%- if settings.cart_icon == 'bag' -%}
-        {%- render 'icon-bag' -%}
-      {%- elsif settings.cart_icon == 'basket' -%}
-        {%- render 'icon-basket' -%}
-      {%- else -%}
-        {%- render 'icon-cart' -%}
-      {%- endif -%}
+    <div class="cart-empty js-cart-empty mls-cart-empty">
 
-      <p>{{ 'cart.general.empty' | t }}</p>
+      {{- /* Hero banner */ -}}
+      <div class="mls-cart-empty__hero">
+        <div class="mls-cart-empty__icon-wrap">🛒</div>
+        <h2 class="mls-cart-empty__hero-title">Your cart is empty</h2>
+        <p class="mls-cart-empty__hero-sub">Fill it with our finest halal meats &amp; fresh cuts</p>
+      </div>
 
-      {%- if settings.cart_empty_shop_link -%}
-        <a class="btn btn--primary" href="{{ settings.cart_empty_shop_link }}">
-          {{- 'cart.general.start_shopping' | t -}}
-        </a>
-      {%- endif -%}
+      {{- /* Collection cards */ -}}
+      <div class="mls-cart-empty__collections">
+        <p class="mls-cart-empty__section-label">Shop by Category</p>
+        <div class="mls-cart-empty__coll-grid">
+          {%- assign _ec_colls = 'signature,all-beef,all-lamb,mls-fresh-poultry,box-collection,incredible-deals' | split: ',' -%}
+          {%- assign _ec_icons = '🥩,🥩,🍖,🍗,📦,🔥' | split: ',' -%}
+          {%- assign _ec_shown = 0 -%}
+          {%- for _ec_handle in _ec_colls -%}
+            {%- if _ec_shown >= 3 -%}{%- break -%}{%- endif -%}
+            {%- assign _ec_coll = collections[_ec_handle] -%}
+            {%- if _ec_coll != nil and _ec_coll.products_count > 0 -%}
+              <a href="{{ _ec_coll.url }}" class="mls-cart-empty__coll-card">
+                {%- if _ec_coll.image -%}
+                  <img class="mls-cart-empty__coll-img"
+                       src="{{ _ec_coll.image | image_url: width: 160 }}"
+                       alt="{{ _ec_coll.title | escape }}"
+                       loading="lazy" width="160" height="160">
+                {%- else -%}
+                  <div class="mls-cart-empty__coll-img-placeholder">{{ _ec_icons[forloop.index0] }}</div>
+                {%- endif -%}
+                <span class="mls-cart-empty__coll-name">{{ _ec_coll.title }}</span>
+              </a>
+              {%- assign _ec_shown = _ec_shown | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      {{- /* Promo strip */ -}}
+      <div class="mls-cart-empty__promo">
+        <span class="mls-cart-empty__promo-icon">🚀</span>
+        <div class="mls-cart-empty__promo-text">
+          <strong>Free 2-Hour Delivery</strong>
+          Across Dubai &amp; Abu Dhabi, all days of the week.
+        </div>
+      </div>
+
+      {{- /* Perks */ -}}
+      <div class="mls-cart-empty__perks">
+        <div class="mls-cart-empty__perk">
+          <span class="mls-cart-empty__perk-icon">✅</span>
+          <span class="mls-cart-empty__perk-text">100% Halal Certified</span>
+        </div>
+        <div class="mls-cart-empty__perk">
+          <span class="mls-cart-empty__perk-icon">❄️</span>
+          <span class="mls-cart-empty__perk-text">Always Fresh &amp; Chilled</span>
+        </div>
+        <div class="mls-cart-empty__perk">
+          <span class="mls-cart-empty__perk-icon">🔄</span>
+          <span class="mls-cart-empty__perk-text">Free Returns &amp; Replacements</span>
+        </div>
+      </div>
+
+      {{- /* CTA */ -}}
+      {%- assign _ec_shop_link = settings.cart_empty_shop_link | default: '/collections/all' -%}
+      <a href="{{ _ec_shop_link }}" class="mls-cart-empty__cta">
+        Browse All Products →
+      </a>
+
     </div>
   {%- endif -%}
 

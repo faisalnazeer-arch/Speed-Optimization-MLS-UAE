@@ -82,10 +82,8 @@
 
   /* Toolbar */
   #main-content .products-toolbar { background-color: transparent; border-color: rgba(255,255,255,0.15); }
-  #main-content .products-toolbar__filter-btn,
-  #main-content .products-toolbar__sort select,
-  #main-content .products-toolbar__sort label { color: #ffffff; background-color: #212020; border-color: rgba(255,255,255,0.3); }
-  #main-content .products-toolbar__sort select option { background-color: #212020; color: #ffffff; }
+  #main-content .products-toolbar__filter-btn { color: #ffffff; }
+  #main-content .products-toolbar__sort label { color: #ffffff; }
   #main-content hr { border-color: rgba(255,255,255,0.12); }
 
   /* Filter sidebar */
@@ -143,22 +141,10 @@
     color: #000000 !important;
   }
 
-  /* Sort dropdown (custom-select component, not a native select) */
-  #main-content .products-toolbar__sort .custom-select__btn,
-  #main-content .products-toolbar__sort .input {
-    background-color: #2a2929 !important;
-    color: #ffffff !important;
-    border-color: rgba(255,255,255,0.3) !important;
-  }
-  #main-content .products-toolbar__sort .custom-select__listbox {
-    background-color: #2a2929;
-    border-color: rgba(255,255,255,0.2);
-  }
-  #main-content .products-toolbar__sort .custom-select__option { color: #ffffff; }
-  #main-content .products-toolbar__sort .custom-select__option:hover,
-  #main-content .products-toolbar__sort .custom-select__option[aria-selected="true"] {
-    background-color: rgba(255,255,255,0.1);
-  }
+  /* Sort dropdown — leave default light styling so the component works correctly.
+     Only fix the label text colour which gets overridden by the global span rule. */
+  #main-content .products-toolbar__sort .custom-select__btn span,
+  #main-content .products-toolbar__sort .custom-select__option span { color: inherit !important; }
 
   /* Price range filter inputs — white bg, black text */
   #main-content .price-range .input,

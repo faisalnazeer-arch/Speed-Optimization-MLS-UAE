@@ -61,7 +61,10 @@
 
 {% if template.name == 'collection' and template.suffix == 'signature' %}
 <style>
-  /* === Signature Collection — dark theme. Scoped to #main-content only, header/footer untouched === */
+  /* === Signature Collection — dark theme. Only loads on collection.signature template === */
+
+  /* Body bg covers gaps between header/main/footer — header & footer have their own bg so they're unaffected */
+  body { background-color: #212020 !important; }
 
   #main-content, #main-content .shopify-section { background-color: #212020; }
 
@@ -111,30 +114,30 @@
   #main-content .price, #main-content .price__regular, #main-content .price__sale,
   #main-content .price-item, #main-content [class*="price"] { color: #ffffff !important; }
 
-  /* Shop Now / Add to Cart button — white bg, black text; hover inverts */
-  #main-content .btn--primary,
+  /* Shop Now / Add to Cart — theme uses background shorthand with gradient, must override with background not background-color */
+  #main-content .btn.btn--primary,
   #main-content .btn--atc {
-    background-color: #ffffff !important;
-    border-color: #ffffff !important;
+    background: #ffffff !important;
     color: #000000 !important;
+    border-color: #ffffff !important;
   }
-  #main-content .btn--primary:hover,
+  #main-content .btn.btn--primary:hover,
   #main-content .btn--atc:hover {
-    background-color: #000000 !important;
-    border-color: #000000 !important;
+    background: #000000 !important;
     color: #ffffff !important;
+    border-color: #000000 !important;
   }
 
   /* Secondary / view button */
-  #main-content .btn--secondary,
+  #main-content .btn.btn--secondary,
   #main-content .quick-add-view-btn {
-    background-color: transparent !important;
+    background: transparent !important;
     border-color: #ffffff !important;
     color: #ffffff !important;
   }
-  #main-content .btn--secondary:hover,
+  #main-content .btn.btn--secondary:hover,
   #main-content .quick-add-view-btn:hover {
-    background-color: #ffffff !important;
+    background: #ffffff !important;
     color: #000000 !important;
   }
 

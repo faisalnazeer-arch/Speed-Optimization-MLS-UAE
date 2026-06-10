@@ -132,11 +132,7 @@
           <div class="mls-ec__section-header">
             <span class="mls-ec__section-title">{{ _ec_prod_coll.title }}</span>
           </div>
-          <div class="mls-ec__slider-outer">
-            <button type="button" class="mls-ec__nav-btn mls-ec__prev" aria-label="Previous" disabled>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>
-            <div class="mls-ec__slider-wrap">
+          <div class="mls-ec__slider-wrap">
               <div class="mls-ec__slider-track">
                 {%- for _ec_p in _ec_prod_coll.products limit: 9 -%}
                   <div class="mls-ec__prod-card">
@@ -161,10 +157,6 @@
                   </div>
                 {%- endfor -%}
               </div>
-            </div>
-            <button type="button" class="mls-ec__nav-btn mls-ec__next" aria-label="Next">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
           </div>
           <div class="mls-ec__dots">
             {%- assign _ec_total = _ec_prod_coll.products_count | at_most: 9 -%}
@@ -190,23 +182,15 @@
         wrap.dataset.mlsInit = '1';
         var track = wrap.querySelector('.mls-ec__slider-track');
         var cards = track.querySelectorAll('.mls-ec__prod-card');
-        var outer = wrap.closest('.mls-ec__slider-outer');
-        var prev  = outer ? outer.querySelector('.mls-ec__prev') : null;
-        var next  = outer ? outer.querySelector('.mls-ec__next') : null;
         var section = wrap.closest('.mls-ec__section');
         var dotsEl = section ? section.querySelectorAll('.mls-ec__dot') : [];
         var cur = 0;
         var total = Math.ceil(cards.length / 3);
-        function step() { return wrap.offsetWidth; }
         function goTo(p) {
           cur = Math.max(0, Math.min(p, total - 1));
-          track.style.transform = 'translateX(-' + (cur * step()) + 'px)';
+          track.style.transform = 'translateX(-' + (cur * wrap.offsetWidth) + 'px)';
           dotsEl.forEach(function(d,i){ d.classList.toggle('is-active', i === cur); });
-          if (prev) prev.disabled = cur === 0;
-          if (next) next.disabled = cur >= total - 1;
         }
-        if (prev) prev.addEventListener('click', function(){ goTo(cur - 1); });
-        if (next) next.addEventListener('click', function(){ goTo(cur + 1); });
         dotsEl.forEach(function(d,i){ d.addEventListener('click', function(){ goTo(i); }); });
         window.addEventListener('resize', function(){ goTo(cur); });
         goTo(0);

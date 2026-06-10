@@ -26,6 +26,7 @@
   {%- if cart == empty -%}
     <div class="cart-empty js-cart-empty">
 
+      {{- '<!-- EMPTY CART HERO -->' -}}
       <div class="cart-empty__hero">
         <div class="cart-empty__icon-wrap">
           {%- if settings.cart_icon == 'bag' -%}
@@ -36,21 +37,40 @@
             {%- render 'icon-cart' -%}
           {%- endif -%}
         </div>
-        <h3 class="cart-empty__heading">{{ 'cart.general.empty' | t }}</h3>
-        <p class="cart-empty__sub">Discover something you'll love</p>
+        <div class="cart-empty__hero-text">
+          <h3 class="cart-empty__heading">{{ 'cart.general.empty' | t }}</h3>
+          <p class="cart-empty__sub">Discover something you'll love</p>
+        </div>
         {%- if settings.cart_empty_shop_link -%}
-          <a class="btn btn--primary cart-empty__cta" href="{{ settings.cart_empty_shop_link }}">
+          <a class="cart-empty__cta btn btn--secondary btn--sm" href="{{ settings.cart_empty_shop_link }}">
             {{- 'cart.general.start_shopping' | t -}}
           </a>
         {%- endif -%}
       </div>
 
+      {{- '<!-- CATEGORIES IMAGE GRID -->' -}}
       {%- if linklists['main-menu'].links.size > 0 -%}
         <div class="cart-empty__categories">
           <p class="cart-empty__section-label">Shop by Category</p>
-          <div class="cart-empty__pills">
-            {%- for link in linklists['main-menu'].links limit: 6 -%}
-              <a href="{{ link.url }}" class="cart-empty__pill js-close-drawer">{{ link.title }}</a>
+          <div class="cart-empty__cat-grid">
+            {%- for link in linklists['main-menu'].links limit: 4 -%}
+              {%- liquid
+                assign cat_image = nil
+                if link.type == 'collection_link'
+                  assign cat_image = link.object.image
+                endif
+              -%}
+              <a href="{{ link.url }}" class="cart-empty__cat-card js-close-drawer">
+                <div class="cart-empty__cat-img">
+                  {%- if cat_image -%}
+                    {{ cat_image | image_url: width: 320 | image_tag: loading: 'lazy', class: 'cart-empty__cat-photo', alt: link.title }}
+                  {%- else -%}
+                    {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'cart-empty__cat-placeholder' }}
+                  {%- endif -%}
+                  <div class="cart-empty__cat-overlay"></div>
+                </div>
+                <span class="cart-empty__cat-name">{{ link.title }}</span>
+              </a>
             {%- endfor -%}
           </div>
         </div>

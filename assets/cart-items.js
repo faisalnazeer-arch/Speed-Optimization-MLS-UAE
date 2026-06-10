@@ -100,7 +100,7 @@ if (!customElements.get('cart-items')) {
             if (nextMilestone) {
               const diff = nextMilestone - adjustedTotal;
               const labelIndex = this.milestones.indexOf(nextMilestone);
-              this.milestoneMessage.innerText = `You are AED ${diff.toFixed(0)} away from ${this.labels[labelIndex]}`;
+              this.milestoneMessage.innerText = `Add ${diff.toFixed(0)} AED more to unlock: ${this.labels[labelIndex]}!`;
             } else {
               this.milestoneMessage.innerText = `You've unlocked Free Shipping 🎉`;
             }

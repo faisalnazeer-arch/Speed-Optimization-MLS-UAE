@@ -102,39 +102,46 @@
         <div class="mls-ec__section">
           <div class="mls-ec__section-header">
             <span class="mls-ec__section-title">{{ _ec_prod_coll.title }}</span>
-            <div class="mls-ec__nav">
-              <button class="mls-ec__nav-btn mls-ec__prev" aria-label="Previous" disabled>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-              </button>
-              <button class="mls-ec__nav-btn mls-ec__next" aria-label="Next">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-            </div>
           </div>
-          <div class="mls-ec__slider-wrap">
-            <div class="mls-ec__slider-track">
-              {%- for _ec_p in _ec_prod_coll.products limit: 8 -%}
-                <a href="{{ _ec_p.url }}" class="mls-ec__prod-card">
-                  <div class="mls-ec__prod-img-wrap">
-                    {%- if _ec_p.featured_image -%}
-                      <img src="{{ _ec_p.featured_image | image_url: width: 200 }}"
-                           alt="{{ _ec_p.title | escape }}"
-                           loading="lazy" width="200" height="200">
+          <div class="mls-ec__slider-outer">
+            <button class="mls-ec__nav-btn mls-ec__prev" aria-label="Previous" disabled>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="mls-ec__slider-wrap">
+              <div class="mls-ec__slider-track">
+                {%- for _ec_p in _ec_prod_coll.products limit: 9 -%}
+                  <div class="mls-ec__prod-card">
+                    <a href="{{ _ec_p.url }}" class="mls-ec__prod-link">
+                      <div class="mls-ec__prod-img-wrap">
+                        {%- if _ec_p.featured_image -%}
+                          <img src="{{ _ec_p.featured_image | image_url: width: 160 }}"
+                               alt="{{ _ec_p.title | escape }}"
+                               loading="lazy" width="160" height="160">
+                        {%- else -%}
+                          <span class="mls-ec__prod-fallback">🥩</span>
+                        {%- endif -%}
+                      </div>
+                      <div class="mls-ec__prod-body">
+                        <p class="mls-ec__prod-name">{{ _ec_p.title }}</p>
+                        <p class="mls-ec__prod-price">{{ _ec_p.price_min | money }}</p>
+                      </div>
+                    </a>
+                    {%- if _ec_p.available -%}
+                      <button class="mls-ec__atc" data-mls-atc data-variant-id="{{ _ec_p.first_available_variant.id }}">+ Add</button>
                     {%- else -%}
-                      <span class="mls-ec__prod-fallback">🥩</span>
+                      <button class="mls-ec__atc" disabled>Sold Out</button>
                     {%- endif -%}
                   </div>
-                  <div class="mls-ec__prod-body">
-                    <p class="mls-ec__prod-name">{{ _ec_p.title }}</p>
-                    <p class="mls-ec__prod-price">{{ _ec_p.price_min | money }}</p>
-                  </div>
-                </a>
-              {%- endfor -%}
+                {%- endfor -%}
+              </div>
             </div>
+            <button class="mls-ec__nav-btn mls-ec__next" aria-label="Next">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
           </div>
           <div class="mls-ec__dots">
-            {%- assign _ec_total = _ec_prod_coll.products_count | at_most: 8 -%}
-            {%- assign _ec_dot_count = _ec_total | plus: 1 | divided_by: 2 -%}
+            {%- assign _ec_total = _ec_prod_coll.products_count | at_most: 9 -%}
+            {%- assign _ec_dot_count = _ec_total | plus: 2 | divided_by: 3 -%}
             {%- for i in (1.._ec_dot_count) -%}
               <span class="mls-ec__dot{% if forloop.first %} is-active{% endif %}"></span>
             {%- endfor -%}
@@ -156,11 +163,13 @@
         wrap.dataset.mlsInit = '1';
         var track = wrap.querySelector('.mls-ec__slider-track');
         var cards = track.querySelectorAll('.mls-ec__prod-card');
-        var prev  = wrap.closest('.mls-ec__section').querySelector('.mls-ec__prev');
-        var next  = wrap.closest('.mls-ec__section').querySelector('.mls-ec__next');
-        var dotsEl = wrap.closest('.mls-ec__section').querySelectorAll('.mls-ec__dot');
+        var outer = wrap.closest('.mls-ec__slider-outer');
+        var prev  = outer ? outer.querySelector('.mls-ec__prev') : null;
+        var next  = outer ? outer.querySelector('.mls-ec__next') : null;
+        var section = wrap.closest('.mls-ec__section');
+        var dotsEl = section ? section.querySelectorAll('.mls-ec__dot') : [];
         var cur = 0;
-        var total = Math.ceil(cards.length / 2);
+        var total = Math.ceil(cards.length / 3);
 
         function step() { return wrap.offsetWidth; }
 
@@ -175,10 +184,51 @@
         if (prev) prev.addEventListener('click', function(){ goTo(cur - 1); });
         if (next) next.addEventListener('click', function(){ goTo(cur + 1); });
         dotsEl.forEach(function(d,i){ d.addEventListener('click', function(){ goTo(i); }); });
-
         window.addEventListener('resize', function(){ goTo(cur); });
         goTo(0);
       }
+
+      document.addEventListener('click', function(e) {
+        var btn = e.target.closest('[data-mls-atc]');
+        if (!btn || btn.disabled) return;
+        var variantId = btn.dataset.variantId;
+        if (!variantId) return;
+        var orig = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '...';
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ id: Number(variantId), quantity: 1 })
+        })
+        .then(function(r) {
+          if (!r.ok) throw new Error('add failed');
+          return r.json();
+        })
+        .then(function(item) {
+          btn.textContent = '✓';
+          document.dispatchEvent(new CustomEvent('cart:item-added', { bubbles: true, detail: { item: item } }));
+          document.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true }));
+          var cartEl = document.getElementById('cart-items');
+          var sectionId = cartEl ? cartEl.dataset.section : null;
+          if (sectionId) {
+            fetch('/?section_id=' + sectionId)
+              .then(function(r){ return r.text(); })
+              .then(function(html){
+                var doc = new DOMParser().parseFromString(html, 'text/html');
+                var newEl = doc.getElementById('cart-items');
+                if (newEl && cartEl) {
+                  cartEl.innerHTML = newEl.innerHTML;
+                  requestAnimationFrame(initMlsSlider);
+                }
+              });
+          }
+        })
+        .catch(function(){
+          btn.disabled = false;
+          btn.textContent = orig;
+        });
+      });
 
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initMlsSlider);

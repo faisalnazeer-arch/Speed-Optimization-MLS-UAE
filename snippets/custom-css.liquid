@@ -110,30 +110,39 @@
   letter-spacing: 0.1em;
   color: #a70a10;
 }
-/* Nav buttons */
-.mls-ec__nav {
-  display: flex;
-  gap: 6px;
+/* Nav buttons — overlaid on left/right of slider, vertically centered */
+.mls-ec__slider-outer {
+  position: relative;
 }
 .mls-ec__nav-btn {
-  width: 28px; height: 28px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 26px; height: 26px;
   border-radius: 50%;
   border: 1.5px solid #ddd;
   background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.13);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
   color: #333;
-  transition: border-color 0.2s, background 0.2s, color 0.2s;
   padding: 0;
+  line-height: 0;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
 }
+.mls-ec__nav-btn svg { display: block; }
+.mls-ec__prev { left: -13px; }
+.mls-ec__next { right: -13px; }
 .mls-ec__nav-btn:hover:not(:disabled) {
   border-color: #a70a10;
   background: #a70a10;
   color: #fff;
 }
 .mls-ec__nav-btn:disabled {
-  opacity: 0.35;
+  opacity: 0.3;
   cursor: default;
+  box-shadow: none;
 }
 /* Category grid */
 .mls-ec__cat-grid {
@@ -185,22 +194,27 @@
 }
 .mls-ec__slider-track {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
   will-change: transform;
 }
 .mls-ec__prod-card {
-  flex: 0 0 calc(50% - 5px);
+  flex: 0 0 calc(33.333% - 5.5px);
   border-radius: 10px;
   border: 1px solid #ededed;
   background: #fafafa;
   overflow: hidden;
-  text-decoration: none;
   display: flex;
   flex-direction: column;
   transition: box-shadow 0.2s;
 }
 .mls-ec__prod-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.mls-ec__prod-link {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  text-decoration: none;
+}
 .mls-ec__prod-img-wrap {
   width: 100%;
   aspect-ratio: 1;
@@ -255,6 +269,28 @@
 .mls-ec__dot.is-active {
   background: #a70a10;
   transform: scale(1.3);
+}
+/* Add to cart button on product cards */
+.mls-ec__atc {
+  display: block;
+  width: 100%;
+  background: #a70a10;
+  color: #fff;
+  border: none;
+  font-size: 0.6em;
+  font-weight: 700;
+  padding: 7px 4px;
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 0.02em;
+  transition: background 0.2s;
+  line-height: 1.2;
+}
+.mls-ec__atc:hover:not(:disabled) { background: #8c0a0f; }
+.mls-ec__atc:disabled {
+  background: #bbb;
+  cursor: default;
+  color: #fff;
 }
 /* CTA */
 .mls-ec__cta-wrap {

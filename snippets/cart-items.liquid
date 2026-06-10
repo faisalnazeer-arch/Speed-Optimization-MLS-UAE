@@ -29,6 +29,20 @@
       assign _ec_coll_2 = section.settings.empty_cart_coll_2
       assign _ec_coll_3 = section.settings.empty_cart_coll_3
       assign _ec_prod_coll = section.settings.empty_cart_products_coll
+
+      assign _ec_use_menu = false
+      if _ec_coll_1 == blank and _ec_coll_2 == blank and _ec_coll_3 == blank
+        assign _ec_use_menu = true
+      endif
+
+      if _ec_prod_coll == blank
+        for coll in collections
+          if coll.handle != 'all' and coll.products_count > 0
+            assign _ec_prod_coll = coll
+            break
+          endif
+        endfor
+      endif
     -%}
 
     <div class="cart-empty js-cart-empty mls-ec">
@@ -39,7 +53,35 @@
         <p class="mls-ec__hero-sub">Discover something you'll love</p>
       </div>
 
-      {%- if _ec_coll_1 != blank or _ec_coll_2 != blank or _ec_coll_3 != blank -%}
+      {%- if _ec_use_menu -%}
+        {%- if linklists['main-menu'].links.size > 0 -%}
+          <div class="mls-ec__section">
+            <div class="mls-ec__section-header">
+              <span class="mls-ec__section-title">Shop by Category</span>
+            </div>
+            <div class="mls-ec__cat-grid">
+              {%- for link in linklists['main-menu'].links limit: 3 -%}
+                {%- liquid
+                  assign _menu_img = nil
+                  if link.type == 'collection_link'
+                    assign _menu_img = link.object.image
+                  endif
+                -%}
+                <a href="{{ link.url }}" class="mls-ec__cat-card js-close-drawer">
+                  <div class="mls-ec__cat-img-wrap">
+                    {%- if _menu_img -%}
+                      <img src="{{ _menu_img | image_url: width: 220 }}" alt="{{ link.title | escape }}" loading="lazy" width="220" height="220">
+                    {%- else -%}
+                      <span class="mls-ec__cat-fallback">🛍️</span>
+                    {%- endif -%}
+                  </div>
+                  <span class="mls-ec__cat-name">{{ link.title }}</span>
+                </a>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- elsif _ec_coll_1 != blank or _ec_coll_2 != blank or _ec_coll_3 != blank -%}
         <div class="mls-ec__section">
           <div class="mls-ec__section-header">
             <span class="mls-ec__section-title">Shop by Category</span>

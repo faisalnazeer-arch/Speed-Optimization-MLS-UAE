@@ -208,20 +208,9 @@
         .then(function(item) {
           btn.textContent = '✓';
           document.dispatchEvent(new CustomEvent('cart:item-added', { bubbles: true, detail: { item: item } }));
-          document.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true }));
-          var cartEl = document.getElementById('cart-items');
-          var sectionId = cartEl ? cartEl.dataset.section : null;
-          if (sectionId) {
-            fetch('/?section_id=' + sectionId)
-              .then(function(r){ return r.text(); })
-              .then(function(html){
-                var doc = new DOMParser().parseFromString(html, 'text/html');
-                var newEl = doc.getElementById('cart-items');
-                if (newEl && cartEl) {
-                  cartEl.innerHTML = newEl.innerHTML;
-                  requestAnimationFrame(initMlsSlider);
-                }
-              });
+          var cartDrawerEl = document.getElementById('cart-drawer');
+          if (cartDrawerEl && typeof cartDrawerEl.refreshCartDrawer === 'function') {
+            cartDrawerEl.refreshCartDrawer();
           }
         })
         .catch(function(){

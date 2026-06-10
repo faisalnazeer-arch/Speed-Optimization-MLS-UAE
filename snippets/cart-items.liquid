@@ -24,19 +24,19 @@
   data-empty="{% if cart == empty %}true{% else %}false{% endif %}"
 >
   {%- if cart == empty -%}
-    <div class="cart-empty flex flex-col justify-center items-center h-full js-cart-empty">
-      {%- if settings.cart_icon == 'bag' -%}
-        {%- render 'icon-bag' -%}
-      {%- elsif settings.cart_icon == 'basket' -%}
-        {%- render 'icon-basket' -%}
-      {%- else -%}
-        {%- render 'icon-cart' -%}
-      {%- endif -%}
-
-      <p>{{ 'cart.general.empty' | t }}</p>
-
+    <div class="cart-empty js-cart-empty">
+      <div class="cart-empty__icon-wrap">
+        {%- if settings.cart_icon == 'bag' -%}
+          {%- render 'icon-bag' -%}
+        {%- elsif settings.cart_icon == 'basket' -%}
+          {%- render 'icon-basket' -%}
+        {%- else -%}
+          {%- render 'icon-cart' -%}
+        {%- endif -%}
+      </div>
+      <h3 class="cart-empty__heading">{{ 'cart.general.empty' | t }}</h3>
       {%- if settings.cart_empty_shop_link -%}
-        <a class="btn btn--primary" href="{{ settings.cart_empty_shop_link }}">
+        <a class="btn btn--primary cart-empty__cta" href="{{ settings.cart_empty_shop_link }}">
           {{- 'cart.general.start_shopping' | t -}}
         </a>
       {%- endif -%}

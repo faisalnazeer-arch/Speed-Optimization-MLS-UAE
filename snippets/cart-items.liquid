@@ -26,14 +26,12 @@
   {%- if cart == empty -%}
     <div class="cart-empty js-cart-empty mls-cart-empty">
 
-      {{- /* Hero banner */ -}}
       <div class="mls-cart-empty__hero">
         <div class="mls-cart-empty__icon-wrap">🛒</div>
         <h2 class="mls-cart-empty__hero-title">Your cart is empty</h2>
         <p class="mls-cart-empty__hero-sub">Fill it with our finest halal meats &amp; fresh cuts</p>
       </div>
 
-      {{- /* Collection cards */ -}}
       <div class="mls-cart-empty__collections">
         <p class="mls-cart-empty__section-label">Shop by Category</p>
         <div class="mls-cart-empty__coll-grid">
@@ -61,7 +59,6 @@
         </div>
       </div>
 
-      {{- /* Promo strip */ -}}
       <div class="mls-cart-empty__promo">
         <span class="mls-cart-empty__promo-icon">🚀</span>
         <div class="mls-cart-empty__promo-text">
@@ -70,7 +67,6 @@
         </div>
       </div>
 
-      {{- /* Perks */ -}}
       <div class="mls-cart-empty__perks">
         <div class="mls-cart-empty__perk">
           <span class="mls-cart-empty__perk-icon">✅</span>
@@ -86,7 +82,6 @@
         </div>
       </div>
 
-      {{- /* CTA */ -}}
       {%- assign _ec_shop_link = settings.cart_empty_shop_link | default: '/collections/all' -%}
       <a href="{{ _ec_shop_link }}" class="mls-cart-empty__cta">
         Browse All Products →

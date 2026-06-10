@@ -308,6 +308,25 @@ cart-items {
 .cart-drawer__promoted-products .slider-nav {
   right: 0;
 }
+
+/* Override large primary-style btn on slider nav arrows inside cart drawer */
+.cart-recommendations .slider-nav__btn.btn,
+.cart-drawer__promoted-products .slider-nav__btn.btn {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px;
+  padding: 0 !important;
+  background: #fff !important;
+  background-image: none !important;
+  border: 1.5px solid #ddd !important;
+  border-radius: 50% !important;
+  color: #333 !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+  font-size: 0;
+}
 .cart-recommendations .slider .slider__grid,
 .cart-drawer__promoted-products .slider .slider__grid {
   width: 100%;

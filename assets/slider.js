@@ -96,9 +96,10 @@ class CarouselSlider extends HTMLElement {
    * @param {object} evt - Event object.
    */
   handleNavClick(evt) {
-    if (!evt.target.matches('.slider-nav__btn')) return;
+    const btn = evt.target.closest('.slider-nav__btn');
+    if (!btn) return;
 
-    if ((evt.target.name === 'next' && !this.rtl) || (evt.target.name === 'prev' && this.rtl)) {
+    if ((btn.name === 'next' && !this.rtl) || (btn.name === 'prev' && this.rtl)) {
       this.scrollPos = this.slider.scrollLeft + (this.slidesToScroll * this.slideSpan);
     } else {
       this.scrollPos = this.slider.scrollLeft - (this.slidesToScroll * this.slideSpan);

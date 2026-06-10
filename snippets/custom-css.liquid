@@ -110,15 +110,19 @@
   letter-spacing: 0.1em;
   color: #a70a10;
 }
-/* Nav buttons — overlaid on left/right of slider, vertically centered */
+/* Nav buttons — sit beside the slider track, no overlap with cards */
 .mls-ec__slider-outer {
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mls-ec__slider-wrap {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
 }
 .mls-ec__nav-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 3;
+  flex-shrink: 0;
   width: 26px; height: 26px;
   border-radius: 50%;
   border: 1.5px solid #ddd;
@@ -132,8 +136,6 @@
   transition: border-color 0.2s, background 0.2s, color 0.2s;
 }
 .mls-ec__nav-btn svg { display: block; }
-.mls-ec__prev { left: -13px; }
-.mls-ec__next { right: -13px; }
 .mls-ec__nav-btn:hover:not(:disabled) {
   border-color: #a70a10;
   background: #a70a10;
@@ -189,9 +191,6 @@
   width: 100%;
 }
 /* Product slider */
-.mls-ec__slider-wrap {
-  overflow: hidden;
-}
 .mls-ec__slider-track {
   display: flex;
   gap: 8px;

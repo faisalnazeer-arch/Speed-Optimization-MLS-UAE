@@ -25,21 +25,37 @@
 >
   {%- if cart == empty -%}
     <div class="cart-empty js-cart-empty">
-      <div class="cart-empty__icon-wrap">
-        {%- if settings.cart_icon == 'bag' -%}
-          {%- render 'icon-bag' -%}
-        {%- elsif settings.cart_icon == 'basket' -%}
-          {%- render 'icon-basket' -%}
-        {%- else -%}
-          {%- render 'icon-cart' -%}
+
+      <div class="cart-empty__hero">
+        <div class="cart-empty__icon-wrap">
+          {%- if settings.cart_icon == 'bag' -%}
+            {%- render 'icon-bag' -%}
+          {%- elsif settings.cart_icon == 'basket' -%}
+            {%- render 'icon-basket' -%}
+          {%- else -%}
+            {%- render 'icon-cart' -%}
+          {%- endif -%}
+        </div>
+        <h3 class="cart-empty__heading">{{ 'cart.general.empty' | t }}</h3>
+        <p class="cart-empty__sub">Discover something you'll love</p>
+        {%- if settings.cart_empty_shop_link -%}
+          <a class="btn btn--primary cart-empty__cta" href="{{ settings.cart_empty_shop_link }}">
+            {{- 'cart.general.start_shopping' | t -}}
+          </a>
         {%- endif -%}
       </div>
-      <h3 class="cart-empty__heading">{{ 'cart.general.empty' | t }}</h3>
-      {%- if settings.cart_empty_shop_link -%}
-        <a class="btn btn--primary cart-empty__cta" href="{{ settings.cart_empty_shop_link }}">
-          {{- 'cart.general.start_shopping' | t -}}
-        </a>
+
+      {%- if linklists['main-menu'].links.size > 0 -%}
+        <div class="cart-empty__categories">
+          <p class="cart-empty__section-label">Shop by Category</p>
+          <div class="cart-empty__pills">
+            {%- for link in linklists['main-menu'].links limit: 6 -%}
+              <a href="{{ link.url }}" class="cart-empty__pill js-close-drawer">{{ link.title }}</a>
+            {%- endfor -%}
+          </div>
+        </div>
       {%- endif -%}
+
     </div>
   {%- endif -%}
 

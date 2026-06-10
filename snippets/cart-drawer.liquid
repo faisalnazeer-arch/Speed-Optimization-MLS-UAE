@@ -266,7 +266,7 @@
       {{ cart_summary }}
     {% endif %}
 
-    <div class="cart-drawer__content{% if cart == empty %} grow flex items-center justify-center w-full{% endif %}">
+    <div class="cart-drawer__content{% if cart == empty %} grow flex flex-col w-full{% endif %}">
       {%- if cart != empty and settings.show_free_shipping_notice -%}
         {% render 'free-shipping-notice' %}
       {%- endif -%}

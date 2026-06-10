@@ -15,12 +15,13 @@ class QuantityInput extends HTMLElement {
    * @param {object} evt - Event object.
    */
   handleClick(evt) {
-    if (!evt.target.matches('.qty-input__btn')) return;
+    const btn = evt.target.closest('.qty-input__btn');
+    if (!btn) return;
     evt.preventDefault();
 
     this.currentQty = this.input.value;
 
-    if (evt.target.name === 'plus') {
+    if (btn.name === 'plus') {
       this.input.stepUp();
     } else {
       this.input.stepDown();

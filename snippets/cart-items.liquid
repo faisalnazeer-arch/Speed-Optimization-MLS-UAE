@@ -24,110 +24,170 @@
   data-empty="{% if cart == empty %}true{% else %}false{% endif %}"
 >
   {%- if cart == empty -%}
-    <div class="cart-empty js-cart-empty mls-cart-empty">
+    {%- liquid
+      assign _ec_coll_1 = section.settings.empty_cart_coll_1
+      assign _ec_coll_2 = section.settings.empty_cart_coll_2
+      assign _ec_coll_3 = section.settings.empty_cart_coll_3
+      if _ec_coll_1 == blank
+        assign _ec_coll_1 = collections['signature']
+      endif
+      if _ec_coll_2 == blank
+        assign _ec_coll_2 = collections['all-beef']
+      endif
+      if _ec_coll_3 == blank
+        assign _ec_coll_3 = collections['all-lamb']
+      endif
+      assign _ec_prod_coll = section.settings.empty_cart_products_coll
+      if _ec_prod_coll == blank
+        assign _ec_prod_coll = collections['signature']
+        if _ec_prod_coll == nil
+          assign _ec_prod_coll = collections['all-beef']
+        endif
+      endif
+    -%}
 
-      {%- comment -%} Hero — white, red accent ring {%- endcomment -%}
-      <div class="mls-cart-empty__hero">
-        <div class="mls-cart-empty__icon-wrap">🛒</div>
-        <h2 class="mls-cart-empty__hero-title">Your cart is empty</h2>
-        <p class="mls-cart-empty__hero-sub">Discover our finest halal meats &amp; fresh cuts</p>
+    <div class="cart-empty js-cart-empty mls-ec">
+
+      <div class="mls-ec__hero">
+        <div class="mls-ec__hero-icon">🛒</div>
+        <h2 class="mls-ec__hero-title">Your cart is empty</h2>
+        <p class="mls-ec__hero-sub">Start filling it with our finest halal cuts</p>
       </div>
 
-      {%- comment -%} Shop by Category — uses collection pickers from customizer {%- endcomment -%}
-      {%- liquid
-        assign _ec_picks = ''
-        if section.settings.empty_cart_coll_1 != blank
-          assign _ec_picks = section.settings.empty_cart_coll_1.handle | append: ','
-        endif
-        if section.settings.empty_cart_coll_2 != blank
-          assign _ec_picks = _ec_picks | append: section.settings.empty_cart_coll_2.handle | append: ','
-        endif
-        if section.settings.empty_cart_coll_3 != blank
-          assign _ec_picks = _ec_picks | append: section.settings.empty_cart_coll_3.handle
-        endif
-        if _ec_picks == blank or _ec_picks == ','
-          assign _ec_picks = 'signature,all-beef,all-lamb'
-        endif
-        assign _ec_picks = _ec_picks | split: ','
-        assign _ec_fallback_icons = '🥩,🍖,🍗' | split: ','
-      -%}
-      <div class="mls-cart-empty__block">
-        <p class="mls-cart-empty__block-title">Shop by Category</p>
-        <div class="mls-cart-empty__coll-grid">
-          {%- for _ec_handle in _ec_picks -%}
-            {%- if _ec_handle == blank -%}{%- continue -%}{%- endif -%}
-            {%- assign _ec_c = collections[_ec_handle] -%}
-            {%- if _ec_c == nil -%}{%- continue -%}{%- endif -%}
-            <a href="{{ _ec_c.url }}" class="mls-cart-empty__coll-card">
-              {%- if _ec_c.image -%}
-                <img class="mls-cart-empty__coll-img"
-                     src="{{ _ec_c.image | image_url: width: 200 }}"
-                     alt="{{ _ec_c.title | escape }}"
-                     loading="lazy" width="200" height="200">
-              {%- else -%}
-                <div class="mls-cart-empty__coll-placeholder">{{ _ec_fallback_icons[forloop.index0] }}</div>
-              {%- endif -%}
-              <span class="mls-cart-empty__coll-name">{{ _ec_c.title }}</span>
+      <div class="mls-ec__section">
+        <div class="mls-ec__section-header">
+          <span class="mls-ec__section-title">Shop by Category</span>
+        </div>
+        <div class="mls-ec__cat-grid">
+          {%- if _ec_coll_1 != nil -%}
+            <a href="{{ _ec_coll_1.url }}" class="mls-ec__cat-card">
+              <div class="mls-ec__cat-img-wrap">
+                {%- if _ec_coll_1.image -%}
+                  <img src="{{ _ec_coll_1.image | image_url: width: 220 }}" alt="{{ _ec_coll_1.title | escape }}" loading="lazy" width="220" height="220">
+                {%- else -%}
+                  <span class="mls-ec__cat-fallback">🥩</span>
+                {%- endif -%}
+              </div>
+              <span class="mls-ec__cat-name">{{ _ec_coll_1.title }}</span>
             </a>
-          {%- endfor -%}
+          {%- endif -%}
+          {%- if _ec_coll_2 != nil -%}
+            <a href="{{ _ec_coll_2.url }}" class="mls-ec__cat-card">
+              <div class="mls-ec__cat-img-wrap">
+                {%- if _ec_coll_2.image -%}
+                  <img src="{{ _ec_coll_2.image | image_url: width: 220 }}" alt="{{ _ec_coll_2.title | escape }}" loading="lazy" width="220" height="220">
+                {%- else -%}
+                  <span class="mls-ec__cat-fallback">🍖</span>
+                {%- endif -%}
+              </div>
+              <span class="mls-ec__cat-name">{{ _ec_coll_2.title }}</span>
+            </a>
+          {%- endif -%}
+          {%- if _ec_coll_3 != nil -%}
+            <a href="{{ _ec_coll_3.url }}" class="mls-ec__cat-card">
+              <div class="mls-ec__cat-img-wrap">
+                {%- if _ec_coll_3.image -%}
+                  <img src="{{ _ec_coll_3.image | image_url: width: 220 }}" alt="{{ _ec_coll_3.title | escape }}" loading="lazy" width="220" height="220">
+                {%- else -%}
+                  <span class="mls-ec__cat-fallback">🍗</span>
+                {%- endif -%}
+              </div>
+              <span class="mls-ec__cat-name">{{ _ec_coll_3.title }}</span>
+            </a>
+          {%- endif -%}
         </div>
       </div>
 
-      {%- comment -%} Featured product slide {%- endcomment -%}
-      {%- assign _ec_prod_coll = section.settings.empty_cart_products_coll -%}
-      {%- if _ec_prod_coll == blank -%}
-        {%- assign _ec_prod_coll = collections['signature'] -%}
-        {%- if _ec_prod_coll == nil -%}
-          {%- assign _ec_prod_coll = collections['all-beef'] -%}
-        {%- endif -%}
-      {%- endif -%}
       {%- if _ec_prod_coll != nil and _ec_prod_coll.products_count > 0 -%}
-        <div class="mls-cart-empty__block">
-          <p class="mls-cart-empty__block-title">{{ _ec_prod_coll.title }}</p>
-          <div class="mls-cart-empty__prod-scroll">
-            {%- for _ec_p in _ec_prod_coll.products limit: 8 -%}
-              <a href="{{ _ec_p.url }}" class="mls-cart-empty__prod-card">
-                {%- if _ec_p.featured_image -%}
-                  <img class="mls-cart-empty__prod-img"
-                       src="{{ _ec_p.featured_image | image_url: width: 160 }}"
-                       alt="{{ _ec_p.title | escape }}"
-                       loading="lazy" width="160" height="160">
-                {%- else -%}
-                  <div class="mls-cart-empty__prod-placeholder">🥩</div>
-                {%- endif -%}
-                <div class="mls-cart-empty__prod-info">
-                  <span class="mls-cart-empty__prod-name">{{ _ec_p.title }}</span>
-                  <span class="mls-cart-empty__prod-price">{{ _ec_p.price_min | money }}</span>
-                </div>
-              </a>
+        <div class="mls-ec__section">
+          <div class="mls-ec__section-header">
+            <span class="mls-ec__section-title">{{ _ec_prod_coll.title }}</span>
+            <div class="mls-ec__nav">
+              <button class="mls-ec__nav-btn mls-ec__prev" aria-label="Previous" disabled>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button class="mls-ec__nav-btn mls-ec__next" aria-label="Next">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="mls-ec__slider-wrap">
+            <div class="mls-ec__slider-track">
+              {%- for _ec_p in _ec_prod_coll.products limit: 8 -%}
+                <a href="{{ _ec_p.url }}" class="mls-ec__prod-card">
+                  <div class="mls-ec__prod-img-wrap">
+                    {%- if _ec_p.featured_image -%}
+                      <img src="{{ _ec_p.featured_image | image_url: width: 200 }}"
+                           alt="{{ _ec_p.title | escape }}"
+                           loading="lazy" width="200" height="200">
+                    {%- else -%}
+                      <span class="mls-ec__prod-fallback">🥩</span>
+                    {%- endif -%}
+                  </div>
+                  <div class="mls-ec__prod-body">
+                    <p class="mls-ec__prod-name">{{ _ec_p.title }}</p>
+                    <p class="mls-ec__prod-price">{{ _ec_p.price_min | money }}</p>
+                  </div>
+                </a>
+              {%- endfor -%}
+            </div>
+          </div>
+          <div class="mls-ec__dots">
+            {%- assign _ec_total = _ec_prod_coll.products_count | at_most: 8 -%}
+            {%- assign _ec_dot_count = _ec_total | plus: 1 | divided_by: 2 -%}
+            {%- for i in (1.._ec_dot_count) -%}
+              <span class="mls-ec__dot{% if forloop.first %} is-active{% endif %}"></span>
             {%- endfor -%}
           </div>
         </div>
       {%- endif -%}
 
-      {%- comment -%} Perks {%- endcomment -%}
-      <div class="mls-cart-empty__perks">
-        <div class="mls-cart-empty__perk">
-          <span class="mls-cart-empty__perk-icon">🚚</span>
-          <span class="mls-cart-empty__perk-text">2-Hour Delivery</span>
-        </div>
-        <div class="mls-cart-empty__perk">
-          <span class="mls-cart-empty__perk-icon">✅</span>
-          <span class="mls-cart-empty__perk-text">100% Halal</span>
-        </div>
-        <div class="mls-cart-empty__perk">
-          <span class="mls-cart-empty__perk-icon">🔄</span>
-          <span class="mls-cart-empty__perk-text">Free Returns</span>
-        </div>
-      </div>
-
-      {%- comment -%} CTA button {%- endcomment -%}
-      {%- assign _ec_link = settings.cart_empty_shop_link | default: '/collections/all' -%}
-      <div class="mls-cart-empty__cta-wrap">
-        <a href="{{ _ec_link }}" class="mls-cart-empty__cta">Browse All Products →</a>
+      <div class="mls-ec__cta-wrap">
+        <a href="/collections/all" class="mls-ec__cta">Browse All Products</a>
       </div>
 
     </div>
+
+    <script>
+    (function(){
+      function initMlsSlider() {
+        var wrap = document.querySelector('.mls-ec__slider-wrap');
+        if (!wrap || wrap.dataset.mlsInit) return;
+        wrap.dataset.mlsInit = '1';
+        var track = wrap.querySelector('.mls-ec__slider-track');
+        var cards = track.querySelectorAll('.mls-ec__prod-card');
+        var prev  = wrap.closest('.mls-ec__section').querySelector('.mls-ec__prev');
+        var next  = wrap.closest('.mls-ec__section').querySelector('.mls-ec__next');
+        var dotsEl = wrap.closest('.mls-ec__section').querySelectorAll('.mls-ec__dot');
+        var cur = 0;
+        var total = Math.ceil(cards.length / 2);
+
+        function step() { return wrap.offsetWidth; }
+
+        function goTo(p) {
+          cur = Math.max(0, Math.min(p, total - 1));
+          track.style.transform = 'translateX(-' + (cur * step()) + 'px)';
+          dotsEl.forEach(function(d,i){ d.classList.toggle('is-active', i === cur); });
+          if (prev) prev.disabled = cur === 0;
+          if (next) next.disabled = cur >= total - 1;
+        }
+
+        if (prev) prev.addEventListener('click', function(){ goTo(cur - 1); });
+        if (next) next.addEventListener('click', function(){ goTo(cur + 1); });
+        dotsEl.forEach(function(d,i){ d.addEventListener('click', function(){ goTo(i); }); });
+
+        window.addEventListener('resize', function(){ goTo(cur); });
+        goTo(0);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMlsSlider);
+      } else {
+        requestAnimationFrame(initMlsSlider);
+      }
+    })();
+    </script>
+
   {%- endif -%}
 
   {%- if cart != empty -%}

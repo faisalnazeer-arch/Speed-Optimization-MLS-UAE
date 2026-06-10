@@ -59,75 +59,89 @@
 }
 
 /* ===== Empty Cart Design ===== */
-.mls-cart-empty {
+.mls-ec {
   width: 100%;
-  padding: 0 0 24px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0;
+  background: #fff;
+  padding-bottom: 24px;
+}
+.mls-ec__hero {
+  padding: 32px 20px 24px;
   text-align: center;
-  background: #fff;
+  border-bottom: 1px solid #f2f2f2;
 }
-/* Hero — white with red accent ring */
-.mls-cart-empty__hero {
-  background: #fff;
-  border-bottom: 1px solid #f0f0f0;
-  padding: 28px 20px 22px;
-  width: 100%;
-}
-.mls-cart-empty__icon-wrap {
-  width: 68px; height: 68px;
+.mls-ec__hero-icon {
+  width: 64px; height: 64px;
   background: #fff0f1;
   border: 2px solid #ffd0d2;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto 14px;
-  font-size: 28px;
+  font-size: 26px;
 }
-.mls-cart-empty__hero-title {
-  font-size: 1.2em;
+.mls-ec__hero-title {
+  font-size: 1.15em;
   font-weight: 700;
   color: #1a1a1a;
-  margin: 0 0 5px;
+  margin: 0 0 6px;
   line-height: 1.3;
 }
-.mls-cart-empty__hero-sub {
-  font-size: 0.82em;
-  color: #777;
+.mls-ec__hero-sub {
+  font-size: 0.8em;
+  color: #888;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.5;
 }
-/* Section blocks */
-.mls-cart-empty__block {
-  width: 100%;
+/* Section */
+.mls-ec__section {
   padding: 18px 16px 0;
 }
-.mls-cart-empty__block-title {
-  font-size: 0.65em;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #a70a10;
-  text-align: left;
-  margin-bottom: 10px;
+.mls-ec__section-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.mls-ec__section-title {
+  font-size: 0.62em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #a70a10;
+}
+/* Nav buttons */
+.mls-ec__nav {
+  display: flex;
   gap: 6px;
 }
-.mls-cart-empty__block-title::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: #f0f0f0;
+.mls-ec__nav-btn {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid #ddd;
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: #333;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  padding: 0;
 }
-/* Collection grid */
-.mls-cart-empty__coll-grid {
+.mls-ec__nav-btn:hover:not(:disabled) {
+  border-color: #a70a10;
+  background: #a70a10;
+  color: #fff;
+}
+.mls-ec__nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+/* Category grid */
+.mls-ec__cat-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
-.mls-cart-empty__coll-card {
+.mls-ec__cat-card {
   border-radius: 10px;
   overflow: hidden;
   text-decoration: none;
@@ -136,50 +150,47 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
-.mls-cart-empty__coll-card:hover {
+.mls-ec__cat-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(167,10,16,0.14);
+  box-shadow: 0 6px 16px rgba(167,10,16,0.12);
   border-color: #ffc5c7;
 }
-.mls-cart-empty__coll-img {
+.mls-ec__cat-img-wrap {
   width: 100%;
   aspect-ratio: 1;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffeaeb, #ffe0e1);
+  display: flex; align-items: center; justify-content: center;
+}
+.mls-ec__cat-img-wrap img {
+  width: 100%; height: 100%;
   object-fit: cover;
   display: block;
 }
-.mls-cart-empty__coll-placeholder {
-  width: 100%;
-  aspect-ratio: 1;
-  background: linear-gradient(135deg, #ffeaeb, #ffe0e1);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 28px;
-}
-.mls-cart-empty__coll-name {
-  font-size: 0.65em;
+.mls-ec__cat-fallback { font-size: 26px; }
+.mls-ec__cat-name {
+  font-size: 0.62em;
   font-weight: 600;
   color: #222;
-  padding: 8px 5px 9px;
+  padding: 7px 4px 8px;
   line-height: 1.3;
   text-align: center;
   width: 100%;
 }
-/* Product slide */
-.mls-cart-empty__prod-scroll {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 4px;
+/* Product slider */
+.mls-ec__slider-wrap {
+  overflow: hidden;
 }
-.mls-cart-empty__prod-scroll::-webkit-scrollbar { height: 3px; }
-.mls-cart-empty__prod-scroll::-webkit-scrollbar-track { background: #f5f5f5; border-radius: 2px; }
-.mls-cart-empty__prod-scroll::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
-.mls-cart-empty__prod-card {
-  flex: 0 0 110px;
-  scroll-snap-align: start;
+.mls-ec__slider-track {
+  display: flex;
+  gap: 10px;
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  will-change: transform;
+}
+.mls-ec__prod-card {
+  flex: 0 0 calc(50% - 5px);
   border-radius: 10px;
   border: 1px solid #ededed;
   background: #fafafa;
@@ -187,98 +198,87 @@
   text-decoration: none;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: box-shadow 0.2s;
 }
-.mls-cart-empty__prod-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-}
-.mls-cart-empty__prod-img {
+.mls-ec__prod-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.mls-ec__prod-img-wrap {
   width: 100%;
   aspect-ratio: 1;
+  overflow: hidden;
+  background: #f5f5f5;
+  display: flex; align-items: center; justify-content: center;
+}
+.mls-ec__prod-img-wrap img {
+  width: 100%; height: 100%;
   object-fit: cover;
   display: block;
 }
-.mls-cart-empty__prod-placeholder {
-  width: 100%;
-  aspect-ratio: 1;
-  background: linear-gradient(135deg, #f5f5f5, #ebebeb);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px;
-}
-.mls-cart-empty__prod-info {
-  padding: 7px 7px 8px;
-  flex: 1;
+.mls-ec__prod-fallback { font-size: 24px; }
+.mls-ec__prod-body {
+  padding: 8px 9px 10px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
+  flex: 1;
 }
-.mls-cart-empty__prod-name {
-  font-size: 0.6em;
+.mls-ec__prod-name {
+  font-size: 0.62em;
   font-weight: 600;
   color: #1a1a1a;
-  line-height: 1.3;
+  line-height: 1.35;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  margin: 0;
 }
-.mls-cart-empty__prod-price {
-  font-size: 0.6em;
+.mls-ec__prod-price {
+  font-size: 0.7em;
   font-weight: 700;
   color: #a70a10;
+  margin: 0;
 }
-/* Perks strip */
-.mls-cart-empty__perks {
-  width: 100%;
-  padding: 16px 16px 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-}
-.mls-cart-empty__perk {
-  background: #fff8f4;
-  border: 1px solid #fde8e0;
-  border-radius: 10px;
-  padding: 11px 5px;
+/* Dots */
+.mls-ec__dots {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
+  justify-content: center;
+  gap: 6px;
+  padding-top: 12px;
 }
-.mls-cart-empty__perk-icon { font-size: 18px; line-height: 1; }
-.mls-cart-empty__perk-text {
-  font-size: 0.58em;
-  font-weight: 600;
-  color: #444;
-  line-height: 1.3;
-  text-align: center;
+.mls-ec__dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #ddd;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.mls-ec__dot.is-active {
+  background: #a70a10;
+  transform: scale(1.3);
 }
 /* CTA */
-.mls-cart-empty__cta-wrap {
-  width: 100%;
-  padding: 18px 16px 0;
+.mls-ec__cta-wrap {
+  padding: 20px 16px 0;
 }
-.mls-cart-empty__cta {
+.mls-ec__cta {
+  display: block;
   width: 100%;
   background: #a70a10 !important;
   color: #fff !important;
   border-color: #a70a10 !important;
-  font-size: 0.9em;
+  font-size: 0.88em;
   font-weight: 700;
   padding: 13px 20px;
   border-radius: 8px;
   text-decoration: none;
-  display: block;
   text-align: center;
-  transition: background 0.2s, transform 0.15s;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
+  transition: background 0.2s;
 }
-.mls-cart-empty__cta:hover {
-  background: #8a0810 !important;
-  border-color: #8a0810 !important;
+.mls-ec__cta:hover {
+  background: #8c0a0f !important;
+  border-color: #8c0a0f !important;
   color: #fff !important;
-  transform: translateY(-1px);
 }
 </style>
 

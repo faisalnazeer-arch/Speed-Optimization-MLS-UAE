@@ -1256,7 +1256,7 @@
         "collection_reJh9a": {
           "type": "collection",
           "settings": {
-            "collection": "whole-carcass",
+            "collection": "whole-carcass-0",
             "image": "shopify://shop_images/Whole-carcass-800x800.png",
             "title": "",
             "button_link": ""
@@ -1469,7 +1469,7 @@
             "collection": "whole-carcass-1",
             "image": "shopify://shop_images/Whole-carcass-800x800.png",
             "title": "",
-            "button_link": "shopify://collections/whole-carcass"
+            "button_link": "shopify://collections/whole-carcass-0"
           }
         }
       },

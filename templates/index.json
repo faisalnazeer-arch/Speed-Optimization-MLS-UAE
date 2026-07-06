@@ -935,7 +935,7 @@
         "collection_Wk8CfA": {
           "type": "collection",
           "settings": {
-            "collection": "somali-lamb",
+            "collection": "fresh-somali-lamb",
             "collection-name": "Somali Lamb"
           }
         },
@@ -1554,7 +1554,7 @@
           "settings": {
             "image": "shopify://shop_images/Group_28_1_21715cf1-4c1e-4c07-b98f-40977839afbe.png",
             "text": "Somali Fresh Lamb",
-            "link": "shopify://collections/somali-lamb"
+            "link": "shopify://collections/fresh-somali-lamb"
           }
         },
         "lamb_667rf6": {
@@ -1814,7 +1814,7 @@
           "settings": {
             "image": "shopify://shop_images/Group_28_1_21715cf1-4c1e-4c07-b98f-40977839afbe.png",
             "text": "Somali Lamb",
-            "link": "shopify://collections/somali-lamb"
+            "link": "shopify://collections/fresh-somali-lamb"
           }
         },
         "lamb_iNHYLP": {

@@ -1,1 +1,554 @@
-{"sections":{"main":{"type":"main-product","blocks":{"title":{"type":"title","settings":{"show_weight":false}},"judge_me_reviews_preview_badge_UGrHy8":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/preview_badge\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{}},"3f73b6ee-a6b2-40ae-8379-a02a42756d8d":{"type":"rating","disabled":true,"settings":{}},"price":{"type":"price","settings":{"show_tax_and_shipping":false,"show_kg_price":true}},"custom_liquid_dp4xU4":{"type":"custom-liquid","disabled":true,"settings":{"custom_liquid":"<!-- Start of Judge.me code -->\n<div class=\"product-price-wrapper\">\n  <span class=\"product-price\">\n    {% if product.compare_at_price > product.price %}\n      <span class=\"product-price-actual\">{{ product.price | money }}<\/span>\n      <span class=\"product-price-crossed\"  style=\"text-decoration: line-through; color: #999;\">{{ product.compare_at_price | money }}<\/span>\n    {% else %}\n      <span class=\"product-price-actual\">{{ product.price | money }}<\/span>\n    {% endif %}\n  <\/span>\n\n<\/div>\n<!-- End of Judge.me code -->\n\n\n<style>\nspan.product-price-actual {\n    color: #a70a10;\n    font-size: 2.5rem;\n}\n.product-price-wrapper.w3_bg {\n    display: flex;\n    justify-content: space-between;\nalign-items: center;\n}\n\n}\n\n}\n<\/style>"}},"richtext_DEB468":{"type":"richtext","disabled":true,"settings":{"text":"<p>Per KG {{ product.metafields.custom.per_kg_price.value }}<\/p>"}},"image_87UTdF":{"type":"image","settings":{"title":"","image":"shopify:\/\/shop_images\/Untitled-2_1_1ca566a1-18e1-413c-86ba-017df92319f0.png","image_width":620,"image_align":"justify-center","url":""}},"yotpo_loyalty_rewards_product_points_module_app_block_VrFQQC":{"type":"shopify:\/\/apps\/yotpo-loyalty-rewards\/blocks\/product-points-module-app-block\/2f9660df-5018-4e02-9868-ee1fb88d6ccd","settings":{}},"divider-0":{"type":"divider","settings":{"show_line":true}},"variant-picker":{"type":"variant-picker","settings":{"selector_style":"buttons","enable_dynamic_availability":true,"dynamic_availability_downwards":true,"show_backorder_text":true,"enable_size_chart":false,"size_chart_variant":"Size","size_chart_page":""}},"custom_option_z3kmxe":{"type":"custom_option","settings":{"label":"Special Request","type":"text","text_required":false,"checkbox_checked_value":"Yes","checkbox_unchecked_value":"No","multiple_style":"dropdown","multiple_options":"Option 1\nOption 2\nOption 3"}},"recharge_subscriptions_subscription_widget_v2_3N7e7C":{"type":"shopify:\/\/apps\/recharge-subscriptions\/blocks\/subscription-widget-v2\/371eed76-0b44-4869-9813-730372ea378e","settings":{}},"image_bkwxjm":{"type":"image","settings":{"title":"","image":"shopify:\/\/shop_images\/Checkout_a1ffd672-4b0d-4e0f-85a3-0f7e8deb070a.png","image_width":960,"image_align":"justify-center","url":""}},"buy-buttons":{"type":"buy-buttons","settings":{"show_qty_selector":true,"enable_dynamic_checkout":false,"show_pickup_availability":true,"show_gift_card_recipient":false}},"judge_me_reviews_all_reviews_text_KdQCXt":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/all_reviews_text\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","disabled":true,"settings":{}},"judge_me_reviews_review_snippet_widget_CykwUk":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/review_snippet_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{}},"1cc6422d-211f-4764-af07-884ee26ed3d7":{"type":"description","settings":{"show_as_collapsible_content":true,"icon":"none","open":true}},"product_table_H34gYM":{"type":"product-table","disabled":true,"settings":{"table_heading":"Nutrition Facts","table_icon":"none","is_open":false}},"collapsible_content_6dE74m":{"type":"collapsible-content","disabled":true,"settings":{"heading":"100% free replacements & returns","icon":"none","text":"<ul><li>Drop a Whatsapp message or send us an email within 24 hours after delivery.<\/li><li>We will exchange the product and deliver it again to your door, or you can pick it up if you want.<\/li><li>You will receive the product or a refund. Refunds will be processed within 14 working days.<\/li><\/ul>","page":"","open":false}},"collapsible_content_pxxyfd":{"type":"collapsible-content","disabled":true,"settings":{"heading":"Delivery Information","icon":"none","text":"<h6><strong> Game-changing convenience<\/strong><\/h6><p>We offer 2 hours delivery within the same day across Dubai, all days of the week, 10am-10pm. For Sharjah and Ajman, same say  4pm-10pm  delivery for orders confirmed before 1pm all days of the week.<\/p><p>Sustainable and responsible packaging is an integral part of our company strategy; we use suppliers including MULTIVAC, one of the leading providers worldwide of packaging solutions for food.<\/p><h6><strong>Is there a delivery minimum?<\/strong><\/h6><p>No minimum order value and our standard delivery fee is 10 AED<\/p><h6><strong>When do you deliver?<\/strong><\/h6><p>We offer express delivery within 3 hours across Dubai & Abu Dhabi.For Sharjah and Ajman, we offer same day 4pm-10pm delivery for orders confirmed before 1pm all days of the week.<br\/><br\/><\/p><h6><strong>Do I need to tip my delivery driver?<\/strong><\/h6><p>There’s no need to tip your delivery driver — we are committed to paying a living wage that doesn’t depend on tips.<\/p><h6>Where do you deliver?<\/h6><p>MLS is currently delivering in Dubai, Abu Dhabi, Sharjah & Ajman only. <\/p>","page":"","open":false}},"richtext_ECLhLR":{"type":"richtext","settings":{"text":"<p><strong>Delivery Across:<\/strong><\/p>"}},"custom_liquid_GTmPCV":{"type":"custom-liquid","settings":{"custom_liquid":"{% comment %} Delivery Section - Dubai & Rest of UAE (Exact same as React version) {% endcomment %}\n\n<div class=\"delivery-section\" style=\"padding: 20px; background-color: #fff; border-radius: 12px; margin: 10px 0;\">\n  \n  <!-- Tabs -->\n  <div id=\"tabs-container\" style=\"display: flex; background-color: #f1f1f1; border-radius: 8px; padding: 4px; margin-bottom: 20px;\">\n    \n    <div id=\"tab-dubai\" \n         class=\"delivery-tab active\" \n         style=\"flex: 1; padding: 12px; text-align: center; border-radius: 6px; cursor: pointer; background-color: #ffffff;\">\n      <span style=\"font-weight: 600; font-size: 15px; color: #000000;\">Dubai<\/span>\n    <\/div>\n    \n    <div id=\"tab-rest\" \n         class=\"delivery-tab\" \n         style=\"flex: 1; padding: 12px; text-align: center; border-radius: 6px; cursor: pointer; background-color: #f1f1f1;\">\n      <span style=\"font-weight: 600; font-size: 15px; color: #666666;\">Rest of UAE<\/span>\n    <\/div>\n  <\/div>\n\n  <!-- ==================== DUBAI CONTENT ==================== -->\n  <div id=\"content-dubai\" class=\"delivery-content\">\n    <p style=\"font-size: 14.5px; color: #555; margin-bottom: 16px; line-height: 1.5;\">\n      We offer fast delivery in Dubai.\n    <\/p>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Delivery Time<\/div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        Delivered within 2 hours between 11:00 AM and 8:30 PM daily.\n      <\/div>\n    <\/div>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Last Order Time<\/div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        8:30 PM is our last order cutoff, all days of the week (until further notice).\n      <\/div>\n    <\/div>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Delivery Fee<\/div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        No minimum order value. Standard delivery fee is 15 AED.\n      <\/div>\n    <\/div>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Tipping<\/div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        There’s no need to tip your delivery driver — we pay a living wage that doesn’t depend on tips.\n      <\/div>\n    <\/div>\n\n    <!-- Returns & Satisfaction -->\n    <div style=\"margin-top: 24px; padding-top: 16px; border-top: 1px solid #eee;\">\n      <div style=\"font-weight: 600; font-size: 15.5px; margin-bottom: 8px; color: #000;\">Free Returns<\/div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444; margin-bottom: 12px;\">\n        Subject to meeting the conditions set out in this Returns &amp; Exchanges section, we offer a \"no questions asked\" free returns policy which allows you to return delivered items to us for any reason up to 30 days from the delivery of your order, free of charge.\n      <\/div>\n\n      <div style=\"font-weight: 600; font-size: 15px; margin-bottom: 8px; color: #000;\">100% Satisfaction Policy<\/div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444; margin-bottom: 12px;\">\n        We offer 100% satisfaction policy. Please WhatsApp us on our customer service number within 24 hours and we will fix your experience.\n      <\/div>\n\n      <div onclick=\"window.open('https:\/\/wa.me\/971505165407', '_blank')\" \n           style=\"background-color: #25D366; padding: 12px 16px; border-radius: 8px; margin-top: 8px; cursor: pointer; text-align: center;\">\n        <span style=\"color: #ffffff; font-weight: 600; font-size: 14.5px;\">\n          💬 WhatsApp Us: +971 50 451 6403\n        <\/span>\n      <\/div>\n    <\/div>\n  <\/div>\n\n  <!-- ==================== REST OF UAE CONTENT ==================== -->\n  <div id=\"content-rest\" class=\"delivery-content\" style=\"display: none;\">\n    <p style=\"font-size: 14.5px; color: #555; margin-bottom: 16px; line-height: 1.5;\">\n      Delivery information for Abu Dhabi, Sharjah and other areas.\n    <\/p>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Abu Dhabi<\/div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        Orders delivered in 3 hours window throughout the day between 11:00 AM and 8:30 PM daily.\n      <\/div>\n    <\/div>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Sharjah<\/div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444; white-space: pre-line;\">\n        Orders confirmed by 1:00 PM are delivered the same-day between 4:00 PM and 10:00 PM.\n        Orders confirmed after 1:00 PM are delivered next day.\n      <\/div>\n    <\/div>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Last Order Time<\/div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        8:30 PM is our last order cutoff, all days of the week (until further notice).\n      <\/div>\n    <\/div>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Delivery Fee<\/div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        No minimum order value. Standard delivery fee is 15 AED.\n      <\/div>\n    <\/div>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Tipping<\/div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        There’s no need to tip your delivery driver — we pay a living wage that doesn’t depend on tips.\n      <\/div>\n    <\/div>\n\n    <!-- Returns & Satisfaction (same as Dubai) -->\n    <div style=\"margin-top: 24px; padding-top: 16px; border-top: 1px solid #eee;\">\n      <div style=\"font-weight: 600; font-size: 15.5px; margin-bottom: 8px; color: #000;\">Free Returns<\/div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444; margin-bottom: 12px;\">\n        Subject to meeting the conditions set out in this Returns &amp; Exchanges section, we offer a \"no questions asked\" free returns policy which allows you to return delivered items to us for any reason up to 30 days from the delivery of your order, free of charge.\n      <\/div>\n\n      <div style=\"font-weight: 600; font-size: 15px; margin-bottom: 8px; color: #000;\">100% Satisfaction Policy<\/div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444; margin-bottom: 12px;\">\n        We offer 100% satisfaction policy. Please WhatsApp us on our customer service number within 24 hours and we will fix your experience.\n      <\/div>\n\n      <div onclick=\"window.open('https:\/\/wa.me\/971505165407', '_blank')\" \n           style=\"background-color: #25D366; padding: 12px 16px; border-radius: 8px; margin-top: 8px; cursor: pointer; text-align: center;\">\n        <span style=\"color: #ffffff; font-weight: 600; font-size: 14.5px;\">\n          💬 WhatsApp Us: +971 50 451 6403\n        <\/span>\n      <\/div>\n    <\/div>\n  <\/div>\n<\/div>\n\n<script>\n  document.addEventListener('DOMContentLoaded', function() {\n    const tabDubai = document.getElementById('tab-dubai');\n    const tabRest = document.getElementById('tab-rest');\n    const contentDubai = document.getElementById('content-dubai');\n    const contentRest = document.getElementById('content-rest');\n\n    function switchTab(activeTab) {\n      if (activeTab === 'dubai') {\n        tabDubai.style.backgroundColor = '#ffffff';\n        tabDubai.querySelector('span').style.color = '#000000';\n        tabRest.style.backgroundColor = '#f1f1f1';\n        tabRest.querySelector('span').style.color = '#666666';\n        contentDubai.style.display = 'block';\n        contentRest.style.display = 'none';\n      } else {\n        tabRest.style.backgroundColor = '#ffffff';\n        tabRest.querySelector('span').style.color = '#000000';\n        tabDubai.style.backgroundColor = '#f1f1f1';\n        tabDubai.querySelector('span').style.color = '#666666';\n        contentDubai.style.display = 'none';\n        contentRest.style.display = 'block';\n      }\n    }\n\n    tabDubai.addEventListener('click', () => switchTab('dubai'));\n    tabRest.addEventListener('click', () => switchTab('rest'));\n  });\n<\/script>"}}},"block_order":["title","judge_me_reviews_preview_badge_UGrHy8","3f73b6ee-a6b2-40ae-8379-a02a42756d8d","price","custom_liquid_dp4xU4","richtext_DEB468","image_87UTdF","yotpo_loyalty_rewards_product_points_module_app_block_VrFQQC","divider-0","variant-picker","custom_option_z3kmxe","recharge_subscriptions_subscription_widget_v2_3N7e7C","image_bkwxjm","buy-buttons","judge_me_reviews_all_reviews_text_KdQCXt","judge_me_reviews_review_snippet_widget_CykwUk","1cc6422d-211f-4764-af07-884ee26ed3d7","product_table_H34gYM","collapsible_content_6dE74m","collapsible_content_pxxyfd","richtext_ECLhLR","custom_liquid_GTmPCV"],"custom_css":[".custom-option__text-input {width: 100%; font-size: 16px; border: 1px rgb(191, 191, 191) solid; padding: 0.8em 15px; border-radius: 5px;}",".custom-option__text-input:active {order: 1px rgb(0, 0, 0) solid; box-shadow: 0 0 0 var(--input-active-shadow-width) #000;}",".product-info__add-button {margin: 0px !important;}","quantity-input.inline-block {margin: 0px !important;}",".product-info__add-to-cart.flex {flex-direction: column;}","quantity-input.inline-block {padding-bottom: 8px !important;}"],"settings":{"stick_on_scroll":true,"sticky_atc_panel":false,"sticky_atc_position":"end-dock","sticky_atc_mobile":true,"media_layout":"slider","media_size":"default","media_ratio":"1","media_crop":"none","hover_zoom":"large","enable_video_looping":false,"stacked_scroll":"always","underline_active":true,"media_thumbs":"always","thumb_ratio":"1","thumb_crop":"none","media_arrows":"desktop","show_slide_count":true,"border_color":"#eeeeee","bg_color":"#f4f4f4","enable_media_grouping":false,"media_grouping_option":"Color,Colour,Couleur,Farbe"}},"blocks_pK4cqP":{"type":"_blocks","blocks":{"ai_gen_block_1d8eedf_LLLNhX":{"type":"ai_gen_block_1d8eedf","settings":{"section_max_width":600,"section_padding_top":40,"section_padding_bottom":40,"section_padding_horizontal":20,"tabs_max_width":60,"tabs_max_width_mobile":85,"tabs_margin_bottom":16,"tab_font_size":18,"tab_padding_vertical":16,"tab_padding_horizontal":24,"tab_border_radius":6,"tab_border_width":2,"tab_border_color":"#ffffff4d","tab_active_scale":1.1,"flags_section_bg_color":"#ffffff","flags_background_width":100,"flags_background_width_mobile":80,"flags_section_padding":12,"flags_section_border_radius":10,"flags_section_margin_bottom":10,"flag_bg_color":"#ffffff","flag_size":120,"flag_placeholder_size":60,"flags_gap":44,"flag_hover_scale":1.1,"subtitle_bg_color":"#ffffff","subtitle_color":"#6b7280","subtitle_font_size":17,"subtitle_padding_vertical":8,"subtitle_padding_horizontal":24,"subtitle_border_radius":6,"subtitle_margin_bottom":14,"subtitle_max_width":80,"subtitle_max_width_mobile":95,"bullet_color":"#a70a10","features_text_color":"#374151","features_font_size":16,"features_margin_top":32,"features_margin_bottom":34,"features_max_width":380,"features_gap_vertical":16,"features_gap_horizontal":16,"bullet_size":10,"bullet_margin_right":20,"button_bg_color":"#a70a10","button_text_color":"#ffffff","button_font_size":16,"button_padding_vertical":14,"button_padding_horizontal":28,"button_border_radius":6,"button_margin_top":0,"button_hover_opacity":0.9,"tab_1_text":"Economic","tab_1_bg_color":"#8b5cf6","tab_1_text_color":"#ffffff","tab_1_subtitle":"Everyday Value for curries & rice","tab_1_flag_1_image":"shopify:\/\/shop_images\/Group_28_1_21715cf1-4c1e-4c07-b98f-40977839afbe.png","tab_1_flag_1_link":"shopify:\/\/collections\/economical-mutton","tab_1_flag_2_image":"shopify:\/\/shop_images\/Group_71.png","tab_1_flag_2_link":"shopify:\/\/collections\/economical","tab_1_flag_3_image":"shopify:\/\/shop_images\/Group_20_1.svg","tab_1_flag_3_link":"","tab_1_feature_1":"100% Halal","tab_1_feature_2":"100% Fresh","tab_1_feature_3":"No hormones","tab_1_feature_4":"Bespoke cutting","tab_1_button_text":"Explore Economic Range","tab_1_button_link":"shopify:\/\/collections\/economical","tab_2_text":"Mid-Range","tab_2_bg_color":"#000000","tab_2_text_color":"#ffffff","tab_2_subtitle":"Premium quality for special occasions","tab_2_flag_1_image":"shopify:\/\/shop_images\/Group_28_1_21715cf1-4c1e-4c07-b98f-40977839afbe.png","tab_2_flag_1_link":"shopify:\/\/collections\/somali-lamb","tab_2_flag_2_image":"shopify:\/\/shop_images\/Group_71.png","tab_2_flag_2_link":"","tab_2_flag_3_image":"shopify:\/\/shop_images\/Group_20_1.svg","tab_2_flag_3_link":"","tab_2_feature_1":"Premium cuts","tab_2_feature_2":"Aged perfectly","tab_2_feature_3":"Restaurant quality","tab_2_feature_4":"Expert preparation","tab_2_button_text":"Explore Mid-Range","tab_2_button_link":"","tab_3_text":"Signature","tab_3_bg_color":"#a70a10","tab_3_text_color":"#ffffff","tab_3_subtitle":"Luxury selection for connoisseurs","tab_3_flag_1_image":"shopify:\/\/shop_images\/Group_28_1_21715cf1-4c1e-4c07-b98f-40977839afbe.png","tab_3_flag_1_link":"shopify:\/\/collections\/somali-lamb","tab_3_flag_2_image":"shopify:\/\/shop_images\/Group_71.png","tab_3_flag_2_link":"","tab_3_flag_3_image":"shopify:\/\/shop_images\/Group_20_1.svg","tab_3_flag_3_link":"","tab_3_feature_1":"Wagyu quality","tab_3_feature_2":"Hand selected","tab_3_feature_3":"Master crafted","tab_3_feature_4":"Limited edition","tab_3_button_text":"Explore Signature","tab_3_button_link":"shopify:\/\/collections\/signature"},"blocks":{}}},"block_order":["ai_gen_block_1d8eedf_LLLNhX"],"disabled":true,"settings":{}},"image_banner_RwqVeF":{"type":"image-banner","name":"Image banner","settings":{"custom_class":"","image_desktop":"shopify:\/\/shop_images\/Component_1.jpg","image_mobile":"shopify:\/\/shop_images\/Component_1.jpg","url":"","height_mode":"auto","max_width":1400,"fixed_height_desktop":480,"fixed_height_mobile":250,"overlay_position":"justify-center items-center","overlay_text_align":"text-center","mob_center_text":false,"mobile_stacked":false,"color_scheme":"white","full_width":true,"transparent_content_color":"#ffffff","tint_color":"#000000","tint_opacity":0,"prevent_animation":false}},"testimonials_c8EzHY":{"type":"testimonials","blocks":{"testimonial_KVett7":{"type":"testimonial","settings":{"testimonial":"<h4><strong>Professional and Clean Delivery<\/strong><\/h4><p>“Super quality meat. Very professional and clean delivery. Probably gonna be the best butcher in the UAE ”<\/p>","author":"Graeme S. (verified Customer)","author_info":"","show_star_rating":true,"star_rating":5}},"testimonial_nErEkR":{"type":"testimonial","settings":{"testimonial":"<h4><strong>Very Good<\/strong><\/h4><p>“I am a regular customer of MLS. I like the products, it is always fresh”<\/p>","author":"Rami M. ( verified buyer )","author_info":"","show_star_rating":true,"star_rating":5}},"testimonial_dbDgVx":{"type":"testimonial","settings":{"testimonial":"<h4><strong>Tomahawk Amazing !!!<\/strong><\/h4><p>“Simply an amazing piece of meat, good quality, taste great and no after taste.... must know how to grill it”<\/p>","author":"Eihab A. ( Verified customer)","author_info":"","show_star_rating":true,"star_rating":5}}},"block_order":["testimonial_KVett7","testimonial_nErEkR","testimonial_dbDgVx"],"disabled":true,"settings":{"heading":"MLS is loved by over 50,000 customers","show_quotes":false,"testimonial_size":"h5","testimonial_font":"body","text_position":"justify-center","text_align":"text-center justify-center","nav_style":"slideshow_nav_dots","transition":"slide-fade","autoplay":true,"slider_pause":false,"autoplay_speed":5,"color_scheme":"2","star_color":"#a70a10","full_width":false}},"details":{"type":"product-details","blocks":{"71057e1b-320d-4706-a43a-06d66046c5a7":{"type":"tabs","settings":{"style":"collapsible","open_first":false,"show_description":true,"show_reviews":true,"show_reviews_count":true,"custom_reviews":"","show_specification":false,"spec_heading":"Specifications","spec_metafields":"","spec_right_align":false,"spec_show_empty_metafields":true,"spec_empty_field_text":"-","tab_1_title":"","tab_1_text":"","tab_1_page":"","tab_2_title":"","tab_2_text":"","tab_2_page":"","tab_3_title":"","tab_3_text":"","tab_3_page":""}},"highlight_text_qEpJN4":{"type":"highlight-text","settings":{"text":"<h4>Highlight title<\/h4><p>Text to highlight a key feature of your product<\/p>"}},"highlight_text_r3c7Pb":{"type":"highlight-text","settings":{"text":"<h4>Highlight title<\/h4><p>Text to highlight a key feature of your product<\/p>"}}},"block_order":["71057e1b-320d-4706-a43a-06d66046c5a7","highlight_text_qEpJN4","highlight_text_r3c7Pb"],"disabled":true,"settings":{"content_size":"default","placement":"left","text":"","show_image_first":false,"color_scheme":"default","full_width":false}},"recommendations":{"type":"product-recommendations","settings":{"heading":"You may also like","heading_align":"text-center","layout":"carousel","card_size_mobile":"small","card_size":"large","products_to_show":8}},"recently_viewed_HNWXf8":{"type":"recently-viewed","settings":{"heading":"Recently viewed","heading_align":"text-center","layout":"carousel","card_size_mobile":"small","card_size":"large","limit":10}},"1719755472acbeb1b1":{"type":"apps","blocks":{"judge_me_reviews_review_widget_BgtCqi":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{"review_data":"sample_data","max_width":1200,"show_shop_reviews":false,"empty_state":"empty_widget"}}},"block_order":["judge_me_reviews_review_widget_BgtCqi"],"settings":{"full_width":false}},"custom_liquid_3BMHQt":{"type":"custom-liquid","disabled":true,"settings":{"custom_liquid":"<script>\n  window.addEventListener('load', function() {\n  var _learnq = window._learnq || [];\n  function addedToCart() {\n   fetch(`${window.location.origin}\/cart.js`)\n   .then(res => res.clone().json().then(data => {\n    var cart = {\n      total_price: data.total_price\/100,\n      $value: data.total_price\/100,\n      total_discount: data.total_discount,\n      original_total_price: data.original_total_price\/100,\n      items: data.items\n    }\n    if (item !== 'undefined') {\n      cart = Object.assign(cart, item)\n    }\n    if (klAjax) {\n       _learnq.push(['track', 'Added to Cart', cart]);\n       klAjax = false;\n      }\n   }))\n  };\n  (function (ns, fetch) {\n    ns.fetch = function() {\n      const response = fetch.apply(this, arguments);\n      response.then(res => {\n        if (`${window.location.origin}\/cart\/add.js`\n          .includes(res.url) && res.url !== '') {\n              addedToCart()\n        }\n      });\n      return response\n     }\n  }(window, window.fetch));\n  var klAjax = true;\n  var atcButtons = document.querySelectorAll(\"form[action*='\/cart\/add'] button[type='submit']\");\n  for (var i = 0; i < atcButtons.length; i++) { \n    atcButtons[i].addEventListener(\"click\", function() {\n      if (klAjax) {\n        _learnq.push(['track', 'Added to Cart', item]);\n        klAjax = false;\n      }\n    })\n  }\n  });\n<\/script>","section_height":"default","full_width":false,"dividers":"none","prevent_animation":false}}},"order":["main","blocks_pK4cqP","image_banner_RwqVeF","testimonials_c8EzHY","details","recommendations","recently_viewed_HNWXf8","1719755472acbeb1b1","custom_liquid_3BMHQt"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "show_weight": false
+          }
+        },
+        "judge_me_reviews_preview_badge_UGrHy8": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "3f73b6ee-a6b2-40ae-8379-a02a42756d8d": {
+          "type": "rating",
+          "disabled": true,
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_tax_and_shipping": false,
+            "show_kg_price": true
+          }
+        },
+        "custom_liquid_dp4xU4": {
+          "type": "custom-liquid",
+          "disabled": true,
+          "settings": {
+            "custom_liquid": "<!-- Start of Judge.me code -->\n<div class=\"product-price-wrapper\">\n  <span class=\"product-price\">\n    {% if product.compare_at_price > product.price %}\n      <span class=\"product-price-actual\">{{ product.price | money }}</span>\n      <span class=\"product-price-crossed\"  style=\"text-decoration: line-through; color: #999;\">{{ product.compare_at_price | money }}</span>\n    {% else %}\n      <span class=\"product-price-actual\">{{ product.price | money }}</span>\n    {% endif %}\n  </span>\n\n</div>\n<!-- End of Judge.me code -->\n\n\n<style>\nspan.product-price-actual {\n    color: #a70a10;\n    font-size: 2.5rem;\n}\n.product-price-wrapper.w3_bg {\n    display: flex;\n    justify-content: space-between;\nalign-items: center;\n}\n\n}\n\n}\n</style>"
+          }
+        },
+        "richtext_DEB468": {
+          "type": "richtext",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Per KG {{ product.metafields.custom.per_kg_price.value }}</p>"
+          }
+        },
+        "image_87UTdF": {
+          "type": "image",
+          "settings": {
+            "title": "",
+            "image": "shopify://shop_images/Untitled-2_1_1ca566a1-18e1-413c-86ba-017df92319f0.png",
+            "image_width": 620,
+            "image_align": "justify-center",
+            "url": ""
+          }
+        },
+        "yotpo_loyalty_rewards_product_points_module_app_block_VrFQQC": {
+          "type": "shopify://apps/yotpo-loyalty-rewards/blocks/product-points-module-app-block/2f9660df-5018-4e02-9868-ee1fb88d6ccd",
+          "settings": {}
+        },
+        "divider-0": {
+          "type": "divider",
+          "settings": {
+            "show_line": true
+          }
+        },
+        "variant-picker": {
+          "type": "variant-picker",
+          "settings": {
+            "selector_style": "buttons",
+            "enable_dynamic_availability": true,
+            "dynamic_availability_downwards": true,
+            "show_backorder_text": true,
+            "enable_size_chart": false,
+            "size_chart_variant": "Size",
+            "size_chart_page": ""
+          }
+        },
+        "custom_option_z3kmxe": {
+          "type": "custom_option",
+          "settings": {
+            "label": "Special Request",
+            "type": "text",
+            "text_required": false,
+            "checkbox_checked_value": "Yes",
+            "checkbox_unchecked_value": "No",
+            "multiple_style": "dropdown",
+            "multiple_options": "Option 1\nOption 2\nOption 3"
+          }
+        },
+        "recharge_subscriptions_subscription_widget_v2_3N7e7C": {
+          "type": "shopify://apps/recharge-subscriptions/blocks/subscription-widget-v2/371eed76-0b44-4869-9813-730372ea378e",
+          "settings": {}
+        },
+        "image_bkwxjm": {
+          "type": "image",
+          "settings": {
+            "title": "",
+            "image": "shopify://shop_images/Checkout_a1ffd672-4b0d-4e0f-85a3-0f7e8deb070a.png",
+            "image_width": 960,
+            "image_align": "justify-center",
+            "url": ""
+          }
+        },
+        "buy-buttons": {
+          "type": "buy-buttons",
+          "settings": {
+            "show_qty_selector": true,
+            "enable_dynamic_checkout": false,
+            "show_pickup_availability": true,
+            "show_gift_card_recipient": false
+          }
+        },
+        "judge_me_reviews_all_reviews_text_KdQCXt": {
+          "type": "shopify://apps/judge-me-reviews/blocks/all_reviews_text/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "disabled": true,
+          "settings": {}
+        },
+        "judge_me_reviews_review_snippet_widget_CykwUk": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_snippet_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "1cc6422d-211f-4764-af07-884ee26ed3d7": {
+          "type": "description",
+          "settings": {
+            "show_as_collapsible_content": true,
+            "icon": "none",
+            "open": true
+          }
+        },
+        "product_table_H34gYM": {
+          "type": "product-table",
+          "disabled": true,
+          "settings": {
+            "table_heading": "Nutrition Facts",
+            "table_icon": "none",
+            "is_open": false
+          }
+        },
+        "collapsible_content_6dE74m": {
+          "type": "collapsible-content",
+          "disabled": true,
+          "settings": {
+            "heading": "100% free replacements & returns",
+            "icon": "none",
+            "text": "<ul><li>Drop a Whatsapp message or send us an email within 24 hours after delivery.</li><li>We will exchange the product and deliver it again to your door, or you can pick it up if you want.</li><li>You will receive the product or a refund. Refunds will be processed within 14 working days.</li></ul>",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_content_pxxyfd": {
+          "type": "collapsible-content",
+          "disabled": true,
+          "settings": {
+            "heading": "Delivery Information",
+            "icon": "none",
+            "text": "<h6><strong> Game-changing convenience</strong></h6><p>We offer 2 hours delivery within the same day across Dubai, all days of the week, 10am-10pm. For Sharjah and Ajman, same say  4pm-10pm  delivery for orders confirmed before 1pm all days of the week.</p><p>Sustainable and responsible packaging is an integral part of our company strategy; we use suppliers including MULTIVAC, one of the leading providers worldwide of packaging solutions for food.</p><h6><strong>Is there a delivery minimum?</strong></h6><p>No minimum order value and our standard delivery fee is 10 AED</p><h6><strong>When do you deliver?</strong></h6><p>We offer express delivery within 3 hours across Dubai & Abu Dhabi.For Sharjah and Ajman, we offer same day 4pm-10pm delivery for orders confirmed before 1pm all days of the week.<br/><br/></p><h6><strong>Do I need to tip my delivery driver?</strong></h6><p>There’s no need to tip your delivery driver — we are committed to paying a living wage that doesn’t depend on tips.</p><h6>Where do you deliver?</h6><p>MLS is currently delivering in Dubai, Abu Dhabi, Sharjah & Ajman only. </p>",
+            "page": "",
+            "open": false
+          }
+        },
+        "richtext_ECLhLR": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p><strong>Delivery Across:</strong></p>"
+          }
+        },
+        "custom_liquid_GTmPCV": {
+          "type": "custom-liquid",
+          "settings": {
+            "custom_liquid": "{% comment %} Delivery Section - Dubai & Rest of UAE (Exact same as React version) {% endcomment %}\n\n<div class=\"delivery-section\" style=\"padding: 20px; background-color: #fff; border-radius: 12px; margin: 10px 0;\">\n  \n  <!-- Tabs -->\n  <div id=\"tabs-container\" style=\"display: flex; background-color: #f1f1f1; border-radius: 8px; padding: 4px; margin-bottom: 20px;\">\n    \n    <div id=\"tab-dubai\" \n         class=\"delivery-tab active\" \n         style=\"flex: 1; padding: 12px; text-align: center; border-radius: 6px; cursor: pointer; background-color: #ffffff;\">\n      <span style=\"font-weight: 600; font-size: 15px; color: #000000;\">Dubai</span>\n    </div>\n    \n    <div id=\"tab-rest\" \n         class=\"delivery-tab\" \n         style=\"flex: 1; padding: 12px; text-align: center; border-radius: 6px; cursor: pointer; background-color: #f1f1f1;\">\n      <span style=\"font-weight: 600; font-size: 15px; color: #666666;\">Rest of UAE</span>\n    </div>\n  </div>\n\n  <!-- ==================== DUBAI CONTENT ==================== -->\n  <div id=\"content-dubai\" class=\"delivery-content\">\n    <p style=\"font-size: 14.5px; color: #555; margin-bottom: 16px; line-height: 1.5;\">\n      We offer fast delivery in Dubai.\n    </p>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Delivery Time</div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        Delivered within 2 hours between 11:00 AM and 8:30 PM daily.\n      </div>\n    </div>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Last Order Time</div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        8:30 PM is our last order cutoff, all days of the week (until further notice).\n      </div>\n    </div>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Delivery Fee</div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        No minimum order value. Standard delivery fee is 15 AED.\n      </div>\n    </div>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Tipping</div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        There’s no need to tip your delivery driver — we pay a living wage that doesn’t depend on tips.\n      </div>\n    </div>\n\n    <!-- Returns & Satisfaction -->\n    <div style=\"margin-top: 24px; padding-top: 16px; border-top: 1px solid #eee;\">\n      <div style=\"font-weight: 600; font-size: 15.5px; margin-bottom: 8px; color: #000;\">Free Returns</div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444; margin-bottom: 12px;\">\n        Subject to meeting the conditions set out in this Returns &amp; Exchanges section, we offer a \"no questions asked\" free returns policy which allows you to return delivered items to us for any reason up to 30 days from the delivery of your order, free of charge.\n      </div>\n\n      <div style=\"font-weight: 600; font-size: 15px; margin-bottom: 8px; color: #000;\">100% Satisfaction Policy</div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444; margin-bottom: 12px;\">\n        We offer 100% satisfaction policy. Please WhatsApp us on our customer service number within 24 hours and we will fix your experience.\n      </div>\n\n      <div onclick=\"window.open('https://wa.me/971505165407', '_blank')\" \n           style=\"background-color: #25D366; padding: 12px 16px; border-radius: 8px; margin-top: 8px; cursor: pointer; text-align: center;\">\n        <span style=\"color: #ffffff; font-weight: 600; font-size: 14.5px;\">\n          💬 WhatsApp Us: +971 50 451 6403\n        </span>\n      </div>\n    </div>\n  </div>\n\n  <!-- ==================== REST OF UAE CONTENT ==================== -->\n  <div id=\"content-rest\" class=\"delivery-content\" style=\"display: none;\">\n    <p style=\"font-size: 14.5px; color: #555; margin-bottom: 16px; line-height: 1.5;\">\n      Delivery information for Abu Dhabi, Sharjah and other areas.\n    </p>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Abu Dhabi</div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        Orders delivered in 3 hours window throughout the day between 11:00 AM and 8:30 PM daily.\n      </div>\n    </div>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Sharjah</div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444; white-space: pre-line;\">\n        Orders confirmed by 1:00 PM are delivered the same-day between 4:00 PM and 10:00 PM.\n        Orders confirmed after 1:00 PM are delivered next day.\n      </div>\n    </div>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Last Order Time</div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        8:30 PM is our last order cutoff, all days of the week (until further notice).\n      </div>\n    </div>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Delivery Fee</div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        No minimum order value. Standard delivery fee is 15 AED.\n      </div>\n    </div>\n\n    <div style=\"background-color: #f9f9f9; padding: 14px; border-radius: 8px; margin-bottom: 10px;\">\n      <div style=\"font-weight: 600; font-size: 14.5px; margin-bottom: 6px; color: #000;\">Tipping</div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444;\">\n        There’s no need to tip your delivery driver — we pay a living wage that doesn’t depend on tips.\n      </div>\n    </div>\n\n    <!-- Returns & Satisfaction (same as Dubai) -->\n    <div style=\"margin-top: 24px; padding-top: 16px; border-top: 1px solid #eee;\">\n      <div style=\"font-weight: 600; font-size: 15.5px; margin-bottom: 8px; color: #000;\">Free Returns</div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444; margin-bottom: 12px;\">\n        Subject to meeting the conditions set out in this Returns &amp; Exchanges section, we offer a \"no questions asked\" free returns policy which allows you to return delivered items to us for any reason up to 30 days from the delivery of your order, free of charge.\n      </div>\n\n      <div style=\"font-weight: 600; font-size: 15px; margin-bottom: 8px; color: #000;\">100% Satisfaction Policy</div>\n      <div style=\"font-size: 13.8px; line-height: 1.5; color: #444; margin-bottom: 12px;\">\n        We offer 100% satisfaction policy. Please WhatsApp us on our customer service number within 24 hours and we will fix your experience.\n      </div>\n\n      <div onclick=\"window.open('https://wa.me/971505165407', '_blank')\" \n           style=\"background-color: #25D366; padding: 12px 16px; border-radius: 8px; margin-top: 8px; cursor: pointer; text-align: center;\">\n        <span style=\"color: #ffffff; font-weight: 600; font-size: 14.5px;\">\n          💬 WhatsApp Us: +971 50 451 6403\n        </span>\n      </div>\n    </div>\n  </div>\n</div>\n\n<script>\n  document.addEventListener('DOMContentLoaded', function() {\n    const tabDubai = document.getElementById('tab-dubai');\n    const tabRest = document.getElementById('tab-rest');\n    const contentDubai = document.getElementById('content-dubai');\n    const contentRest = document.getElementById('content-rest');\n\n    function switchTab(activeTab) {\n      if (activeTab === 'dubai') {\n        tabDubai.style.backgroundColor = '#ffffff';\n        tabDubai.querySelector('span').style.color = '#000000';\n        tabRest.style.backgroundColor = '#f1f1f1';\n        tabRest.querySelector('span').style.color = '#666666';\n        contentDubai.style.display = 'block';\n        contentRest.style.display = 'none';\n      } else {\n        tabRest.style.backgroundColor = '#ffffff';\n        tabRest.querySelector('span').style.color = '#000000';\n        tabDubai.style.backgroundColor = '#f1f1f1';\n        tabDubai.querySelector('span').style.color = '#666666';\n        contentDubai.style.display = 'none';\n        contentRest.style.display = 'block';\n      }\n    }\n\n    tabDubai.addEventListener('click', () => switchTab('dubai'));\n    tabRest.addEventListener('click', () => switchTab('rest'));\n  });\n</script>"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "judge_me_reviews_preview_badge_UGrHy8",
+        "3f73b6ee-a6b2-40ae-8379-a02a42756d8d",
+        "price",
+        "custom_liquid_dp4xU4",
+        "richtext_DEB468",
+        "image_87UTdF",
+        "yotpo_loyalty_rewards_product_points_module_app_block_VrFQQC",
+        "divider-0",
+        "variant-picker",
+        "custom_option_z3kmxe",
+        "recharge_subscriptions_subscription_widget_v2_3N7e7C",
+        "image_bkwxjm",
+        "buy-buttons",
+        "judge_me_reviews_all_reviews_text_KdQCXt",
+        "judge_me_reviews_review_snippet_widget_CykwUk",
+        "1cc6422d-211f-4764-af07-884ee26ed3d7",
+        "product_table_H34gYM",
+        "collapsible_content_6dE74m",
+        "collapsible_content_pxxyfd",
+        "richtext_ECLhLR",
+        "custom_liquid_GTmPCV"
+      ],
+      "custom_css": [
+        ".custom-option__text-input {width: 100%; font-size: 16px; border: 1px rgb(191, 191, 191) solid; padding: 0.8em 15px; border-radius: 5px;}",
+        ".custom-option__text-input:active {order: 1px rgb(0, 0, 0) solid; box-shadow: 0 0 0 var(--input-active-shadow-width) #000;}",
+        ".product-info__add-button {margin: 0px !important;}",
+        "quantity-input.inline-block {margin: 0px !important;}",
+        ".product-info__add-to-cart.flex {flex-direction: column;}",
+        "quantity-input.inline-block {padding-bottom: 8px !important;}"
+      ],
+      "settings": {
+        "stick_on_scroll": true,
+        "sticky_atc_panel": false,
+        "sticky_atc_position": "end-dock",
+        "sticky_atc_mobile": true,
+        "media_layout": "slider",
+        "media_size": "default",
+        "media_ratio": "1",
+        "media_crop": "none",
+        "hover_zoom": "large",
+        "enable_video_looping": false,
+        "stacked_scroll": "always",
+        "underline_active": true,
+        "media_thumbs": "always",
+        "thumb_ratio": "1",
+        "thumb_crop": "none",
+        "media_arrows": "desktop",
+        "show_slide_count": true,
+        "border_color": "#eeeeee",
+        "bg_color": "#f4f4f4",
+        "enable_media_grouping": false,
+        "media_grouping_option": "Color,Colour,Couleur,Farbe"
+      }
+    },
+    "blocks_pK4cqP": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1d8eedf_LLLNhX": {
+          "type": "ai_gen_block_1d8eedf",
+          "settings": {
+            "section_max_width": 600,
+            "section_padding_top": 40,
+            "section_padding_bottom": 40,
+            "section_padding_horizontal": 20,
+            "tabs_max_width": 60,
+            "tabs_max_width_mobile": 85,
+            "tabs_margin_bottom": 16,
+            "tab_font_size": 18,
+            "tab_padding_vertical": 16,
+            "tab_padding_horizontal": 24,
+            "tab_border_radius": 6,
+            "tab_border_width": 2,
+            "tab_border_color": "#ffffff4d",
+            "tab_active_scale": 1.1,
+            "flags_section_bg_color": "#ffffff",
+            "flags_background_width": 100,
+            "flags_background_width_mobile": 80,
+            "flags_section_padding": 12,
+            "flags_section_border_radius": 10,
+            "flags_section_margin_bottom": 10,
+            "flag_bg_color": "#ffffff",
+            "flag_size": 120,
+            "flag_placeholder_size": 60,
+            "flags_gap": 44,
+            "flag_hover_scale": 1.1,
+            "subtitle_bg_color": "#ffffff",
+            "subtitle_color": "#6b7280",
+            "subtitle_font_size": 17,
+            "subtitle_padding_vertical": 8,
+            "subtitle_padding_horizontal": 24,
+            "subtitle_border_radius": 6,
+            "subtitle_margin_bottom": 14,
+            "subtitle_max_width": 80,
+            "subtitle_max_width_mobile": 95,
+            "bullet_color": "#a70a10",
+            "features_text_color": "#374151",
+            "features_font_size": 16,
+            "features_margin_top": 32,
+            "features_margin_bottom": 34,
+            "features_max_width": 380,
+            "features_gap_vertical": 16,
+            "features_gap_horizontal": 16,
+            "bullet_size": 10,
+            "bullet_margin_right": 20,
+            "button_bg_color": "#a70a10",
+            "button_text_color": "#ffffff",
+            "button_font_size": 16,
+            "button_padding_vertical": 14,
+            "button_padding_horizontal": 28,
+            "button_border_radius": 6,
+            "button_margin_top": 0,
+            "button_hover_opacity": 0.9,
+            "tab_1_text": "Economic",
+            "tab_1_bg_color": "#8b5cf6",
+            "tab_1_text_color": "#ffffff",
+            "tab_1_subtitle": "Everyday Value for curries & rice",
+            "tab_1_flag_1_image": "shopify://shop_images/Group_28_1_21715cf1-4c1e-4c07-b98f-40977839afbe.png",
+            "tab_1_flag_1_link": "shopify://collections/economical-mutton",
+            "tab_1_flag_2_image": "shopify://shop_images/Group_71.png",
+            "tab_1_flag_2_link": "shopify://collections/economical",
+            "tab_1_flag_3_image": "shopify://shop_images/Group_20_1.svg",
+            "tab_1_flag_3_link": "",
+            "tab_1_feature_1": "100% Halal",
+            "tab_1_feature_2": "100% Fresh",
+            "tab_1_feature_3": "No hormones",
+            "tab_1_feature_4": "Bespoke cutting",
+            "tab_1_button_text": "Explore Economic Range",
+            "tab_1_button_link": "shopify://collections/economical",
+            "tab_2_text": "Mid-Range",
+            "tab_2_bg_color": "#000000",
+            "tab_2_text_color": "#ffffff",
+            "tab_2_subtitle": "Premium quality for special occasions",
+            "tab_2_flag_1_image": "shopify://shop_images/Group_28_1_21715cf1-4c1e-4c07-b98f-40977839afbe.png",
+            "tab_2_flag_1_link": "shopify://collections/fresh-somali-lamb",
+            "tab_2_flag_2_image": "shopify://shop_images/Group_71.png",
+            "tab_2_flag_2_link": "",
+            "tab_2_flag_3_image": "shopify://shop_images/Group_20_1.svg",
+            "tab_2_flag_3_link": "",
+            "tab_2_feature_1": "Premium cuts",
+            "tab_2_feature_2": "Aged perfectly",
+            "tab_2_feature_3": "Restaurant quality",
+            "tab_2_feature_4": "Expert preparation",
+            "tab_2_button_text": "Explore Mid-Range",
+            "tab_2_button_link": "",
+            "tab_3_text": "Signature",
+            "tab_3_bg_color": "#a70a10",
+            "tab_3_text_color": "#ffffff",
+            "tab_3_subtitle": "Luxury selection for connoisseurs",
+            "tab_3_flag_1_image": "shopify://shop_images/Group_28_1_21715cf1-4c1e-4c07-b98f-40977839afbe.png",
+            "tab_3_flag_1_link": "shopify://collections/fresh-somali-lamb",
+            "tab_3_flag_2_image": "shopify://shop_images/Group_71.png",
+            "tab_3_flag_2_link": "",
+            "tab_3_flag_3_image": "shopify://shop_images/Group_20_1.svg",
+            "tab_3_flag_3_link": "",
+            "tab_3_feature_1": "Wagyu quality",
+            "tab_3_feature_2": "Hand selected",
+            "tab_3_feature_3": "Master crafted",
+            "tab_3_feature_4": "Limited edition",
+            "tab_3_button_text": "Explore Signature",
+            "tab_3_button_link": "shopify://collections/signature"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1d8eedf_LLLNhX"
+      ],
+      "disabled": true,
+      "settings": {}
+    },
+    "image_banner_RwqVeF": {
+      "type": "image-banner",
+      "name": "Image banner",
+      "settings": {
+        "custom_class": "",
+        "image_desktop": "shopify://shop_images/Component_1.jpg",
+        "image_mobile": "shopify://shop_images/Component_1.jpg",
+        "url": "",
+        "height_mode": "auto",
+        "max_width": 1400,
+        "fixed_height_desktop": 480,
+        "fixed_height_mobile": 250,
+        "overlay_position": "justify-center items-center",
+        "overlay_text_align": "text-center",
+        "mob_center_text": false,
+        "mobile_stacked": false,
+        "color_scheme": "white",
+        "full_width": true,
+        "transparent_content_color": "#ffffff",
+        "tint_color": "#000000",
+        "tint_opacity": 0,
+        "prevent_animation": false
+      }
+    },
+    "testimonials_c8EzHY": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_KVett7": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial": "<h4><strong>Professional and Clean Delivery</strong></h4><p>“Super quality meat. Very professional and clean delivery. Probably gonna be the best butcher in the UAE ”</p>",
+            "author": "Graeme S. (verified Customer)",
+            "author_info": "",
+            "show_star_rating": true,
+            "star_rating": 5
+          }
+        },
+        "testimonial_nErEkR": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial": "<h4><strong>Very Good</strong></h4><p>“I am a regular customer of MLS. I like the products, it is always fresh”</p>",
+            "author": "Rami M. ( verified buyer )",
+            "author_info": "",
+            "show_star_rating": true,
+            "star_rating": 5
+          }
+        },
+        "testimonial_dbDgVx": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial": "<h4><strong>Tomahawk Amazing !!!</strong></h4><p>“Simply an amazing piece of meat, good quality, taste great and no after taste.... must know how to grill it”</p>",
+            "author": "Eihab A. ( Verified customer)",
+            "author_info": "",
+            "show_star_rating": true,
+            "star_rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_KVett7",
+        "testimonial_nErEkR",
+        "testimonial_dbDgVx"
+      ],
+      "disabled": true,
+      "settings": {
+        "heading": "MLS is loved by over 50,000 customers",
+        "show_quotes": false,
+        "testimonial_size": "h5",
+        "testimonial_font": "body",
+        "text_position": "justify-center",
+        "text_align": "text-center justify-center",
+        "nav_style": "slideshow_nav_dots",
+        "transition": "slide-fade",
+        "autoplay": true,
+        "slider_pause": false,
+        "autoplay_speed": 5,
+        "color_scheme": "2",
+        "star_color": "#a70a10",
+        "full_width": false
+      }
+    },
+    "details": {
+      "type": "product-details",
+      "blocks": {
+        "71057e1b-320d-4706-a43a-06d66046c5a7": {
+          "type": "tabs",
+          "settings": {
+            "style": "collapsible",
+            "open_first": false,
+            "show_description": true,
+            "show_reviews": true,
+            "show_reviews_count": true,
+            "custom_reviews": "",
+            "show_specification": false,
+            "spec_heading": "Specifications",
+            "spec_metafields": "",
+            "spec_right_align": false,
+            "spec_show_empty_metafields": true,
+            "spec_empty_field_text": "-",
+            "tab_1_title": "",
+            "tab_1_text": "",
+            "tab_1_page": "",
+            "tab_2_title": "",
+            "tab_2_text": "",
+            "tab_2_page": "",
+            "tab_3_title": "",
+            "tab_3_text": "",
+            "tab_3_page": ""
+          }
+        },
+        "highlight_text_qEpJN4": {
+          "type": "highlight-text",
+          "settings": {
+            "text": "<h4>Highlight title</h4><p>Text to highlight a key feature of your product</p>"
+          }
+        },
+        "highlight_text_r3c7Pb": {
+          "type": "highlight-text",
+          "settings": {
+            "text": "<h4>Highlight title</h4><p>Text to highlight a key feature of your product</p>"
+          }
+        }
+      },
+      "block_order": [
+        "71057e1b-320d-4706-a43a-06d66046c5a7",
+        "highlight_text_qEpJN4",
+        "highlight_text_r3c7Pb"
+      ],
+      "disabled": true,
+      "settings": {
+        "content_size": "default",
+        "placement": "left",
+        "text": "",
+        "show_image_first": false,
+        "color_scheme": "default",
+        "full_width": false
+      }
+    },
+    "recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "heading": "You may also like",
+        "heading_align": "text-center",
+        "layout": "carousel",
+        "card_size_mobile": "small",
+        "card_size": "large",
+        "products_to_show": 8
+      }
+    },
+    "recently_viewed_HNWXf8": {
+      "type": "recently-viewed",
+      "settings": {
+        "heading": "Recently viewed",
+        "heading_align": "text-center",
+        "layout": "carousel",
+        "card_size_mobile": "small",
+        "card_size": "large",
+        "limit": 10
+      }
+    },
+    "1719755472acbeb1b1": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_BgtCqi": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_BgtCqi"
+      ],
+      "settings": {
+        "full_width": false
+      }
+    },
+    "custom_liquid_3BMHQt": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "settings": {
+        "custom_liquid": "<script>\n  window.addEventListener('load', function() {\n  var _learnq = window._learnq || [];\n  function addedToCart() {\n   fetch(`${window.location.origin}/cart.js`)\n   .then(res => res.clone().json().then(data => {\n    var cart = {\n      total_price: data.total_price/100,\n      $value: data.total_price/100,\n      total_discount: data.total_discount,\n      original_total_price: data.original_total_price/100,\n      items: data.items\n    }\n    if (item !== 'undefined') {\n      cart = Object.assign(cart, item)\n    }\n    if (klAjax) {\n       _learnq.push(['track', 'Added to Cart', cart]);\n       klAjax = false;\n      }\n   }))\n  };\n  (function (ns, fetch) {\n    ns.fetch = function() {\n      const response = fetch.apply(this, arguments);\n      response.then(res => {\n        if (`${window.location.origin}/cart/add.js`\n          .includes(res.url) && res.url !== '') {\n              addedToCart()\n        }\n      });\n      return response\n     }\n  }(window, window.fetch));\n  var klAjax = true;\n  var atcButtons = document.querySelectorAll(\"form[action*='/cart/add'] button[type='submit']\");\n  for (var i = 0; i < atcButtons.length; i++) { \n    atcButtons[i].addEventListener(\"click\", function() {\n      if (klAjax) {\n        _learnq.push(['track', 'Added to Cart', item]);\n        klAjax = false;\n      }\n    })\n  }\n  });\n</script>",
+        "section_height": "default",
+        "full_width": false,
+        "dividers": "none",
+        "prevent_animation": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "blocks_pK4cqP",
+    "image_banner_RwqVeF",
+    "testimonials_c8EzHY",
+    "details",
+    "recommendations",
+    "recently_viewed_HNWXf8",
+    "1719755472acbeb1b1",
+    "custom_liquid_3BMHQt"
+  ]
+}

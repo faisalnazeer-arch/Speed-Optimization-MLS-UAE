@@ -942,7 +942,7 @@
         "collection_KbqAQ9": {
           "type": "collection",
           "settings": {
-            "collection": "pakistani-beef",
+            "collection": "fresh-pakistani-beef",
             "collection-name": "Pakistani Beef"
           }
         }
@@ -1626,7 +1626,7 @@
           "settings": {
             "image": "shopify://shop_images/Group_20_1.svg",
             "text": "Pakistani Beef",
-            "link": "shopify://collections/pakistani-beef"
+            "link": "shopify://collections/fresh-pakistani-beef"
           }
         },
         "beef_NUTKRw": {
@@ -1750,7 +1750,7 @@
           "settings": {
             "image": "shopify://shop_images/Group_20_1.svg",
             "text": "Pakistani Beef",
-            "link": "shopify://collections/pakistani-beef"
+            "link": "shopify://collections/fresh-pakistani-beef"
           }
         },
         "beef_jU4j9Y": {

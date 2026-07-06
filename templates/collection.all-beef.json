@@ -96,7 +96,7 @@
         "collection_N47dMp": {
           "type": "collection",
           "settings": {
-            "collection": "pakistani-beef",
+            "collection": "fresh-pakistani-beef",
             "image": "shopify://shop_images/Group_20_1.svg",
             "title": "",
             "button_link": ""
@@ -209,7 +209,7 @@
           "settings": {
             "image": "shopify://shop_images/Group_20_1.svg",
             "text": "Pakistani Beef",
-            "link": "shopify://collections/pakistani-beef"
+            "link": "shopify://collections/fresh-pakistani-beef"
           }
         },
         "beef_LypYrp": {

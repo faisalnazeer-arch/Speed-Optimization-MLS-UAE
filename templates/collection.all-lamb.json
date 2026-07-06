@@ -1,1 +1,392 @@
-{"sections":{"shop_by_origin_i3dRPQ":{"type":"shop-by-origin","blocks":{"beef_XcMR9j":{"type":"beef","settings":{"image":"shopify:\/\/shop_images\/Clip_path_group_4.png","text":"Australian <br>Grass-fed Beef","link":"shopify:\/\/collections\/australian-grass-fed-beef"}},"beef_thzeb8":{"type":"beef","settings":{"image":"shopify:\/\/shop_images\/Group_2.svg","text":"New Zealand <br>Grass-fed Beef","link":"shopify:\/\/collections\/new-zealand-grass-fed-beef"}},"beef_NrMTaW":{"type":"beef","settings":{"image":"shopify:\/\/shop_images\/Clip_path_group_3.png","text":"South African<br> Grass-fed Beef","link":"shopify:\/\/collections\/south-african-grass-fed-beef"}},"beef_rEXiN4":{"type":"beef","settings":{"image":"shopify:\/\/shop_images\/Clip_path_group_4.png","text":"Australian Black<br> Angus Beef","link":"shopify:\/\/collections\/australian-black-angus-beef"}},"beef_8E4nCF":{"type":"beef","settings":{"image":"shopify:\/\/shop_images\/Clip_path_group_4.png","text":"Australian Wagyu <br>Beef MB 6\/7","link":"shopify:\/\/collections\/australian-wagyu-beef-mb-6-7"}},"beef_VYY6RQ":{"type":"beef","settings":{"image":"shopify:\/\/shop_images\/Clip_path_group_4.png","text":"Australian Wagyu <br>Beef MB 8\/9","link":"shopify:\/\/collections\/australian-wagyu-beef-mb-8-9"}},"beef_gLz36q":{"type":"beef","settings":{"image":"shopify:\/\/shop_images\/Clip_path_group_4.png","text":"Australian Wagyu <br>Beef MB 4\/5","link":"shopify:\/\/collections\/australian-wagyu-beef-mb-4-5"}},"beef_KWhkjW":{"type":"beef","settings":{"image":"shopify:\/\/shop_images\/Group_20_1.svg","text":"Pakistani Beef","link":"shopify:\/\/collections\/pakistani-beef"}},"beef_GG9PV8":{"type":"beef","settings":{"image":"shopify:\/\/shop_images\/Group_5_1.png","text":"Brazilian <br>Grass-fed Beef","link":"shopify:\/\/collections\/brazilian-grass-fed-beef"}},"beef_mjjbyj":{"type":"beef","settings":{"image":"shopify:\/\/shop_images\/Group_8_1.png","text":"US Black<br> Angus Beef","link":"shopify:\/\/collections\/us-choice-black-angus-beef"}},"beef_c9DEjC":{"type":"beef","settings":{"image":"shopify:\/\/shop_images\/Group_67_3.png","text":"Japanese <br> Wagyu Beef","link":"shopify:\/\/collections\/japanese-wagyu-beef"}},"lamb_fez4A3":{"type":"lamb","settings":{"image":"shopify:\/\/shop_images\/Clip_path_group_4.png","text":"Australian <br>Grass-fed Mutton","link":"shopify:\/\/collections\/australian-mutton"}},"lamb_Pa7YXU":{"type":"lamb","settings":{"image":"shopify:\/\/shop_images\/Clip_path_group_4.png","text":"Australian <br>Grass-fed Lamb","link":"shopify:\/\/collections\/australian-lamb"}},"lamb_npb4Fq":{"type":"lamb","settings":{"image":"shopify:\/\/shop_images\/Clip_path_group_4.png","text":"Local <br>Australian Lamb","link":"shopify:\/\/collections\/freshly-slaughtered-australian-lamb"}},"lamb_Eh49Up":{"type":"lamb","settings":{"image":"shopify:\/\/shop_images\/Group_20_1.svg","text":"Pakistani <br>Mutton","link":"shopify:\/\/collections\/fresh-pakistani-mutton"}},"lamb_B7pWgH":{"type":"lamb","settings":{"image":"shopify:\/\/shop_images\/Group_28_1_21715cf1-4c1e-4c07-b98f-40977839afbe.png","text":"Somali Lamb","link":"shopify:\/\/collections\/somali-lamb"}},"lamb_tkH3YU":{"type":"lamb","settings":{"image":"shopify:\/\/shop_images\/Group_71.png","text":"Indian Mutton","link":"shopify:\/\/collections\/fresh-indian-mutton"}}},"block_order":["beef_XcMR9j","beef_thzeb8","beef_NrMTaW","beef_rEXiN4","beef_8E4nCF","beef_VYY6RQ","beef_gLz36q","beef_KWhkjW","beef_GG9PV8","beef_mjjbyj","beef_c9DEjC","lamb_fez4A3","lamb_Pa7YXU","lamb_npb4Fq","lamb_Eh49Up","lamb_B7pWgH","lamb_tkH3YU"],"settings":{}},"collection_list_pG4Qy7":{"type":"collection-list","blocks":{"collection_U9zHG6":{"type":"collection","settings":{"collection":"australian-mutton","image":"shopify:\/\/shop_images\/Clip_path_group_4.png","title":"","button_link":""}},"collection_VfV8jF":{"type":"collection","settings":{"collection":"australian-lamb","image":"shopify:\/\/shop_images\/Clip_path_group_4.png","title":"","button_link":""}},"collection_yrJqP6":{"type":"collection","settings":{"collection":"freshly-slaughtered-australian-lamb","image":"shopify:\/\/shop_images\/Clip_path_group_4.png","title":"","button_link":""}},"collection_jfkRLg":{"type":"collection","settings":{"collection":"somali-lamb","image":"shopify:\/\/shop_images\/Group_28_1.png","title":"","button_link":""}},"collection_VT46WF":{"type":"collection","settings":{"collection":"fresh-pakistani-mutton","image":"shopify:\/\/shop_images\/Group_20_1.svg","title":"","button_link":""}},"collection_JcHcVf":{"type":"collection","settings":{"collection":"fresh-indian-mutton","image":"shopify:\/\/shop_images\/Group_71.png","title":"","button_link":""}}},"block_order":["collection_U9zHG6","collection_VfV8jF","collection_yrJqP6","collection_jfkRLg","collection_VT46WF","collection_JcHcVf"],"disabled":true,"custom_css":["@media (max-width: 600px) {.slider .slider__grid {width: calc(80% - var(--column-gap)); } p.card__title.h6.mb-2.last\\:mb-0 {font-size: 12px; }}","p.card__title.h6.mb-2.last\\:mb-0 {font-size: 15px;}"],"settings":{"section-id":"noneid","title":"SHOP LAMB BY ORIGIN","heading_align":"text-center","button_label":"","button_link":"","layout":"carousel","card_size":"small","use_product_image":false,"circle_image":true,"show_border":true,"color_scheme":"none","full_width":true}},"collection-banner":{"type":"main-collection-banner","settings":{"show_collection_title":true,"show_product_count":false,"show_collection_description":true,"collection_title_size":"h2","text_width":"wide","text_align":"text-center","text_position":"justify-center items-center","show_image":false,"use_product_image":false,"collection_image":"1.77","color_scheme":"default"}},"collection-products":{"type":"main-collection-products","settings":{"products_per_page":20,"card_size_mobile":"small","card_size":"medium","show_layout_toggle":true,"enable_filtering":true,"filters_open_lg":false,"stick_on_scroll":true,"show_filter_counts":true,"expand_filters":true,"max_filter_options":7,"enable_sorting":true,"show_feat_sort_opt":true,"sort_first":true}},"featured_collection_Nzeq8M":{"type":"featured-collection","settings":{"section-id":"noneid","title":"INCREDIBLE DEALS","heading_align":"text-center","heading_bg":"#ffffff","heading_color":"#000000","show_view_all":true,"collection":"incredible-deals","layout":"carousel","card_size_mobile":"small","card_size":"large","products_to_show":8,"color_scheme":"none","card_contain":true,"full_width":true}},"collection_list_9gEhfq":{"type":"collection-list","blocks":{"collection_mgTRm6":{"type":"collection","settings":{"collection":"all-beef","image":"shopify:\/\/shop_images\/Beef-Collection-400px-x-400px_5b01cd63-0adf-4d20-bb6e-903efb468896.jpg","title":"","button_link":""}},"collection_W6dEWC":{"type":"collection","settings":{"collection":"all-lamb","image":"shopify:\/\/shop_images\/Lamb-Collection-400px-x-400px_eeb070f2-8143-42ab-ac37-590a65297cf9.jpg","title":"","button_link":""}},"collection_Q7kRdM":{"type":"collection","settings":{"collection":"mls-fresh-poultry","image":"shopify:\/\/shop_images\/Chicken-400x400_2aa743ab-5368-415f-9ffd-4d0b41b669c1.jpg","title":"","button_link":""}},"collection_r4Dym7":{"type":"collection","settings":{"collection":"box-collection","image":"shopify:\/\/shop_images\/Value-Boxes-400x400_ecd7ad8f-bb06-4261-aee5-53533f9c49ba.jpg","title":"","button_link":""}},"collection_4iG8kW":{"type":"collection","settings":{"collection":"whole-carcass","image":"shopify:\/\/shop_images\/Whole-Carcass-400x400_e38c09c1-2b92-4580-8ea6-a3c95e156b7c.jpg","title":"","button_link":""}}},"block_order":["collection_mgTRm6","collection_W6dEWC","collection_Q7kRdM","collection_r4Dym7","collection_4iG8kW"],"settings":{"section-id":"noneid","title":"TOP COLLECTIONS","heading_align":"text-center","button_label":"View all","button_link":"","layout":"carousel","card_size":"large","use_product_image":false,"circle_image":false,"show_border":true,"color_scheme":"none","full_width":true}}},"order":["shop_by_origin_i3dRPQ","collection_list_pG4Qy7","collection-banner","collection-products","featured_collection_Nzeq8M","collection_list_9gEhfq"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shop_by_origin_i3dRPQ": {
+      "type": "shop-by-origin",
+      "blocks": {
+        "beef_XcMR9j": {
+          "type": "beef",
+          "settings": {
+            "image": "shopify://shop_images/Clip_path_group_4.png",
+            "text": "Australian <br>Grass-fed Beef",
+            "link": "shopify://collections/australian-grass-fed-beef"
+          }
+        },
+        "beef_thzeb8": {
+          "type": "beef",
+          "settings": {
+            "image": "shopify://shop_images/Group_2.svg",
+            "text": "New Zealand <br>Grass-fed Beef",
+            "link": "shopify://collections/new-zealand-grass-fed-beef"
+          }
+        },
+        "beef_NrMTaW": {
+          "type": "beef",
+          "settings": {
+            "image": "shopify://shop_images/Clip_path_group_3.png",
+            "text": "South African<br> Grass-fed Beef",
+            "link": "shopify://collections/south-african-grass-fed-beef"
+          }
+        },
+        "beef_rEXiN4": {
+          "type": "beef",
+          "settings": {
+            "image": "shopify://shop_images/Clip_path_group_4.png",
+            "text": "Australian Black<br> Angus Beef",
+            "link": "shopify://collections/australian-black-angus-beef"
+          }
+        },
+        "beef_8E4nCF": {
+          "type": "beef",
+          "settings": {
+            "image": "shopify://shop_images/Clip_path_group_4.png",
+            "text": "Australian Wagyu <br>Beef MB 6/7",
+            "link": "shopify://collections/australian-wagyu-beef-mb-6-7"
+          }
+        },
+        "beef_VYY6RQ": {
+          "type": "beef",
+          "settings": {
+            "image": "shopify://shop_images/Clip_path_group_4.png",
+            "text": "Australian Wagyu <br>Beef MB 8/9",
+            "link": "shopify://collections/australian-wagyu-beef-mb-8-9"
+          }
+        },
+        "beef_gLz36q": {
+          "type": "beef",
+          "settings": {
+            "image": "shopify://shop_images/Clip_path_group_4.png",
+            "text": "Australian Wagyu <br>Beef MB 4/5",
+            "link": "shopify://collections/australian-wagyu-beef-mb-4-5"
+          }
+        },
+        "beef_KWhkjW": {
+          "type": "beef",
+          "settings": {
+            "image": "shopify://shop_images/Group_20_1.svg",
+            "text": "Pakistani Beef",
+            "link": "shopify://collections/pakistani-beef"
+          }
+        },
+        "beef_GG9PV8": {
+          "type": "beef",
+          "settings": {
+            "image": "shopify://shop_images/Group_5_1.png",
+            "text": "Brazilian <br>Grass-fed Beef",
+            "link": "shopify://collections/brazilian-grass-fed-beef"
+          }
+        },
+        "beef_mjjbyj": {
+          "type": "beef",
+          "settings": {
+            "image": "shopify://shop_images/Group_8_1.png",
+            "text": "US Black<br> Angus Beef",
+            "link": "shopify://collections/us-choice-black-angus-beef"
+          }
+        },
+        "beef_c9DEjC": {
+          "type": "beef",
+          "settings": {
+            "image": "shopify://shop_images/Group_67_3.png",
+            "text": "Japanese <br> Wagyu Beef",
+            "link": "shopify://collections/japanese-wagyu-beef"
+          }
+        },
+        "lamb_fez4A3": {
+          "type": "lamb",
+          "settings": {
+            "image": "shopify://shop_images/Clip_path_group_4.png",
+            "text": "Australian <br>Grass-fed Mutton",
+            "link": "shopify://collections/australian-mutton"
+          }
+        },
+        "lamb_Pa7YXU": {
+          "type": "lamb",
+          "settings": {
+            "image": "shopify://shop_images/Clip_path_group_4.png",
+            "text": "Australian <br>Grass-fed Lamb",
+            "link": "shopify://collections/australian-lamb"
+          }
+        },
+        "lamb_npb4Fq": {
+          "type": "lamb",
+          "settings": {
+            "image": "shopify://shop_images/Clip_path_group_4.png",
+            "text": "Local <br>Australian Lamb",
+            "link": "shopify://collections/freshly-slaughtered-australian-lamb"
+          }
+        },
+        "lamb_Eh49Up": {
+          "type": "lamb",
+          "settings": {
+            "image": "shopify://shop_images/Group_20_1.svg",
+            "text": "Pakistani <br>Mutton",
+            "link": "shopify://collections/fresh-pakistani-mutton"
+          }
+        },
+        "lamb_B7pWgH": {
+          "type": "lamb",
+          "settings": {
+            "image": "shopify://shop_images/Group_28_1_21715cf1-4c1e-4c07-b98f-40977839afbe.png",
+            "text": "Somali Lamb",
+            "link": "shopify://collections/somali-lamb"
+          }
+        },
+        "lamb_tkH3YU": {
+          "type": "lamb",
+          "settings": {
+            "image": "shopify://shop_images/Group_71.png",
+            "text": "Indian Mutton",
+            "link": "shopify://collections/fresh-indian-mutton"
+          }
+        }
+      },
+      "block_order": [
+        "beef_XcMR9j",
+        "beef_thzeb8",
+        "beef_NrMTaW",
+        "beef_rEXiN4",
+        "beef_8E4nCF",
+        "beef_VYY6RQ",
+        "beef_gLz36q",
+        "beef_KWhkjW",
+        "beef_GG9PV8",
+        "beef_mjjbyj",
+        "beef_c9DEjC",
+        "lamb_fez4A3",
+        "lamb_Pa7YXU",
+        "lamb_npb4Fq",
+        "lamb_Eh49Up",
+        "lamb_B7pWgH",
+        "lamb_tkH3YU"
+      ],
+      "settings": {}
+    },
+    "collection_list_pG4Qy7": {
+      "type": "collection-list",
+      "blocks": {
+        "collection_U9zHG6": {
+          "type": "collection",
+          "settings": {
+            "collection": "australian-mutton",
+            "image": "shopify://shop_images/Clip_path_group_4.png",
+            "title": "",
+            "button_link": ""
+          }
+        },
+        "collection_VfV8jF": {
+          "type": "collection",
+          "settings": {
+            "collection": "australian-lamb",
+            "image": "shopify://shop_images/Clip_path_group_4.png",
+            "title": "",
+            "button_link": ""
+          }
+        },
+        "collection_yrJqP6": {
+          "type": "collection",
+          "settings": {
+            "collection": "freshly-slaughtered-australian-lamb",
+            "image": "shopify://shop_images/Clip_path_group_4.png",
+            "title": "",
+            "button_link": ""
+          }
+        },
+        "collection_jfkRLg": {
+          "type": "collection",
+          "settings": {
+            "collection": "somali-lamb",
+            "image": "shopify://shop_images/Group_28_1.png",
+            "title": "",
+            "button_link": ""
+          }
+        },
+        "collection_VT46WF": {
+          "type": "collection",
+          "settings": {
+            "collection": "fresh-pakistani-mutton",
+            "image": "shopify://shop_images/Group_20_1.svg",
+            "title": "",
+            "button_link": ""
+          }
+        },
+        "collection_JcHcVf": {
+          "type": "collection",
+          "settings": {
+            "collection": "fresh-indian-mutton",
+            "image": "shopify://shop_images/Group_71.png",
+            "title": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_U9zHG6",
+        "collection_VfV8jF",
+        "collection_yrJqP6",
+        "collection_jfkRLg",
+        "collection_VT46WF",
+        "collection_JcHcVf"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "@media (max-width: 600px) {.slider .slider__grid {width: calc(80% - var(--column-gap)); } p.card__title.h6.mb-2.last\\:mb-0 {font-size: 12px; }}",
+        "p.card__title.h6.mb-2.last\\:mb-0 {font-size: 15px;}"
+      ],
+      "settings": {
+        "section-id": "noneid",
+        "title": "SHOP LAMB BY ORIGIN",
+        "heading_align": "text-center",
+        "button_label": "",
+        "button_link": "",
+        "layout": "carousel",
+        "card_size": "small",
+        "use_product_image": false,
+        "circle_image": true,
+        "show_border": true,
+        "color_scheme": "none",
+        "full_width": true
+      }
+    },
+    "collection-banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_collection_title": true,
+        "show_product_count": false,
+        "show_collection_description": true,
+        "collection_title_size": "h2",
+        "text_width": "wide",
+        "text_align": "text-center",
+        "text_position": "justify-center items-center",
+        "show_image": false,
+        "use_product_image": false,
+        "collection_image": "1.77",
+        "color_scheme": "default"
+      }
+    },
+    "collection-products": {
+      "type": "main-collection-products",
+      "settings": {
+        "products_per_page": 20,
+        "card_size_mobile": "small",
+        "card_size": "medium",
+        "show_layout_toggle": true,
+        "enable_filtering": true,
+        "filters_open_lg": false,
+        "stick_on_scroll": true,
+        "show_filter_counts": true,
+        "expand_filters": true,
+        "max_filter_options": 7,
+        "enable_sorting": true,
+        "show_feat_sort_opt": true,
+        "sort_first": true
+      }
+    },
+    "featured_collection_Nzeq8M": {
+      "type": "featured-collection",
+      "settings": {
+        "section-id": "noneid",
+        "title": "INCREDIBLE DEALS",
+        "heading_align": "text-center",
+        "heading_bg": "#ffffff",
+        "heading_color": "#000000",
+        "show_view_all": true,
+        "collection": "incredible-deals",
+        "layout": "carousel",
+        "card_size_mobile": "small",
+        "card_size": "large",
+        "products_to_show": 8,
+        "color_scheme": "none",
+        "card_contain": true,
+        "full_width": true
+      }
+    },
+    "collection_list_9gEhfq": {
+      "type": "collection-list",
+      "blocks": {
+        "collection_mgTRm6": {
+          "type": "collection",
+          "settings": {
+            "collection": "all-beef",
+            "image": "shopify://shop_images/Beef-Collection-400px-x-400px_5b01cd63-0adf-4d20-bb6e-903efb468896.jpg",
+            "title": "",
+            "button_link": ""
+          }
+        },
+        "collection_W6dEWC": {
+          "type": "collection",
+          "settings": {
+            "collection": "all-lamb",
+            "image": "shopify://shop_images/Lamb-Collection-400px-x-400px_eeb070f2-8143-42ab-ac37-590a65297cf9.jpg",
+            "title": "",
+            "button_link": ""
+          }
+        },
+        "collection_Q7kRdM": {
+          "type": "collection",
+          "settings": {
+            "collection": "mls-fresh-poultry",
+            "image": "shopify://shop_images/Chicken-400x400_2aa743ab-5368-415f-9ffd-4d0b41b669c1.jpg",
+            "title": "",
+            "button_link": ""
+          }
+        },
+        "collection_r4Dym7": {
+          "type": "collection",
+          "settings": {
+            "collection": "box-collection",
+            "image": "shopify://shop_images/Value-Boxes-400x400_ecd7ad8f-bb06-4261-aee5-53533f9c49ba.jpg",
+            "title": "",
+            "button_link": ""
+          }
+        },
+        "collection_4iG8kW": {
+          "type": "collection",
+          "settings": {
+            "collection": "whole-carcass-0",
+            "image": "shopify://shop_images/Whole-Carcass-400x400_e38c09c1-2b92-4580-8ea6-a3c95e156b7c.jpg",
+            "title": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_mgTRm6",
+        "collection_W6dEWC",
+        "collection_Q7kRdM",
+        "collection_r4Dym7",
+        "collection_4iG8kW"
+      ],
+      "settings": {
+        "section-id": "noneid",
+        "title": "TOP COLLECTIONS",
+        "heading_align": "text-center",
+        "button_label": "View all",
+        "button_link": "",
+        "layout": "carousel",
+        "card_size": "large",
+        "use_product_image": false,
+        "circle_image": false,
+        "show_border": true,
+        "color_scheme": "none",
+        "full_width": true
+      }
+    }
+  },
+  "order": [
+    "shop_by_origin_i3dRPQ",
+    "collection_list_pG4Qy7",
+    "collection-banner",
+    "collection-products",
+    "featured_collection_Nzeq8M",
+    "collection_list_9gEhfq"
+  ]
+}

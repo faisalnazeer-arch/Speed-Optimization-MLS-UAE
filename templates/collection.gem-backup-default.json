@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "collection-banner": {
@@ -57,35 +66,35 @@
           "type": "collection",
           "settings": {
             "collection": "all-beef",
-            "image": "shopify:\/\/shop_images\/Beef-Collection-400px-x-400px_5b01cd63-0adf-4d20-bb6e-903efb468896.jpg"
+            "image": "shopify://shop_images/Beef-Collection-400px-x-400px_5b01cd63-0adf-4d20-bb6e-903efb468896.jpg"
           }
         },
         "collection_W6dEWC": {
           "type": "collection",
           "settings": {
             "collection": "all-lamb",
-            "image": "shopify:\/\/shop_images\/Lamb-Collection-400px-x-400px_eeb070f2-8143-42ab-ac37-590a65297cf9.jpg"
+            "image": "shopify://shop_images/Lamb-Collection-400px-x-400px_eeb070f2-8143-42ab-ac37-590a65297cf9.jpg"
           }
         },
         "collection_Q7kRdM": {
           "type": "collection",
           "settings": {
             "collection": "mls-fresh-poultry",
-            "image": "shopify:\/\/shop_images\/Chicken-400x400_2aa743ab-5368-415f-9ffd-4d0b41b669c1.jpg"
+            "image": "shopify://shop_images/Chicken-400x400_2aa743ab-5368-415f-9ffd-4d0b41b669c1.jpg"
           }
         },
         "collection_r4Dym7": {
           "type": "collection",
           "settings": {
             "collection": "box-collection",
-            "image": "shopify:\/\/shop_images\/Value-Boxes-400x400_ecd7ad8f-bb06-4261-aee5-53533f9c49ba.jpg"
+            "image": "shopify://shop_images/Value-Boxes-400x400_ecd7ad8f-bb06-4261-aee5-53533f9c49ba.jpg"
           }
         },
         "collection_4iG8kW": {
           "type": "collection",
           "settings": {
-            "collection": "whole-carcass",
-            "image": "shopify:\/\/shop_images\/Whole-Carcass-400x400_e38c09c1-2b92-4580-8ea6-a3c95e156b7c.jpg"
+            "collection": "whole-carcass-0",
+            "image": "shopify://shop_images/Whole-Carcass-400x400_e38c09c1-2b92-4580-8ea6-a3c95e156b7c.jpg"
           }
         }
       },

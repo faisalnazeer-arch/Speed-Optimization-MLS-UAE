@@ -535,7 +535,7 @@
         "collection_dDa837": {
           "type": "collection",
           "settings": {
-            "collection": "all-sausages",
+            "collection": "sausages",
             "image": "shopify://shop_images/Sausages.jpg",
             "title": ""
           }

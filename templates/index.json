@@ -1232,7 +1232,7 @@
         "collection_e6HRN3": {
           "type": "collection",
           "settings": {
-            "collection": "burgers-2",
+            "collection": "burgers-1",
             "title": "",
             "button_link": ""
           }
@@ -1442,9 +1442,9 @@
         "collection_GqXzKF": {
           "type": "collection",
           "settings": {
-            "collection": "burgers-2",
+            "collection": "burgers-1",
             "title": "",
-            "button_link": "shopify://collections/burgers-2"
+            "button_link": "shopify://collections/burgers-1"
           }
         },
         "collection_nXfrcn": {

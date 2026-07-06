@@ -1464,7 +1464,7 @@
         "collection_cVHPaX": {
           "type": "collection",
           "settings": {
-            "collection": "whole-carcass-1",
+            "collection": "whole-carcass",
             "image": "shopify://shop_images/Whole-carcass-800x800.png",
             "title": "",
             "button_link": "shopify://collections/whole-carcass-0"
@@ -2091,7 +2091,7 @@
             "category_9_link": "shopify://collections/whole-cuts",
             "category_10_name": "Whole Carcass",
             "category_10_image": "shopify://shop_images/whole_carcass.png",
-            "category_10_link": "shopify://collections/whole-carcass-1",
+            "category_10_link": "shopify://collections/whole-carcass",
             "category_11_name": "",
             "category_11_link": "",
             "category_12_name": "",

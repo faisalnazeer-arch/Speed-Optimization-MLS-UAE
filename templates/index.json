@@ -1216,7 +1216,7 @@
         "6293ae32-73a5-444b-9594-15fb43c8eefe": {
           "type": "collection",
           "settings": {
-            "collection": "chops",
+            "collection": "chops-0",
             "title": "",
             "button_link": ""
           }
@@ -1428,7 +1428,7 @@
           "settings": {
             "collection": "lamb-chops-2",
             "title": "",
-            "button_link": "shopify://collections/chops"
+            "button_link": "shopify://collections/chops-0"
           }
         },
         "collection_Kq3qEB": {

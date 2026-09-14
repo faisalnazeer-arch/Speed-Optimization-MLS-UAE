@@ -1246,7 +1246,7 @@
         "collection_DYt3Gt": {
           "type": "collection",
           "settings": {
-            "collection": "shank",
+            "collection": "shanks",
             "title": "",
             "button_link": ""
           }
@@ -1458,7 +1458,7 @@
           "settings": {
             "collection": "shanks",
             "title": "",
-            "button_link": "shopify://collections/shank"
+            "button_link": "shopify://collections/shanks"
           }
         },
         "collection_cVHPaX": {
